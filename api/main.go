@@ -3,8 +3,8 @@ package main
 import (
     "fmt"
     "net/http"
-    "./routes"
-    //"github.com/davecgh/go-spew/spew"
+    "encoding/json"
+    "api/src/config"
 )
 
 func main() {
@@ -13,19 +13,36 @@ func main() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
+    response := createResponse(r)
+
+    w.Header().Set("Content-Type", "application/json")
+    fmt.Fprint(w, string(response))
+}
+
+func createResponse(r *http.Request) string {
     method := r.Method
     url := r.URL
     query := r.URL.Query()
 
-    aa := routes.Rtn()
-    //spew.Dump(aa)
-
-    fmt.Fprintf(w, "%s", aa)
-    fmt.Fprintf(w, "%s %s\n", method, url)
-    if query == nil {
-        return
+    data := routes.Routes(url.Path)
+    responseData := map[string]interface{} {
+        "data": data,
+        "metadata": map[string]interface{} {
+            "method": method,
+            "url": url.Path,
+            "queries": (func() map[string]string {
+                list := map[string]string{}
+                if query == nil {
+                    return list
+                }
+                for key, val := range query {
+                    list[key] = val[0]
+                }
+                return list
+            })(),
+        },
     }
-    for key, val := range query {
-        fmt.Fprintf(w, "%s = %s\n", key, val[0])
-    }
+    responseJson, _ := json.Marshal(responseData)
+    
+    return string(responseJson)
 }
