@@ -10,9 +10,13 @@ server:
 schema:
 - name: app
   path: .
-  commands: 
+  commands:
+    install:
+      status: true
+      method: go build -o *
     run:
       status: true
+      method: ./*
   watcher:
     extensions:
     - go
