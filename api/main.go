@@ -24,7 +24,7 @@ func createResponse(r *http.Request) string {
     url := r.URL
     query := r.URL.Query()
 
-    data := routes.Routes(url.Path)
+    data := routes.Route(url.Path)
     responseData := map[string]interface{} {
         "data": data,
         "metadata": map[string]interface{} {

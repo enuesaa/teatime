@@ -4,16 +4,16 @@ import (
     "api/src/controller"
 )
 
-func Routes(url string) string {
-    routesDict := getRoutes()
-    v, isExist := routesDict[url]
+func Route(url string) string {
+	routesDict := getRouteDict()
+    callback, isExist := routesDict[url]
     if !isExist {
         return "error"
     }
-    return v()
+    return callback()
 }
 
-func getRoutes() map[string]func() string {
+func getRouteDict() (map[string]func() string) {
     return map[string]func() string {
         "/": func() string {
             return "a"
