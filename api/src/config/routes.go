@@ -1,7 +1,8 @@
 package routes
 
 import (
-    "api/src/controller"
+    "api/src/controller/books"
+    "api/src/controller/categories"
 )
 
 func Route(url string) string {
@@ -19,7 +20,10 @@ func getRouteDict() (map[string]func() string) {
             return "a"
         },
         "/books": func() string {
-            return books.GetIndex()
+            return booksController.GetIndex()
+        },
+        "/categories": func() string {
+        	return categoriesController.GetIndex()
         },
     }
 }

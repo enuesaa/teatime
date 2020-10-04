@@ -1,4 +1,4 @@
-package books
+package categoriesController
 
 func initialize() {
 
@@ -7,11 +7,7 @@ func initialize() {
 func GetIndex() string {
     initialize()
 
-    return "GETBooks"
-}
-
-func GetView() {
-
+    return "GETCategories"
 }
 
 func Add() {
@@ -19,5 +15,9 @@ func Add() {
 }
 
 func Edit() {
+
+}
+
+func Delete() {
 
 }
