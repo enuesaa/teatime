@@ -1,21 +1,22 @@
-version: "3.8"
+version: '3.8'
 
 services:
-
   api:
-    container_name: "bookshelf-api"
-    build: "./api"
+    container_name: bookshelf-api
+    build: ./api
     tty: true
     volumes:
-      - "./api:/var/www/api"
-    working_dir: "/var/www/api"
+      - ./api:/var/www/api
+    working_dir: /var/www/api
 
   nginx:
-    container_name: "bookshelf-nginx"
-    build: "./nginx"
+    container_name: bookshelf-nginx
+    build: ./nginx
     ports:
-      - "8096:80"
+      - 8096:80
     environment:
-      TZ: "Asia/Tokyo"
+      TZ: Asia/Tokyo
+    volumes:
+      - ./static:/var/www/html
     depends_on:
-      - "api"
+      - api

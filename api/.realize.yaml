@@ -8,16 +8,20 @@ server:
   port: 5002
   host: localhost
 schema:
-- name: app
-  path: .
-  commands: 
-    run:
-      status: true
-  watcher:
-    extensions:
-    - go
-    paths:
-    - /
-    ignored_paths:
-    - .git
-    - .realize
+  - name: app
+    path: .
+    commands:
+      install:
+        status: true
+        method: go build -o api
+      run:
+        status: true
+        method: ./api
+    watcher:
+      extensions:
+        - go
+      paths:
+        - /
+      ignored_paths:
+        - .git
+        - .realize
