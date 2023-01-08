@@ -2,15 +2,12 @@ version: '3.8'
 
 services:
   api:
-    container_name: bookshelf-api
     build: ./api
     tty: true
     volumes:
       - ./api:/var/www/api
-    working_dir: /var/www/api
 
   nginx:
-    container_name: bookshelf-nginx
     build: ./nginx
     ports:
       - 8096:80
