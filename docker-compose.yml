@@ -4,16 +4,12 @@ services:
   api:
     build: ./api
     tty: true
-    volumes:
-      - ./api:/var/www/api
+    # ports:
+    #   - 8080:8080
 
   nginx:
     build: ./nginx
     ports:
-      - 8096:80
-    environment:
-      TZ: Asia/Tokyo
-    volumes:
-      - ./static:/var/www/html
+      - 3000:3000
     depends_on:
       - api

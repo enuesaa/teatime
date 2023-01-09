@@ -7,11 +7,11 @@ import (
 )
 
 func main() {
-	engine := gin.Default()
-	engine.GET("/", func(c *gin.Context) {
+	router := gin.Default()
+	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "hello world",
 		})
 	})
-	engine.Run(":3000")
+	router.Run(":3000")
 }
