@@ -2,7 +2,17 @@ version: '3.8'
 
 services:
   api:
-    build: ./api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    volumes:
+      - ./api:/app
+    tty: true
+
+  front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
     tty: true
 
   nginx:
@@ -11,3 +21,4 @@ services:
       - 3000:3000
     depends_on:
       - api
+      - front
