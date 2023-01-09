@@ -15,6 +15,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./front:/app
+      - node_modules:/app/node_modules
     command: yarn dev
     tty: true
 
@@ -25,3 +26,6 @@ services:
     depends_on:
       - api
       - front
+
+volumes:
+  node_modules:
