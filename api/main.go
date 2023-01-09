@@ -13,5 +13,5 @@ func main() {
 			"message": "hello world",
 		})
 	})
-	router.Run(":3000")
+	router.Run(":80")
 }
