@@ -1,8 +1,9 @@
-FROM golang:latest
+FROM golang:1.19
 
 WORKDIR /var/www/api
 
-# see https://github.com/oxequa/realize/issues/269
-RUN GO111MODULE=off go get github.com/oxequa/realize
+RUN go install github.com/cosmtrek/air@latest
 
-CMD ["realize", "start", "--run"]
+# COPY go.mod go.sum main.go .
+
+CMD ["air", "-c", ".air.toml"]
