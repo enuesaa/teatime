@@ -784,6 +784,11 @@ emoji-regex@^9.2.2:
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-9.2.2.tgz#840c8803b0d8047f4ff0cf963176b32d4ef3ed72"
   integrity sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==
 
+emotion-normalize@^11.0.1:
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/emotion-normalize/-/emotion-normalize-11.0.1.tgz#266e6b93ef9b3ff972a9615d83ab0a7483ac7af9"
+  integrity sha512-68+TdnChNbELbOVtA2oOdSc9W40KPH4dKYdXgk2KfkuGu+qK7glVVO4h5Q+hoAf2JqJfTV55wPeBMPuun+3fVA==
+
 enhanced-resolve@^5.10.0:
   version "5.12.0"
   resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-5.12.0.tgz#300e1c90228f5b570c4d35babf263f6da7155634"
@@ -1685,11 +1690,6 @@ minimist@^1.2.0, minimist@^1.2.6:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.7.tgz#daa1c4d91f507390437c6a8bc01078e7000c4d18"
   integrity sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==
-
-modern-css-reset@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/modern-css-reset/-/modern-css-reset-1.4.0.tgz#5bee4d11eeca2ff19b882c6e8f1769773e792d04"
-  integrity sha512-0crZmSFmrxkI7159rvQWjpDhy0u4+Awg/iOycJdlVn0RSeft/a+6BrQHR3IqvmdK25sqt0o6Z5Ap7cWgUee2rw==
 
 ms@2.0.0:
   version "2.0.0"

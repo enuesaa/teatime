@@ -1,6 +1,9 @@
 import { css } from '@emotion/react'
+import normalize from 'emotion-normalize'
 
 export const globalStyle = css`
+  ${normalize}
+
   html,
   body {
     padding: 0;
