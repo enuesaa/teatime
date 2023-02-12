@@ -1,51 +1,60 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
+	"github.com/zmb3/spotify/v2"
+	spotifyauth "github.com/zmb3/spotify/v2/auth"
+	"golang.org/x/oauth2/clientcredentials"
 )
-
-var userID = ""
 
 func main() {
 	// logger
 	f, _ := os.Create("gin.log")
 	gin.DefaultWriter = io.MultiWriter(os.Stdout, f)
 
+	err := godotenv.Load(".env")
+	if err != nil {
+		panic("Error loading .env file")
+	}
+
 	router := gin.Default()
 	router.GET("/api", func(ctx *gin.Context) {
-		// config := &clientcredentials.Config{
-		// 	ClientID:     "",
-		// 	ClientSecret: "",
-		// 	TokenURL:     spotifyauth.TokenURL,
-		// }
-		// fmt.Printf("aaa%v", config)
-		fmt.Fprintf(gin.DefaultWriter, "a")
-		// log.Logger.Println("aaa")
-		// token, err := config.Token(context.Background())
-		// if err != nil {
-		// 	log.Fatalf("couldn't get token: %v", err)
-		// }
+		spotifyClientId := os.Getenv("SPOTIFY_CLIENT_ID")
+		spotifyClientSecret := os.Getenv("SPOTIFY_CLIENT_SECRET")
 
-		// httpClient := spotifyauth.New().Client(ctx, token)
-		// client := spotify.New(httpClient)
-		// user, err := client.GetUsersPublicProfile(ctx, spotify.ID(userID))
-		// if err != nil {
-		// 	ctx.JSON(http.StatusOK, gin.H{
-		// 		"message": "error",
-		// 	})
-		// 	return
-		// }
+		config := &clientcredentials.Config{
+			ClientID:     spotifyClientId,
+			ClientSecret: spotifyClientSecret,
+			TokenURL:     spotifyauth.TokenURL,
+		}
+		token, err := config.Token(ctx)
+		if err != nil {
+			log.Fatalf("couldn't get token: %v", err)
+		}
+
+		// https://zenn.dev/shimpo/articles/trying-spotify-api-with-go
+		httpClient := spotifyauth.New().Client(ctx, token)
+		client := spotify.New(httpClient)
+
+		result, err := client.Search(ctx, "Beatles", spotify.SearchTypeArtist, spotify.Limit(2))
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		bytes, _ := json.MarshalIndent(result, "", "  ")
+		fmt.Fprintln(gin.DefaultWriter, string(bytes))
+
 		ctx.JSON(http.StatusOK, gin.H{
 			"message": "hello alworld",
-			// "user_id":      user.ID,
-			// "display_name": user.DisplayName,
-			// "spotify_uri":  string(user.URI),
-			// "endpoint":     user.Endpoint,
+			"data":    string(bytes),
 		})
 	})
 	router.Run(":80")
