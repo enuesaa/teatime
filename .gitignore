@@ -33,6 +33,7 @@ next-env.d.ts
 
 # golang air
 /backend/tmp
+/backend/gin.log
 
 # editor
 .vscode
