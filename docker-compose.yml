@@ -28,4 +28,10 @@ services:
       - frontend
 
 volumes:
+  # https://zenn.dev/philomagi/scraps/d16d73d2f9d6f9
   node_modules:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./frontend/node_modules
+      o: bind
