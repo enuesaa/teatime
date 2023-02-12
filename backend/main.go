@@ -15,6 +15,10 @@ import (
 	"golang.org/x/oauth2/clientcredentials"
 )
 
+// @title テスト
+// @version 0.1.0
+// @description テスト
+// @host http://localhost:3000/api
 func main() {
 	// logger
 	f, _ := os.Create("gin.log")
