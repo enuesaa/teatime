@@ -1,7 +1,11 @@
-export default function Home() {
+import { Header } from '@/components/common/Header'
+import { Main } from '@/components/common/Main'
+
+export default function TopPage() {
   return (
     <>
-      bc
+      <Header />
+      <Main></Main>
     </>
   )
 }
