@@ -35,7 +35,7 @@ export function Header() {
     <>
       <header css={styles.top}>
         <Link href={{ pathname: `/` }}>
-          <div css={styles.title}>my-nextjs-template</div>
+          <div css={styles.title}>teatime-app</div>
         </Link>
       </header>
     </>
