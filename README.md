@@ -9,3 +9,10 @@
 - https://zenn.dev/pp_dev/scraps/09063abc1aeaa8
 ### openapi の出力方法
 `$ swag init`  
+
+### API設計
+プラグインもしくは機能トグルのような形にしたい
+- GET /setting
+- PUT /setting
+- GET /musics ... using spotify api
+- GET /books
