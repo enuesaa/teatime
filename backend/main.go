@@ -5,8 +5,8 @@ import (
 	"os"
 
 	"github.com/enuesaa/teatime-app/backend/routes"
-
 	"github.com/gin-gonic/gin"
+
 	"github.com/joho/godotenv"
 )
 
@@ -25,16 +25,6 @@ func main() {
 		panic("Error loading .env file")
 	}
 
-	router := gin.Default()
-	base := router.Group("/api")
-	{
-		setting := new(routes.SettingController)
-		base.GET("/setting", setting.One)
-		base.PUT("/setting", setting.Update)
-
-		musics := new(routes.MusicsController)
-		base.GET("/musics", musics.One)
-	}
-
+	router := routes.CreateRouter()
 	router.Run(":80")
 }
