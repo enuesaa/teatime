@@ -1,9 +1,5 @@
 export const baseTheme = {
   button: {},
-  centering: {
-    width: '96%',
-    maxWidth: '1000px',
-  },
   color: {
     main: '#e6e6e6',
     sub: 'rgba(0, 0, 0, 0.15)',

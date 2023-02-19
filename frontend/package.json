@@ -10,10 +10,10 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@next/font": "13.1.1",
+    "@emotion/react": "^11.10.6",
+    "@next/font": "13.1.6",
     "emotion-normalize": "^11.0.1",
-    "next": "13.1.1",
+    "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-query": "^3.39.3"
@@ -24,7 +24,7 @@
     "@types/react-dom": "^18.0.11",
     "eslint": "^8.34.0",
     "eslint-config-next": "^13.1.6",
-    "prettier": "^2.8.2",
+    "prettier": "^2.8.4",
     "typescript": "^4.9.5"
   }
 }
