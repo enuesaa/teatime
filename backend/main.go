@@ -1,9 +1,10 @@
 package main
 
 import (
-	"api/routes"
 	"io"
 	"os"
+
+	"github.com/enuesaa/teatime-app/backend/routes"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"

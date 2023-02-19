@@ -1,4 +1,4 @@
-module api
+module github.com/enuesaa/teatime-app/backend
 
 go 1.19
 
