@@ -15,6 +15,6 @@
 - PUT /setting
 
 **下記、プラグインもしくは機能トグルのような形にしたい**
-- /bgm
-- /bookshelf
+- /musics
+- /books
 - /feed
