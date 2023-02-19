@@ -20,7 +20,7 @@ func CreateRouter() *gin.Engine {
 		musicsRoute.GET("/spotify", musics.Spotify)
 
 		booksRoute := base.Group("/books")
-		booksRoute.GET("/appearance", books.ListBooks)
+		booksRoute.GET("/list", books.ListBooks)
 	}
 
 	return router
