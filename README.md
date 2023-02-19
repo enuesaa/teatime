@@ -11,8 +11,10 @@
 `$ swag init`  
 
 ### API設計
-プラグインもしくは機能トグルのような形にしたい
 - GET /setting
 - PUT /setting
-- GET /musics ... using spotify api
-- GET /books
+
+**下記、プラグインもしくは機能トグルのような形にしたい**
+- /bgm
+- /bookshelf
+- /feed
