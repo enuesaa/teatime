@@ -16,9 +16,10 @@ import (
 // @host http://localhost:3000/api
 func main() {
 	// logger
-	f, _ := os.Create("gin.log")
+	f, _ := os.Create("tmp/gin.log")
 	gin.DefaultWriter = io.MultiWriter(os.Stdout, f)
 
+	// @todo handle in dockerfile
 	err := godotenv.Load(".env")
 	if err != nil {
 		panic("Error loading .env file")
