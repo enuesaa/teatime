@@ -1,7 +1,7 @@
 package main
 
 import (
-	"api/controllers"
+	"api/routes"
 	"io"
 	"os"
 
@@ -26,11 +26,11 @@ func main() {
 	router := gin.Default()
 	base := router.Group("/api")
 	{
-		setting := new(controllers.SettingController)
+		setting := new(routes.SettingController)
 		base.GET("/setting", setting.One)
 		base.PUT("/setting", setting.Update)
 
-		musics := new(controllers.MusicsController)
+		musics := new(routes.MusicsController)
 		base.GET("/musics", musics.One)
 	}
 
