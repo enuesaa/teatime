@@ -5,9 +5,7 @@ export default function TopPage() {
   return (
     <>
       <Header />
-      <Main>
-        
-      </Main>
+      <Main></Main>
     </>
   )
 }
