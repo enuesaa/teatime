@@ -6,9 +6,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type MusicsController struct{}
+type SpotifyController struct{}
 
-func (ctrl MusicsController) One(ctx *gin.Context) {
+func (ctrl SpotifyController) One(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "hello alworld",
 	})
