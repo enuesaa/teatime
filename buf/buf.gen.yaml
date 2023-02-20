@@ -8,11 +8,11 @@ plugins:
     out: gen
     opt: paths=source_relative
   - name: connect-go
-    out: backend/buf/gen
+    out: backend/gen
     opt: paths=source_relative
   - name: es
-    out: frontend/buf/gen
+    out: frontend/gen
     opt: target=ts
   - name: connect-web
-    out: frontend/buf/gen
+    out: frontend/gen
     opt: target=ts
