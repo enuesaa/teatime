@@ -12,12 +12,13 @@
 ### connect-go or protobuf-es
 - https://docs.buf.build/configuration/v1/buf-yaml
 - https://github.com/bufbuild/protobuf-es
+- https://future-architect.github.io/articles/20220819a/
 
 ### API設計
 - GET /setting
 - PUT /setting
 
-**下記、プラグインもしくは機能トグルのような形にしたい**
+**下記、プラグインもしくは機能トグルのような形にしxたい**
 - /lounge
 - /bookshelf
 - /feed

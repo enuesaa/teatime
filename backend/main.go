@@ -4,7 +4,6 @@ import (
 	"io"
 	"os"
 
-	"github.com/enuesaa/teatime-app/backend/routes"
 	"github.com/gin-gonic/gin"
 
 	"github.com/joho/godotenv"
@@ -21,6 +20,6 @@ func main() {
 		panic("Error loading .env file")
 	}
 
-	router := routes.CreateRouter()
+	router := CreateRouter()
 	router.Run(":80")
 }

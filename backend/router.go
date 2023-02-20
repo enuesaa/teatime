@@ -1,9 +1,9 @@
-package routes
+package main
 
 import (
 	"github.com/enuesaa/teatime-app/backend/controllers/settings"
-	"github.com/enuesaa/teatime-app/backend/controllers/musics"
-	"github.com/enuesaa/teatime-app/backend/controllers/books"
+	"github.com/enuesaa/teatime-app/backend/controllers/lounge"
+	"github.com/enuesaa/teatime-app/backend/controllers/bookshelf"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,11 +16,11 @@ func CreateRouter() *gin.Engine {
 		settingsRoute.GET("/appearance", settings.GetAppearance)
 		settingsRoute.PUT("/appearance", settings.PutAppearance)
 		
-		musicsRoute := base.Group("/musics")
-		musicsRoute.GET("/spotify", musics.Spotify)
+		loungeRoute := base.Group("/lounge")
+		loungeRoute.GET("/spotify", lounge.CallSpotifyApi)
 
-		booksRoute := base.Group("/books")
-		booksRoute.GET("/list", books.ListBooks)
+		bookshelfRoute := base.Group("/bookshelf")
+		bookshelfRoute.GET("/list", bookshelf.ListBooks)
 	}
 
 	return router

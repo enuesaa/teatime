@@ -1,4 +1,4 @@
-package books
+package bookshelf
 
 import (
 	"net/http"
