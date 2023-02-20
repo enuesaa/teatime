@@ -2,13 +2,13 @@
 //
 // Source: books/v1/books.proto
 
-package booksconnect
+package booksv1connect
 
 import (
 	context "context"
 	errors "errors"
 	connect_go "github.com/bufbuild/connect-go"
-	gen "github.com/enuesaa/teatime-app/backend/gen"
+	v1 "github.com/enuesaa/teatime-app/backend/books/v1"
 	http "net/http"
 	strings "strings"
 )
@@ -27,7 +27,7 @@ const (
 
 // BooksServiceClient is a client for the books.v1.BooksService service.
 type BooksServiceClient interface {
-	List(context.Context, *connect_go.Request[gen.BooksServiceListRequest]) (*connect_go.Response[gen.BooksServiceListResponse], error)
+	List(context.Context, *connect_go.Request[v1.BooksServiceListRequest]) (*connect_go.Response[v1.BooksServiceListResponse], error)
 }
 
 // NewBooksServiceClient constructs a client for the books.v1.BooksService service. By default, it
@@ -40,7 +40,7 @@ type BooksServiceClient interface {
 func NewBooksServiceClient(httpClient connect_go.HTTPClient, baseURL string, opts ...connect_go.ClientOption) BooksServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
 	return &booksServiceClient{
-		list: connect_go.NewClient[gen.BooksServiceListRequest, gen.BooksServiceListResponse](
+		list: connect_go.NewClient[v1.BooksServiceListRequest, v1.BooksServiceListResponse](
 			httpClient,
 			baseURL+"/books.v1.BooksService/List",
 			opts...,
@@ -50,17 +50,17 @@ func NewBooksServiceClient(httpClient connect_go.HTTPClient, baseURL string, opt
 
 // booksServiceClient implements BooksServiceClient.
 type booksServiceClient struct {
-	list *connect_go.Client[gen.BooksServiceListRequest, gen.BooksServiceListResponse]
+	list *connect_go.Client[v1.BooksServiceListRequest, v1.BooksServiceListResponse]
 }
 
 // List calls books.v1.BooksService.List.
-func (c *booksServiceClient) List(ctx context.Context, req *connect_go.Request[gen.BooksServiceListRequest]) (*connect_go.Response[gen.BooksServiceListResponse], error) {
+func (c *booksServiceClient) List(ctx context.Context, req *connect_go.Request[v1.BooksServiceListRequest]) (*connect_go.Response[v1.BooksServiceListResponse], error) {
 	return c.list.CallUnary(ctx, req)
 }
 
 // BooksServiceHandler is an implementation of the books.v1.BooksService service.
 type BooksServiceHandler interface {
-	List(context.Context, *connect_go.Request[gen.BooksServiceListRequest]) (*connect_go.Response[gen.BooksServiceListResponse], error)
+	List(context.Context, *connect_go.Request[v1.BooksServiceListRequest]) (*connect_go.Response[v1.BooksServiceListResponse], error)
 }
 
 // NewBooksServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -81,6 +81,6 @@ func NewBooksServiceHandler(svc BooksServiceHandler, opts ...connect_go.HandlerO
 // UnimplementedBooksServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedBooksServiceHandler struct{}
 
-func (UnimplementedBooksServiceHandler) List(context.Context, *connect_go.Request[gen.BooksServiceListRequest]) (*connect_go.Response[gen.BooksServiceListResponse], error) {
+func (UnimplementedBooksServiceHandler) List(context.Context, *connect_go.Request[v1.BooksServiceListRequest]) (*connect_go.Response[v1.BooksServiceListResponse], error) {
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("books.v1.BooksService.List is not implemented"))
 }

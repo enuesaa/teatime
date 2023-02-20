@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package books.v1;
 
-option go_package = "github.com/enuesaa/teatime-app/backend/gen;books";
-
 message BooksServiceListRequest {}
 message BooksServiceListResponse {
   string message = 1;
