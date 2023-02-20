@@ -1,7 +1,7 @@
 import { ReactNode, useEffect } from 'react'
 import { css } from '@emotion/react'
 import { createConnectTransport, createPromiseClient } from '@bufbuild/connect-web'
-import { AppearanceService } from '../../../gen/settings/v1/appearance_connectweb'
+import { SettingsService } from '../../../gen/v1/settings_connectweb'
 
 type Props = {
   children: ReactNode
@@ -21,8 +21,8 @@ export const Main = ({ children }: Props) => {
       const transport = createConnectTransport({
         baseUrl: '/api/',
       })
-      const client = createPromiseClient(AppearanceService, transport)
-      const res = await client.get({})
+      const client = createPromiseClient(SettingsService, transport)
+      const res = await client.getAppearance({})
       console.log(res)
     })()
   }, []);

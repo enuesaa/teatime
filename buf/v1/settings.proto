@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package v1;
+
+message SettingsServiceGetAppearanceRequest {}
+message SettingsServiceGetAppearanceResponse {
+  string message = 1;
+}
+
+service SettingsService {
+  rpc GetAppearance(SettingsServiceGetAppearanceRequest) returns (SettingsServiceGetAppearanceResponse) {}
+}
