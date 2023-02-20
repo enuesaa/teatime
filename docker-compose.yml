@@ -26,6 +26,14 @@ services:
     depends_on:
       - backend
       - frontend
+  
+  buf:
+    build:
+      context: ./buf
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/workspace
+    tty: true
 
 volumes:
   # https://zenn.dev/philomagi/scraps/d16d73d2f9d6f9
