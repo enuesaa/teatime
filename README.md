@@ -18,6 +18,6 @@
 - PUT /setting
 
 **下記、プラグインもしくは機能トグルのような形にしたい**
-- /musics
-- /books
+- /lounge
+- /bookshelf
 - /feed
