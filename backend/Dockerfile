@@ -4,7 +4,8 @@ WORKDIR /app
 
 COPY . .
 RUN go install github.com/cosmtrek/air@latest
+
 # tmp
-RUN go install github.com/swaggo/swag/cmd/swag@latest
+RUN go install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest
 
 CMD ["air", "-c", ".air.toml"]
