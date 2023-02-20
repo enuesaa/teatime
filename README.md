@@ -9,8 +9,9 @@
 - https://zenn.dev/pp_dev/scraps/09063abc1aeaa8
 ### Google Books API
 - https://labo.kon-ruri.co.jp/google-books-apis/#index_id0
-### openapi の出力方法
-`$ swag init`  
+### connect-go or protobuf-es
+- https://docs.buf.build/configuration/v1/buf-yaml
+- https://github.com/bufbuild/protobuf-es
 
 ### API設計
 - GET /setting
