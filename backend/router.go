@@ -12,15 +12,14 @@ func CreateRouter() *gin.Engine {
 
 	base := router.Group("/api")
 	{
-		settingsRoute := base.Group("/settings")
-		settingsRoute.GET("/appearance", settings.GetAppearance)
-		settingsRoute.PUT("/appearance", settings.PutAppearance)
+		settingsRoute := base.Group("/v1.SettingsService")
+		settingsRoute.POST("/GetAppearance", settings.GetAppearance)
 		
-		loungeRoute := base.Group("/lounge")
-		loungeRoute.GET("/spotify", lounge.CallSpotifyApi)
+		loungeRoute := base.Group("/v1.LoungeService")
+		loungeRoute.POST("/Spotify", lounge.CallSpotifyApi)
 
-		bookshelfRoute := base.Group("/bookshelf")
-		bookshelfRoute.GET("/list", bookshelf.ListBooks)
+		bookshelfRoute := base.Group("/v1.BookShelfService")
+		bookshelfRoute.POST("/List", bookshelf.ListBooks)
 	}
 
 	return router
