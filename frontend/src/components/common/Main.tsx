@@ -23,7 +23,7 @@ export const Main = ({ children }: Props) => {
       })
       const client = createPromiseClient(SettingsService, transport)
       const res = await client.getAppearance({})
-      console.log(res)
+      console.log(res.message)
     })()
   }, []);
 
