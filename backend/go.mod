@@ -10,6 +10,8 @@ require (
 )
 
 require (
+	github.com/bufbuild/connect-go v1.5.2 // indirect
+	github.com/enuesaa/teatime-app/buf v0.0.0-20230223051607-c7b2771bcd3d // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
@@ -28,6 +30,6 @@ require (
 	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/text v0.7.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/protobuf v1.28.1 // indirect
+	google.golang.org/protobuf v1.28.2-0.20220831092852-f930b1dc76e8 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
