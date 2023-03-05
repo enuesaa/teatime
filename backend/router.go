@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/enuesaa/teatime-app/backend/controllers/settings"
+	"github.com/enuesaa/teatime-app/backend/controllers/setting"
 	"github.com/enuesaa/teatime-app/backend/controllers/lounge"
 	"github.com/enuesaa/teatime-app/backend/controllers/bookshelf"
 	"github.com/gin-gonic/gin"
@@ -21,8 +21,8 @@ func CreateRouter() *gin.Engine {
 	router.Use(JSONMiddleware())
 	base := router.Group("/api")
 	{
-		settingsRoute := base.Group("/v1.SettingsService")
-		settingsRoute.POST("/GetAppearance", settings.GetAppearance)
+		settingRoute := base.Group("/v1.SettingService")
+		settingRoute.POST("/GetAppearance", setting.GetAppearance)
 		
 		loungeRoute := base.Group("/v1.LoungeService")
 		loungeRoute.POST("/Spotify", lounge.CallSpotifyApi)
