@@ -4,7 +4,6 @@ go 1.19
 
 require (
 	github.com/gin-gonic/gin v1.8.2
-	github.com/joho/godotenv v1.5.1
 	github.com/zmb3/spotify/v2 v2.3.1
 	golang.org/x/oauth2 v0.5.0
 )
