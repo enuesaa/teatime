@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -15,7 +14,7 @@ import (
 
 // see https://stackoverflow.com/questions/70208440/how-to-disable-golang-unused-function-error
 //lint:ignore U1000 Ignore unused function
-func callSpotifyApi(ctx *gin.Context) {
+func CallSpotifyApi(ctx *gin.Context) string {
 	spotifyClientId := os.Getenv("SPOTIFY_CLIENT_ID")
 	spotifyClientSecret := os.Getenv("SPOTIFY_CLIENT_SECRET")
 
@@ -40,9 +39,5 @@ func callSpotifyApi(ctx *gin.Context) {
 
 	bytes, _ := json.MarshalIndent(result, "", "  ")
 	fmt.Fprintln(gin.DefaultWriter, string(bytes))
-
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "hello alworld",
-		"data":    string(bytes),
-	})
+	return string(bytes)
 }
