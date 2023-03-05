@@ -2,7 +2,7 @@ version: v1
 managed:
   enabled: true
   go_package_prefix:
-    default: github.com/enuesaa/teatime-app/buf/
+    default: github.com/enuesaa/teatime-app/backend/
 plugins:
   - name: go
     out: ../backend/gen
