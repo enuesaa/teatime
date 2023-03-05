@@ -27,13 +27,13 @@ func main() {
 	router.Use(jsonMiddleware())
 	base := router.Group("/api")
 	{
-		settingRoute := base.Group("/v1.SettingService")
+		settingRoute := base.Group("/v1.Setting")
 		settingRoute.POST("/GetAppearance", setting.GetAppearance)
 		
-		loungeRoute := base.Group("/v1.LoungeService")
+		loungeRoute := base.Group("/v1.Lounge")
 		loungeRoute.POST("/Spotify", lounge.CallSpotifyApi)
 
-		bookshelfRoute := base.Group("/v1.BookShelfService")
+		bookshelfRoute := base.Group("/v1.Bookshelf")
 		bookshelfRoute.POST("/List", bookshelf.ListBooks)
 	}
 	router.Run(":80")

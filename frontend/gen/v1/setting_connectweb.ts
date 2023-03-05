@@ -3,22 +3,22 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { SettingServiceGetAppearanceRequest, SettingServiceGetAppearanceResponse } from "./setting_pb";
+import { SettingGetAppearanceRequest, SettingGetAppearanceResponse } from "./setting_pb";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
- * @generated from service v1.SettingService
+ * @generated from service v1.Setting
  */
-export const SettingService = {
-  typeName: "v1.SettingService",
+export const Setting = {
+  typeName: "v1.Setting",
   methods: {
     /**
-     * @generated from rpc v1.SettingService.GetAppearance
+     * @generated from rpc v1.Setting.GetAppearance
      */
     getAppearance: {
       name: "GetAppearance",
-      I: SettingServiceGetAppearanceRequest,
-      O: SettingServiceGetAppearanceResponse,
+      I: SettingGetAppearanceRequest,
+      O: SettingGetAppearanceResponse,
       kind: MethodKind.Unary,
     },
   }

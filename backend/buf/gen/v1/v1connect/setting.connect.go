@@ -21,66 +21,66 @@ import (
 const _ = connect_go.IsAtLeastVersion0_1_0
 
 const (
-	// SettingServiceName is the fully-qualified name of the SettingService service.
-	SettingServiceName = "v1.SettingService"
+	// SettingName is the fully-qualified name of the Setting service.
+	SettingName = "v1.Setting"
 )
 
-// SettingServiceClient is a client for the v1.SettingService service.
-type SettingServiceClient interface {
-	GetAppearance(context.Context, *connect_go.Request[v1.SettingServiceGetAppearanceRequest]) (*connect_go.Response[v1.SettingServiceGetAppearanceResponse], error)
+// SettingClient is a client for the v1.Setting service.
+type SettingClient interface {
+	GetAppearance(context.Context, *connect_go.Request[v1.SettingGetAppearanceRequest]) (*connect_go.Response[v1.SettingGetAppearanceResponse], error)
 }
 
-// NewSettingServiceClient constructs a client for the v1.SettingService service. By default, it
-// uses the Connect protocol with the binary Protobuf Codec, asks for gzipped responses, and sends
-// uncompressed requests. To use the gRPC or gRPC-Web protocols, supply the connect.WithGRPC() or
+// NewSettingClient constructs a client for the v1.Setting service. By default, it uses the Connect
+// protocol with the binary Protobuf Codec, asks for gzipped responses, and sends uncompressed
+// requests. To use the gRPC or gRPC-Web protocols, supply the connect.WithGRPC() or
 // connect.WithGRPCWeb() options.
 //
 // The URL supplied here should be the base URL for the Connect or gRPC server (for example,
 // http://api.acme.com or https://acme.com/grpc).
-func NewSettingServiceClient(httpClient connect_go.HTTPClient, baseURL string, opts ...connect_go.ClientOption) SettingServiceClient {
+func NewSettingClient(httpClient connect_go.HTTPClient, baseURL string, opts ...connect_go.ClientOption) SettingClient {
 	baseURL = strings.TrimRight(baseURL, "/")
-	return &settingServiceClient{
-		getAppearance: connect_go.NewClient[v1.SettingServiceGetAppearanceRequest, v1.SettingServiceGetAppearanceResponse](
+	return &settingClient{
+		getAppearance: connect_go.NewClient[v1.SettingGetAppearanceRequest, v1.SettingGetAppearanceResponse](
 			httpClient,
-			baseURL+"/v1.SettingService/GetAppearance",
+			baseURL+"/v1.Setting/GetAppearance",
 			opts...,
 		),
 	}
 }
 
-// settingServiceClient implements SettingServiceClient.
-type settingServiceClient struct {
-	getAppearance *connect_go.Client[v1.SettingServiceGetAppearanceRequest, v1.SettingServiceGetAppearanceResponse]
+// settingClient implements SettingClient.
+type settingClient struct {
+	getAppearance *connect_go.Client[v1.SettingGetAppearanceRequest, v1.SettingGetAppearanceResponse]
 }
 
-// GetAppearance calls v1.SettingService.GetAppearance.
-func (c *settingServiceClient) GetAppearance(ctx context.Context, req *connect_go.Request[v1.SettingServiceGetAppearanceRequest]) (*connect_go.Response[v1.SettingServiceGetAppearanceResponse], error) {
+// GetAppearance calls v1.Setting.GetAppearance.
+func (c *settingClient) GetAppearance(ctx context.Context, req *connect_go.Request[v1.SettingGetAppearanceRequest]) (*connect_go.Response[v1.SettingGetAppearanceResponse], error) {
 	return c.getAppearance.CallUnary(ctx, req)
 }
 
-// SettingServiceHandler is an implementation of the v1.SettingService service.
-type SettingServiceHandler interface {
-	GetAppearance(context.Context, *connect_go.Request[v1.SettingServiceGetAppearanceRequest]) (*connect_go.Response[v1.SettingServiceGetAppearanceResponse], error)
+// SettingHandler is an implementation of the v1.Setting service.
+type SettingHandler interface {
+	GetAppearance(context.Context, *connect_go.Request[v1.SettingGetAppearanceRequest]) (*connect_go.Response[v1.SettingGetAppearanceResponse], error)
 }
 
-// NewSettingServiceHandler builds an HTTP handler from the service implementation. It returns the
-// path on which to mount the handler and the handler itself.
+// NewSettingHandler builds an HTTP handler from the service implementation. It returns the path on
+// which to mount the handler and the handler itself.
 //
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
-func NewSettingServiceHandler(svc SettingServiceHandler, opts ...connect_go.HandlerOption) (string, http.Handler) {
+func NewSettingHandler(svc SettingHandler, opts ...connect_go.HandlerOption) (string, http.Handler) {
 	mux := http.NewServeMux()
-	mux.Handle("/v1.SettingService/GetAppearance", connect_go.NewUnaryHandler(
-		"/v1.SettingService/GetAppearance",
+	mux.Handle("/v1.Setting/GetAppearance", connect_go.NewUnaryHandler(
+		"/v1.Setting/GetAppearance",
 		svc.GetAppearance,
 		opts...,
 	))
-	return "/v1.SettingService/", mux
+	return "/v1.Setting/", mux
 }
 
-// UnimplementedSettingServiceHandler returns CodeUnimplemented from all methods.
-type UnimplementedSettingServiceHandler struct{}
+// UnimplementedSettingHandler returns CodeUnimplemented from all methods.
+type UnimplementedSettingHandler struct{}
 
-func (UnimplementedSettingServiceHandler) GetAppearance(context.Context, *connect_go.Request[v1.SettingServiceGetAppearanceRequest]) (*connect_go.Response[v1.SettingServiceGetAppearanceResponse], error) {
-	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("v1.SettingService.GetAppearance is not implemented"))
+func (UnimplementedSettingHandler) GetAppearance(context.Context, *connect_go.Request[v1.SettingGetAppearanceRequest]) (*connect_go.Response[v1.SettingGetAppearanceResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("v1.Setting.GetAppearance is not implemented"))
 }

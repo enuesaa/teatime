@@ -7,70 +7,70 @@ import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialM
 import { Message, proto3 } from "@bufbuild/protobuf";
 
 /**
- * @generated from message v1.SettingServiceGetAppearanceRequest
+ * @generated from message v1.SettingGetAppearanceRequest
  */
-export class SettingServiceGetAppearanceRequest extends Message<SettingServiceGetAppearanceRequest> {
-  constructor(data?: PartialMessage<SettingServiceGetAppearanceRequest>) {
+export class SettingGetAppearanceRequest extends Message<SettingGetAppearanceRequest> {
+  constructor(data?: PartialMessage<SettingGetAppearanceRequest>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "v1.SettingServiceGetAppearanceRequest";
+  static readonly typeName = "v1.SettingGetAppearanceRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SettingServiceGetAppearanceRequest {
-    return new SettingServiceGetAppearanceRequest().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SettingGetAppearanceRequest {
+    return new SettingGetAppearanceRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SettingServiceGetAppearanceRequest {
-    return new SettingServiceGetAppearanceRequest().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SettingGetAppearanceRequest {
+    return new SettingGetAppearanceRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SettingServiceGetAppearanceRequest {
-    return new SettingServiceGetAppearanceRequest().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SettingGetAppearanceRequest {
+    return new SettingGetAppearanceRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: SettingServiceGetAppearanceRequest | PlainMessage<SettingServiceGetAppearanceRequest> | undefined, b: SettingServiceGetAppearanceRequest | PlainMessage<SettingServiceGetAppearanceRequest> | undefined): boolean {
-    return proto3.util.equals(SettingServiceGetAppearanceRequest, a, b);
+  static equals(a: SettingGetAppearanceRequest | PlainMessage<SettingGetAppearanceRequest> | undefined, b: SettingGetAppearanceRequest | PlainMessage<SettingGetAppearanceRequest> | undefined): boolean {
+    return proto3.util.equals(SettingGetAppearanceRequest, a, b);
   }
 }
 
 /**
- * @generated from message v1.SettingServiceGetAppearanceResponse
+ * @generated from message v1.SettingGetAppearanceResponse
  */
-export class SettingServiceGetAppearanceResponse extends Message<SettingServiceGetAppearanceResponse> {
+export class SettingGetAppearanceResponse extends Message<SettingGetAppearanceResponse> {
   /**
    * @generated from field: string message = 1;
    */
   message = "";
 
-  constructor(data?: PartialMessage<SettingServiceGetAppearanceResponse>) {
+  constructor(data?: PartialMessage<SettingGetAppearanceResponse>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "v1.SettingServiceGetAppearanceResponse";
+  static readonly typeName = "v1.SettingGetAppearanceResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SettingServiceGetAppearanceResponse {
-    return new SettingServiceGetAppearanceResponse().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SettingGetAppearanceResponse {
+    return new SettingGetAppearanceResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SettingServiceGetAppearanceResponse {
-    return new SettingServiceGetAppearanceResponse().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SettingGetAppearanceResponse {
+    return new SettingGetAppearanceResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SettingServiceGetAppearanceResponse {
-    return new SettingServiceGetAppearanceResponse().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SettingGetAppearanceResponse {
+    return new SettingGetAppearanceResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: SettingServiceGetAppearanceResponse | PlainMessage<SettingServiceGetAppearanceResponse> | undefined, b: SettingServiceGetAppearanceResponse | PlainMessage<SettingServiceGetAppearanceResponse> | undefined): boolean {
-    return proto3.util.equals(SettingServiceGetAppearanceResponse, a, b);
+  static equals(a: SettingGetAppearanceResponse | PlainMessage<SettingGetAppearanceResponse> | undefined, b: SettingGetAppearanceResponse | PlainMessage<SettingGetAppearanceResponse> | undefined): boolean {
+    return proto3.util.equals(SettingGetAppearanceResponse, a, b);
   }
 }
 
