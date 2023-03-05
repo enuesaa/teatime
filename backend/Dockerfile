@@ -1,22 +1,18 @@
-FROM golang:1.19 AS base
+FROM golang:1.19
 
-WORKDIR /app
-
-COPY . .
+WORKDIR /workspace
+RUN apt update
 RUN go install github.com/cosmtrek/air@latest
-
-CMD ["air", "-c", ".air.toml"]
-
-
-FROM base AS dev
+RUN go install github.com/magefile/mage@latest
 
 RUN go install github.com/bufbuild/buf/cmd/buf@latest
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 RUN go install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@latest
 
-RUN apt update \
-    && apt install -y nodejs npm
+RUN apt install -y nodejs npm
 RUN npm install -g @bufbuild/protoc-gen-es 
 RUN npm install -g @bufbuild/protoc-gen-connect-web
+
+WORKDIR /workspace/backend
 
 CMD ["air", "-c", ".air.toml"]

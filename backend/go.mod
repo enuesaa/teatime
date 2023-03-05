@@ -3,9 +3,11 @@ module github.com/enuesaa/teatime-app/backend
 go 1.19
 
 require (
+	github.com/bufbuild/connect-go v1.5.2
 	github.com/gin-gonic/gin v1.8.2
 	github.com/zmb3/spotify/v2 v2.3.1
 	golang.org/x/oauth2 v0.5.0
+	google.golang.org/protobuf v1.28.1
 )
 
 require (
@@ -27,6 +29,5 @@ require (
 	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/text v0.7.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
