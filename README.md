@@ -9,3 +9,9 @@
 - https://zenn.dev/pp_dev/scraps/09063abc1aeaa8
 ### Google Books API
 - https://labo.kon-ruri.co.jp/google-books-apis/#index_id0
+
+## Command
+### buf generate
+~~~bash
+mage gen
+~~~

@@ -1,18 +1,17 @@
-// +build ignore
+// +build ignore mage
 
 package main
 
 import (
-	"fmt"
-
-	"github.com/magefile/mage/mg"
+	"os"
+	"os/exec"
 )
 
-func Aaa() {
-	fmt.Println("Building...")
-}
+func Gen() error {
+	os.RemoveAll("./buf/gen")
+	os.RemoveAll("../frontend/gen")
 
-func Bbb() {
-    mg.Deps(Aaa)
-    fmt.Println("Installing...")
+	cmd := exec.Command("buf", "generate")
+    cmd.Dir = "./buf"
+	return cmd.Run()
 }
