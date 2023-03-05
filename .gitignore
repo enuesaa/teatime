@@ -3,3 +3,9 @@
 
 # editor
 .vscode
+
+# backend
+/backend/tmp
+/backend/.env
+
+# frontend

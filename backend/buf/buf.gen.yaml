@@ -5,16 +5,18 @@ managed:
     default: github.com/enuesaa/teatime-app/backend/
 plugins:
   - name: go
-    out: ../backend/gen
+    out: ./gen
     opt: paths=source_relative
   - name: connect-go
-    out: ../backend/gen
+    out: ./gen
     opt: paths=source_relative
   - name: es
-    out: ../frontend/gen
-    opt: target=ts
+    out: ../../frontend/gen
+    opt:
+      - target=ts
+      - import_extension=
   - name: connect-web
-    out: ../frontend/gen
+    out: ../../frontend/gen
     opt:
       - target=ts
       - import_extension=
