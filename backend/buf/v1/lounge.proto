@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package v1;
+
+message CallSpotifyApiRequest {}
+message CallSpotifyApiResponse {
+  string data = 1;
+}
+
+message GetHitchartRequest {}
+message GetHitchartResponse {}
+
+message PutStarStatusRequest {
+  bool star = 1;
+}
+message PutStarStatusResponse {}
+
+service Lounge {
+  rpc CallSpotifyApi(CallSpotifyApiRequest) returns (CallSpotifyApiResponse) {}
+  rpc GetHitchart(GetHitchartRequest) returns (GetHitchartResponse) {}
+  rpc PutStar(PutStarStatusRequest) returns (PutStarStatusResponse) {}
+}

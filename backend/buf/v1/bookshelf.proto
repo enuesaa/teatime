@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package v1;
+
+message PutStarStatusRequest {
+  bool star = 1;
+}
+message PutStarStatusResponse {}
+
+service Bookshelf {
+  rpc PutStar(PutStarStatusRequest) returns (PutStarStatusResponse) {}
+}
