@@ -1,5 +1,37 @@
 export const baseTheme = {
+  form: {
+    'input': {},
+    'textarea':{},
+  },
   button: {},
+  box: {
+    width: '100%',
+    padding: '10px',
+  },
+  innerbox: {
+    width: '90%',
+    margin: '0 auto',
+    padding: '10px',
+  },
+  card: {},
+  link: {},
+  linkCard: {
+    display: 'inline-block',
+    padding: '10px 20px',
+    color: '#cccccc',
+    fontSize: '20px',
+    background: '#333333',
+    margin: '10px',
+    borderRadius: '10px',
+  },
+  heading: {
+    width: '100%',
+    display: 'block',
+    fontWeight: '600',
+    padding: '10px',
+    fontSize: '30px',
+  },
+
   color: {
     main: '#e6e6e6',
     sub: 'rgba(0, 0, 0, 0.15)',
