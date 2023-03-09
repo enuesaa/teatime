@@ -3,12 +3,10 @@ import { CSSObject } from '@emotion/react'
 
 declare module '@emotion/react' {
   export interface Theme {
-    form: CSSObject
+    input: CSSObject
     button: CSSObject
     box: CSSObject
-    innerbox: CSSObject
-    card: CSSObject
-    link: CSSObject
+    outerbox: CSSObject
     linkCard: CSSObject
     heading: CSSObject
 

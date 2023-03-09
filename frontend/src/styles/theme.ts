@@ -1,20 +1,24 @@
 export const baseTheme = {
-  form: {
-    'input': {},
-    'textarea':{},
+  input: {
+    outline: 'none',
+    appearance: 'none',
+    border: 'none',
+    display: 'block',
   },
-  button: {},
+  button: {
+    outline: 'none',
+    appearance: 'none',
+    border: 'none',
+    display: 'block',
+  },
   box: {
+    padding: '10px',
     width: '100%',
-    padding: '10px',
   },
-  innerbox: {
-    width: '98%',
-    margin: '10px auto',
+  outerbox: {
     padding: '10px',
+    margin: '10px',
   },
-  card: {},
-  link: {},
   linkCard: {
     display: 'inline-block',
     padding: '10px 20px',
