@@ -1,4 +1,6 @@
-export const baseTheme = {
+import { type Theme } from '@emotion/react'
+
+export const baseTheme: Theme = {
   input: {
     outline: 'none',
     appearance: 'none',
