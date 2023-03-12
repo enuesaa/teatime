@@ -18,11 +18,7 @@ func jsonMiddleware() gin.HandlerFunc {
 	}
 }
 
-func main() {
-	// logger
-	f, _ := os.Create("tmp/gin.log")
-	gin.DefaultWriter = io.MultiWriter(os.Stdout, f)
-
+func SetupRouter() *gin.Engine {
 	router := gin.Default()
 	router.Use(jsonMiddleware())
 	base := router.Group("/api")
@@ -36,5 +32,14 @@ func main() {
 		bookshelfRoute := base.Group("/v1.Bookshelf")
 		bookshelfRoute.POST("/List", bookshelf.ListBooks)
 	}
+	return router
+}
+
+func main() {
+	// logger
+	f, _ := os.Create("tmp/gin.log")
+	gin.DefaultWriter = io.MultiWriter(os.Stdout, f)
+
+	router := SetupRouter()
 	router.Run(":80")
 }
