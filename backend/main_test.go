@@ -8,13 +8,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestPingRoute(t *testing.T) {
+func TestBookshelfListEndpoint(t *testing.T) {
 	router := SetupRouter()
 
 	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("GET", "/v1.Bookshelf/List", nil)
+	req, _ := http.NewRequest("POST", "/api/v1.Bookshelf/List", nil)
 	router.ServeHTTP(w, req)
 
 	assert.Equal(t, 200, w.Code)
-	assert.Equal(t, "pong", w.Body.String())
 }
