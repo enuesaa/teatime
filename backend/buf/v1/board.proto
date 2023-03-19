@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package v1;
+
+message AddBoardRequest {}
+message AddBoardResponse {}
+
+service Board {
+  rpc AddBoard(AddBoardRequest) returns (AddBoardResponse) {}
+}
