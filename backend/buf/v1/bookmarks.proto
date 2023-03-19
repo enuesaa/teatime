@@ -5,6 +5,6 @@ package v1;
 message AddBookmarkRequest {}
 message AddBookmarResponse {}
 
-service Feedhub {
+service Bookmarks {
   rpc AddBookmark(AddBookmarkRequest) returns (AddBookmarResponse) {}
 }
