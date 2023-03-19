@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package v1;
+
+message AddBookmarkRequest {}
+message AddBookmarResponse {}
+
+service Feedhub {
+  rpc AddBookmark(AddBookmarkRequest) returns (AddBookmarResponse) {}
+}
