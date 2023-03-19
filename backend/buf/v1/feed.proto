@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package v1;
+
+import "google/protobuf/timestamp.proto";
+
+message AddFeedRequest {
+  string url = 0;
+  string name = 1;
+}
+message AddFeedResponse {
+  string id = 0;
+}
+
+message GetFeedRequest {
+  string id = 0;
+}
+message GetFeedResponse {
+  string id = 0;
+  string url = 1;
+  string name = 2;
+  google.protobuf.Timestamp lastfetch = 3;
+  google.protobuf.Timestamp created = 4;
+  google.protobuf.Timestamp modified = 5;
+}
+
+message ListItemsRequest {
+  int32 page = 0;
+}
+message ListItemsResponse {
+  int32 page = 0;
+  message Item {
+    string id = 0;
+    map<string, string> attributes = 1; // includes url, title, description... 
+  }
+  repeated Item items = 2;
+}
+
+message GetAppearanceRequest {}
+message GetAppearanceResponse {
+  message AttributePlace {
+    string attribute = 0;
+    enum Place {
+      THUMBNAIL = 0;
+      LINK = 1;
+      TITLE = 2;
+      DESCRIPTION = 3;
+      SUBTITLE = 4;
+      SUBLINK = 5;
+    }
+    enum Place place = 1;
+  }
+  repeated AttributePlace places = 0;
+}
+
+message UpdateAppearanceRequest {
+  message AttributePlace {
+    string attribute = 0;
+    enum Place {
+      THUMBNAIL = 0;
+      LINK = 1;
+      TITLE = 2;
+      DESCRIPTION = 3;
+      SUBTITLE = 4;
+      SUBLINK = 5;
+    }
+    enum Place place = 1;
+  }
+  repeated AttributePlace places = 0;
+}
+message UpdateAppearanceResponse {}
+
+message FetchRequest {
+  string id = 0;
+}
+message FetchResponse {}
+
+message RemoveFeedRequest {
+  string id = 0;
+}
+message RemoveFeedResponse {}
+
+service Feed {
+  rpc AddFeed(AddFeedRequest) returns (AddFeedResponse) {}
+  rpc GetFeed(GetFeedRequest) returns (GetFeedResponse) {}
+  rpc ListItems(ListItemsRequest) returns (ListItemsResponse) {}
+  rpc GetAppearance(GetAppearanceRequest) returns (GetAppearanceResponse) {}
+  rpc UpdateAppearance(UpdateAppearanceRequest) returns (UpdateAppearanceResponse) {}
+  rpc Fetch(FetchRequest) returns (FetchResponse) {}
+  rpc RemoveFeed(RemoveFeedRequest) returns (RemoveFeedResponse) {}
+}
