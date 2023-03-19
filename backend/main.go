@@ -5,9 +5,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/enuesaa/teatime-app/backend/controllers/setting"
-	"github.com/enuesaa/teatime-app/backend/controllers/lounge"
-	"github.com/enuesaa/teatime-app/backend/controllers/bookshelf"
+	"github.com/enuesaa/teatime-app/backend/controller/setting"
 )
 
 func jsonMiddleware() gin.HandlerFunc {
@@ -25,12 +23,7 @@ func SetupRouter() *gin.Engine {
 	{
 		settingRoute := base.Group("/v1.Setting")
 		settingRoute.POST("/GetAppearance", setting.GetAppearance)
-		
-		loungeRoute := base.Group("/v1.Lounge")
-		loungeRoute.POST("/Spotify", lounge.CallSpotifyApi)
-
-		bookshelfRoute := base.Group("/v1.Bookshelf")
-		bookshelfRoute.POST("/List", bookshelf.ListBooks)
+		settingRoute.POST("/PutAppearance", setting.PutAppearance)
 	}
 	return router
 }

@@ -8,7 +8,5 @@
 /backend/tmp
 /backend/.env
 
-# frontend
-
-# neo4j
-/neo4j
+# redis
+/redis

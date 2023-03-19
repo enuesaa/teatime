@@ -1,13 +1,12 @@
 version: '3.8'
 
 services:
-  neo4j:
-    image: neo4j
-    ports: 
-      - 7474:7474
-      - 7687:7687
-    volumes: 
-      - ./neo4j/data:/data
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis:/data
 
   backend:
     build:
@@ -15,9 +14,11 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./:/workspace
-    env_file:
-      - ./backend/.env
+    environment:
+      - REDIS_ADDR=teatime-app-redis-1:6379
     tty: true
+    depends_on:
+      - redis
 
   frontend:
     build:
