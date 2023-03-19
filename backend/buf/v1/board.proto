@@ -2,9 +2,37 @@ syntax = "proto3";
 
 package v1;
 
+import "google/protobuf/timestamp.proto";
+
 message AddBoardRequest {}
 message AddBoardResponse {}
 
+message CheckinRequest {
+  google.protobuf.Timestamp time = 0;
+}
+message CheckinResponse {}
+
+message ListTimelineRequest {
+  int32 page = 0;
+}
+message ListTimelineResponse {
+  int32 page = 0;
+}
+
+message ArchiveBoardRequest {
+  string id = 0;
+}
+message ArchiveBoardResponse {}
+
+message UnArchiveBoardRequest {
+  string id = 0;
+}
+message UnArchiveBoardResponse {}
+
 service Board {
   rpc AddBoard(AddBoardRequest) returns (AddBoardResponse) {}
+  rpc Checkin(CheckinRequest) returns (CheckinResponse) {}
+  rpc ListTimeline(ListTimelineRequest) returns (ListTimelineResponse) {}
+  rpc ArchiveBoard(ArchiveBoardRequest) returns (ArchiveBoardResponse) {}
+  rpc UnArchiveBoard(UnArchiveBoardRequest) returns (UnArchiveBoardResponse) {}
 }
