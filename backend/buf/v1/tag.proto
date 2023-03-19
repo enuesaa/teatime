@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package v1;
+
+message ListTagsRequest {
+  int32 page = 0;
+}
+message ListTagsResponse {
+  int32 page = 0;
+  message Item {
+    string id = 0;
+    string name = 1;
+  }
+  repeated Item items = 1;
+}
+
+message AddTagItemRequest {
+  string resource_id = 0;
+  enum Type {
+    FEED = 0;
+    FEED_ITEM = 1;
+    BOOKMARK = 2;
+  }
+  enum Type type = 1;
+}
+
+message ListTagItemsRequest {
+  int32 page = 0;
+  string filter = 1;
+}
+message ListTagItemsResponse {
+  int32 page = 0;
+  message Item {
+    string id = 0;
+    string resource_id = 1;
+    string name = 2;
+    enum Type {
+      FEED = 0;
+      FEED_ITEM = 1;
+      BOOKMARK = 2;
+    }
+    enum type = 3;
+  }
+  repeated Item items = 1;
+}
+
+message RemoveTagItemRequest {
+  string id = 0;
+}
+message RemoveTagItemResponse {}
+
+service Tag {
+  rpc ListTags(ListTagsRequest) returns (ListTagsResponse) {}
+  rpc AddTagItem(AddTagItemRequest) returns (AddTagItemResponse) {}
+  rpc ListTagItems(ListTagItemsRequest) returns (ListTagItemsResponse) {}
+  rpc RemoveTagItem(RemoveTagItemRequest) returns (RemoveTagItemResponse) {}
+}
