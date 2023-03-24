@@ -4,8 +4,8 @@ import (
 	"io"
 	"os"
 
-	"github.com/gin-gonic/gin"
 	"github.com/enuesaa/teatime-app/backend/controller/setting"
+	"github.com/gin-gonic/gin"
 )
 
 func jsonMiddleware() gin.HandlerFunc {

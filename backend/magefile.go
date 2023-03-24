@@ -1,12 +1,13 @@
+//go:build ignore || mage
 // +build ignore mage
 
 package main
 
 import (
+	"bytes"
+	"fmt"
 	"os"
 	"os/exec"
-	"fmt"
-	"bytes"
 )
 
 func Gen() error {
@@ -15,11 +16,11 @@ func Gen() error {
 
 	cmd := exec.Command("buf", "generate")
 	cmd.Dir = "./buf"
-    var stderr bytes.Buffer
-    cmd.Stderr = &stderr
-    err := cmd.Run()
-    if err != nil {
-        fmt.Printf(stderr.String())
-    }
+	var stderr bytes.Buffer
+	cmd.Stderr = &stderr
+	err := cmd.Run()
+	if err != nil {
+		fmt.Printf(stderr.String())
+	}
 	return err
 }
