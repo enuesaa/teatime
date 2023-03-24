@@ -35,6 +35,6 @@ func main() {
 	f, _ := os.Create("tmp/gin.log")
 	gin.DefaultWriter = io.MultiWriter(os.Stdout, f)
 
-	router := setupRouter()
+	router := SetupRouter()
 	router.Run(":80")
 }
