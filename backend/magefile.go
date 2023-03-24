@@ -24,3 +24,12 @@ func Gen() error {
 	}
 	return err
 }
+
+func Lint() error {
+	cmd := exec.Command("revive")
+	var stdout bytes.Buffer
+	cmd.Stdout = &stdout
+	err := cmd.Run()
+	fmt.Printf(stdout.String())	
+	return err
+}

@@ -1,3 +1,4 @@
+// backend app
 package main
 
 import (
@@ -16,6 +17,7 @@ func jsonMiddleware() gin.HandlerFunc {
 	}
 }
 
+// SetupRouter public for test
 func SetupRouter() *gin.Engine {
 	router := gin.Default()
 	router.Use(jsonMiddleware())
@@ -33,6 +35,6 @@ func main() {
 	f, _ := os.Create("tmp/gin.log")
 	gin.DefaultWriter = io.MultiWriter(os.Stdout, f)
 
-	router := SetupRouter()
+	router := setupRouter()
 	router.Run(":80")
 }
