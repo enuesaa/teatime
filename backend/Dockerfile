@@ -4,6 +4,7 @@ WORKDIR /workspace
 RUN apt update
 RUN go install github.com/cosmtrek/air@latest
 RUN go install github.com/magefile/mage@latest
+RUN go install github.com/mgechev/revive@latest
 
 RUN go install github.com/bufbuild/buf/cmd/buf@latest
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
