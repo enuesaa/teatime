@@ -41,14 +41,14 @@ message GetAppearanceResponse {
   message AttributePlace {
     string attribute = 1;
     enum Place {
-      THUMBNAIL = 1;
-      LINK = 2;
-      TITLE = 3;
-      DESCRIPTION = 4;
-      SUBTITLE = 5;
-      SUBLINK = 6;
+      THUMBNAIL = 0;
+      LINK = 1;
+      TITLE = 2;
+      DESCRIPTION = 3;
+      SUBTITLE = 4;
+      SUBLINK = 5;
     }
-    enum Place place = 7;
+    Place place = 7;
   }
   repeated AttributePlace places = 1;
 }
@@ -57,14 +57,14 @@ message UpdateAppearanceRequest {
   message AttributePlace {
     string attribute = 1;
     enum Place {
-      THUMBNAIL = 1;
-      LINK = 2;
-      TITLE = 3;
-      DESCRIPTION = 4;
-      SUBTITLE = 5;
-      SUBLINK = 6;
+      THUMBNAIL = 0;
+      LINK = 1;
+      TITLE = 2;
+      DESCRIPTION = 3;
+      SUBTITLE = 4;
+      SUBLINK = 5;
     }
-    enum Place place = 2;
+    Place place = 2;
   }
   repeated AttributePlace places = 1;
 }

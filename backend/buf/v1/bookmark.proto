@@ -13,7 +13,7 @@ message AddBookmarResponse {
 message ListBookmarkRequest {
   int32 page = 1;
 }
-message ListBookmarResponse {
+message ListBookmarkResponse {
   int32 page = 1;
   message Item {
     string id = 1;
@@ -31,6 +31,11 @@ message GetBookmarkResponse {
   string name = 2;
   string url = 3;
 }
+
+message UpdateBookmarkRequest {
+  string id = 1;
+}
+message UpdateBookmarkResponse {}
 
 message RemoveBookmarkRequest {
   string id = 1;

@@ -17,12 +17,13 @@ message ListTagsResponse {
 message AddTagItemRequest {
   string resource_id = 1;
   enum Type {
-    FEED = 1;
-    FEED_ITEM = 2;
-    BOOKMARK = 3;
+    FEED = 0;
+    FEED_ITEM = 1;
+    BOOKMARK = 2;
   }
-  enum Type type = 2;
+  Type type = 2;
 }
+message AddTagItemResponse {}
 
 message ListTagItemsRequest {
   int32 page = 1;
@@ -35,11 +36,11 @@ message ListTagItemsResponse {
     string resource_id = 2;
     string name = 3;
     enum Type {
-      FEED = 1;
-      FEED_ITEM = 2;
-      BOOKMARK = 3;
+      FEED = 0;
+      FEED_ITEM = 1;
+      BOOKMARK = 2;
     }
-    enum type = 4;
+    Type type = 4;
   }
   repeated Item items = 2;
 }
