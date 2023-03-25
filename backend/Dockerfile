@@ -1,4 +1,12 @@
-FROM golang:1.19
+FROM golang:1.20 AS production
+
+WORKDIR /app
+COPY . .
+RUN go build -o main
+ENTRYPOINT ["/app/main"]
+
+
+FROM golang:1.20 AS develop
 
 WORKDIR /workspace
 RUN apt update

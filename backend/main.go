@@ -1,4 +1,4 @@
-// backend app
+// teatime-app backend
 package main
 
 import (
@@ -30,7 +30,6 @@ func setupRouter() *gin.Engine {
 }
 
 func main() {
-	// logger
 	f, _ := os.Create("tmp/gin.log")
 	gin.DefaultWriter = io.MultiWriter(os.Stdout, f)
 
