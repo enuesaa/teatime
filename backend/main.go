@@ -3,9 +3,10 @@ package main
 
 import (
 	"io"
-	"os"
+	"os"	
 
 	"github.com/enuesaa/teatime-app/backend/controller/setting"
+	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 )
 
@@ -34,5 +35,6 @@ func main() {
 	gin.DefaultWriter = io.MultiWriter(os.Stdout, f)
 
 	router := setupRouter()
+	pprof.Register(router)
 	router.Run(":80")
 }
