@@ -8,24 +8,24 @@ message AddBoardRequest {}
 message AddBoardResponse {}
 
 message CheckinRequest {
-  google.protobuf.Timestamp time = 0;
+  google.protobuf.Timestamp time = 1;
 }
 message CheckinResponse {}
 
 message ListTimelineRequest {
-  int32 page = 0;
+  int32 page = 1;
 }
 message ListTimelineResponse {
-  int32 page = 0;
+  int32 page = 1;
 }
 
 message ArchiveBoardRequest {
-  string id = 0;
+  string id = 1;
 }
 message ArchiveBoardResponse {}
 
 message UnArchiveBoardRequest {
-  string id = 0;
+  string id = 1;
 }
 message UnArchiveBoardResponse {}
 

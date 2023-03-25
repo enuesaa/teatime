@@ -5,33 +5,33 @@ package v1;
 import "google/protobuf/timestamp.proto";
 
 message AddFeedRequest {
-  string url = 0;
-  string name = 1;
+  string url = 1;
+  string name = 2;
 }
 message AddFeedResponse {
-  string id = 0;
+  string id = 1;
 }
 
 message GetFeedRequest {
-  string id = 0;
+  string id = 1;
 }
 message GetFeedResponse {
-  string id = 0;
-  string url = 1;
-  string name = 2;
-  google.protobuf.Timestamp lastfetch = 3;
-  google.protobuf.Timestamp created = 4;
-  google.protobuf.Timestamp modified = 5;
+  string id = 1;
+  string url = 2;
+  string name = 3;
+  google.protobuf.Timestamp lastfetch = 4;
+  google.protobuf.Timestamp created = 5;
+  google.protobuf.Timestamp modified = 6;
 }
 
 message ListItemsRequest {
-  int32 page = 0;
+  int32 page = 1;
 }
 message ListItemsResponse {
-  int32 page = 0;
+  int32 page = 1;
   message Item {
-    string id = 0;
-    map<string, string> attributes = 1; // includes url, title, description... 
+    string id = 1;
+    map<string, string> attributes = 2; // includes url, title, description... 
   }
   repeated Item items = 2;
 }
@@ -39,44 +39,44 @@ message ListItemsResponse {
 message GetAppearanceRequest {}
 message GetAppearanceResponse {
   message AttributePlace {
-    string attribute = 0;
+    string attribute = 1;
     enum Place {
-      THUMBNAIL = 0;
-      LINK = 1;
-      TITLE = 2;
-      DESCRIPTION = 3;
-      SUBTITLE = 4;
-      SUBLINK = 5;
+      THUMBNAIL = 1;
+      LINK = 2;
+      TITLE = 3;
+      DESCRIPTION = 4;
+      SUBTITLE = 5;
+      SUBLINK = 6;
     }
-    enum Place place = 1;
+    enum Place place = 7;
   }
-  repeated AttributePlace places = 0;
+  repeated AttributePlace places = 1;
 }
 
 message UpdateAppearanceRequest {
   message AttributePlace {
-    string attribute = 0;
+    string attribute = 1;
     enum Place {
-      THUMBNAIL = 0;
-      LINK = 1;
-      TITLE = 2;
-      DESCRIPTION = 3;
-      SUBTITLE = 4;
-      SUBLINK = 5;
+      THUMBNAIL = 1;
+      LINK = 2;
+      TITLE = 3;
+      DESCRIPTION = 4;
+      SUBTITLE = 5;
+      SUBLINK = 6;
     }
-    enum Place place = 1;
+    enum Place place = 2;
   }
-  repeated AttributePlace places = 0;
+  repeated AttributePlace places = 1;
 }
 message UpdateAppearanceResponse {}
 
 message FetchRequest {
-  string id = 0;
+  string id = 1;
 }
 message FetchResponse {}
 
 message RemoveFeedRequest {
-  string id = 0;
+  string id = 1;
 }
 message RemoveFeedResponse {}
 
