@@ -17,8 +17,7 @@ func jsonMiddleware() gin.HandlerFunc {
 	}
 }
 
-// SetupRouter public for test
-func SetupRouter() *gin.Engine {
+func setupRouter() *gin.Engine {
 	router := gin.Default()
 	router.Use(jsonMiddleware())
 	base := router.Group("/api")
@@ -35,6 +34,6 @@ func main() {
 	f, _ := os.Create("tmp/gin.log")
 	gin.DefaultWriter = io.MultiWriter(os.Stdout, f)
 
-	router := SetupRouter()
+	router := setupRouter()
 	router.Run(":80")
 }

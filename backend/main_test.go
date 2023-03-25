@@ -9,7 +9,7 @@ import (
 )
 
 func TestSettingGetAppearanceEndpoint(t *testing.T) {
-	router := SetupRouter()
+	router := setupRouter()
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("POST", "/api/v1.Setting/GetAppearance", nil)
