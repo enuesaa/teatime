@@ -3,7 +3,7 @@ package main
 
 import (
 	"io"
-	"os"	
+	"os"
 
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
@@ -16,7 +16,6 @@ func jsonMiddleware() gin.HandlerFunc {
 		c.Next()
 	}
 }
-
 
 func main() {
 	f, _ := os.Create("tmp/gin.log")

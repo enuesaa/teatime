@@ -9,6 +9,25 @@ import (
 	"github.com/enuesaa/teatime-app/backend/service/bookmark"
 )
 
+
+func GetBookmark(c *gin.Context) {
+	var body v1.GetBookmarkRequest
+	if err := validate.Validate(c, &body); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	id := body.Id
+
+	var bookmarkSrv = &bookmark.BookmarkService{ C: c }
+	bookmarkSrv.Get(id)
+	
+	c.JSON(http.StatusOK, v1.GetBookmarkResponse {
+		Id: id,
+		Name: "aaa",
+		Url: "",
+	})
+}
+
 func AddBookmark(c *gin.Context) {
 	var body v1.AddBookmarkRequest
 	if err := validate.Validate(c, &body); err != nil {

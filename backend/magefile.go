@@ -30,6 +30,6 @@ func Lint() error {
 	var stdout bytes.Buffer
 	cmd.Stdout = &stdout
 	err := cmd.Run()
-	fmt.Printf(stdout.String())	
+	fmt.Printf(stdout.String())
 	return err
 }
