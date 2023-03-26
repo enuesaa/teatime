@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { SettingGetAppearanceRequest, SettingGetAppearanceResponse } from "./setting_pb";
+import { SettingGetAppearanceRequest, SettingGetAppearanceResponse, SettingPutAppearanceRequest, SettingPutAppearanceResponse } from "./setting_pb";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -19,6 +19,15 @@ export const Setting = {
       name: "GetAppearance",
       I: SettingGetAppearanceRequest,
       O: SettingGetAppearanceResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc v1.Setting.PutAppearance
+     */
+    putAppearance: {
+      name: "PutAppearance",
+      I: SettingPutAppearanceRequest,
+      O: SettingPutAppearanceResponse,
       kind: MethodKind.Unary,
     },
   }

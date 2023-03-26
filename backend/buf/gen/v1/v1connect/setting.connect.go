@@ -28,6 +28,7 @@ const (
 // SettingClient is a client for the v1.Setting service.
 type SettingClient interface {
 	GetAppearance(context.Context, *connect_go.Request[v1.SettingGetAppearanceRequest]) (*connect_go.Response[v1.SettingGetAppearanceResponse], error)
+	PutAppearance(context.Context, *connect_go.Request[v1.SettingPutAppearanceRequest]) (*connect_go.Response[v1.SettingPutAppearanceResponse], error)
 }
 
 // NewSettingClient constructs a client for the v1.Setting service. By default, it uses the Connect
@@ -45,12 +46,18 @@ func NewSettingClient(httpClient connect_go.HTTPClient, baseURL string, opts ...
 			baseURL+"/v1.Setting/GetAppearance",
 			opts...,
 		),
+		putAppearance: connect_go.NewClient[v1.SettingPutAppearanceRequest, v1.SettingPutAppearanceResponse](
+			httpClient,
+			baseURL+"/v1.Setting/PutAppearance",
+			opts...,
+		),
 	}
 }
 
 // settingClient implements SettingClient.
 type settingClient struct {
 	getAppearance *connect_go.Client[v1.SettingGetAppearanceRequest, v1.SettingGetAppearanceResponse]
+	putAppearance *connect_go.Client[v1.SettingPutAppearanceRequest, v1.SettingPutAppearanceResponse]
 }
 
 // GetAppearance calls v1.Setting.GetAppearance.
@@ -58,9 +65,15 @@ func (c *settingClient) GetAppearance(ctx context.Context, req *connect_go.Reque
 	return c.getAppearance.CallUnary(ctx, req)
 }
 
+// PutAppearance calls v1.Setting.PutAppearance.
+func (c *settingClient) PutAppearance(ctx context.Context, req *connect_go.Request[v1.SettingPutAppearanceRequest]) (*connect_go.Response[v1.SettingPutAppearanceResponse], error) {
+	return c.putAppearance.CallUnary(ctx, req)
+}
+
 // SettingHandler is an implementation of the v1.Setting service.
 type SettingHandler interface {
 	GetAppearance(context.Context, *connect_go.Request[v1.SettingGetAppearanceRequest]) (*connect_go.Response[v1.SettingGetAppearanceResponse], error)
+	PutAppearance(context.Context, *connect_go.Request[v1.SettingPutAppearanceRequest]) (*connect_go.Response[v1.SettingPutAppearanceResponse], error)
 }
 
 // NewSettingHandler builds an HTTP handler from the service implementation. It returns the path on
@@ -75,6 +88,11 @@ func NewSettingHandler(svc SettingHandler, opts ...connect_go.HandlerOption) (st
 		svc.GetAppearance,
 		opts...,
 	))
+	mux.Handle("/v1.Setting/PutAppearance", connect_go.NewUnaryHandler(
+		"/v1.Setting/PutAppearance",
+		svc.PutAppearance,
+		opts...,
+	))
 	return "/v1.Setting/", mux
 }
 
@@ -83,4 +101,8 @@ type UnimplementedSettingHandler struct{}
 
 func (UnimplementedSettingHandler) GetAppearance(context.Context, *connect_go.Request[v1.SettingGetAppearanceRequest]) (*connect_go.Response[v1.SettingGetAppearanceResponse], error) {
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("v1.Setting.GetAppearance is not implemented"))
+}
+
+func (UnimplementedSettingHandler) PutAppearance(context.Context, *connect_go.Request[v1.SettingPutAppearanceRequest]) (*connect_go.Response[v1.SettingPutAppearanceResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("v1.Setting.PutAppearance is not implemented"))
 }

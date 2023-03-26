@@ -74,3 +74,71 @@ export class SettingGetAppearanceResponse extends Message<SettingGetAppearanceRe
   }
 }
 
+/**
+ * @generated from message v1.SettingPutAppearanceRequest
+ */
+export class SettingPutAppearanceRequest extends Message<SettingPutAppearanceRequest> {
+  /**
+   * @generated from field: string message = 1;
+   */
+  message = "";
+
+  constructor(data?: PartialMessage<SettingPutAppearanceRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "v1.SettingPutAppearanceRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SettingPutAppearanceRequest {
+    return new SettingPutAppearanceRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SettingPutAppearanceRequest {
+    return new SettingPutAppearanceRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SettingPutAppearanceRequest {
+    return new SettingPutAppearanceRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SettingPutAppearanceRequest | PlainMessage<SettingPutAppearanceRequest> | undefined, b: SettingPutAppearanceRequest | PlainMessage<SettingPutAppearanceRequest> | undefined): boolean {
+    return proto3.util.equals(SettingPutAppearanceRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message v1.SettingPutAppearanceResponse
+ */
+export class SettingPutAppearanceResponse extends Message<SettingPutAppearanceResponse> {
+  constructor(data?: PartialMessage<SettingPutAppearanceResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "v1.SettingPutAppearanceResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SettingPutAppearanceResponse {
+    return new SettingPutAppearanceResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SettingPutAppearanceResponse {
+    return new SettingPutAppearanceResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SettingPutAppearanceResponse {
+    return new SettingPutAppearanceResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SettingPutAppearanceResponse | PlainMessage<SettingPutAppearanceResponse> | undefined, b: SettingPutAppearanceResponse | PlainMessage<SettingPutAppearanceResponse> | undefined): boolean {
+    return proto3.util.equals(SettingPutAppearanceResponse, a, b);
+  }
+}
+

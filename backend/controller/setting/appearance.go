@@ -27,3 +27,18 @@ func GetAppearance(ctx *gin.Context) {
 		Message: value,
 	})
 }
+
+func PutAppearance(ctx *gin.Context) {
+	var body v1.SettingPutAppearanceRequest
+	if err := ctx.ShouldBindJSON(&body); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
+		return
+	}
+	if err := body.Validate(); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err})
+		return
+	}
+
+	redis.SetValue(ctx, "aaa", "bbb")
+	ctx.JSON(http.StatusOK, v1.SettingPutAppearanceResponse {})
+}
