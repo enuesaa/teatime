@@ -27,7 +27,7 @@ const (
 
 // BookmarkClient is a client for the v1.Bookmark service.
 type BookmarkClient interface {
-	AddBookmark(context.Context, *connect_go.Request[v1.AddBookmarkRequest]) (*connect_go.Response[v1.AddBookmarResponse], error)
+	AddBookmark(context.Context, *connect_go.Request[v1.AddBookmarkRequest]) (*connect_go.Response[v1.AddBookmarkResponse], error)
 	ListBookmark(context.Context, *connect_go.Request[v1.ListBookmarkRequest]) (*connect_go.Response[v1.ListBookmarkResponse], error)
 	GetBookmark(context.Context, *connect_go.Request[v1.GetBookmarkRequest]) (*connect_go.Response[v1.GetBookmarkResponse], error)
 	UpdateBookmark(context.Context, *connect_go.Request[v1.UpdateBookmarkRequest]) (*connect_go.Response[v1.UpdateBookmarkResponse], error)
@@ -44,7 +44,7 @@ type BookmarkClient interface {
 func NewBookmarkClient(httpClient connect_go.HTTPClient, baseURL string, opts ...connect_go.ClientOption) BookmarkClient {
 	baseURL = strings.TrimRight(baseURL, "/")
 	return &bookmarkClient{
-		addBookmark: connect_go.NewClient[v1.AddBookmarkRequest, v1.AddBookmarResponse](
+		addBookmark: connect_go.NewClient[v1.AddBookmarkRequest, v1.AddBookmarkResponse](
 			httpClient,
 			baseURL+"/v1.Bookmark/AddBookmark",
 			opts...,
@@ -74,7 +74,7 @@ func NewBookmarkClient(httpClient connect_go.HTTPClient, baseURL string, opts ..
 
 // bookmarkClient implements BookmarkClient.
 type bookmarkClient struct {
-	addBookmark    *connect_go.Client[v1.AddBookmarkRequest, v1.AddBookmarResponse]
+	addBookmark    *connect_go.Client[v1.AddBookmarkRequest, v1.AddBookmarkResponse]
 	listBookmark   *connect_go.Client[v1.ListBookmarkRequest, v1.ListBookmarkResponse]
 	getBookmark    *connect_go.Client[v1.GetBookmarkRequest, v1.GetBookmarkResponse]
 	updateBookmark *connect_go.Client[v1.UpdateBookmarkRequest, v1.UpdateBookmarkResponse]
@@ -82,7 +82,7 @@ type bookmarkClient struct {
 }
 
 // AddBookmark calls v1.Bookmark.AddBookmark.
-func (c *bookmarkClient) AddBookmark(ctx context.Context, req *connect_go.Request[v1.AddBookmarkRequest]) (*connect_go.Response[v1.AddBookmarResponse], error) {
+func (c *bookmarkClient) AddBookmark(ctx context.Context, req *connect_go.Request[v1.AddBookmarkRequest]) (*connect_go.Response[v1.AddBookmarkResponse], error) {
 	return c.addBookmark.CallUnary(ctx, req)
 }
 
@@ -108,7 +108,7 @@ func (c *bookmarkClient) RemoveBookmark(ctx context.Context, req *connect_go.Req
 
 // BookmarkHandler is an implementation of the v1.Bookmark service.
 type BookmarkHandler interface {
-	AddBookmark(context.Context, *connect_go.Request[v1.AddBookmarkRequest]) (*connect_go.Response[v1.AddBookmarResponse], error)
+	AddBookmark(context.Context, *connect_go.Request[v1.AddBookmarkRequest]) (*connect_go.Response[v1.AddBookmarkResponse], error)
 	ListBookmark(context.Context, *connect_go.Request[v1.ListBookmarkRequest]) (*connect_go.Response[v1.ListBookmarkResponse], error)
 	GetBookmark(context.Context, *connect_go.Request[v1.GetBookmarkRequest]) (*connect_go.Response[v1.GetBookmarkResponse], error)
 	UpdateBookmark(context.Context, *connect_go.Request[v1.UpdateBookmarkRequest]) (*connect_go.Response[v1.UpdateBookmarkResponse], error)
@@ -153,7 +153,7 @@ func NewBookmarkHandler(svc BookmarkHandler, opts ...connect_go.HandlerOption) (
 // UnimplementedBookmarkHandler returns CodeUnimplemented from all methods.
 type UnimplementedBookmarkHandler struct{}
 
-func (UnimplementedBookmarkHandler) AddBookmark(context.Context, *connect_go.Request[v1.AddBookmarkRequest]) (*connect_go.Response[v1.AddBookmarResponse], error) {
+func (UnimplementedBookmarkHandler) AddBookmark(context.Context, *connect_go.Request[v1.AddBookmarkRequest]) (*connect_go.Response[v1.AddBookmarkResponse], error) {
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("v1.Bookmark.AddBookmark is not implemented"))
 }
 

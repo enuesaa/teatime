@@ -50,39 +50,39 @@ export class AddBookmarkRequest extends Message<AddBookmarkRequest> {
 }
 
 /**
- * @generated from message v1.AddBookmarResponse
+ * @generated from message v1.AddBookmarkResponse
  */
-export class AddBookmarResponse extends Message<AddBookmarResponse> {
+export class AddBookmarkResponse extends Message<AddBookmarkResponse> {
   /**
    * @generated from field: string id = 1;
    */
   id = "";
 
-  constructor(data?: PartialMessage<AddBookmarResponse>) {
+  constructor(data?: PartialMessage<AddBookmarkResponse>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "v1.AddBookmarResponse";
+  static readonly typeName = "v1.AddBookmarkResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddBookmarResponse {
-    return new AddBookmarResponse().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddBookmarkResponse {
+    return new AddBookmarkResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddBookmarResponse {
-    return new AddBookmarResponse().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddBookmarkResponse {
+    return new AddBookmarkResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddBookmarResponse {
-    return new AddBookmarResponse().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddBookmarkResponse {
+    return new AddBookmarkResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: AddBookmarResponse | PlainMessage<AddBookmarResponse> | undefined, b: AddBookmarResponse | PlainMessage<AddBookmarResponse> | undefined): boolean {
-    return proto3.util.equals(AddBookmarResponse, a, b);
+  static equals(a: AddBookmarkResponse | PlainMessage<AddBookmarkResponse> | undefined, b: AddBookmarkResponse | PlainMessage<AddBookmarkResponse> | undefined): boolean {
+    return proto3.util.equals(AddBookmarkResponse, a, b);
   }
 }
 

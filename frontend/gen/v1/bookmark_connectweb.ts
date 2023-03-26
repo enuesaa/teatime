@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AddBookmarkRequest, AddBookmarResponse, GetBookmarkRequest, GetBookmarkResponse, ListBookmarkRequest, ListBookmarkResponse, RemoveBookmarkRequest, RemoveBookmarkResponse, UpdateBookmarkRequest, UpdateBookmarkResponse } from "./bookmark_pb";
+import { AddBookmarkRequest, AddBookmarkResponse, GetBookmarkRequest, GetBookmarkResponse, ListBookmarkRequest, ListBookmarkResponse, RemoveBookmarkRequest, RemoveBookmarkResponse, UpdateBookmarkRequest, UpdateBookmarkResponse } from "./bookmark_pb";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -18,7 +18,7 @@ export const Bookmark = {
     addBookmark: {
       name: "AddBookmark",
       I: AddBookmarkRequest,
-      O: AddBookmarResponse,
+      O: AddBookmarkResponse,
       kind: MethodKind.Unary,
     },
     /**

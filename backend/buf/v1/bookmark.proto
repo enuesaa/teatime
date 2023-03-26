@@ -6,7 +6,7 @@ message AddBookmarkRequest {
   string url = 1;
   string name = 2;
 }
-message AddBookmarResponse {
+message AddBookmarkResponse {
   string id = 1;
 }
 
@@ -43,7 +43,7 @@ message RemoveBookmarkRequest {
 message RemoveBookmarkResponse {}
 
 service Bookmark {
-  rpc AddBookmark(AddBookmarkRequest) returns (AddBookmarResponse) {}
+  rpc AddBookmark(AddBookmarkRequest) returns (AddBookmarkResponse) {}
   rpc ListBookmark(ListBookmarkRequest) returns (ListBookmarkResponse) {}
   rpc GetBookmark(GetBookmarkRequest) returns (GetBookmarkResponse) {}
   rpc UpdateBookmark(UpdateBookmarkRequest) returns (UpdateBookmarkResponse) {}

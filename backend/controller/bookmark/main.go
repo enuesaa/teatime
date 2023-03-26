@@ -5,26 +5,15 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/enuesaa/teatime-app/backend/buf/gen/v1"
+	"github.com/enuesaa/teatime-app/backend/validate"
 )
 
-func validateAddBookmark(body *v1.AddBookmarkRequest) bool {
-	return body.Name != ""
-}
-
-func AddBookmark(ctx *gin.Context) {
-	// see https://gin-gonic.com/ja/docs/examples/binding-and-validation/
+func AddBookmark(c *gin.Context) {
 	var body v1.AddBookmarkRequest
-	if err := ctx.ShouldBindJSON(&body); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
-		return
-	}
-	if !validateAddBookmark(&body) {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
+	if err := validate.Validate(c, &body); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "hello alaworld",
-		"redisvalue": body.Name,
-	})
+	c.JSON(http.StatusOK, v1.AddBookmarkResponse {})
 }
