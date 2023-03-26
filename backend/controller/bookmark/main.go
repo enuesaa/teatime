@@ -16,8 +16,8 @@ func AddBookmark(c *gin.Context) {
 		return
 	}
 
-	var bookmarkSrv = &bookmark.BookmarkService{}
-	bookmarkSrv.Create()
+	var bookmarkSrv = &bookmark.BookmarkService{ C: c }
+	bookmarkSrv.Create(bookmark.Bookmark {})
 	
 	c.JSON(http.StatusOK, v1.AddBookmarkResponse {})
 }

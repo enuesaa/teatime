@@ -1,28 +1,40 @@
 package bookmark
  
-import ()
+import (
+	"github.com/enuesaa/teatime-app/backend/repository/redis"
+	"github.com/gin-gonic/gin"
+)
 
-type Bookmark struct {
-	Id string
+type Bookmark struct {}
+
+type BookmarkService struct {
+	C *gin.Context
 }
 
-type BookmarkService struct {}
-
-func (b *BookmarkService) List() []Bookmark {
-	return []Bookmark{ Bookmark { Id: "" } }
+func (srv *BookmarkService) getRedisId(id string) string {
+	return "bookmark:" + id
 }
 
-func (b *BookmarkService) Get(id string) Bookmark {
-	return Bookmark { Id: "" }
+func (srv *BookmarkService) List() []Bookmark {
+	return []Bookmark{ Bookmark {} }
+}
+
+func (srv *BookmarkService) Get(id string) Bookmark {
+	redis.GetValue(srv.C, srv.getRedisId(id))
+	return Bookmark {}
 }
 
 
-func (b *BookmarkService) Create() string {
+func (srv *BookmarkService) Create(bookmark Bookmark) string {
+	redis.SetValue(srv.C, srv.getRedisId("aaa"), "bbb")
 	return "" // id
 }
 
-func (b *BookmarkService) Update(id string) string {
+func (srv *BookmarkService) Update(id string) string {
+	redis.SetValue(srv.C, srv.getRedisId(id), "bbb")
 	return id
 }
 
-func (b *BookmarkService) Delete(id string) {}
+func (srv *BookmarkService) Delete(id string) {
+	redis.DeleteValue(srv.C, srv.getRedisId(id))
+}
