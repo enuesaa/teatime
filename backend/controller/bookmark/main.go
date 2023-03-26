@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/enuesaa/teatime-app/backend/buf/gen/v1"
 	"github.com/enuesaa/teatime-app/backend/validate"
+	"github.com/enuesaa/teatime-app/backend/service/bookmark"
 )
 
 func AddBookmark(c *gin.Context) {
@@ -14,6 +15,9 @@ func AddBookmark(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+	var bookmarkSrv = &bookmark.BookmarkService{}
+	bookmarkSrv.Create()
 	
 	c.JSON(http.StatusOK, v1.AddBookmarkResponse {})
 }
