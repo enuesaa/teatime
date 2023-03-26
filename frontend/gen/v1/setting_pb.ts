@@ -83,6 +83,11 @@ export class SettingPutAppearanceRequest extends Message<SettingPutAppearanceReq
    */
   message = "";
 
+  /**
+   * @generated from field: string value = 2;
+   */
+  value = "";
+
   constructor(data?: PartialMessage<SettingPutAppearanceRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -92,6 +97,7 @@ export class SettingPutAppearanceRequest extends Message<SettingPutAppearanceReq
   static readonly typeName = "v1.SettingPutAppearanceRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "value", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SettingPutAppearanceRequest {

@@ -276,6 +276,17 @@ func (m *SettingPutAppearanceRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if utf8.RuneCountInString(m.GetValue()) < 1 {
+		err := SettingPutAppearanceRequestValidationError{
+			field:  "Value",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return SettingPutAppearanceRequestMultiError(errors)
 	}

@@ -6,39 +6,29 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/enuesaa/teatime-app/backend/repository/redis"
 	"github.com/enuesaa/teatime-app/backend/buf/gen/v1"
+	"github.com/enuesaa/teatime-app/backend/validate"
 )
 
-func validateGetAppearance(body *v1.SettingGetAppearanceRequest) bool {
-	return true
-}
-func GetAppearance(ctx *gin.Context) {
+func GetAppearance(c *gin.Context) {
 	var body v1.SettingGetAppearanceRequest
-	if err := ctx.ShouldBindJSON(&body); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
-		return
-	}
-	if !validateGetAppearance(&body) {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
+	if err := validate.Validate(c, &body); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	value := redis.GetValue(ctx, "aaa")
-	ctx.JSON(http.StatusOK, v1.SettingGetAppearanceResponse {
+	value := redis.GetValue(c, "aaa")
+	c.JSON(http.StatusOK, v1.SettingGetAppearanceResponse {
 		Message: value,
 	})
 }
 
-func PutAppearance(ctx *gin.Context) {
+func PutAppearance(c *gin.Context) {
 	var body v1.SettingPutAppearanceRequest
-	if err := ctx.ShouldBindJSON(&body); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
-		return
-	}
-	if err := body.Validate(); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": err})
+	if err := validate.Validate(c, &body); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	redis.SetValue(ctx, "aaa", "bbb")
-	ctx.JSON(http.StatusOK, v1.SettingPutAppearanceResponse {})
+	redis.SetValue(c, "aaa", "bbb")
+	c.JSON(http.StatusOK, v1.SettingPutAppearanceResponse {})
 }
