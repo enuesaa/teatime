@@ -28,7 +28,7 @@ func (srv *BookmarkService) Get(id string) Bookmark {
 
 
 func (srv *BookmarkService) Create(bookmark Bookmark) string {
-	redis.SetHash(srv.C, srv.getRedisId("bb"), bookmark)
+	redis.SetJson(srv.C, srv.getRedisId("bb"), bookmark)
 	return "" // id
 }
 
