@@ -26,7 +26,6 @@ func setupRouter() *gin.Engine {
 	{
 		settingRoute := base.Group("/v1.Setting")
 		settingRoute.POST("/GetAppearance", setting.GetAppearance)
-		settingRoute.POST("/PutAppearance", setting.PutAppearance)
 
 		bookmarkRoute := base.Group("/v1.Bookmark")
 		bookmarkRoute.POST("/AddBookmark", bookmark.AddBookmark)
