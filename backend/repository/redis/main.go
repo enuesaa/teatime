@@ -1,6 +1,7 @@
 package redis
  
-import (	
+import (
+	"log"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/redis/go-redis/v9"
@@ -28,6 +29,13 @@ func SetValue(ctx *gin.Context, key string, value string) {
 	err := client().Set(ctx, key, value, 0).Err()
    if err != nil {
 	   fmt.Printf("%-v", err)
+   }
+}
+
+func SetHash(ctx *gin.Context, key string, value interface {}) {
+	err := client().HSet(ctx, key, value, 0).Err()
+   if err != nil {
+	   log.Printf("%-v", err)
    }
 }
 

@@ -1,4 +1,4 @@
-package bookmark
+package controller
 
 import (
 	"net/http"
@@ -17,7 +17,7 @@ func AddBookmark(c *gin.Context) {
 	}
 
 	var bookmarkSrv = &bookmark.BookmarkService{ C: c }
-	bookmarkSrv.Create(bookmark.Bookmark {})
+	bookmarkSrv.Create(bookmark.Bookmark { Name: "aaaaaaa" })
 	
 	c.JSON(http.StatusOK, v1.AddBookmarkResponse {})
 }

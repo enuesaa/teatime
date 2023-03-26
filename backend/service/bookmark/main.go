@@ -5,7 +5,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Bookmark struct {}
+type Bookmark struct {
+	Name string
+}
 
 type BookmarkService struct {
 	C *gin.Context
@@ -26,7 +28,7 @@ func (srv *BookmarkService) Get(id string) Bookmark {
 
 
 func (srv *BookmarkService) Create(bookmark Bookmark) string {
-	redis.SetValue(srv.C, srv.getRedisId("aaa"), "bbb")
+	redis.SetHash(srv.C, srv.getRedisId("bb"), bookmark)
 	return "" // id
 }
 
