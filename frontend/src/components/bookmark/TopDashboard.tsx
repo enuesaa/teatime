@@ -2,9 +2,12 @@ import { css, useTheme } from '@emotion/react'
 import { TopDashboardItem } from '@/components/bookmark/TopDashboardItem'
 import { AiOutlineSwapRight } from 'react-icons/ai'
 import Link from 'next/link'
+import { useGetBookmarksQuery } from '@/lib/bookmark'
 
 export const TopDashboard = () => {
   const theme = useTheme()
+  const data = useGetBookmarksQuery()
+  console.log(data)
 
   const styles = {
     main: css({
