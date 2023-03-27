@@ -31,7 +31,7 @@ export const baseTheme: Theme = {
     borderRadius: '10px',
   },
   heading: {
-    width: '100%',
+    // width: '100%',
     display: 'block',
     fontWeight: '600',
     padding: '10px',

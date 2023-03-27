@@ -5,7 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
 	"os"
-	"github.com/nitishm/go-rejson/v4"
 )
 
 func client() *redis.Client {
@@ -27,16 +26,6 @@ func GetValue(ctx *gin.Context, key string) string {
  
 func SetValue(ctx *gin.Context, key string, value string) {
 	err := client().Set(ctx, key, value, 0).Err()
-	if err != nil {
-		fmt.Printf("%-v", err)
-	}
-}
-
-func SetJson(ctx *gin.Context, key string, value interface {}) {
-	rh := rejson.NewReJSONHandler()
-	rh.SetGoRedisClient(client())
-
-	_, err := rh.JSONSet(key, ".", value)
 	if err != nil {
 		fmt.Printf("%-v", err)
 	}
