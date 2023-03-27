@@ -1,6 +1,6 @@
-import { Bookmark } from '../../gen/v1/bookmark_connectweb'
+import { Bookmark } from '@/gen/v1/bookmark_connectweb'
 import { queriesInit } from './use'
-import { GetBookmarkResponse } from 'gen/v1/bookmark_pb'
+import { GetBookmarkResponse } from '@/gen/v1/bookmark_pb'
 
 export const {
   useQuery: useGetBookmarksQuery,

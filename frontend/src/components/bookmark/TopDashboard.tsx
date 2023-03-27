@@ -3,7 +3,7 @@ import { TopDashboardItem } from '@/components/bookmark/TopDashboardItem'
 import { AiOutlineSwapRight } from 'react-icons/ai'
 import Link from 'next/link'
 import { useGetBookmarksQuery } from '@/lib/bookmark'
-import { GetBookmarkResponse } from 'gen/v1/bookmark_pb'
+import { GetBookmarkResponse } from '@/gen/v1/bookmark_pb'
 
 export const TopDashboard = () => {
   const theme = useTheme()

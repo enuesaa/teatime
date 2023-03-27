@@ -17,12 +17,12 @@ plugins:
     out: ./gen
     opt: paths=source_relative
   - name: es
-    out: ../../frontend/gen
+    out: ../../frontend/src/gen
     opt:
       - target=ts
       - import_extension=
   - name: connect-web
-    out: ../../frontend/gen
+    out: ../../frontend/src/gen
     opt:
       - target=ts
       - import_extension=
