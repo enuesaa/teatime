@@ -3,11 +3,15 @@ import { TopDashboardItem } from '@/components/bookmark/TopDashboardItem'
 import { AiOutlineSwapRight } from 'react-icons/ai'
 import Link from 'next/link'
 import { useGetBookmarksQuery } from '@/lib/bookmark'
+import { GetBookmarkResponse } from 'gen/v1/bookmark_pb'
 
 export const TopDashboard = () => {
   const theme = useTheme()
   const data = useGetBookmarksQuery()
-  console.log(data)
+  const list: GetBookmarkResponse[] = []
+  if (data !== null) {
+    list.push(data)
+  }
 
   const styles = {
     main: css({
@@ -37,7 +41,11 @@ export const TopDashboard = () => {
         <Link href='/bookmark/configure'><AiOutlineSwapRight /></Link>
       </h2>
       <ul css={styles.list}>
-        <TopDashboardItem title='aa' href='https://example.com' />
+        {
+          list.map((v,i) => {
+            return (<TopDashboardItem title={v.name} href='https://example.com' key={i} />)
+          })
+        }
       </ul>
     </section>
   )
