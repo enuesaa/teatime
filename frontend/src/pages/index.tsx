@@ -1,12 +1,13 @@
 import { Header } from '@/components/common/Header'
-import { Main } from '@/components/common/Main'
+import { Timeline } from '@/components/feed/Timeline'
+import { TopDashboard } from '@/components/bookmark/TopDashboard'
 
 export default function TopPage() {
   return (
     <>
       <Header />
-      <Main>
-      </Main>
+      <TopDashboard />
+      <Timeline />
     </>
   )
 }
