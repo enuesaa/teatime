@@ -1,10 +1,7 @@
 import { PageTitle } from '@/components/common/PageTitle'
 import { css, useTheme } from '@emotion/react'
-import Link from 'next/link'
-import { FaPlus } from 'react-icons/fa'
-import { ConfigureFeeds } from '@/components/feed/ConfigureFeeds'
 
-export const Configure = () => {
+export const ConfigureAdd = () => {
   const theme = useTheme()
 
   const styles = {
@@ -17,11 +14,11 @@ export const Configure = () => {
 
   return (
     <section css={styles.main}>
-      <PageTitle title='Feed' />
-      <div>
-        <Link href='/feed/configure/add'><FaPlus /></Link>
-      </div>
-      <ConfigureFeeds />
+      <PageTitle title='Feed Add' />
+      <form>
+        <input type='text' defaultValue={'url'} />
+        <button>add</button>
+      </form>
     </section>
   )
 }
