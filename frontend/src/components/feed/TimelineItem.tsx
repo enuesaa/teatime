@@ -12,6 +12,14 @@ export const TimelineItem = ({ title, href }: Props) => {
     li: css({
       padding: '10px',
       border: 'solid 1px rgba(255,255,255,0.2)',
+      a: {
+        display: 'block',
+        width: '100%',
+        height: '100%',
+      },
+      '&:hover': {
+        background: theme.color.sub,
+      },
     })
   }
 

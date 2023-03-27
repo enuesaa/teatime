@@ -1,9 +1,9 @@
 import { css, useTheme } from '@emotion/react'
-import { TimelineItem } from '@/components/feed/TimelineItem'
+import { TopDashboardItem } from '@/components/board/TopDashboardItem'
 import { AiOutlineSwapRight } from 'react-icons/ai'
 import Link from 'next/link'
 
-export const Timeline = () => {
+export const TopDashboard = () => {
   const theme = useTheme()
 
   const styles = {
@@ -30,12 +30,12 @@ export const Timeline = () => {
   return (
     <section css={styles.main}>
       <h2 css={styles.h2}>
-        Feed
-        <Link href='/feed/configure'><AiOutlineSwapRight /></Link>
+        Board
+        <Link href='/board/configure'><AiOutlineSwapRight /></Link>
       </h2>
       <ul css={styles.list}>
-        <TimelineItem href='https://example.com/' title='aaa' />
+        <TopDashboardItem title='aa' id='aa' />
       </ul>
     </section>
   )
-}
+} 

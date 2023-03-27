@@ -3,9 +3,9 @@ import Link from 'next/link'
 
 type Props = {
   title: string,
-  href: string,
+  id: string,
 }
-export const TopDashboardItem = ({ title, href }: Props) => {
+export const TopDashboardItem = ({ title, id }: Props) => {
   const theme = useTheme()
 
   const styles = {
@@ -21,7 +21,7 @@ export const TopDashboardItem = ({ title, href }: Props) => {
     }),
   }
   return (
-    <Link href={href} css={styles.link}>
+    <Link href={`/board/items/${id}`} css={styles.link}>
       {title}
     </Link>
   )
