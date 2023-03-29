@@ -26,7 +26,8 @@ message GetFeedResponse {
 }
 
 message ListItemsRequest {
-  int32 page = 1 [(validate.rules).int32.gte = 0];
+  string id = 1;
+  int32 page = 2 [(validate.rules).int32.gte = 0];
 }
 message ListItemsResponse {
   int32 page = 1;

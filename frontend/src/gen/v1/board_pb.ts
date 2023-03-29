@@ -10,6 +10,11 @@ import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
  * @generated from message v1.AddBoardRequest
  */
 export class AddBoardRequest extends Message<AddBoardRequest> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
   constructor(data?: PartialMessage<AddBoardRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -18,6 +23,7 @@ export class AddBoardRequest extends Message<AddBoardRequest> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "v1.AddBoardRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddBoardRequest {
@@ -41,6 +47,11 @@ export class AddBoardRequest extends Message<AddBoardRequest> {
  * @generated from message v1.AddBoardResponse
  */
 export class AddBoardResponse extends Message<AddBoardResponse> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
   constructor(data?: PartialMessage<AddBoardResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -49,6 +60,7 @@ export class AddBoardResponse extends Message<AddBoardResponse> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "v1.AddBoardResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddBoardResponse {

@@ -5,8 +5,12 @@ package v1;
 import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
 
-message AddBoardRequest {}
-message AddBoardResponse {}
+message AddBoardRequest {
+  string name = 1;
+}
+message AddBoardResponse {
+  string id = 1;
+}
 
 message CheckinRequest {
   google.protobuf.Timestamp time = 1;

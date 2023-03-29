@@ -7,15 +7,19 @@ import (
 	"github.com/google/uuid"
 )
 
-type Feed struct {}
+type Feed struct {
+	Name string `json:"name"`
+	Url string `json:"url"`
+}
+
 type FeedService struct {
-	RedisRepo repository.RedisRepositoryInterface
-	RssfeedRepo repository.RssfeedRepositoryInterface
+	redisRepo repository.RedisRepositoryInterface
+	rssfeedRepo repository.RssfeedRepositoryInterface
 }
 func NewFeedService () *FeedService {
 	return &FeedService {
-		RedisRepo: &repository.RedisRepository{},
-		RssfeedRepo: &repository.RssfeedRepository{},
+		redisRepo: &repository.RedisRepository{},
+		rssfeedRepo: &repository.RssfeedRepository{},
 	}
 }
 
@@ -23,13 +27,14 @@ func (srv *FeedService) getRedisId(id string) string {
 	return "feed:" + id
 }
 
-func (srv *FeedService) Fetch(url string) {
-	srv.RssfeedRepo.Fetch(url)
+func (srv *FeedService) Fetch(id string) {
+	feed := srv.Get(id)
+	srv.rssfeedRepo.Fetch(feed.Url)
 }
 
 func (srv *FeedService) List() []Feed {
-	ids := srv.RedisRepo.Keys(srv.getRedisId("*"))
-	list := srv.RedisRepo.JsonMget(ids)
+	ids := srv.redisRepo.Keys(srv.getRedisId("*"))
+	list := srv.redisRepo.JsonMget(ids)
 	feeds := []Feed{}
 	for _, v := range list {
 		feed := Feed{}
@@ -43,7 +48,7 @@ func (srv *FeedService) List() []Feed {
 }
 
 func (srv *FeedService) Get(id string) Feed {
-	data := srv.RedisRepo.JsonGet(srv.getRedisId(id))
+	data := srv.redisRepo.JsonGet(srv.getRedisId(id))
 	feed := Feed{}
 	json.Unmarshal(data.([]byte), &feed)
 	return feed
@@ -52,15 +57,19 @@ func (srv *FeedService) Get(id string) Feed {
 func (srv *FeedService) Create(feed Feed) string {
 	uuidObj, _ := uuid.NewUUID()
 	id := uuidObj.String()
-	srv.RedisRepo.JsonSet(srv.getRedisId(id), feed)
+	srv.redisRepo.JsonSet(srv.getRedisId(id), feed)
 	return id
 }
 
 func (srv *FeedService) Update(id string, feed Feed) string {
-	srv.RedisRepo.JsonSet(srv.getRedisId(id), feed)
+	srv.redisRepo.JsonSet(srv.getRedisId(id), feed)
 	return id
 }
 
 func (srv *FeedService) Delete(id string) {
-	srv.RedisRepo.Delete(srv.getRedisId(id))
+	srv.redisRepo.Delete(srv.getRedisId(id))
+}
+
+func (src *FeedService) ListItems(id string) {
+	//
 }

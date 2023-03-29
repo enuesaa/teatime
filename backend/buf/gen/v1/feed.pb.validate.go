@@ -585,6 +585,8 @@ func (m *ListItemsRequest) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Id
+
 	if m.GetPage() < 0 {
 		err := ListItemsRequestValidationError{
 			field:  "Page",

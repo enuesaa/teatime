@@ -22,21 +22,32 @@ func (ctl *FeedController) Add (c *gin.Context) {
 	var body v1.AddFeedRequest
 	if !binding.Validate(c, &body) { return }
 
-	ctl.feed().Fetch(body.Url)
-	c.JSON(200, v1.AddFeedResponse {})
+	id := ctl.feed().Create(service.Feed {
+		Name: body.Name,
+		Url: body.Url,
+	})
+	c.JSON(200, v1.AddFeedResponse { Id: id })
 }
 
 func (ctl *FeedController) Get (c *gin.Context) {
 	var body v1.GetFeedRequest
 	if !binding.Validate(c, &body) { return }
+	id := body.Id
 
-	c.JSON(200, v1.GetFeedResponse {})
+	data := ctl.feed().Get(id)
+	c.JSON(200, v1.GetFeedResponse {
+		Id: id,
+		Url: data.Url,
+		Name: data.Name,
+	})
 }
 
 func (ctl *FeedController) ListItems (c *gin.Context) {
 	var body v1.ListItemsRequest
 	if !binding.Validate(c, &body) { return }
+	id := body.Id
 
+	ctl.feed().ListItems(id)
 	c.JSON(200, v1.ListItemsResponse {})
 }
 
@@ -44,6 +55,7 @@ func (ctl *FeedController) GetAppearance (c *gin.Context) {
 	var body v1.GetAppearanceRequest
 	if !binding.Validate(c, &body) { return }
 
+	// ctl.feed().Get(id)
 	c.JSON(200, v1.GetAppearanceResponse {})
 }
 
@@ -51,19 +63,24 @@ func (ctl *FeedController) UpdateAppearance (c *gin.Context) {
 	var body v1.UpdateAppearanceRequest
 	if !binding.Validate(c, &body) { return }
 
+	// ctl.feed().ChangeAppearance(id)
 	c.JSON(200, v1.UpdateAppearanceResponse {})
 }
 
 func (ctl *FeedController) Fetch (c *gin.Context) {
 	var body v1.FetchRequest
 	if !binding.Validate(c, &body) { return }
+	id := body.Id
 
+	ctl.feed().Fetch(id)
 	c.JSON(200, v1.FetchResponse {})
 }
 
 func (ctl *FeedController) Delete (c *gin.Context) {
 	var body v1.DeleteFeedRequest
 	if !binding.Validate(c, &body) { return }
+	id := body.Id
 
+	ctl.feed().Delete(id)
 	c.JSON(200, v1.DeleteFeedResponse {})
 }

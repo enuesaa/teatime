@@ -195,7 +195,12 @@ export class GetFeedResponse extends Message<GetFeedResponse> {
  */
 export class ListItemsRequest extends Message<ListItemsRequest> {
   /**
-   * @generated from field: int32 page = 1;
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: int32 page = 2;
    */
   page = 0;
 
@@ -207,7 +212,8 @@ export class ListItemsRequest extends Message<ListItemsRequest> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "v1.ListItemsRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "page", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "page", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListItemsRequest {

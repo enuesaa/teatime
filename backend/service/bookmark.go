@@ -10,9 +10,7 @@ import (
 type Bookmark struct {
 	Name string `json:"name"`
 	Url string `json:"url"`
-	Id string `json:"id"`
 }
-
 
 type BookmarkService struct {
 	RedisRepo repository.RedisRepositoryInterface
