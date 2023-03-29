@@ -263,22 +263,22 @@ var _ interface {
 	ErrorName() string
 } = AddBookmarkResponseValidationError{}
 
-// Validate checks the field values on ListBookmarkRequest with the rules
+// Validate checks the field values on ListBookmarksRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ListBookmarkRequest) Validate() error {
+func (m *ListBookmarksRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ListBookmarkRequest with the rules
+// ValidateAll checks the field values on ListBookmarksRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// ListBookmarkRequestMultiError, or nil if none found.
-func (m *ListBookmarkRequest) ValidateAll() error {
+// ListBookmarksRequestMultiError, or nil if none found.
+func (m *ListBookmarksRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ListBookmarkRequest) validate(all bool) error {
+func (m *ListBookmarksRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -286,7 +286,7 @@ func (m *ListBookmarkRequest) validate(all bool) error {
 	var errors []error
 
 	if m.GetPage() < 0 {
-		err := ListBookmarkRequestValidationError{
+		err := ListBookmarksRequestValidationError{
 			field:  "Page",
 			reason: "value must be greater than or equal to 0",
 		}
@@ -297,19 +297,19 @@ func (m *ListBookmarkRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ListBookmarkRequestMultiError(errors)
+		return ListBookmarksRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// ListBookmarkRequestMultiError is an error wrapping multiple validation
-// errors returned by ListBookmarkRequest.ValidateAll() if the designated
+// ListBookmarksRequestMultiError is an error wrapping multiple validation
+// errors returned by ListBookmarksRequest.ValidateAll() if the designated
 // constraints aren't met.
-type ListBookmarkRequestMultiError []error
+type ListBookmarksRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ListBookmarkRequestMultiError) Error() string {
+func (m ListBookmarksRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -318,11 +318,11 @@ func (m ListBookmarkRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ListBookmarkRequestMultiError) AllErrors() []error { return m }
+func (m ListBookmarksRequestMultiError) AllErrors() []error { return m }
 
-// ListBookmarkRequestValidationError is the validation error returned by
-// ListBookmarkRequest.Validate if the designated constraints aren't met.
-type ListBookmarkRequestValidationError struct {
+// ListBookmarksRequestValidationError is the validation error returned by
+// ListBookmarksRequest.Validate if the designated constraints aren't met.
+type ListBookmarksRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -330,24 +330,24 @@ type ListBookmarkRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e ListBookmarkRequestValidationError) Field() string { return e.field }
+func (e ListBookmarksRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ListBookmarkRequestValidationError) Reason() string { return e.reason }
+func (e ListBookmarksRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ListBookmarkRequestValidationError) Cause() error { return e.cause }
+func (e ListBookmarksRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ListBookmarkRequestValidationError) Key() bool { return e.key }
+func (e ListBookmarksRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ListBookmarkRequestValidationError) ErrorName() string {
-	return "ListBookmarkRequestValidationError"
+func (e ListBookmarksRequestValidationError) ErrorName() string {
+	return "ListBookmarksRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ListBookmarkRequestValidationError) Error() string {
+func (e ListBookmarksRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -359,14 +359,14 @@ func (e ListBookmarkRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sListBookmarkRequest.%s: %s%s",
+		"invalid %sListBookmarksRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ListBookmarkRequestValidationError{}
+var _ error = ListBookmarksRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -374,24 +374,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ListBookmarkRequestValidationError{}
+} = ListBookmarksRequestValidationError{}
 
-// Validate checks the field values on ListBookmarkResponse with the rules
+// Validate checks the field values on ListBookmarksResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ListBookmarkResponse) Validate() error {
+func (m *ListBookmarksResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ListBookmarkResponse with the rules
+// ValidateAll checks the field values on ListBookmarksResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// ListBookmarkResponseMultiError, or nil if none found.
-func (m *ListBookmarkResponse) ValidateAll() error {
+// ListBookmarksResponseMultiError, or nil if none found.
+func (m *ListBookmarksResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ListBookmarkResponse) validate(all bool) error {
+func (m *ListBookmarksResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -407,7 +407,7 @@ func (m *ListBookmarkResponse) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ListBookmarkResponseValidationError{
+					errors = append(errors, ListBookmarksResponseValidationError{
 						field:  fmt.Sprintf("Items[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -415,7 +415,7 @@ func (m *ListBookmarkResponse) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, ListBookmarkResponseValidationError{
+					errors = append(errors, ListBookmarksResponseValidationError{
 						field:  fmt.Sprintf("Items[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -424,7 +424,7 @@ func (m *ListBookmarkResponse) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return ListBookmarkResponseValidationError{
+				return ListBookmarksResponseValidationError{
 					field:  fmt.Sprintf("Items[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -435,19 +435,19 @@ func (m *ListBookmarkResponse) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ListBookmarkResponseMultiError(errors)
+		return ListBookmarksResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// ListBookmarkResponseMultiError is an error wrapping multiple validation
-// errors returned by ListBookmarkResponse.ValidateAll() if the designated
+// ListBookmarksResponseMultiError is an error wrapping multiple validation
+// errors returned by ListBookmarksResponse.ValidateAll() if the designated
 // constraints aren't met.
-type ListBookmarkResponseMultiError []error
+type ListBookmarksResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ListBookmarkResponseMultiError) Error() string {
+func (m ListBookmarksResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -456,11 +456,11 @@ func (m ListBookmarkResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ListBookmarkResponseMultiError) AllErrors() []error { return m }
+func (m ListBookmarksResponseMultiError) AllErrors() []error { return m }
 
-// ListBookmarkResponseValidationError is the validation error returned by
-// ListBookmarkResponse.Validate if the designated constraints aren't met.
-type ListBookmarkResponseValidationError struct {
+// ListBookmarksResponseValidationError is the validation error returned by
+// ListBookmarksResponse.Validate if the designated constraints aren't met.
+type ListBookmarksResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -468,24 +468,24 @@ type ListBookmarkResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e ListBookmarkResponseValidationError) Field() string { return e.field }
+func (e ListBookmarksResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ListBookmarkResponseValidationError) Reason() string { return e.reason }
+func (e ListBookmarksResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ListBookmarkResponseValidationError) Cause() error { return e.cause }
+func (e ListBookmarksResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ListBookmarkResponseValidationError) Key() bool { return e.key }
+func (e ListBookmarksResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ListBookmarkResponseValidationError) ErrorName() string {
-	return "ListBookmarkResponseValidationError"
+func (e ListBookmarksResponseValidationError) ErrorName() string {
+	return "ListBookmarksResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ListBookmarkResponseValidationError) Error() string {
+func (e ListBookmarksResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -497,14 +497,14 @@ func (e ListBookmarkResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sListBookmarkResponse.%s: %s%s",
+		"invalid %sListBookmarksResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ListBookmarkResponseValidationError{}
+var _ error = ListBookmarksResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -512,7 +512,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ListBookmarkResponseValidationError{}
+} = ListBookmarksResponseValidationError{}
 
 // Validate checks the field values on GetBookmarkRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1165,22 +1165,22 @@ var _ interface {
 	ErrorName() string
 } = RemoveBookmarkResponseValidationError{}
 
-// Validate checks the field values on ListBookmarkResponse_Item with the rules
-// defined in the proto definition for this message. If any rules are
+// Validate checks the field values on ListBookmarksResponse_Item with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ListBookmarkResponse_Item) Validate() error {
+func (m *ListBookmarksResponse_Item) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ListBookmarkResponse_Item with the
+// ValidateAll checks the field values on ListBookmarksResponse_Item with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// ListBookmarkResponse_ItemMultiError, or nil if none found.
-func (m *ListBookmarkResponse_Item) ValidateAll() error {
+// ListBookmarksResponse_ItemMultiError, or nil if none found.
+func (m *ListBookmarksResponse_Item) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ListBookmarkResponse_Item) validate(all bool) error {
+func (m *ListBookmarksResponse_Item) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1194,19 +1194,19 @@ func (m *ListBookmarkResponse_Item) validate(all bool) error {
 	// no validation rules for Url
 
 	if len(errors) > 0 {
-		return ListBookmarkResponse_ItemMultiError(errors)
+		return ListBookmarksResponse_ItemMultiError(errors)
 	}
 
 	return nil
 }
 
-// ListBookmarkResponse_ItemMultiError is an error wrapping multiple validation
-// errors returned by ListBookmarkResponse_Item.ValidateAll() if the
-// designated constraints aren't met.
-type ListBookmarkResponse_ItemMultiError []error
+// ListBookmarksResponse_ItemMultiError is an error wrapping multiple
+// validation errors returned by ListBookmarksResponse_Item.ValidateAll() if
+// the designated constraints aren't met.
+type ListBookmarksResponse_ItemMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ListBookmarkResponse_ItemMultiError) Error() string {
+func (m ListBookmarksResponse_ItemMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1215,11 +1215,11 @@ func (m ListBookmarkResponse_ItemMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ListBookmarkResponse_ItemMultiError) AllErrors() []error { return m }
+func (m ListBookmarksResponse_ItemMultiError) AllErrors() []error { return m }
 
-// ListBookmarkResponse_ItemValidationError is the validation error returned by
-// ListBookmarkResponse_Item.Validate if the designated constraints aren't met.
-type ListBookmarkResponse_ItemValidationError struct {
+// ListBookmarksResponse_ItemValidationError is the validation error returned
+// by ListBookmarksResponse_Item.Validate if the designated constraints aren't met.
+type ListBookmarksResponse_ItemValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1227,24 +1227,24 @@ type ListBookmarkResponse_ItemValidationError struct {
 }
 
 // Field function returns field value.
-func (e ListBookmarkResponse_ItemValidationError) Field() string { return e.field }
+func (e ListBookmarksResponse_ItemValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ListBookmarkResponse_ItemValidationError) Reason() string { return e.reason }
+func (e ListBookmarksResponse_ItemValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ListBookmarkResponse_ItemValidationError) Cause() error { return e.cause }
+func (e ListBookmarksResponse_ItemValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ListBookmarkResponse_ItemValidationError) Key() bool { return e.key }
+func (e ListBookmarksResponse_ItemValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ListBookmarkResponse_ItemValidationError) ErrorName() string {
-	return "ListBookmarkResponse_ItemValidationError"
+func (e ListBookmarksResponse_ItemValidationError) ErrorName() string {
+	return "ListBookmarksResponse_ItemValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ListBookmarkResponse_ItemValidationError) Error() string {
+func (e ListBookmarksResponse_ItemValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1256,14 +1256,14 @@ func (e ListBookmarkResponse_ItemValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sListBookmarkResponse_Item.%s: %s%s",
+		"invalid %sListBookmarksResponse_Item.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ListBookmarkResponse_ItemValidationError{}
+var _ error = ListBookmarksResponse_ItemValidationError{}
 
 var _ interface {
 	Field() string
@@ -1271,4 +1271,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ListBookmarkResponse_ItemValidationError{}
+} = ListBookmarksResponse_ItemValidationError{}

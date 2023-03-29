@@ -8,7 +8,9 @@ import (
 )
 
 type Bookmark struct {
-	Name string `json:"name,omitempty"`
+	Name string `json:"name"`
+	Url string `json:"url"`
+	Id string `json:"id"`
 }
 
 
@@ -26,7 +28,18 @@ func (srv *BookmarkService) getRedisId(id string) string {
 }
 
 func (srv *BookmarkService) List() []Bookmark {
-	return []Bookmark{ Bookmark {} }
+	ids := srv.RedisRepo.Keys(srv.getRedisId("*"))
+	list := srv.RedisRepo.JsonMget(ids)
+	bookmarks := []Bookmark{}
+	for _, v := range list {
+		bookmark := Bookmark{}
+		err := json.Unmarshal(v.([]byte), &bookmark)
+		if err != nil {
+			fmt.Printf("%v", err)
+		}
+		bookmarks = append(bookmarks, bookmark)
+	}
+	return bookmarks
 }
 
 func (srv *BookmarkService) Get(id string) Bookmark {
@@ -34,7 +47,7 @@ func (srv *BookmarkService) Get(id string) Bookmark {
 	bookmark := Bookmark{}
 	err := json.Unmarshal(data.([]byte), &bookmark)
 	if err != nil {
-		fmt.Println("%v", err)
+		fmt.Printf("%v", err)
 	}
 	return bookmark
 }

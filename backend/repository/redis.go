@@ -9,11 +9,13 @@ import (
 )
 
 type RedisRepositoryInterface interface {
+	Keys(pattern string) []string
 	Get(key string) string
 	Set(key string, value string)
 	Delete(key string)
-	JsonGet(key string) interface {}
-	JsonSet(key string, value interface {})
+	JsonMget(ids []string) []interface{}
+	JsonGet(key string) interface{}
+	JsonSet(key string, value interface{})
 }
 
 type RedisRepository struct {}
@@ -32,27 +34,17 @@ func (repo *RedisRepository) jsonHandler() *rejson.Handler {
 	return rh
 }
 
+func (repo *RedisRepository) Keys(pattern string) []string {
+	vals, _ := repo.client().Keys(context.Background(), pattern).Result()
+	return vals
+}
+
 func (repo *RedisRepository) Get(key string) string {
 	val, err := repo.client().Get(context.Background(), key).Result()
 	if err != nil {
 		val = ""
 	}
 	return val
-}
-
-func (repo *RedisRepository) JsonGet(key string) interface {} {
-	data, err := repo.jsonHandler().JSONGet(key, ".")
-	if err != nil {
-		data = ""
-	}
-	return data
-}
-
-func (repo *RedisRepository) JsonSet(key string, value interface {}) {
-	_, err := repo.jsonHandler().JSONSet(key, ".", value)
-	if err != nil {
-		fmt.Printf("%-v", err)
-	}
 }
 
 func (repo *RedisRepository) Set(key string, value string) {
@@ -69,3 +61,25 @@ func (repo *RedisRepository) Delete(key string) {
 	}
 }
 
+func (repo *RedisRepository) JsonMget(ids []string) []interface{} {
+	data, _ := repo.jsonHandler().JSONMGet(".", ids...)
+	if list, ok := data.([]interface{}); ok {
+		return list
+    }
+	return make([]interface{}, 0)
+}
+
+func (repo *RedisRepository) JsonGet(key string) interface{} {
+	data, err := repo.jsonHandler().JSONGet(key, ".")
+	if err != nil {
+		data = ""
+	}
+	return data
+}
+
+func (repo *RedisRepository) JsonSet(key string, value interface{}) {
+	_, err := repo.jsonHandler().JSONSet(key, ".", value)
+	if err != nil {
+		fmt.Printf("%-v", err)
+	}
+}

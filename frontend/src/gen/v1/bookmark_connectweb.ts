@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AddBookmarkRequest, AddBookmarkResponse, GetBookmarkRequest, GetBookmarkResponse, ListBookmarkRequest, ListBookmarkResponse, RemoveBookmarkRequest, RemoveBookmarkResponse, UpdateBookmarkRequest, UpdateBookmarkResponse } from "./bookmark_pb";
+import { AddBookmarkRequest, AddBookmarkResponse, GetBookmarkRequest, GetBookmarkResponse, ListBookmarksRequest, ListBookmarksResponse, RemoveBookmarkRequest, RemoveBookmarkResponse, UpdateBookmarkRequest, UpdateBookmarkResponse } from "./bookmark_pb";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -22,12 +22,12 @@ export const Bookmark = {
       kind: MethodKind.Unary,
     },
     /**
-     * @generated from rpc v1.Bookmark.ListBookmark
+     * @generated from rpc v1.Bookmark.ListBookmarks
      */
-    listBookmark: {
-      name: "ListBookmark",
-      I: ListBookmarkRequest,
-      O: ListBookmarkResponse,
+    listBookmarks: {
+      name: "ListBookmarks",
+      I: ListBookmarksRequest,
+      O: ListBookmarksResponse,
       kind: MethodKind.Unary,
     },
     /**

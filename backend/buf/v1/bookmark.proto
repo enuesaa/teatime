@@ -12,10 +12,10 @@ message AddBookmarkResponse {
   string id = 1;
 }
 
-message ListBookmarkRequest {
+message ListBookmarksRequest {
   int32 page = 1 [(validate.rules).int32.gte = 0];
 }
-message ListBookmarkResponse {
+message ListBookmarksResponse {
   int32 page = 1;
   message Item {
     string id = 1;
@@ -46,7 +46,7 @@ message RemoveBookmarkResponse {}
 
 service Bookmark {
   rpc AddBookmark(AddBookmarkRequest) returns (AddBookmarkResponse) {}
-  rpc ListBookmark(ListBookmarkRequest) returns (ListBookmarkResponse) {}
+  rpc ListBookmarks(ListBookmarksRequest) returns (ListBookmarksResponse) {}
   rpc GetBookmark(GetBookmarkRequest) returns (GetBookmarkResponse) {}
   rpc UpdateBookmark(UpdateBookmarkRequest) returns (UpdateBookmarkResponse) {}
   rpc RemoveBookmark(RemoveBookmarkRequest) returns (RemoveBookmarkResponse) {}

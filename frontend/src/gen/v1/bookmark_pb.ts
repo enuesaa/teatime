@@ -87,89 +87,89 @@ export class AddBookmarkResponse extends Message<AddBookmarkResponse> {
 }
 
 /**
- * @generated from message v1.ListBookmarkRequest
+ * @generated from message v1.ListBookmarksRequest
  */
-export class ListBookmarkRequest extends Message<ListBookmarkRequest> {
+export class ListBookmarksRequest extends Message<ListBookmarksRequest> {
   /**
    * @generated from field: int32 page = 1;
    */
   page = 0;
 
-  constructor(data?: PartialMessage<ListBookmarkRequest>) {
+  constructor(data?: PartialMessage<ListBookmarksRequest>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "v1.ListBookmarkRequest";
+  static readonly typeName = "v1.ListBookmarksRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "page", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListBookmarkRequest {
-    return new ListBookmarkRequest().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListBookmarksRequest {
+    return new ListBookmarksRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListBookmarkRequest {
-    return new ListBookmarkRequest().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListBookmarksRequest {
+    return new ListBookmarksRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListBookmarkRequest {
-    return new ListBookmarkRequest().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListBookmarksRequest {
+    return new ListBookmarksRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ListBookmarkRequest | PlainMessage<ListBookmarkRequest> | undefined, b: ListBookmarkRequest | PlainMessage<ListBookmarkRequest> | undefined): boolean {
-    return proto3.util.equals(ListBookmarkRequest, a, b);
+  static equals(a: ListBookmarksRequest | PlainMessage<ListBookmarksRequest> | undefined, b: ListBookmarksRequest | PlainMessage<ListBookmarksRequest> | undefined): boolean {
+    return proto3.util.equals(ListBookmarksRequest, a, b);
   }
 }
 
 /**
- * @generated from message v1.ListBookmarkResponse
+ * @generated from message v1.ListBookmarksResponse
  */
-export class ListBookmarkResponse extends Message<ListBookmarkResponse> {
+export class ListBookmarksResponse extends Message<ListBookmarksResponse> {
   /**
    * @generated from field: int32 page = 1;
    */
   page = 0;
 
   /**
-   * @generated from field: repeated v1.ListBookmarkResponse.Item items = 2;
+   * @generated from field: repeated v1.ListBookmarksResponse.Item items = 2;
    */
-  items: ListBookmarkResponse_Item[] = [];
+  items: ListBookmarksResponse_Item[] = [];
 
-  constructor(data?: PartialMessage<ListBookmarkResponse>) {
+  constructor(data?: PartialMessage<ListBookmarksResponse>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "v1.ListBookmarkResponse";
+  static readonly typeName = "v1.ListBookmarksResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "page", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 2, name: "items", kind: "message", T: ListBookmarkResponse_Item, repeated: true },
+    { no: 2, name: "items", kind: "message", T: ListBookmarksResponse_Item, repeated: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListBookmarkResponse {
-    return new ListBookmarkResponse().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListBookmarksResponse {
+    return new ListBookmarksResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListBookmarkResponse {
-    return new ListBookmarkResponse().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListBookmarksResponse {
+    return new ListBookmarksResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListBookmarkResponse {
-    return new ListBookmarkResponse().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListBookmarksResponse {
+    return new ListBookmarksResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ListBookmarkResponse | PlainMessage<ListBookmarkResponse> | undefined, b: ListBookmarkResponse | PlainMessage<ListBookmarkResponse> | undefined): boolean {
-    return proto3.util.equals(ListBookmarkResponse, a, b);
+  static equals(a: ListBookmarksResponse | PlainMessage<ListBookmarksResponse> | undefined, b: ListBookmarksResponse | PlainMessage<ListBookmarksResponse> | undefined): boolean {
+    return proto3.util.equals(ListBookmarksResponse, a, b);
   }
 }
 
 /**
- * @generated from message v1.ListBookmarkResponse.Item
+ * @generated from message v1.ListBookmarksResponse.Item
  */
-export class ListBookmarkResponse_Item extends Message<ListBookmarkResponse_Item> {
+export class ListBookmarksResponse_Item extends Message<ListBookmarksResponse_Item> {
   /**
    * @generated from field: string id = 1;
    */
@@ -185,33 +185,33 @@ export class ListBookmarkResponse_Item extends Message<ListBookmarkResponse_Item
    */
   url = "";
 
-  constructor(data?: PartialMessage<ListBookmarkResponse_Item>) {
+  constructor(data?: PartialMessage<ListBookmarksResponse_Item>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "v1.ListBookmarkResponse.Item";
+  static readonly typeName = "v1.ListBookmarksResponse.Item";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListBookmarkResponse_Item {
-    return new ListBookmarkResponse_Item().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListBookmarksResponse_Item {
+    return new ListBookmarksResponse_Item().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListBookmarkResponse_Item {
-    return new ListBookmarkResponse_Item().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListBookmarksResponse_Item {
+    return new ListBookmarksResponse_Item().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListBookmarkResponse_Item {
-    return new ListBookmarkResponse_Item().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListBookmarksResponse_Item {
+    return new ListBookmarksResponse_Item().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ListBookmarkResponse_Item | PlainMessage<ListBookmarkResponse_Item> | undefined, b: ListBookmarkResponse_Item | PlainMessage<ListBookmarkResponse_Item> | undefined): boolean {
-    return proto3.util.equals(ListBookmarkResponse_Item, a, b);
+  static equals(a: ListBookmarksResponse_Item | PlainMessage<ListBookmarksResponse_Item> | undefined, b: ListBookmarksResponse_Item | PlainMessage<ListBookmarksResponse_Item> | undefined): boolean {
+    return proto3.util.equals(ListBookmarksResponse_Item, a, b);
   }
 }
 
