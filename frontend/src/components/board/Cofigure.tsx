@@ -13,9 +13,9 @@ export const Configure = () => {
   }
 
   return (
-    <section css={styles.main}>
-      <PageTitle title='Bookmark' />
+    <>
+      <PageTitle title='Board' />
       add or remove
-    </section>
+    </>
   )
 }

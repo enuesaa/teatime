@@ -1,31 +1,19 @@
-import { ReactNode, useEffect } from 'react'
-import { css } from '@emotion/react'
-import { createConnectTransport, createPromiseClient } from '@bufbuild/connect-web'
-import { Setting } from '../../../gen/v1/setting_connectweb'
+import { ReactNode } from 'react'
+import { css, useTheme } from '@emotion/react'
 
 type Props = {
   children: ReactNode
 }
 export const Main = ({ children }: Props) => {
+  const theme = useTheme()
+
   const styles = {
     main: css({
-      width: '90%',
-      margin: '0 auto',
-      height: '100vh',
-      padding: '20px 0',
+      margin: '20px',
+      padding: '0 10px 10px 10px',
+      color: theme.color.main,
     }),
   }
-
-  useEffect(() => {
-    (async() => {
-      const transport = createConnectTransport({
-        baseUrl: '/api/',
-      })
-      const client = createPromiseClient(Setting, transport)
-      const res = await client.getAppearance({})
-      console.log(res.message)
-    })()
-  }, []);
 
   return <section css={styles.main}>{children}</section>
 }
