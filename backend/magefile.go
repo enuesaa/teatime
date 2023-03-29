@@ -12,7 +12,7 @@ import (
 
 func Gen() error {
 	os.RemoveAll("./buf/gen")
-	os.RemoveAll("../frontend/gen")
+	os.RemoveAll("../frontend/src/gen")
 
 	cmd := exec.Command("buf", "generate")
 	cmd.Dir = "./buf"

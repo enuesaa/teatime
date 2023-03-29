@@ -57,9 +57,27 @@ func (m *AddFeedRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Url
+	if utf8.RuneCountInString(m.GetUrl()) < 1 {
+		err := AddFeedRequestValidationError{
+			field:  "Url",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Name
+	if utf8.RuneCountInString(m.GetName()) < 1 {
+		err := AddFeedRequestValidationError{
+			field:  "Name",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return AddFeedRequestMultiError(errors)
@@ -263,7 +281,16 @@ func (m *GetFeedRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Id
+	if utf8.RuneCountInString(m.GetId()) < 1 {
+		err := GetFeedRequestValidationError{
+			field:  "Id",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return GetFeedRequestMultiError(errors)
@@ -558,7 +585,16 @@ func (m *ListItemsRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Page
+	if m.GetPage() < 0 {
+		err := ListItemsRequestValidationError{
+			field:  "Page",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return ListItemsRequestMultiError(errors)
@@ -1036,6 +1072,17 @@ func (m *UpdateAppearanceRequest) validate(all bool) error {
 
 	var errors []error
 
+	if len(m.GetPlaces()) > 10 {
+		err := UpdateAppearanceRequestValidationError{
+			field:  "Places",
+			reason: "value must contain no more than 10 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	for idx, item := range m.GetPlaces() {
 		_, _ = idx, item
 
@@ -1274,7 +1321,16 @@ func (m *FetchRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Id
+	if utf8.RuneCountInString(m.GetId()) < 1 {
+		err := FetchRequestValidationError{
+			field:  "Id",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return FetchRequestMultiError(errors)
@@ -1475,7 +1531,16 @@ func (m *RemoveFeedRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Id
+	if utf8.RuneCountInString(m.GetId()) < 1 {
+		err := RemoveFeedRequestValidationError{
+			field:  "Id",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return RemoveFeedRequestMultiError(errors)
@@ -1898,9 +1963,27 @@ func (m *UpdateAppearanceRequest_AttributePlace) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Attribute
+	if utf8.RuneCountInString(m.GetAttribute()) < 1 {
+		err := UpdateAppearanceRequest_AttributePlaceValidationError{
+			field:  "Attribute",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Place
+	if _, ok := UpdateAppearanceRequest_AttributePlace_Place_name[int32(m.GetPlace())]; !ok {
+		err := UpdateAppearanceRequest_AttributePlaceValidationError{
+			field:  "Place",
+			reason: "value must be one of the defined enum values",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return UpdateAppearanceRequest_AttributePlaceMultiError(errors)

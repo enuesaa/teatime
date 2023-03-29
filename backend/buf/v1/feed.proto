@@ -3,17 +3,18 @@ syntax = "proto3";
 package v1;
 
 import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
 
 message AddFeedRequest {
-  string url = 1;
-  string name = 2;
+  string url = 1 [(validate.rules).string.min_len = 1];
+  string name = 2 [(validate.rules).string.min_len = 1];
 }
 message AddFeedResponse {
   string id = 1;
 }
 
 message GetFeedRequest {
-  string id = 1;
+  string id = 1 [(validate.rules).string.min_len = 1];
 }
 message GetFeedResponse {
   string id = 1;
@@ -25,7 +26,7 @@ message GetFeedResponse {
 }
 
 message ListItemsRequest {
-  int32 page = 1;
+  int32 page = 1 [(validate.rules).int32.gte = 0];
 }
 message ListItemsResponse {
   int32 page = 1;
@@ -55,7 +56,7 @@ message GetAppearanceResponse {
 
 message UpdateAppearanceRequest {
   message AttributePlace {
-    string attribute = 1;
+    string attribute = 1 [(validate.rules).string.min_len = 1];
     enum Place {
       THUMBNAIL = 0;
       LINK = 1;
@@ -64,19 +65,19 @@ message UpdateAppearanceRequest {
       SUBTITLE = 4;
       SUBLINK = 5;
     }
-    Place place = 2;
+    Place place = 2 [(validate.rules).enum.defined_only = true];
   }
-  repeated AttributePlace places = 1;
+  repeated AttributePlace places = 1 [(validate.rules).repeated = {min_items: 0, max_items: 10}];
 }
 message UpdateAppearanceResponse {}
 
 message FetchRequest {
-  string id = 1;
+  string id = 1 [(validate.rules).string.min_len = 1];
 }
 message FetchResponse {}
 
 message RemoveFeedRequest {
-  string id = 1;
+  string id = 1 [(validate.rules).string.min_len = 1];
 }
 message RemoveFeedResponse {}
 

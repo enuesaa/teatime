@@ -2,16 +2,18 @@ syntax = "proto3";
 
 package v1;
 
+import "validate/validate.proto";
+
 message AddBookmarkRequest {
-  string url = 1;
-  string name = 2;
+  string url = 1 [(validate.rules).string.min_len = 1];
+  string name = 2 [(validate.rules).string.min_len = 1];
 }
 message AddBookmarkResponse {
   string id = 1;
 }
 
 message ListBookmarkRequest {
-  int32 page = 1;
+  int32 page = 1 [(validate.rules).int32.gte = 0];
 }
 message ListBookmarkResponse {
   int32 page = 1;
@@ -24,7 +26,7 @@ message ListBookmarkResponse {
 }
 
 message GetBookmarkRequest {
-  string id = 1;
+  string id = 1 [(validate.rules).string.min_len = 1];
 }
 message GetBookmarkResponse {
   string id = 1;
@@ -33,12 +35,12 @@ message GetBookmarkResponse {
 }
 
 message UpdateBookmarkRequest {
-  string id = 1;
+  string id = 1 [(validate.rules).string.min_len = 1];
 }
 message UpdateBookmarkResponse {}
 
 message RemoveBookmarkRequest {
-  string id = 1;
+  string id = 1 [(validate.rules).string.min_len = 1];
 }
 message RemoveBookmarkResponse {}
 

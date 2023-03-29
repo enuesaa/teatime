@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package v1;
 
+import "validate/validate.proto";
+
 message ListTagsRequest {
   int32 page = 1;
 }

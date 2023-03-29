@@ -3,6 +3,7 @@ syntax = "proto3";
 package v1;
 
 import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
 
 message AddBoardRequest {}
 message AddBoardResponse {}
@@ -13,19 +14,19 @@ message CheckinRequest {
 message CheckinResponse {}
 
 message ListTimelineRequest {
-  int32 page = 1;
+  int32 page = 1 [(validate.rules).int32.gte = 0];
 }
 message ListTimelineResponse {
   int32 page = 1;
 }
 
 message ArchiveBoardRequest {
-  string id = 1;
+  string id = 1 [(validate.rules).string.min_len = 1];
 }
 message ArchiveBoardResponse {}
 
 message UnArchiveBoardRequest {
-  string id = 1;
+  string id = 1 [(validate.rules).string.min_len = 1];
 }
 message UnArchiveBoardResponse {}
 
