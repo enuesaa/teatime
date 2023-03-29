@@ -20,18 +20,18 @@ func setupRouter() *gin.Engine {
 	base := router.Group("/api")
 	{
 		settingRoute := base.Group("/v1.Setting")
-		settingCtl := controller.SettingController {}
+		settingCtl := controller.SettingController{}
 		settingRoute.POST("/GetAppearance", settingCtl.Get)
 		settingRoute.POST("/PutAppearance", settingCtl.Put)
 
 		bookmarkRoute := base.Group("/v1.Bookmark")
-		bookmarkCtl := controller.BookmarkController {}
+		bookmarkCtl := controller.BookmarkController{}
 		bookmarkRoute.POST("/ListBookmarks", bookmarkCtl.List)
 		bookmarkRoute.POST("/GetBookmark", bookmarkCtl.Get)
 		bookmarkRoute.POST("/AddBookmark", bookmarkCtl.Add)
-		
+
 		feedRoute := base.Group("/v1.Feed")
-		feedCtl := controller.FeedController {}
+		feedCtl := controller.FeedController{}
 		feedRoute.POST("/AddFeed", feedCtl.Add)
 	}
 	return router
