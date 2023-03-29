@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/enuesaa/teatime-app/backend/buf/gen/v1"
 	"github.com/enuesaa/teatime-app/backend/validate"
-	"github.com/enuesaa/teatime-app/backend/service/bookmark"
+	"github.com/enuesaa/teatime-app/backend/service"
 )
 
 
@@ -18,8 +18,8 @@ func GetBookmark(c *gin.Context) {
 	}
 	id := body.Id
 
-	var bookmarkSrv = &bookmark.BookmarkService{ C: c }
-	bookmarkSrv.Get(id)
+	var bookmarkSrv = &service.BookmarkService{}
+	bookmarkSrv.Get(c, id)
 	
 	c.JSON(http.StatusOK, v1.GetBookmarkResponse {
 		Id: id,
@@ -35,8 +35,8 @@ func AddBookmark(c *gin.Context) {
 		return
 	}
 
-	var bookmarkSrv = &bookmark.BookmarkService{ C: c }
-	bookmarkSrv.Create(bookmark.Bookmark { Name: "aaaaaaa" })
+	var bookmarkSrv = &service.BookmarkService{}
+	bookmarkSrv.Create(c, service.Bookmark { Name: "aaaaaaa" })
 	
 	c.JSON(http.StatusOK, v1.AddBookmarkResponse {})
 }

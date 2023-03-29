@@ -14,7 +14,7 @@ func (repo *RssfeedRepository) Fetch(url string) {
 	data, err := gofeed.NewParser().ParseURL(url)
 	if err != nil {
 		fmt.Println(err)
-        return
-    }
-    fmt.Println(data)
+		return
+	}
+	fmt.Println(data)
 }

@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/enuesaa/teatime-app/backend/repository/redis"
+	"github.com/enuesaa/teatime-app/backend/repository"
 	"github.com/enuesaa/teatime-app/backend/buf/gen/v1"
 	"github.com/enuesaa/teatime-app/backend/validate"
 )
@@ -16,7 +16,8 @@ func GetAppearance(c *gin.Context) {
 		return
 	}
 
-	value := redis.GetValue(c, "aaa")
+	redis := repository.RedisRepository {}
+	value := redis.Get(c, "aaa")
 	c.JSON(http.StatusOK, v1.SettingGetAppearanceResponse {
 		Message: value,
 	})
@@ -28,7 +29,7 @@ func PutAppearance(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
-	redis.SetValue(c, "aaa", "bbb")
+	redis := repository.RedisRepository {}
+	redis.Set(c, "aaa", "bbb")
 	c.JSON(http.StatusOK, v1.SettingPutAppearanceResponse {})
 }
