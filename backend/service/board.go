@@ -1,12 +1,18 @@
 package service
- 
+
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/enuesaa/teatime-app/backend/repository"
+	"github.com/google/uuid"
 )
 
 type Board struct {
-	Name string
+	Name string `json:"name"`
+	Url string `json:"url"`
+	Id string `json:"id"`
 }
+
 
 type BoardService struct {
 	RedisRepo repository.RedisRepositoryInterface
@@ -17,29 +23,44 @@ func NewBoardService () *BoardService {
 	}
 }
 
-
 func (srv *BoardService) getRedisId(id string) string {
 	return "board:" + id
 }
 
-
 func (srv *BoardService) List() []Board {
-	return []Board{ Board {} }
+	ids := srv.RedisRepo.Keys(srv.getRedisId("*"))
+	list := srv.RedisRepo.JsonMget(ids)
+	boards := []Board{}
+	for _, v := range list {
+		board := Board{}
+		err := json.Unmarshal(v.([]byte), &board)
+		if err != nil {
+			fmt.Printf("%v", err)
+		}
+		boards = append(boards, board)
+	}
+	return boards
 }
 
 func (srv *BoardService) Get(id string) Board {
-	srv.RedisRepo.Get(srv.getRedisId(id))
-	return Board {}
+	data := srv.RedisRepo.JsonGet(srv.getRedisId(id))
+	board := Board{}
+	err := json.Unmarshal(data.([]byte), &board)
+	if err != nil {
+		fmt.Printf("%v", err)
+	}
+	return board
 }
-
 
 func (srv *BoardService) Create(board Board) string {
-	srv.RedisRepo.JsonSet(srv.getRedisId("bb"), board)
-	return "" // id
+	uuidObj, _ := uuid.NewUUID()
+	id := uuidObj.String()
+	srv.RedisRepo.JsonSet(srv.getRedisId(id), board)
+	return id
 }
 
-func (srv *BoardService) Update(id string) string {
-	srv.RedisRepo.Set(srv.getRedisId(id), "bbb")
+func (srv *BoardService) Update(id string, board Board) string {
+	srv.RedisRepo.JsonSet(srv.getRedisId(id), board)
 	return id
 }
 

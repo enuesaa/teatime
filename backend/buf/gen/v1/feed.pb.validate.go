@@ -1509,22 +1509,22 @@ var _ interface {
 	ErrorName() string
 } = FetchResponseValidationError{}
 
-// Validate checks the field values on RemoveFeedRequest with the rules defined
+// Validate checks the field values on DeleteFeedRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
-func (m *RemoveFeedRequest) Validate() error {
+func (m *DeleteFeedRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on RemoveFeedRequest with the rules
+// ValidateAll checks the field values on DeleteFeedRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// RemoveFeedRequestMultiError, or nil if none found.
-func (m *RemoveFeedRequest) ValidateAll() error {
+// DeleteFeedRequestMultiError, or nil if none found.
+func (m *DeleteFeedRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *RemoveFeedRequest) validate(all bool) error {
+func (m *DeleteFeedRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1532,7 +1532,7 @@ func (m *RemoveFeedRequest) validate(all bool) error {
 	var errors []error
 
 	if utf8.RuneCountInString(m.GetId()) < 1 {
-		err := RemoveFeedRequestValidationError{
+		err := DeleteFeedRequestValidationError{
 			field:  "Id",
 			reason: "value length must be at least 1 runes",
 		}
@@ -1543,19 +1543,19 @@ func (m *RemoveFeedRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return RemoveFeedRequestMultiError(errors)
+		return DeleteFeedRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// RemoveFeedRequestMultiError is an error wrapping multiple validation errors
-// returned by RemoveFeedRequest.ValidateAll() if the designated constraints
+// DeleteFeedRequestMultiError is an error wrapping multiple validation errors
+// returned by DeleteFeedRequest.ValidateAll() if the designated constraints
 // aren't met.
-type RemoveFeedRequestMultiError []error
+type DeleteFeedRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m RemoveFeedRequestMultiError) Error() string {
+func (m DeleteFeedRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1564,11 +1564,11 @@ func (m RemoveFeedRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m RemoveFeedRequestMultiError) AllErrors() []error { return m }
+func (m DeleteFeedRequestMultiError) AllErrors() []error { return m }
 
-// RemoveFeedRequestValidationError is the validation error returned by
-// RemoveFeedRequest.Validate if the designated constraints aren't met.
-type RemoveFeedRequestValidationError struct {
+// DeleteFeedRequestValidationError is the validation error returned by
+// DeleteFeedRequest.Validate if the designated constraints aren't met.
+type DeleteFeedRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1576,24 +1576,24 @@ type RemoveFeedRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e RemoveFeedRequestValidationError) Field() string { return e.field }
+func (e DeleteFeedRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RemoveFeedRequestValidationError) Reason() string { return e.reason }
+func (e DeleteFeedRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RemoveFeedRequestValidationError) Cause() error { return e.cause }
+func (e DeleteFeedRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RemoveFeedRequestValidationError) Key() bool { return e.key }
+func (e DeleteFeedRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RemoveFeedRequestValidationError) ErrorName() string {
-	return "RemoveFeedRequestValidationError"
+func (e DeleteFeedRequestValidationError) ErrorName() string {
+	return "DeleteFeedRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e RemoveFeedRequestValidationError) Error() string {
+func (e DeleteFeedRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1605,14 +1605,14 @@ func (e RemoveFeedRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRemoveFeedRequest.%s: %s%s",
+		"invalid %sDeleteFeedRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RemoveFeedRequestValidationError{}
+var _ error = DeleteFeedRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -1620,24 +1620,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RemoveFeedRequestValidationError{}
+} = DeleteFeedRequestValidationError{}
 
-// Validate checks the field values on RemoveFeedResponse with the rules
+// Validate checks the field values on DeleteFeedResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *RemoveFeedResponse) Validate() error {
+func (m *DeleteFeedResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on RemoveFeedResponse with the rules
+// ValidateAll checks the field values on DeleteFeedResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// RemoveFeedResponseMultiError, or nil if none found.
-func (m *RemoveFeedResponse) ValidateAll() error {
+// DeleteFeedResponseMultiError, or nil if none found.
+func (m *DeleteFeedResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *RemoveFeedResponse) validate(all bool) error {
+func (m *DeleteFeedResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1645,19 +1645,19 @@ func (m *RemoveFeedResponse) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return RemoveFeedResponseMultiError(errors)
+		return DeleteFeedResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// RemoveFeedResponseMultiError is an error wrapping multiple validation errors
-// returned by RemoveFeedResponse.ValidateAll() if the designated constraints
+// DeleteFeedResponseMultiError is an error wrapping multiple validation errors
+// returned by DeleteFeedResponse.ValidateAll() if the designated constraints
 // aren't met.
-type RemoveFeedResponseMultiError []error
+type DeleteFeedResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m RemoveFeedResponseMultiError) Error() string {
+func (m DeleteFeedResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1666,11 +1666,11 @@ func (m RemoveFeedResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m RemoveFeedResponseMultiError) AllErrors() []error { return m }
+func (m DeleteFeedResponseMultiError) AllErrors() []error { return m }
 
-// RemoveFeedResponseValidationError is the validation error returned by
-// RemoveFeedResponse.Validate if the designated constraints aren't met.
-type RemoveFeedResponseValidationError struct {
+// DeleteFeedResponseValidationError is the validation error returned by
+// DeleteFeedResponse.Validate if the designated constraints aren't met.
+type DeleteFeedResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1678,24 +1678,24 @@ type RemoveFeedResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e RemoveFeedResponseValidationError) Field() string { return e.field }
+func (e DeleteFeedResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RemoveFeedResponseValidationError) Reason() string { return e.reason }
+func (e DeleteFeedResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RemoveFeedResponseValidationError) Cause() error { return e.cause }
+func (e DeleteFeedResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RemoveFeedResponseValidationError) Key() bool { return e.key }
+func (e DeleteFeedResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RemoveFeedResponseValidationError) ErrorName() string {
-	return "RemoveFeedResponseValidationError"
+func (e DeleteFeedResponseValidationError) ErrorName() string {
+	return "DeleteFeedResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e RemoveFeedResponseValidationError) Error() string {
+func (e DeleteFeedResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1707,14 +1707,14 @@ func (e RemoveFeedResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRemoveFeedResponse.%s: %s%s",
+		"invalid %sDeleteFeedResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RemoveFeedResponseValidationError{}
+var _ error = DeleteFeedResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -1722,7 +1722,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RemoveFeedResponseValidationError{}
+} = DeleteFeedResponseValidationError{}
 
 // Validate checks the field values on ListItemsResponse_Item with the rules
 // defined in the proto definition for this message. If any rules are

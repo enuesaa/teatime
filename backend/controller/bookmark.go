@@ -11,6 +11,7 @@ type BookmarkController struct {
 	BookmarkSrv *service.BookmarkService
 }
 
+
 func (ctl *BookmarkController) bookmark () *service.BookmarkService {
 	if ctl.BookmarkSrv == nil {
 		ctl.BookmarkSrv = service.NewBookmarkService()
@@ -74,11 +75,11 @@ func (ctl *BookmarkController) Update (c *gin.Context) {
 	c.JSON(200, v1.UpdateBookmarkResponse { Id: id })
 }
 
-func (ctl *BookmarkController) Remove (c *gin.Context) {
-	var body v1.RemoveBookmarkRequest
+func (ctl *BookmarkController) Delete (c *gin.Context) {
+	var body v1.DeleteBookmarkRequest
 	if !binding.Validate(c, &body) { return }
 	id := body.Id
 
 	ctl.bookmark().Delete(id)
-	c.JSON(200, v1.RemoveBookmarkResponse {})
+	c.JSON(200, v1.DeleteBookmarkResponse {})
 }

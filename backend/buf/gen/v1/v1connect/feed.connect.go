@@ -33,7 +33,7 @@ type FeedClient interface {
 	GetAppearance(context.Context, *connect_go.Request[v1.GetAppearanceRequest]) (*connect_go.Response[v1.GetAppearanceResponse], error)
 	UpdateAppearance(context.Context, *connect_go.Request[v1.UpdateAppearanceRequest]) (*connect_go.Response[v1.UpdateAppearanceResponse], error)
 	Fetch(context.Context, *connect_go.Request[v1.FetchRequest]) (*connect_go.Response[v1.FetchResponse], error)
-	RemoveFeed(context.Context, *connect_go.Request[v1.RemoveFeedRequest]) (*connect_go.Response[v1.RemoveFeedResponse], error)
+	DeleteFeed(context.Context, *connect_go.Request[v1.DeleteFeedRequest]) (*connect_go.Response[v1.DeleteFeedResponse], error)
 }
 
 // NewFeedClient constructs a client for the v1.Feed service. By default, it uses the Connect
@@ -76,9 +76,9 @@ func NewFeedClient(httpClient connect_go.HTTPClient, baseURL string, opts ...con
 			baseURL+"/v1.Feed/Fetch",
 			opts...,
 		),
-		removeFeed: connect_go.NewClient[v1.RemoveFeedRequest, v1.RemoveFeedResponse](
+		deleteFeed: connect_go.NewClient[v1.DeleteFeedRequest, v1.DeleteFeedResponse](
 			httpClient,
-			baseURL+"/v1.Feed/RemoveFeed",
+			baseURL+"/v1.Feed/DeleteFeed",
 			opts...,
 		),
 	}
@@ -92,7 +92,7 @@ type feedClient struct {
 	getAppearance    *connect_go.Client[v1.GetAppearanceRequest, v1.GetAppearanceResponse]
 	updateAppearance *connect_go.Client[v1.UpdateAppearanceRequest, v1.UpdateAppearanceResponse]
 	fetch            *connect_go.Client[v1.FetchRequest, v1.FetchResponse]
-	removeFeed       *connect_go.Client[v1.RemoveFeedRequest, v1.RemoveFeedResponse]
+	deleteFeed       *connect_go.Client[v1.DeleteFeedRequest, v1.DeleteFeedResponse]
 }
 
 // AddFeed calls v1.Feed.AddFeed.
@@ -125,9 +125,9 @@ func (c *feedClient) Fetch(ctx context.Context, req *connect_go.Request[v1.Fetch
 	return c.fetch.CallUnary(ctx, req)
 }
 
-// RemoveFeed calls v1.Feed.RemoveFeed.
-func (c *feedClient) RemoveFeed(ctx context.Context, req *connect_go.Request[v1.RemoveFeedRequest]) (*connect_go.Response[v1.RemoveFeedResponse], error) {
-	return c.removeFeed.CallUnary(ctx, req)
+// DeleteFeed calls v1.Feed.DeleteFeed.
+func (c *feedClient) DeleteFeed(ctx context.Context, req *connect_go.Request[v1.DeleteFeedRequest]) (*connect_go.Response[v1.DeleteFeedResponse], error) {
+	return c.deleteFeed.CallUnary(ctx, req)
 }
 
 // FeedHandler is an implementation of the v1.Feed service.
@@ -138,7 +138,7 @@ type FeedHandler interface {
 	GetAppearance(context.Context, *connect_go.Request[v1.GetAppearanceRequest]) (*connect_go.Response[v1.GetAppearanceResponse], error)
 	UpdateAppearance(context.Context, *connect_go.Request[v1.UpdateAppearanceRequest]) (*connect_go.Response[v1.UpdateAppearanceResponse], error)
 	Fetch(context.Context, *connect_go.Request[v1.FetchRequest]) (*connect_go.Response[v1.FetchResponse], error)
-	RemoveFeed(context.Context, *connect_go.Request[v1.RemoveFeedRequest]) (*connect_go.Response[v1.RemoveFeedResponse], error)
+	DeleteFeed(context.Context, *connect_go.Request[v1.DeleteFeedRequest]) (*connect_go.Response[v1.DeleteFeedResponse], error)
 }
 
 // NewFeedHandler builds an HTTP handler from the service implementation. It returns the path on
@@ -178,9 +178,9 @@ func NewFeedHandler(svc FeedHandler, opts ...connect_go.HandlerOption) (string, 
 		svc.Fetch,
 		opts...,
 	))
-	mux.Handle("/v1.Feed/RemoveFeed", connect_go.NewUnaryHandler(
-		"/v1.Feed/RemoveFeed",
-		svc.RemoveFeed,
+	mux.Handle("/v1.Feed/DeleteFeed", connect_go.NewUnaryHandler(
+		"/v1.Feed/DeleteFeed",
+		svc.DeleteFeed,
 		opts...,
 	))
 	return "/v1.Feed/", mux
@@ -213,6 +213,6 @@ func (UnimplementedFeedHandler) Fetch(context.Context, *connect_go.Request[v1.Fe
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("v1.Feed.Fetch is not implemented"))
 }
 
-func (UnimplementedFeedHandler) RemoveFeed(context.Context, *connect_go.Request[v1.RemoveFeedRequest]) (*connect_go.Response[v1.RemoveFeedResponse], error) {
-	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("v1.Feed.RemoveFeed is not implemented"))
+func (UnimplementedFeedHandler) DeleteFeed(context.Context, *connect_go.Request[v1.DeleteFeedRequest]) (*connect_go.Response[v1.DeleteFeedResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("v1.Feed.DeleteFeed is not implemented"))
 }

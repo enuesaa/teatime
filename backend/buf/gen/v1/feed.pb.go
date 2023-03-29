@@ -731,7 +731,7 @@ func (*FetchResponse) Descriptor() ([]byte, []int) {
 	return file_v1_feed_proto_rawDescGZIP(), []int{11}
 }
 
-type RemoveFeedRequest struct {
+type DeleteFeedRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -739,8 +739,8 @@ type RemoveFeedRequest struct {
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 }
 
-func (x *RemoveFeedRequest) Reset() {
-	*x = RemoveFeedRequest{}
+func (x *DeleteFeedRequest) Reset() {
+	*x = DeleteFeedRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_v1_feed_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -748,13 +748,13 @@ func (x *RemoveFeedRequest) Reset() {
 	}
 }
 
-func (x *RemoveFeedRequest) String() string {
+func (x *DeleteFeedRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*RemoveFeedRequest) ProtoMessage() {}
+func (*DeleteFeedRequest) ProtoMessage() {}
 
-func (x *RemoveFeedRequest) ProtoReflect() protoreflect.Message {
+func (x *DeleteFeedRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_v1_feed_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -766,26 +766,26 @@ func (x *RemoveFeedRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use RemoveFeedRequest.ProtoReflect.Descriptor instead.
-func (*RemoveFeedRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use DeleteFeedRequest.ProtoReflect.Descriptor instead.
+func (*DeleteFeedRequest) Descriptor() ([]byte, []int) {
 	return file_v1_feed_proto_rawDescGZIP(), []int{12}
 }
 
-func (x *RemoveFeedRequest) GetId() string {
+func (x *DeleteFeedRequest) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-type RemoveFeedResponse struct {
+type DeleteFeedResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *RemoveFeedResponse) Reset() {
-	*x = RemoveFeedResponse{}
+func (x *DeleteFeedResponse) Reset() {
+	*x = DeleteFeedResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_v1_feed_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -793,13 +793,13 @@ func (x *RemoveFeedResponse) Reset() {
 	}
 }
 
-func (x *RemoveFeedResponse) String() string {
+func (x *DeleteFeedResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*RemoveFeedResponse) ProtoMessage() {}
+func (*DeleteFeedResponse) ProtoMessage() {}
 
-func (x *RemoveFeedResponse) ProtoReflect() protoreflect.Message {
+func (x *DeleteFeedResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_v1_feed_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -811,8 +811,8 @@ func (x *RemoveFeedResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use RemoveFeedResponse.ProtoReflect.Descriptor instead.
-func (*RemoveFeedResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use DeleteFeedResponse.ProtoReflect.Descriptor instead.
+func (*DeleteFeedResponse) Descriptor() ([]byte, []int) {
 	return file_v1_feed_proto_rawDescGZIP(), []int{13}
 }
 
@@ -1079,10 +1079,10 @@ var file_v1_feed_proto_rawDesc = []byte{
 	0x63, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x17, 0x0a, 0x02, 0x69, 0x64, 0x18,
 	0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52, 0x02,
 	0x69, 0x64, 0x22, 0x0f, 0x0a, 0x0d, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x22, 0x2c, 0x0a, 0x11, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x46, 0x65, 0x65,
+	0x6e, 0x73, 0x65, 0x22, 0x2c, 0x0a, 0x11, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x46, 0x65, 0x65,
 	0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x17, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01,
 	0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52, 0x02, 0x69,
-	0x64, 0x22, 0x14, 0x0a, 0x12, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x46, 0x65, 0x65, 0x64, 0x52,
+	0x64, 0x22, 0x14, 0x0a, 0x12, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x46, 0x65, 0x65, 0x64, 0x52,
 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0xb6, 0x03, 0x0a, 0x04, 0x46, 0x65, 0x65, 0x64,
 	0x12, 0x34, 0x0a, 0x07, 0x41, 0x64, 0x64, 0x46, 0x65, 0x65, 0x64, 0x12, 0x12, 0x2e, 0x76, 0x31,
 	0x2e, 0x41, 0x64, 0x64, 0x46, 0x65, 0x65, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
@@ -1107,10 +1107,10 @@ var file_v1_feed_proto_rawDesc = []byte{
 	0x00, 0x12, 0x2e, 0x0a, 0x05, 0x46, 0x65, 0x74, 0x63, 0x68, 0x12, 0x10, 0x2e, 0x76, 0x31, 0x2e,
 	0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x11, 0x2e, 0x76,
 	0x31, 0x2e, 0x46, 0x65, 0x74, 0x63, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
-	0x00, 0x12, 0x3d, 0x0a, 0x0a, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x46, 0x65, 0x65, 0x64, 0x12,
-	0x15, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x46, 0x65, 0x65, 0x64, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x6d, 0x6f,
-	0x76, 0x65, 0x46, 0x65, 0x65, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00,
+	0x00, 0x12, 0x3d, 0x0a, 0x0a, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x46, 0x65, 0x65, 0x64, 0x12,
+	0x15, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x46, 0x65, 0x65, 0x64, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x65, 0x6c, 0x65,
+	0x74, 0x65, 0x46, 0x65, 0x65, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00,
 	0x42, 0x6e, 0x0a, 0x06, 0x63, 0x6f, 0x6d, 0x2e, 0x76, 0x31, 0x42, 0x09, 0x46, 0x65, 0x65, 0x64,
 	0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x31, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e,
 	0x63, 0x6f, 0x6d, 0x2f, 0x65, 0x6e, 0x75, 0x65, 0x73, 0x61, 0x61, 0x2f, 0x74, 0x65, 0x61, 0x74,
@@ -1150,8 +1150,8 @@ var file_v1_feed_proto_goTypes = []interface{}{
 	(*UpdateAppearanceResponse)(nil),                  // 11: v1.UpdateAppearanceResponse
 	(*FetchRequest)(nil),                              // 12: v1.FetchRequest
 	(*FetchResponse)(nil),                             // 13: v1.FetchResponse
-	(*RemoveFeedRequest)(nil),                         // 14: v1.RemoveFeedRequest
-	(*RemoveFeedResponse)(nil),                        // 15: v1.RemoveFeedResponse
+	(*DeleteFeedRequest)(nil),                         // 14: v1.DeleteFeedRequest
+	(*DeleteFeedResponse)(nil),                        // 15: v1.DeleteFeedResponse
 	(*ListItemsResponse_Item)(nil),                    // 16: v1.ListItemsResponse.Item
 	nil,                                               // 17: v1.ListItemsResponse.Item.AttributesEntry
 	(*GetAppearanceResponse_AttributePlace)(nil),      // 18: v1.GetAppearanceResponse.AttributePlace
@@ -1174,14 +1174,14 @@ var file_v1_feed_proto_depIdxs = []int32{
 	8,  // 12: v1.Feed.GetAppearance:input_type -> v1.GetAppearanceRequest
 	10, // 13: v1.Feed.UpdateAppearance:input_type -> v1.UpdateAppearanceRequest
 	12, // 14: v1.Feed.Fetch:input_type -> v1.FetchRequest
-	14, // 15: v1.Feed.RemoveFeed:input_type -> v1.RemoveFeedRequest
+	14, // 15: v1.Feed.DeleteFeed:input_type -> v1.DeleteFeedRequest
 	3,  // 16: v1.Feed.AddFeed:output_type -> v1.AddFeedResponse
 	5,  // 17: v1.Feed.GetFeed:output_type -> v1.GetFeedResponse
 	7,  // 18: v1.Feed.ListItems:output_type -> v1.ListItemsResponse
 	9,  // 19: v1.Feed.GetAppearance:output_type -> v1.GetAppearanceResponse
 	11, // 20: v1.Feed.UpdateAppearance:output_type -> v1.UpdateAppearanceResponse
 	13, // 21: v1.Feed.Fetch:output_type -> v1.FetchResponse
-	15, // 22: v1.Feed.RemoveFeed:output_type -> v1.RemoveFeedResponse
+	15, // 22: v1.Feed.DeleteFeed:output_type -> v1.DeleteFeedResponse
 	16, // [16:23] is the sub-list for method output_type
 	9,  // [9:16] is the sub-list for method input_type
 	9,  // [9:9] is the sub-list for extension type_name
@@ -1340,7 +1340,7 @@ func file_v1_feed_proto_init() {
 			}
 		}
 		file_v1_feed_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RemoveFeedRequest); i {
+			switch v := v.(*DeleteFeedRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1352,7 +1352,7 @@ func file_v1_feed_proto_init() {
 			}
 		}
 		file_v1_feed_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RemoveFeedResponse); i {
+			switch v := v.(*DeleteFeedResponse); i {
 			case 0:
 				return &v.state
 			case 1:

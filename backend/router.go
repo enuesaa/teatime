@@ -29,10 +29,27 @@ func setupRouter() *gin.Engine {
 		bookmarkRoute.POST("/ListBookmarks", bookmarkCtl.List)
 		bookmarkRoute.POST("/GetBookmark", bookmarkCtl.Get)
 		bookmarkRoute.POST("/AddBookmark", bookmarkCtl.Add)
+		bookmarkRoute.POST("/UpdateBookmark", bookmarkCtl.Update)
+		bookmarkRoute.POST("/DeleteBookmark", bookmarkCtl.Delete)
 
 		feedRoute := base.Group("/v1.Feed")
 		feedCtl := controller.FeedController{}
 		feedRoute.POST("/AddFeed", feedCtl.Add)
+		feedRoute.POST("/GetFeed", feedCtl.Get)
+		feedRoute.POST("/ListItems", feedCtl.ListItems)
+		feedRoute.POST("/GetAppearance", feedCtl.GetAppearance)
+		feedRoute.POST("/UpdateAppearance", feedCtl.UpdateAppearance)
+		feedRoute.POST("/Fetch", feedCtl.Fetch)
+		feedRoute.POST("/DeleteFeed", feedCtl.Delete)
+
+		boardRoute := base.Group("/v1.Board")
+		boardCtl := controller.BoardController{}
+		boardRoute.POST("/AddBoard", boardCtl.Add)
+		boardRoute.POST("/Checkin", boardCtl.Checkin)
+		boardRoute.POST("/ListTimeline", boardCtl.ListTimeline)
+		boardRoute.POST("/ArchiveBoard", boardCtl.Archive)
+		boardRoute.POST("/UnArchiveBoard", boardCtl.UnArchive)
 	}
+
 	return router
 }

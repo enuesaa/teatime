@@ -892,6 +892,17 @@ func (m *UpdateBookmarkResponse) validate(all bool) error {
 
 	var errors []error
 
+	if utf8.RuneCountInString(m.GetId()) < 1 {
+		err := UpdateBookmarkResponseValidationError{
+			field:  "Id",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return UpdateBookmarkResponseMultiError(errors)
 	}

@@ -39,7 +39,9 @@ message UpdateBookmarkRequest {
   string url = 2 [(validate.rules).string.min_len = 1];
   string name = 3 [(validate.rules).string.min_len = 1];
 }
-message UpdateBookmarkResponse {}
+message UpdateBookmarkResponse {
+  string id = 1 [(validate.rules).string.min_len = 1];
+}
 
 message DeleteBookmarkRequest {
   string id = 1 [(validate.rules).string.min_len = 1];

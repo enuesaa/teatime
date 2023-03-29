@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AddFeedRequest, AddFeedResponse, FetchRequest, FetchResponse, GetAppearanceRequest, GetAppearanceResponse, GetFeedRequest, GetFeedResponse, ListItemsRequest, ListItemsResponse, RemoveFeedRequest, RemoveFeedResponse, UpdateAppearanceRequest, UpdateAppearanceResponse } from "./feed_pb";
+import { AddFeedRequest, AddFeedResponse, DeleteFeedRequest, DeleteFeedResponse, FetchRequest, FetchResponse, GetAppearanceRequest, GetAppearanceResponse, GetFeedRequest, GetFeedResponse, ListItemsRequest, ListItemsResponse, UpdateAppearanceRequest, UpdateAppearanceResponse } from "./feed_pb";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -67,12 +67,12 @@ export const Feed = {
       kind: MethodKind.Unary,
     },
     /**
-     * @generated from rpc v1.Feed.RemoveFeed
+     * @generated from rpc v1.Feed.DeleteFeed
      */
-    removeFeed: {
-      name: "RemoveFeed",
-      I: RemoveFeedRequest,
-      O: RemoveFeedResponse,
+    deleteFeed: {
+      name: "DeleteFeed",
+      I: DeleteFeedRequest,
+      O: DeleteFeedResponse,
       kind: MethodKind.Unary,
     },
   }

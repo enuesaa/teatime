@@ -76,10 +76,10 @@ message FetchRequest {
 }
 message FetchResponse {}
 
-message RemoveFeedRequest {
+message DeleteFeedRequest {
   string id = 1 [(validate.rules).string.min_len = 1];
 }
-message RemoveFeedResponse {}
+message DeleteFeedResponse {}
 
 service Feed {
   rpc AddFeed(AddFeedRequest) returns (AddFeedResponse) {}
@@ -88,5 +88,5 @@ service Feed {
   rpc GetAppearance(GetAppearanceRequest) returns (GetAppearanceResponse) {}
   rpc UpdateAppearance(UpdateAppearanceRequest) returns (UpdateAppearanceResponse) {}
   rpc Fetch(FetchRequest) returns (FetchResponse) {}
-  rpc RemoveFeed(RemoveFeedRequest) returns (RemoveFeedResponse) {}
+  rpc DeleteFeed(DeleteFeedRequest) returns (DeleteFeedResponse) {}
 }
