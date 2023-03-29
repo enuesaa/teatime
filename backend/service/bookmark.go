@@ -1,11 +1,12 @@
 package service
 
 import (
+	"fmt"
 	"github.com/enuesaa/teatime-app/backend/repository"
 )
 
 type Bookmark struct {
-	Name string
+	Name string `json:"name,omitempty"`
 }
 
 
@@ -27,10 +28,10 @@ func (srv *BookmarkService) List() []Bookmark {
 }
 
 func (srv *BookmarkService) Get(id string) Bookmark {
-	srv.RedisRepo.Get(srv.getRedisId(id))
+	a := srv.RedisRepo.JsonGet(srv.getRedisId(id))
+	fmt.Println(a)
 	return Bookmark {}
 }
-
 
 func (srv *BookmarkService) Create(bookmark Bookmark) string {
 	srv.RedisRepo.JsonSet(srv.getRedisId("bb"), bookmark)
