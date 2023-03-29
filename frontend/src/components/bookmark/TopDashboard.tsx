@@ -2,16 +2,11 @@ import { css, useTheme } from '@emotion/react'
 import { TopDashboardItem } from '@/components/bookmark/TopDashboardItem'
 import { AiOutlineSwapRight } from 'react-icons/ai'
 import Link from 'next/link'
-import { useGetBookmarksQuery } from '@/lib/bookmark'
-import { GetBookmarkResponse } from '@/gen/v1/bookmark_pb'
+import { useListBookmarksQuery } from '@/lib/bookmark'
 
 export const TopDashboard = () => {
   const theme = useTheme()
-  const data = useGetBookmarksQuery()
-  const list: GetBookmarkResponse[] = []
-  if (data !== null) {
-    list.push(data)
-  }
+  const list = useListBookmarksQuery()
 
   const styles = {
     main: css({
@@ -42,8 +37,8 @@ export const TopDashboard = () => {
       </h2>
       <ul css={styles.list}>
         {
-          list.map((v,i) => {
-            return (<TopDashboardItem title={v.name} href='https://example.com' key={i} />)
+          list?.items.map((v,i) => {
+            return (<TopDashboardItem title={v?.name} href={v?.url ?? 'https://example.com/'} key={i} />)
           })
         }
       </ul>
