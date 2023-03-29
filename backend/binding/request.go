@@ -1,4 +1,4 @@
-package validate
+package binding
 
 import (
 	"github.com/gin-gonic/gin"
@@ -9,12 +9,14 @@ type WithValidator interface {
 }
 
 // see https://github.com/eddycjy/go-gin-example/blob/master/pkg/app/form.go
-func Validate(c *gin.Context, body WithValidator) error {
+func Validate(c *gin.Context, body WithValidator) bool {
 	if err := c.ShouldBindJSON(&body); err != nil {
-		return err
+		c.Error(err)
+		return false
 	}
 	if err := body.Validate(); err != nil {
-		return err
+		c.Error(err)
+		return false
 	}
-	return nil
+	return true
 }

@@ -1,19 +1,15 @@
 package controller
 
 import (
-	"fmt"
-	"net/http"
-
 	"github.com/gin-gonic/gin"
 	"github.com/enuesaa/teatime-app/backend/buf/gen/v1"
-	"github.com/enuesaa/teatime-app/backend/validate"
+	"github.com/enuesaa/teatime-app/backend/binding"
 	"github.com/enuesaa/teatime-app/backend/service"
 )
 
 func ListBookmarks(c *gin.Context) {
 	var body v1.ListBookmarksRequest
-	if err := validate.Validate(c, &body); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	if !binding.Validate(c, &body) {
 		return
 	}
 
@@ -28,26 +24,22 @@ func ListBookmarks(c *gin.Context) {
 		})
 	}
 
-	c.JSON(http.StatusOK, v1.ListBookmarksResponse {
+	c.JSON(200, v1.ListBookmarksResponse {
 		Page: 1,
 		Items: items,
 	})
-
 }
 
 func GetBookmark(c *gin.Context) {
 	var body v1.GetBookmarkRequest
-	if err := validate.Validate(c, &body); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	if !binding.Validate(c, &body) {
 		return
 	}
 	id := body.Id
 
 	var bookmarkSrv = service.NewBookmarkService()
-	data := bookmarkSrv.Get(id)
-	fmt.Printf("%v", data)
-	
-	c.JSON(http.StatusOK, v1.GetBookmarkResponse {
+	data := bookmarkSrv.Get(id)	
+	c.JSON(200, v1.GetBookmarkResponse {
 		Id: id,
 		Name: data.Name,
 		Url: "",
@@ -56,8 +48,7 @@ func GetBookmark(c *gin.Context) {
 
 func AddBookmark(c *gin.Context) {
 	var body v1.AddBookmarkRequest
-	if err := validate.Validate(c, &body); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	if !binding.Validate(c, &body) {
 		return
 	}
 
@@ -66,8 +57,6 @@ func AddBookmark(c *gin.Context) {
 		Name: body.Name,
 		Url: body.Url,
 	})
-	
-	c.JSON(http.StatusOK, v1.AddBookmarkResponse {
-		Id: id,
-	})
+
+	c.JSON(200, v1.AddBookmarkResponse { Id: id })
 }
