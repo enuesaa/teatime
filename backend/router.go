@@ -17,6 +17,9 @@ func setupRouter() *gin.Engine {
 		bookmarkRoute := base.Group("/v1.Bookmark")
 		bookmarkRoute.POST("/GetBookmark", controller.GetBookmark)
 		bookmarkRoute.POST("/AddBookmark", controller.AddBookmark)
+		
+		feedRoute := base.Group("/v1.Feed")
+		feedRoute.POST("/AddFeed", controller.AddFeed)
 	}
 	return router
 }
