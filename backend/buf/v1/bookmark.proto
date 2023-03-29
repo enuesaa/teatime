@@ -36,18 +36,20 @@ message GetBookmarkResponse {
 
 message UpdateBookmarkRequest {
   string id = 1 [(validate.rules).string.min_len = 1];
+  string url = 2 [(validate.rules).string.min_len = 1];
+  string name = 3 [(validate.rules).string.min_len = 1];
 }
 message UpdateBookmarkResponse {}
 
-message RemoveBookmarkRequest {
+message DeleteBookmarkRequest {
   string id = 1 [(validate.rules).string.min_len = 1];
 }
-message RemoveBookmarkResponse {}
+message DeleteBookmarkResponse {}
 
 service Bookmark {
   rpc AddBookmark(AddBookmarkRequest) returns (AddBookmarkResponse) {}
   rpc ListBookmarks(ListBookmarksRequest) returns (ListBookmarksResponse) {}
   rpc GetBookmark(GetBookmarkRequest) returns (GetBookmarkResponse) {}
   rpc UpdateBookmark(UpdateBookmarkRequest) returns (UpdateBookmarkResponse) {}
-  rpc RemoveBookmark(RemoveBookmarkRequest) returns (RemoveBookmarkResponse) {}
+  rpc DeleteBookmark(DeleteBookmarkRequest) returns (DeleteBookmarkResponse) {}
 }

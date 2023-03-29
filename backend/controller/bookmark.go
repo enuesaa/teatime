@@ -41,7 +41,6 @@ func (ctl *BookmarkController) List (c *gin.Context) {
 func (ctl *BookmarkController) Get (c *gin.Context) {
 	var body v1.GetBookmarkRequest
 	if !binding.Validate(c, &body) { return }
-
 	id := body.Id
 
 	data := ctl.bookmark().Get(id)	
@@ -60,6 +59,26 @@ func (ctl *BookmarkController) Add (c *gin.Context) {
 		Name: body.Name,
 		Url: body.Url,
 	})
-
 	c.JSON(200, v1.AddBookmarkResponse { Id: id })
+}
+
+func (ctl *BookmarkController) Update (c *gin.Context) {
+	var body v1.UpdateBookmarkRequest
+	if !binding.Validate(c, &body) { return }
+	id := body.Id
+
+	ctl.bookmark().Update(id, service.Bookmark {
+		Name: body.Name,
+		Url: body.Url,
+	})
+	c.JSON(200, v1.UpdateBookmarkResponse { Id: id })
+}
+
+func (ctl *BookmarkController) Remove (c *gin.Context) {
+	var body v1.RemoveBookmarkRequest
+	if !binding.Validate(c, &body) { return }
+	id := body.Id
+
+	ctl.bookmark().Delete(id)
+	c.JSON(200, v1.RemoveBookmarkResponse {})
 }

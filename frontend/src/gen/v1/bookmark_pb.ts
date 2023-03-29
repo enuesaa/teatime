@@ -310,6 +310,16 @@ export class UpdateBookmarkRequest extends Message<UpdateBookmarkRequest> {
    */
   id = "";
 
+  /**
+   * @generated from field: string url = 2;
+   */
+  url = "";
+
+  /**
+   * @generated from field: string name = 3;
+   */
+  name = "";
+
   constructor(data?: PartialMessage<UpdateBookmarkRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -319,6 +329,8 @@ export class UpdateBookmarkRequest extends Message<UpdateBookmarkRequest> {
   static readonly typeName = "v1.UpdateBookmarkRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateBookmarkRequest {
@@ -370,70 +382,70 @@ export class UpdateBookmarkResponse extends Message<UpdateBookmarkResponse> {
 }
 
 /**
- * @generated from message v1.RemoveBookmarkRequest
+ * @generated from message v1.DeleteBookmarkRequest
  */
-export class RemoveBookmarkRequest extends Message<RemoveBookmarkRequest> {
+export class DeleteBookmarkRequest extends Message<DeleteBookmarkRequest> {
   /**
    * @generated from field: string id = 1;
    */
   id = "";
 
-  constructor(data?: PartialMessage<RemoveBookmarkRequest>) {
+  constructor(data?: PartialMessage<DeleteBookmarkRequest>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "v1.RemoveBookmarkRequest";
+  static readonly typeName = "v1.DeleteBookmarkRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RemoveBookmarkRequest {
-    return new RemoveBookmarkRequest().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteBookmarkRequest {
+    return new DeleteBookmarkRequest().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RemoveBookmarkRequest {
-    return new RemoveBookmarkRequest().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteBookmarkRequest {
+    return new DeleteBookmarkRequest().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RemoveBookmarkRequest {
-    return new RemoveBookmarkRequest().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteBookmarkRequest {
+    return new DeleteBookmarkRequest().fromJsonString(jsonString, options);
   }
 
-  static equals(a: RemoveBookmarkRequest | PlainMessage<RemoveBookmarkRequest> | undefined, b: RemoveBookmarkRequest | PlainMessage<RemoveBookmarkRequest> | undefined): boolean {
-    return proto3.util.equals(RemoveBookmarkRequest, a, b);
+  static equals(a: DeleteBookmarkRequest | PlainMessage<DeleteBookmarkRequest> | undefined, b: DeleteBookmarkRequest | PlainMessage<DeleteBookmarkRequest> | undefined): boolean {
+    return proto3.util.equals(DeleteBookmarkRequest, a, b);
   }
 }
 
 /**
- * @generated from message v1.RemoveBookmarkResponse
+ * @generated from message v1.DeleteBookmarkResponse
  */
-export class RemoveBookmarkResponse extends Message<RemoveBookmarkResponse> {
-  constructor(data?: PartialMessage<RemoveBookmarkResponse>) {
+export class DeleteBookmarkResponse extends Message<DeleteBookmarkResponse> {
+  constructor(data?: PartialMessage<DeleteBookmarkResponse>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "v1.RemoveBookmarkResponse";
+  static readonly typeName = "v1.DeleteBookmarkResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RemoveBookmarkResponse {
-    return new RemoveBookmarkResponse().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteBookmarkResponse {
+    return new DeleteBookmarkResponse().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RemoveBookmarkResponse {
-    return new RemoveBookmarkResponse().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteBookmarkResponse {
+    return new DeleteBookmarkResponse().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RemoveBookmarkResponse {
-    return new RemoveBookmarkResponse().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteBookmarkResponse {
+    return new DeleteBookmarkResponse().fromJsonString(jsonString, options);
   }
 
-  static equals(a: RemoveBookmarkResponse | PlainMessage<RemoveBookmarkResponse> | undefined, b: RemoveBookmarkResponse | PlainMessage<RemoveBookmarkResponse> | undefined): boolean {
-    return proto3.util.equals(RemoveBookmarkResponse, a, b);
+  static equals(a: DeleteBookmarkResponse | PlainMessage<DeleteBookmarkResponse> | undefined, b: DeleteBookmarkResponse | PlainMessage<DeleteBookmarkResponse> | undefined): boolean {
+    return proto3.util.equals(DeleteBookmarkResponse, a, b);
   }
 }
 

@@ -768,6 +768,28 @@ func (m *UpdateBookmarkRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if utf8.RuneCountInString(m.GetUrl()) < 1 {
+		err := UpdateBookmarkRequestValidationError{
+			field:  "Url",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetName()) < 1 {
+		err := UpdateBookmarkRequestValidationError{
+			field:  "Name",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return UpdateBookmarkRequestMultiError(errors)
 	}
@@ -950,22 +972,22 @@ var _ interface {
 	ErrorName() string
 } = UpdateBookmarkResponseValidationError{}
 
-// Validate checks the field values on RemoveBookmarkRequest with the rules
+// Validate checks the field values on DeleteBookmarkRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *RemoveBookmarkRequest) Validate() error {
+func (m *DeleteBookmarkRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on RemoveBookmarkRequest with the rules
+// ValidateAll checks the field values on DeleteBookmarkRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// RemoveBookmarkRequestMultiError, or nil if none found.
-func (m *RemoveBookmarkRequest) ValidateAll() error {
+// DeleteBookmarkRequestMultiError, or nil if none found.
+func (m *DeleteBookmarkRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *RemoveBookmarkRequest) validate(all bool) error {
+func (m *DeleteBookmarkRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -973,7 +995,7 @@ func (m *RemoveBookmarkRequest) validate(all bool) error {
 	var errors []error
 
 	if utf8.RuneCountInString(m.GetId()) < 1 {
-		err := RemoveBookmarkRequestValidationError{
+		err := DeleteBookmarkRequestValidationError{
 			field:  "Id",
 			reason: "value length must be at least 1 runes",
 		}
@@ -984,19 +1006,19 @@ func (m *RemoveBookmarkRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return RemoveBookmarkRequestMultiError(errors)
+		return DeleteBookmarkRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// RemoveBookmarkRequestMultiError is an error wrapping multiple validation
-// errors returned by RemoveBookmarkRequest.ValidateAll() if the designated
+// DeleteBookmarkRequestMultiError is an error wrapping multiple validation
+// errors returned by DeleteBookmarkRequest.ValidateAll() if the designated
 // constraints aren't met.
-type RemoveBookmarkRequestMultiError []error
+type DeleteBookmarkRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m RemoveBookmarkRequestMultiError) Error() string {
+func (m DeleteBookmarkRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1005,11 +1027,11 @@ func (m RemoveBookmarkRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m RemoveBookmarkRequestMultiError) AllErrors() []error { return m }
+func (m DeleteBookmarkRequestMultiError) AllErrors() []error { return m }
 
-// RemoveBookmarkRequestValidationError is the validation error returned by
-// RemoveBookmarkRequest.Validate if the designated constraints aren't met.
-type RemoveBookmarkRequestValidationError struct {
+// DeleteBookmarkRequestValidationError is the validation error returned by
+// DeleteBookmarkRequest.Validate if the designated constraints aren't met.
+type DeleteBookmarkRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1017,24 +1039,24 @@ type RemoveBookmarkRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e RemoveBookmarkRequestValidationError) Field() string { return e.field }
+func (e DeleteBookmarkRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RemoveBookmarkRequestValidationError) Reason() string { return e.reason }
+func (e DeleteBookmarkRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RemoveBookmarkRequestValidationError) Cause() error { return e.cause }
+func (e DeleteBookmarkRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RemoveBookmarkRequestValidationError) Key() bool { return e.key }
+func (e DeleteBookmarkRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RemoveBookmarkRequestValidationError) ErrorName() string {
-	return "RemoveBookmarkRequestValidationError"
+func (e DeleteBookmarkRequestValidationError) ErrorName() string {
+	return "DeleteBookmarkRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e RemoveBookmarkRequestValidationError) Error() string {
+func (e DeleteBookmarkRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1046,14 +1068,14 @@ func (e RemoveBookmarkRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRemoveBookmarkRequest.%s: %s%s",
+		"invalid %sDeleteBookmarkRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RemoveBookmarkRequestValidationError{}
+var _ error = DeleteBookmarkRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -1061,24 +1083,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RemoveBookmarkRequestValidationError{}
+} = DeleteBookmarkRequestValidationError{}
 
-// Validate checks the field values on RemoveBookmarkResponse with the rules
+// Validate checks the field values on DeleteBookmarkResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *RemoveBookmarkResponse) Validate() error {
+func (m *DeleteBookmarkResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on RemoveBookmarkResponse with the rules
+// ValidateAll checks the field values on DeleteBookmarkResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// RemoveBookmarkResponseMultiError, or nil if none found.
-func (m *RemoveBookmarkResponse) ValidateAll() error {
+// DeleteBookmarkResponseMultiError, or nil if none found.
+func (m *DeleteBookmarkResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *RemoveBookmarkResponse) validate(all bool) error {
+func (m *DeleteBookmarkResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1086,19 +1108,19 @@ func (m *RemoveBookmarkResponse) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return RemoveBookmarkResponseMultiError(errors)
+		return DeleteBookmarkResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// RemoveBookmarkResponseMultiError is an error wrapping multiple validation
-// errors returned by RemoveBookmarkResponse.ValidateAll() if the designated
+// DeleteBookmarkResponseMultiError is an error wrapping multiple validation
+// errors returned by DeleteBookmarkResponse.ValidateAll() if the designated
 // constraints aren't met.
-type RemoveBookmarkResponseMultiError []error
+type DeleteBookmarkResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m RemoveBookmarkResponseMultiError) Error() string {
+func (m DeleteBookmarkResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1107,11 +1129,11 @@ func (m RemoveBookmarkResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m RemoveBookmarkResponseMultiError) AllErrors() []error { return m }
+func (m DeleteBookmarkResponseMultiError) AllErrors() []error { return m }
 
-// RemoveBookmarkResponseValidationError is the validation error returned by
-// RemoveBookmarkResponse.Validate if the designated constraints aren't met.
-type RemoveBookmarkResponseValidationError struct {
+// DeleteBookmarkResponseValidationError is the validation error returned by
+// DeleteBookmarkResponse.Validate if the designated constraints aren't met.
+type DeleteBookmarkResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1119,24 +1141,24 @@ type RemoveBookmarkResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e RemoveBookmarkResponseValidationError) Field() string { return e.field }
+func (e DeleteBookmarkResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RemoveBookmarkResponseValidationError) Reason() string { return e.reason }
+func (e DeleteBookmarkResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RemoveBookmarkResponseValidationError) Cause() error { return e.cause }
+func (e DeleteBookmarkResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RemoveBookmarkResponseValidationError) Key() bool { return e.key }
+func (e DeleteBookmarkResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RemoveBookmarkResponseValidationError) ErrorName() string {
-	return "RemoveBookmarkResponseValidationError"
+func (e DeleteBookmarkResponseValidationError) ErrorName() string {
+	return "DeleteBookmarkResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e RemoveBookmarkResponseValidationError) Error() string {
+func (e DeleteBookmarkResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1148,14 +1170,14 @@ func (e RemoveBookmarkResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRemoveBookmarkResponse.%s: %s%s",
+		"invalid %sDeleteBookmarkResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RemoveBookmarkResponseValidationError{}
+var _ error = DeleteBookmarkResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -1163,7 +1185,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RemoveBookmarkResponseValidationError{}
+} = DeleteBookmarkResponseValidationError{}
 
 // Validate checks the field values on ListBookmarksResponse_Item with the
 // rules defined in the proto definition for this message. If any rules are

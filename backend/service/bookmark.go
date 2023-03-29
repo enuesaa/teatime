@@ -59,8 +59,8 @@ func (srv *BookmarkService) Create(bookmark Bookmark) string {
 	return id
 }
 
-func (srv *BookmarkService) Update(id string) string {
-	srv.RedisRepo.Set(srv.getRedisId(id), "bbb")
+func (srv *BookmarkService) Update(id string, bookmark Bookmark) string {
+	srv.RedisRepo.JsonSet(srv.getRedisId(id), bookmark)
 	return id
 }
 
