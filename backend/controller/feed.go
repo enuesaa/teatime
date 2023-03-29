@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/enuesaa/teatime-app/backend/buf/gen/v1"
 	"github.com/enuesaa/teatime-app/backend/validate"
-	"github.com/enuesaa/teatime-app/backend/service/feed"
+	"github.com/enuesaa/teatime-app/backend/service"
 )
 
 func AddFeed(c *gin.Context) {
@@ -15,7 +15,8 @@ func AddFeed(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	feed.FetchFeed(body.Url)
+	feedSrv := service.NewFeedService()
+	feedSrv.Fetch(body.Url)
 	
 	c.JSON(http.StatusOK, v1.AddFeedResponse {})
 }
