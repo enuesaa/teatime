@@ -6,11 +6,9 @@ import (
 	"github.com/enuesaa/teatime-app/backend/binding"
 )
 
-func AddBoard(c *gin.Context) {
+type BoardController struct {}
+func (ctl *BoardController) Add (c *gin.Context) {
 	var body v1.AddBoardRequest
-	if !binding.Validate(c, &body) {
-		return
-	}
-	
+	if !binding.Validate(c, &body) { return }
 	c.JSON(200, v1.AddBoardResponse {})
 }

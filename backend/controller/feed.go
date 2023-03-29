@@ -7,13 +7,23 @@ import (
 	"github.com/enuesaa/teatime-app/backend/service"
 )
 
-func AddFeed(c *gin.Context) {
-	var body v1.AddFeedRequest
-	if !binding.Validate(c, &body) {
-		return
+
+type FeedController struct {
+	FeedSrv *service.FeedService
+}
+
+func (ctl *FeedController) feed () *service.FeedService {
+	if ctl.FeedSrv == nil {
+		ctl.FeedSrv = service.NewFeedService()
 	}
-	feedSrv := service.NewFeedService()
-	feedSrv.Fetch(body.Url)
+	return ctl.FeedSrv
+}
+
+func (ctl *FeedController) Add (c *gin.Context) {
+	var body v1.AddFeedRequest
+	if !binding.Validate(c, &body) { return }
+
+	ctl.feed().Fetch(body.Url)
 	
 	c.JSON(200, v1.AddFeedResponse {})
 }

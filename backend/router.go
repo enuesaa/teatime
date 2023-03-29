@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/enuesaa/teatime-app/backend/controller"
 	"github.com/gin-gonic/gin"
 )
@@ -14,34 +13,26 @@ func jsonMiddleware() gin.HandlerFunc {
 	}
 }
 
-func errorMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		c.Next()
-		errs := c.Errors.Errors()
-		if len(errs) > 0 {
-			c.JSON(400, gin.H{"error": errs[0] })
-		}
-	}
-}
-
 func setupRouter() *gin.Engine {
 	router := gin.Default()
 	router.Use(jsonMiddleware())
-	router.Use(errorMiddleware())
 
 	base := router.Group("/api")
 	{
 		settingRoute := base.Group("/v1.Setting")
-		settingRoute.POST("/GetAppearance", controller.GetAppearance)
-		settingRoute.POST("/PutAppearance", controller.PutAppearance)
+		settingCtl := controller.SettingController {}
+		settingRoute.POST("/GetAppearance", settingCtl.Get)
+		settingRoute.POST("/PutAppearance", settingCtl.Put)
 
 		bookmarkRoute := base.Group("/v1.Bookmark")
-		bookmarkRoute.POST("/ListBookmarks", controller.ListBookmarks)
-		bookmarkRoute.POST("/GetBookmark", controller.GetBookmark)
-		bookmarkRoute.POST("/AddBookmark", controller.AddBookmark)
+		bookmarkCtl := controller.BookmarkController {}
+		bookmarkRoute.POST("/ListBookmarks", bookmarkCtl.List)
+		bookmarkRoute.POST("/GetBookmark", bookmarkCtl.Get)
+		bookmarkRoute.POST("/AddBookmark", bookmarkCtl.Add)
 		
 		feedRoute := base.Group("/v1.Feed")
-		feedRoute.POST("/AddFeed", controller.AddFeed)
+		feedCtl := controller.FeedController {}
+		feedRoute.POST("/AddFeed", feedCtl.Add)
 	}
 	return router
 }

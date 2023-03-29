@@ -9,25 +9,31 @@ import (
 	"github.com/enuesaa/teatime-app/backend/binding"
 )
 
-func GetAppearance(c *gin.Context) {
-	var body v1.SettingGetAppearanceRequest
-	if !binding.Validate(c, &body) {
-		return
-	}
+type SettingController struct {
+	RedisRepo *repository.RedisRepository
+}
 
-	redis := repository.RedisRepository {}
-	value := redis.Get("aaa")
+func (ctl *SettingController) redis () *repository.RedisRepository {
+	if ctl.RedisRepo == nil {
+		ctl.RedisRepo = &repository.RedisRepository{}
+	}
+	return ctl.RedisRepo
+}
+
+func (ctl *SettingController) Get (c *gin.Context) {
+	var body v1.SettingGetAppearanceRequest
+	if !binding.Validate(c, &body) { return }
+
+	value := ctl.redis().Get("aaa")
 	c.JSON(http.StatusOK, v1.SettingGetAppearanceResponse {
 		Message: value,
 	})
 }
 
-func PutAppearance(c *gin.Context) {
+func (ctl *SettingController) Put (c *gin.Context) {
 	var body v1.SettingPutAppearanceRequest
-	if !binding.Validate(c, &body) {
-		return
-	}
-	redis := repository.RedisRepository {}
-	redis.Set("aaa", "bbb")
+	if !binding.Validate(c, &body) { return }
+	
+	ctl.redis().Set("aaa", "bbb")
 	c.JSON(http.StatusOK, v1.SettingPutAppearanceResponse {})
 }

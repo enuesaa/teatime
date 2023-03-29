@@ -7,14 +7,22 @@ import (
 	"github.com/enuesaa/teatime-app/backend/service"
 )
 
-func ListBookmarks(c *gin.Context) {
-	var body v1.ListBookmarksRequest
-	if !binding.Validate(c, &body) {
-		return
-	}
+type BookmarkController struct {
+	BookmarkSrv *service.BookmarkService
+}
 
-	var bookmarkSrv = service.NewBookmarkService()
-	list := bookmarkSrv.List()
+func (ctl *BookmarkController) bookmark () *service.BookmarkService {
+	if ctl.BookmarkSrv == nil {
+		ctl.BookmarkSrv = service.NewBookmarkService()
+	}
+	return ctl.BookmarkSrv
+}
+
+func (ctl *BookmarkController) List (c *gin.Context) {
+	var body v1.ListBookmarksRequest
+	if !binding.Validate(c, &body) { return }
+
+	list := ctl.bookmark().List()
 	items := make([]*v1.ListBookmarksResponse_Item, 0)
 	for _, v := range list {
 		items = append(items, &v1.ListBookmarksResponse_Item {
@@ -30,15 +38,13 @@ func ListBookmarks(c *gin.Context) {
 	})
 }
 
-func GetBookmark(c *gin.Context) {
+func (ctl *BookmarkController) Get (c *gin.Context) {
 	var body v1.GetBookmarkRequest
-	if !binding.Validate(c, &body) {
-		return
-	}
+	if !binding.Validate(c, &body) { return }
+
 	id := body.Id
 
-	var bookmarkSrv = service.NewBookmarkService()
-	data := bookmarkSrv.Get(id)	
+	data := ctl.bookmark().Get(id)	
 	c.JSON(200, v1.GetBookmarkResponse {
 		Id: id,
 		Name: data.Name,
@@ -46,14 +52,11 @@ func GetBookmark(c *gin.Context) {
 	})
 }
 
-func AddBookmark(c *gin.Context) {
+func (ctl *BookmarkController) Add (c *gin.Context) {
 	var body v1.AddBookmarkRequest
-	if !binding.Validate(c, &body) {
-		return
-	}
+	if !binding.Validate(c, &body) { return }
 
-	var bookmarkSrv = service.NewBookmarkService()
-	id := bookmarkSrv.Create(service.Bookmark {
+	id := ctl.bookmark().Create(service.Bookmark {
 		Name: body.Name,
 		Url: body.Url,
 	})
