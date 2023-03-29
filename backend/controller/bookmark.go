@@ -19,7 +19,7 @@ func GetBookmark(c *gin.Context) {
 	id := body.Id
 
 	var bookmarkSrv = &service.BookmarkService{}
-	bookmarkSrv.Get(c, id)
+	bookmarkSrv.Get(id)
 	
 	c.JSON(http.StatusOK, v1.GetBookmarkResponse {
 		Id: id,
@@ -36,7 +36,7 @@ func AddBookmark(c *gin.Context) {
 	}
 
 	var bookmarkSrv = &service.BookmarkService{}
-	bookmarkSrv.Create(c, service.Bookmark { Name: "aaaaaaa" })
+	bookmarkSrv.Create(service.Bookmark { Name: "aaaaaaa" })
 	
 	c.JSON(http.StatusOK, v1.AddBookmarkResponse {})
 }

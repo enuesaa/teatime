@@ -17,7 +17,7 @@ func GetAppearance(c *gin.Context) {
 	}
 
 	redis := repository.RedisRepository {}
-	value := redis.Get(c, "aaa")
+	value := redis.Get("aaa")
 	c.JSON(http.StatusOK, v1.SettingGetAppearanceResponse {
 		Message: value,
 	})
@@ -30,6 +30,6 @@ func PutAppearance(c *gin.Context) {
 		return
 	}
 	redis := repository.RedisRepository {}
-	redis.Set(c, "aaa", "bbb")
+	redis.Set("aaa", "bbb")
 	c.JSON(http.StatusOK, v1.SettingPutAppearanceResponse {})
 }

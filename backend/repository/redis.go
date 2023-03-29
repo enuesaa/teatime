@@ -2,18 +2,18 @@ package repository
  
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
 	"github.com/nitishm/go-rejson/v4"
 	"os"
+	"context"
 )
 
 type RedisRepositoryInterface interface {
-	Get(ctx *gin.Context, key string) string
-	Set(ctx *gin.Context, key string, value string)
-	Delete(ctx *gin.Context, key string)
-	JsonGet(ctx *gin.Context, key string)
-	JsonSet(ctx *gin.Context, key string, value interface {})
+	Get(key string) string
+	Set(key string, value string)
+	Delete(key string)
+	JsonGet(key string)
+	JsonSet(key string, value interface {})
 }
 
 type RedisRepository struct {}
@@ -32,15 +32,19 @@ func (repo *RedisRepository) jsonHandler() *rejson.Handler {
 	return rh
 }
 
-func (repo *RedisRepository) Get(ctx *gin.Context, key string) string {
-	val, err := repo.client().Get(ctx, key).Result()
+func (repo *RedisRepository) ctx() context.Context {
+	return context.Background()
+}
+
+func (repo *RedisRepository) Get(key string) string {
+	val, err := repo.client().Get(repo.ctx(), key).Result()
 	if err != nil {
 		val = ""
 	}
 	return val
 }
 
-func (repo *RedisRepository) JsonGet(ctx *gin.Context, key string) {
+func (repo *RedisRepository) JsonGet(key string) {
 	data, err := repo.jsonHandler().JSONGet(key, ".")
 	if err != nil {
 		data = ""
@@ -49,7 +53,7 @@ func (repo *RedisRepository) JsonGet(ctx *gin.Context, key string) {
 }
 
 
-func (repo *RedisRepository) JsonSet(ctx *gin.Context, key string, value interface {}) {
+func (repo *RedisRepository) JsonSet(key string, value interface {}) {
 	data, err := repo.jsonHandler().JSONSet(key, ".", value)
 	if err != nil {
 		fmt.Printf("%-v", err)
@@ -57,15 +61,15 @@ func (repo *RedisRepository) JsonSet(ctx *gin.Context, key string, value interfa
 	fmt.Printf("%-v", data)
 }
 
-func (repo *RedisRepository) Set(ctx *gin.Context, key string, value string) {
-	err := repo.client().Set(ctx, key, value, 0).Err()
+func (repo *RedisRepository) Set(key string, value string) {
+	err := repo.client().Set(repo.ctx(), key, value, 0).Err()
 	if err != nil {
 		fmt.Printf("%-v", err)
 	}
 }
 
-func (repo *RedisRepository) Delete(ctx *gin.Context, key string) {
-	err := repo.client().Del(ctx, key).Err()
+func (repo *RedisRepository) Delete(key string) {
+	err := repo.client().Del(repo.ctx(), key).Err()
 	if err != nil {
 		fmt.Printf("%-v", err)
 	}

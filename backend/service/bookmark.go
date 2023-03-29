@@ -2,7 +2,6 @@ package service
 
 import (
 	"github.com/enuesaa/teatime-app/backend/repository"
-	"github.com/gin-gonic/gin"
 )
 
 type Bookmark struct {
@@ -27,22 +26,22 @@ func (srv *BookmarkService) List() []Bookmark {
 	return []Bookmark{ Bookmark {} }
 }
 
-func (srv *BookmarkService) Get(c *gin.Context, id string) Bookmark {
-	srv.RedisRepo.Get(c, srv.getRedisId(id))
+func (srv *BookmarkService) Get(id string) Bookmark {
+	srv.RedisRepo.Get(srv.getRedisId(id))
 	return Bookmark {}
 }
 
 
-func (srv *BookmarkService) Create(c *gin.Context, bookmark Bookmark) string {
-	srv.RedisRepo.JsonSet(c, srv.getRedisId("bb"), bookmark)
+func (srv *BookmarkService) Create(bookmark Bookmark) string {
+	srv.RedisRepo.JsonSet(srv.getRedisId("bb"), bookmark)
 	return "" // id
 }
 
-func (srv *BookmarkService) Update(c *gin.Context, id string) string {
-	srv.RedisRepo.Set(c, srv.getRedisId(id), "bbb")
+func (srv *BookmarkService) Update(id string) string {
+	srv.RedisRepo.Set(srv.getRedisId(id), "bbb")
 	return id
 }
 
-func (srv *BookmarkService) Delete(c *gin.Context, id string) {
-	srv.RedisRepo.Delete(c, srv.getRedisId(id))
+func (srv *BookmarkService) Delete(id string) {
+	srv.RedisRepo.Delete(srv.getRedisId(id))
 }
