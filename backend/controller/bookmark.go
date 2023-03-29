@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -20,6 +21,7 @@ func GetBookmark(c *gin.Context) {
 
 	var bookmarkSrv = service.NewBookmarkService()
 	data := bookmarkSrv.Get(id)
+	fmt.Println("%v", data)
 	
 	c.JSON(http.StatusOK, v1.GetBookmarkResponse {
 		Id: id,
@@ -36,7 +38,9 @@ func AddBookmark(c *gin.Context) {
 	}
 
 	var bookmarkSrv = service.NewBookmarkService()
-	bookmarkSrv.Create(service.Bookmark { Name: "aaaaaaa" })
+	id := bookmarkSrv.Create(service.Bookmark { Name: "aaaaaaa" })
 	
-	c.JSON(http.StatusOK, v1.AddBookmarkResponse {})
+	c.JSON(http.StatusOK, v1.AddBookmarkResponse {
+		Id: id,
+	})
 }

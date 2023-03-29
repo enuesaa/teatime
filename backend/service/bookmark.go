@@ -1,8 +1,10 @@
 package service
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/enuesaa/teatime-app/backend/repository"
+	"github.com/google/uuid"
 )
 
 type Bookmark struct {
@@ -28,14 +30,20 @@ func (srv *BookmarkService) List() []Bookmark {
 }
 
 func (srv *BookmarkService) Get(id string) Bookmark {
-	a := srv.RedisRepo.JsonGet(srv.getRedisId(id))
-	fmt.Println(a)
-	return Bookmark {}
+	data := srv.RedisRepo.JsonGet(srv.getRedisId(id))
+	bookmark := Bookmark{}
+	err := json.Unmarshal(data.([]byte), &bookmark)
+	if err != nil {
+		fmt.Println("%v", err)
+	}
+	return bookmark
 }
 
 func (srv *BookmarkService) Create(bookmark Bookmark) string {
-	srv.RedisRepo.JsonSet(srv.getRedisId("bb"), bookmark)
-	return "" // id
+	uuidObj, _ := uuid.NewUUID()
+	id := uuidObj.String()
+	srv.RedisRepo.JsonSet(srv.getRedisId(id), bookmark)
+	return id
 }
 
 func (srv *BookmarkService) Update(id string) string {
