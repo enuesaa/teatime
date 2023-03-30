@@ -10,11 +10,11 @@ import (
 
 type RedisRepositoryInterface interface {
 	Keys(pattern string) []string
-	Get(key string) string
-	Set(key string, value string)
+	// Get(key string) string
+	// Set(key string, value string)
 	Delete(key string)
-	JsonMget(ids []string) []interface{}
-	JsonGet(key string) interface{}
+	JsonMget(ids []string) [][]byte
+	JsonGet(key string) []byte
 	JsonSet(key string, value interface{})
 }
 
@@ -61,20 +61,21 @@ func (repo *RedisRepository) Delete(key string) {
 	}
 }
 
-func (repo *RedisRepository) JsonMget(ids []string) []interface{} {
+func (repo *RedisRepository) JsonMget(ids []string) [][]byte {
 	data, _ := repo.jsonHandler().JSONMGet(".", ids...)
 	if list, ok := data.([]interface{}); ok {
-		return list
+		listbytes := make([][]byte, 0)
+		for _, v := range list {
+			listbytes = append(listbytes, v.([]byte))
+		}
+		return listbytes
     }
-	return make([]interface{}, 0)
+	return make([][]byte, 0)
 }
 
-func (repo *RedisRepository) JsonGet(key string) interface{} {
-	data, err := repo.jsonHandler().JSONGet(key, ".")
-	if err != nil {
-		data = ""
-	}
-	return data
+func (repo *RedisRepository) JsonGet(key string) []byte {
+	data, _ := repo.jsonHandler().JSONGet(key, ".")
+	return data.([]byte)
 }
 
 func (repo *RedisRepository) JsonSet(key string, value interface{}) {

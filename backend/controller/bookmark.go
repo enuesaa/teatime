@@ -48,7 +48,7 @@ func (ctl *BookmarkController) Get (c *gin.Context) {
 	c.JSON(200, v1.GetBookmarkResponse {
 		Id: id,
 		Name: data.Name,
-		Url: "",
+		Url: data.Url,
 	})
 }
 

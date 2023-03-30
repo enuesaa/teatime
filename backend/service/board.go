@@ -33,7 +33,7 @@ func (srv *BoardService) List() []Board {
 	boards := []Board{}
 	for _, v := range list {
 		board := Board{}
-		err := json.Unmarshal(v.([]byte), &board)
+		err := json.Unmarshal(v, &board)
 		if err != nil {
 			fmt.Printf("%v", err)
 		}
@@ -45,7 +45,7 @@ func (srv *BoardService) List() []Board {
 func (srv *BoardService) Get(id string) Board {
 	data := srv.redisRepo.JsonGet(srv.getRedisId(id))
 	board := Board{}
-	err := json.Unmarshal(data.([]byte), &board)
+	err := json.Unmarshal(data, &board)
 	if err != nil {
 		fmt.Printf("%v", err)
 	}

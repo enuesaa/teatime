@@ -40,7 +40,7 @@ func (srv *FeeditemService) List() []Feeditem {
 	feeditems := []Feeditem{}
 	for _, v := range list {
 		feeditem := Feeditem{}
-		err := json.Unmarshal(v.([]byte), &feeditem)
+		err := json.Unmarshal(v, &feeditem)
 		if err != nil {
 			fmt.Printf("%v", err)
 		}

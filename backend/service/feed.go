@@ -43,7 +43,7 @@ func (srv *FeedService) List() []Feed {
 	feeds := []Feed{}
 	for _, v := range list {
 		feed := Feed{}
-		err := json.Unmarshal(v.([]byte), &feed)
+		err := json.Unmarshal(v, &feed)
 		if err != nil {
 			fmt.Printf("%v", err)
 		}
@@ -56,7 +56,7 @@ func (srv *FeedService) List() []Feed {
 func (srv *FeedService) Get(id string) Feed {
 	data := srv.redisRepo.JsonGet(srv.getRedisId(id))
 	feed := Feed{}
-	json.Unmarshal(data.([]byte), &feed)
+	json.Unmarshal(data, &feed)
 	return feed
 }
 

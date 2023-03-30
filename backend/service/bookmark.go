@@ -27,12 +27,12 @@ func (srv *BookmarkService) getRedisId(id string) string {
 }
 
 func (srv *BookmarkService) List() []Bookmark {
-	ids := srv.RedisRepo.Keys(srv.getRedisId("*"))
-	list := srv.RedisRepo.JsonMget(ids)
+	redisKeys := srv.RedisRepo.Keys(srv.getRedisId("*"))
+	list := srv.RedisRepo.JsonMget(redisKeys)
 	bookmarks := []Bookmark{}
 	for _, v := range list {
 		bookmark := Bookmark{}
-		err := json.Unmarshal(v.([]byte), &bookmark)
+		err := json.Unmarshal(v, &bookmark)
 		if err != nil {
 			fmt.Printf("%v", err)
 		}
@@ -44,7 +44,7 @@ func (srv *BookmarkService) List() []Bookmark {
 func (srv *BookmarkService) Get(id string) Bookmark {
 	data := srv.RedisRepo.JsonGet(srv.getRedisId(id))
 	bookmark := Bookmark{}
-	err := json.Unmarshal(data.([]byte), &bookmark)
+	err := json.Unmarshal(data, &bookmark)
 	if err != nil {
 		fmt.Printf("%v", err)
 	}
