@@ -13,5 +13,5 @@ jobs:
       - uses: actions/setup-go@v3
         with:
           go-version: '1.20'
-      - run: go test
+      - run: go test ./controller
         working-directory: ./backend
