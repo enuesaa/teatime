@@ -6,7 +6,7 @@ import { useListBookmarksQuery } from '@/lib/bookmark'
 
 export const TopDashboard = () => {
   const theme = useTheme()
-  const list = useListBookmarksQuery()
+  const list = useListBookmarksQuery({})
 
   const styles = {
     main: css({

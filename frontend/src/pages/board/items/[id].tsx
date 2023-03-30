@@ -1,7 +1,7 @@
 import { Header } from '@/components/common/Header'
 import { useRouter } from 'next/router'
 
-export default function () {
+export default function Page() {
   const router = useRouter()
   const { id } = router.query
   console.log(router)
