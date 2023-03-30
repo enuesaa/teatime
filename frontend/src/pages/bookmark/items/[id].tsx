@@ -1,7 +1,6 @@
 import { Header } from '@/components/common/Header'
 import { useRouter } from 'next/router'
-import { FeedDetail } from '@/components/feed/FeedDetail'
-import { Main } from '@/components/common/Main'
+import { BookmarkDetail } from '@/components/bookmark/BookmarkDetail'
 
 export default function Page() {
   const router = useRouter()
@@ -13,9 +12,7 @@ export default function Page() {
   return (
     <>
       <Header />
-      <Main>
-        <FeedDetail id={id} />
-      </Main>
+      <BookmarkDetail id={id} />
     </>
   )
 }

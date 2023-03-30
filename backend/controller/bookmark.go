@@ -27,7 +27,7 @@ func (ctl *BookmarkController) List (c *gin.Context) {
 	items := make([]*v1.ListBookmarksResponse_Item, 0)
 	for _, v := range list {
 		items = append(items, &v1.ListBookmarksResponse_Item {
-			Id: "",
+			Id: v.Id,
 			Name: v.Name,
 			Url: v.Url,
 		})

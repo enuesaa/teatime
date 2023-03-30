@@ -15,11 +15,6 @@ export const FeedDetail = ({ id }: Props) => {
   const { invoke: invokeFetchFeed } = useFetchLazy()
 
   const styles = {
-    main: css({
-      margin: '20px',
-      padding: '0 10px 10px 10px',
-      color: theme.color.main,
-    }),
     h2: css(theme.heading, {
       padding: '0 0 0 10px',
     }),
@@ -39,7 +34,7 @@ export const FeedDetail = ({ id }: Props) => {
   }
 
   return (
-    <section css={styles.main}>
+    <section>
       <h2 css={styles.h2}>
         Feed Detail: {data?.name}
       </h2>

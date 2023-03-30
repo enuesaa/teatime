@@ -21,7 +21,7 @@ export const TopDashboardItem = ({ title, href }: Props) => {
     }),
   }
   return (
-    <Link href={href} css={styles.link}>
+    <Link href={href} css={styles.link} target='_blank'>
       {title}
     </Link>
   )

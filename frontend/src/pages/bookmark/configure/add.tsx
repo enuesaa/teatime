@@ -1,6 +1,6 @@
 import { Header } from '@/components/common/Header'
 import { Main } from '@/components/common/Main'
-import { ConfigureAdd } from '@/components/feed/ConfigureAdd'
+import { ConfigureAdd } from '@/components/bookmark/ConfigureAdd'
 
 export default function Page() {
   return (

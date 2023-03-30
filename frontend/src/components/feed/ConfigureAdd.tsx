@@ -1,20 +1,10 @@
 import { PageTitle } from '@/components/common/PageTitle'
-import { css, useTheme } from '@emotion/react'
 import { FormEventHandler } from 'react'
 import { useAddFeedLazy } from '@/lib/feed'
 import { AddFeedRequest } from '@/gen/v1/feed_pb'
 
 export const ConfigureAdd = () => {
-  const theme = useTheme()
   const { invoke: invokeAddFeed } = useAddFeedLazy()
-
-  const styles = {
-    main: css({
-      margin: '20px',
-      padding: '0 10px 10px 10px',
-      color: theme.color.main,
-    }),
-  }
 
   const handleAddFeed: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
@@ -25,7 +15,7 @@ export const ConfigureAdd = () => {
   }
 
   return (
-    <section css={styles.main}>
+    <section>
       <PageTitle title='Feed Add' />
       <form onSubmit={handleAddFeed}>
         <div>
