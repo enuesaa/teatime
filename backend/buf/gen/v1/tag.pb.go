@@ -124,7 +124,7 @@ type ListTagsRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Page int32 `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	Page int32 `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
 }
 
 func (x *ListTagsRequest) Reset() {
@@ -171,8 +171,8 @@ type ListTagsResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Page  int32                    `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
-	Items []*ListTagsResponse_Item `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+	Page  int32                    `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
+	Items []*ListTagsResponse_Item `protobuf:"bytes,2,rep,name=items,proto3" json:"items"`
 }
 
 func (x *ListTagsResponse) Reset() {
@@ -226,8 +226,8 @@ type AddTagItemRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ResourceId string                 `protobuf:"bytes,1,opt,name=resource_id,json=resourceId,proto3" json:"resource_id,omitempty"`
-	Type       AddTagItemRequest_Type `protobuf:"varint,2,opt,name=type,proto3,enum=v1.AddTagItemRequest_Type" json:"type,omitempty"`
+	ResourceId string                 `protobuf:"bytes,1,opt,name=resource_id,json=resourceId,proto3" json:"resource_id"`
+	Type       AddTagItemRequest_Type `protobuf:"varint,2,opt,name=type,proto3,enum=v1.AddTagItemRequest_Type" json:"type"`
 }
 
 func (x *AddTagItemRequest) Reset() {
@@ -319,8 +319,8 @@ type ListTagItemsRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Page   int32  `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
-	Filter string `protobuf:"bytes,2,opt,name=filter,proto3" json:"filter,omitempty"`
+	Page   int32  `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
+	Filter string `protobuf:"bytes,2,opt,name=filter,proto3" json:"filter"`
 }
 
 func (x *ListTagItemsRequest) Reset() {
@@ -374,8 +374,8 @@ type ListTagItemsResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Page  int32                        `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
-	Items []*ListTagItemsResponse_Item `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+	Page  int32                        `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
+	Items []*ListTagItemsResponse_Item `protobuf:"bytes,2,rep,name=items,proto3" json:"items"`
 }
 
 func (x *ListTagItemsResponse) Reset() {
@@ -429,7 +429,7 @@ type RemoveTagItemRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
 }
 
 func (x *RemoveTagItemRequest) Reset() {
@@ -514,8 +514,8 @@ type ListTagsResponse_Item struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id   string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Id   string `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name"`
 }
 
 func (x *ListTagsResponse_Item) Reset() {
@@ -569,10 +569,10 @@ type ListTagItemsResponse_Item struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id         string                         `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	ResourceId string                         `protobuf:"bytes,2,opt,name=resource_id,json=resourceId,proto3" json:"resource_id,omitempty"`
-	Name       string                         `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	Type       ListTagItemsResponse_Item_Type `protobuf:"varint,4,opt,name=type,proto3,enum=v1.ListTagItemsResponse_Item_Type" json:"type,omitempty"`
+	Id         string                         `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	ResourceId string                         `protobuf:"bytes,2,opt,name=resource_id,json=resourceId,proto3" json:"resource_id"`
+	Name       string                         `protobuf:"bytes,3,opt,name=name,proto3" json:"name"`
+	Type       ListTagItemsResponse_Item_Type `protobuf:"varint,4,opt,name=type,proto3,enum=v1.ListTagItemsResponse_Item_Type" json:"type"`
 }
 
 func (x *ListTagItemsResponse_Item) Reset() {

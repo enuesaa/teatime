@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 )
 
 func Gen() error {
@@ -22,7 +23,26 @@ func Gen() error {
 	if err != nil {
 		fmt.Printf(stderr.String())
 	}
+	removeOmitEmpty()
+
 	return err
+}
+
+func removeOmitEmpty() {
+	entries, _ := os.ReadDir("./buf/gen/v1")
+	for _, entry := range entries {
+		if entry.IsDir() {
+			continue
+		}
+		if strings.HasSuffix(entry.Name(), "pb.go") {
+			fileInfo, _ := entry.Info()
+			filepath := fmt.Sprintf("./buf/gen/v1/%s", entry.Name())
+			file, _ := os.ReadFile(filepath)
+			trimed := strings.Replace(string(file), ",omitempty", "", -1)
+			
+			os.WriteFile(filepath, []byte(trimed), fileInfo.Mode())
+		}
+	}
 }
 
 func Lint() error {

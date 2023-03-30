@@ -26,8 +26,8 @@ type AddBookmarkRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Url  string `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
-	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Url  string `protobuf:"bytes,1,opt,name=url,proto3" json:"url"`
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name"`
 }
 
 func (x *AddBookmarkRequest) Reset() {
@@ -81,7 +81,7 @@ type AddBookmarkResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
 }
 
 func (x *AddBookmarkResponse) Reset() {
@@ -128,7 +128,7 @@ type ListBookmarksRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Page int32 `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	Page int32 `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
 }
 
 func (x *ListBookmarksRequest) Reset() {
@@ -175,8 +175,8 @@ type ListBookmarksResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Page  int32                         `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
-	Items []*ListBookmarksResponse_Item `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+	Page  int32                         `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
+	Items []*ListBookmarksResponse_Item `protobuf:"bytes,2,rep,name=items,proto3" json:"items"`
 }
 
 func (x *ListBookmarksResponse) Reset() {
@@ -230,7 +230,7 @@ type GetBookmarkRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
 }
 
 func (x *GetBookmarkRequest) Reset() {
@@ -277,9 +277,9 @@ type GetBookmarkResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id   string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Url  string `protobuf:"bytes,3,opt,name=url,proto3" json:"url,omitempty"`
+	Id   string `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name"`
+	Url  string `protobuf:"bytes,3,opt,name=url,proto3" json:"url"`
 }
 
 func (x *GetBookmarkResponse) Reset() {
@@ -340,9 +340,9 @@ type UpdateBookmarkRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id   string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Url  string `protobuf:"bytes,2,opt,name=url,proto3" json:"url,omitempty"`
-	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Id   string `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	Url  string `protobuf:"bytes,2,opt,name=url,proto3" json:"url"`
+	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name"`
 }
 
 func (x *UpdateBookmarkRequest) Reset() {
@@ -403,7 +403,7 @@ type UpdateBookmarkResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
 }
 
 func (x *UpdateBookmarkResponse) Reset() {
@@ -450,7 +450,7 @@ type DeleteBookmarkRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
 }
 
 func (x *DeleteBookmarkRequest) Reset() {
@@ -535,9 +535,9 @@ type ListBookmarksResponse_Item struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id   string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Url  string `protobuf:"bytes,3,opt,name=url,proto3" json:"url,omitempty"`
+	Id   string `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name"`
+	Url  string `protobuf:"bytes,3,opt,name=url,proto3" json:"url"`
 }
 
 func (x *ListBookmarksResponse_Item) Reset() {

@@ -64,7 +64,7 @@ type SettingGetAppearanceResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message string `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Message string `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 }
 
 func (x *SettingGetAppearanceResponse) Reset() {
@@ -111,8 +111,8 @@ type SettingPutAppearanceRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message string `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
-	Value   string `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	Message string `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
+	Value   string `protobuf:"bytes,2,opt,name=value,proto3" json:"value"`
 }
 
 func (x *SettingPutAppearanceRequest) Reset() {

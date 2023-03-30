@@ -143,7 +143,7 @@ type ListFeedsRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Page int32 `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	Page int32 `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
 }
 
 func (x *ListFeedsRequest) Reset() {
@@ -190,8 +190,8 @@ type ListFeedsResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Page  int32                     `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
-	Items []*ListFeedsResponse_Item `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+	Page  int32                     `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
+	Items []*ListFeedsResponse_Item `protobuf:"bytes,2,rep,name=items,proto3" json:"items"`
 }
 
 func (x *ListFeedsResponse) Reset() {
@@ -245,8 +245,8 @@ type AddFeedRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Url  string `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
-	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Url  string `protobuf:"bytes,1,opt,name=url,proto3" json:"url"`
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name"`
 }
 
 func (x *AddFeedRequest) Reset() {
@@ -300,7 +300,7 @@ type AddFeedResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
 }
 
 func (x *AddFeedResponse) Reset() {
@@ -347,7 +347,7 @@ type GetFeedRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
 }
 
 func (x *GetFeedRequest) Reset() {
@@ -394,12 +394,12 @@ type GetFeedResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id        string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Url       string                 `protobuf:"bytes,2,opt,name=url,proto3" json:"url,omitempty"`
-	Name      string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	Lastfetch *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=lastfetch,proto3" json:"lastfetch,omitempty"`
-	Created   *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=created,proto3" json:"created,omitempty"`
-	Modified  *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=modified,proto3" json:"modified,omitempty"`
+	Id        string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	Url       string                 `protobuf:"bytes,2,opt,name=url,proto3" json:"url"`
+	Name      string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name"`
+	Lastfetch *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=lastfetch,proto3" json:"lastfetch"`
+	Created   *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=created,proto3" json:"created"`
+	Modified  *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=modified,proto3" json:"modified"`
 }
 
 func (x *GetFeedResponse) Reset() {
@@ -481,8 +481,8 @@ type ListItemsRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id   string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Page int32  `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+	Id   string `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	Page int32  `protobuf:"varint,2,opt,name=page,proto3" json:"page"`
 }
 
 func (x *ListItemsRequest) Reset() {
@@ -536,8 +536,8 @@ type ListItemsResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Page  int32                     `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
-	Items []*ListItemsResponse_Item `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+	Page  int32                     `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
+	Items []*ListItemsResponse_Item `protobuf:"bytes,2,rep,name=items,proto3" json:"items"`
 }
 
 func (x *ListItemsResponse) Reset() {
@@ -629,7 +629,7 @@ type GetAppearanceResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Places []*GetAppearanceResponse_AttributePlace `protobuf:"bytes,1,rep,name=places,proto3" json:"places,omitempty"`
+	Places []*GetAppearanceResponse_AttributePlace `protobuf:"bytes,1,rep,name=places,proto3" json:"places"`
 }
 
 func (x *GetAppearanceResponse) Reset() {
@@ -676,7 +676,7 @@ type UpdateAppearanceRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Places []*UpdateAppearanceRequest_AttributePlace `protobuf:"bytes,1,rep,name=places,proto3" json:"places,omitempty"`
+	Places []*UpdateAppearanceRequest_AttributePlace `protobuf:"bytes,1,rep,name=places,proto3" json:"places"`
 }
 
 func (x *UpdateAppearanceRequest) Reset() {
@@ -761,7 +761,7 @@ type FetchRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
 }
 
 func (x *FetchRequest) Reset() {
@@ -846,7 +846,7 @@ type DeleteFeedRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
 }
 
 func (x *DeleteFeedRequest) Reset() {
@@ -931,9 +931,9 @@ type ListFeedsResponse_Item struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id   string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Url  string `protobuf:"bytes,3,opt,name=url,proto3" json:"url,omitempty"`
+	Id   string `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name"`
+	Url  string `protobuf:"bytes,3,opt,name=url,proto3" json:"url"`
 }
 
 func (x *ListFeedsResponse_Item) Reset() {
@@ -994,8 +994,8 @@ type ListItemsResponse_Item struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id         string            `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Attributes map[string]string `protobuf:"bytes,2,rep,name=attributes,proto3" json:"attributes,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"` // includes url, title, description...
+	Id         string            `protobuf:"bytes,1,opt,name=id,proto3" json:"id"`
+	Attributes map[string]string `protobuf:"bytes,2,rep,name=attributes,proto3" json:"attributes" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"` // includes url, title, description...
 }
 
 func (x *ListItemsResponse_Item) Reset() {
@@ -1049,8 +1049,8 @@ type GetAppearanceResponse_AttributePlace struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Attribute string                                     `protobuf:"bytes,1,opt,name=attribute,proto3" json:"attribute,omitempty"`
-	Place     GetAppearanceResponse_AttributePlace_Place `protobuf:"varint,7,opt,name=place,proto3,enum=v1.GetAppearanceResponse_AttributePlace_Place" json:"place,omitempty"`
+	Attribute string                                     `protobuf:"bytes,1,opt,name=attribute,proto3" json:"attribute"`
+	Place     GetAppearanceResponse_AttributePlace_Place `protobuf:"varint,7,opt,name=place,proto3,enum=v1.GetAppearanceResponse_AttributePlace_Place" json:"place"`
 }
 
 func (x *GetAppearanceResponse_AttributePlace) Reset() {
@@ -1104,8 +1104,8 @@ type UpdateAppearanceRequest_AttributePlace struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Attribute string                                       `protobuf:"bytes,1,opt,name=attribute,proto3" json:"attribute,omitempty"`
-	Place     UpdateAppearanceRequest_AttributePlace_Place `protobuf:"varint,2,opt,name=place,proto3,enum=v1.UpdateAppearanceRequest_AttributePlace_Place" json:"place,omitempty"`
+	Attribute string                                       `protobuf:"bytes,1,opt,name=attribute,proto3" json:"attribute"`
+	Place     UpdateAppearanceRequest_AttributePlace_Place `protobuf:"varint,2,opt,name=place,proto3,enum=v1.UpdateAppearanceRequest_AttributePlace_Place" json:"place"`
 }
 
 func (x *UpdateAppearanceRequest_AttributePlace) Reset() {
