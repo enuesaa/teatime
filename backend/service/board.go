@@ -8,9 +8,9 @@ import (
 )
 
 type Board struct {
+	Id string `json:"id"`
 	Name string `json:"name"`
 	Url string `json:"url"`
-	Id string `json:"id"`
 	Archived bool `json:"archived"`
 }
 
@@ -55,6 +55,7 @@ func (srv *BoardService) Get(id string) Board {
 func (srv *BoardService) Create(board Board) string {
 	uuidObj, _ := uuid.NewUUID()
 	id := uuidObj.String()
+	board.Id = id
 	srv.redisRepo.JsonSet(srv.getRedisId(id), board)
 	return id
 }

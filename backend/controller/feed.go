@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"strings"
+	"net/url"
 	"github.com/gin-gonic/gin"
 	"github.com/enuesaa/teatime-app/backend/buf/gen/v1"
 	"github.com/enuesaa/teatime-app/backend/binding"
@@ -26,7 +28,7 @@ func (ctl *FeedController) List (c *gin.Context) {
 	items := make([]*v1.ListFeedsResponse_Item, 0)
 	for _, v := range list {
 		items = append(items, &v1.ListFeedsResponse_Item {
-			Id: "",
+			Id: v.Id,
 			Name: v.Name,
 			Url: v.Url,
 		})
@@ -41,6 +43,11 @@ func (ctl *FeedController) List (c *gin.Context) {
 func (ctl *FeedController) Add (c *gin.Context) {
 	var body v1.AddFeedRequest
 	if !binding.Validate(c, &body) { return }
+
+	if _, err := url.ParseRequestURI(body.Url); err != nil || !strings.HasSuffix(body.Url, ".rss") {
+		c.JSON(400, gin.H{"error": "invalid url"})
+		return
+	}
 
 	id := ctl.feed().Create(service.Feed {
 		Name: body.Name,

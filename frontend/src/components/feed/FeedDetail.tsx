@@ -1,8 +1,17 @@
 import { css, useTheme } from '@emotion/react'
 import { TimelineItem } from '@/components/feed/TimelineItem'
+import { useDeleteFeedLazy, useGetFeedQuery } from '@/lib/feed'
+import { GetFeedRequest, DeleteFeedRequest } from '@/gen/v1/feed_pb'
+import { MouseEventHandler } from 'react'
 
-export const FeedDetail = () => {
+type Props = {
+  id: string,
+}
+export const FeedDetail = ({ id }: Props) => {
   const theme = useTheme()
+
+  const data = useGetFeedQuery({ id } as GetFeedRequest)
+  const { invoke: invokeDeleteFeed } = useDeleteFeedLazy()
 
   const styles = {
     main: css({
@@ -19,13 +28,19 @@ export const FeedDetail = () => {
     }),
   }
 
+  const handleDeleteFeed: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault()
+    invokeDeleteFeed({ id } as DeleteFeedRequest)
+  }
+
   return (
     <section css={styles.main}>
       <h2 css={styles.h2}>
-        Feed Detail
+        Feed Detail: {data?.name}
       </h2>
+      <button onClick={handleDeleteFeed}>delete</button>
       <ul css={styles.list}>
-        <TimelineItem href='https://example.com/' title='aaa' />
+        {/* <TimelineItem href='https://example.com/' title='aaa' /> */}
       </ul>
     </section>
   )

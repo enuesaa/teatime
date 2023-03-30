@@ -8,6 +8,7 @@ import (
 )
 
 type Feed struct {
+	Id string `json:"id"`
 	Name string `json:"name"`
 	Url string `json:"url"`
 }
@@ -44,6 +45,7 @@ func (srv *FeedService) List() []Feed {
 		}
 		feeds = append(feeds, feed)
 	}
+	fmt.Printf("%+v", feeds)
 	return feeds
 }
 
@@ -57,6 +59,7 @@ func (srv *FeedService) Get(id string) Feed {
 func (srv *FeedService) Create(feed Feed) string {
 	uuidObj, _ := uuid.NewUUID()
 	id := uuidObj.String()
+	feed.Id = id
 	srv.redisRepo.JsonSet(srv.getRedisId(id), feed)
 	return id
 }

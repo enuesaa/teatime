@@ -8,6 +8,7 @@ import (
 )
 
 type Bookmark struct {
+	Id string `json:"id"`
 	Name string `json:"name"`
 	Url string `json:"url"`
 }
@@ -53,6 +54,7 @@ func (srv *BookmarkService) Get(id string) Bookmark {
 func (srv *BookmarkService) Create(bookmark Bookmark) string {
 	uuidObj, _ := uuid.NewUUID()
 	id := uuidObj.String()
+	bookmark.Id = id
 	srv.RedisRepo.JsonSet(srv.getRedisId(id), bookmark)
 	return id
 }
