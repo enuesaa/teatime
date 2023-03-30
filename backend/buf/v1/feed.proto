@@ -46,7 +46,9 @@ message ListItemsResponse {
   int32 page = 1;
   message Item {
     string id = 1;
-    map<string, string> attributes = 2; // includes url, title, description... 
+    string name = 2;
+    string url = 3;
+    // map<string, string> attributes = 2; // includes url, title, description... 
   }
   repeated Item items = 2;
 }

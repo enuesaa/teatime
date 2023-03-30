@@ -415,11 +415,16 @@ export class ListItemsResponse_Item extends Message<ListItemsResponse_Item> {
   id = "";
 
   /**
-   * includes url, title, description... 
-   *
-   * @generated from field: map<string, string> attributes = 2;
+   * @generated from field: string name = 2;
    */
-  attributes: { [key: string]: string } = {};
+  name = "";
+
+  /**
+   * map<string, string> attributes = 2; // includes url, title, description... 
+   *
+   * @generated from field: string url = 3;
+   */
+  url = "";
 
   constructor(data?: PartialMessage<ListItemsResponse_Item>) {
     super();
@@ -430,7 +435,8 @@ export class ListItemsResponse_Item extends Message<ListItemsResponse_Item> {
   static readonly typeName = "v1.ListItemsResponse.Item";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "attributes", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "scalar", T: 9 /* ScalarType.STRING */} },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListItemsResponse_Item {

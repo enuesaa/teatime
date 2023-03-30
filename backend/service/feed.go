@@ -28,9 +28,13 @@ func (srv *FeedService) getRedisId(id string) string {
 	return "feed:" + id
 }
 
-func (srv *FeedService) Fetch(id string) {
+func (srv *FeedService) Fetch(id string) []repository.RssfeedItem {
 	feed := srv.Get(id)
-	srv.rssfeedRepo.Fetch(feed.Url)
+	rssfeed, err := srv.rssfeedRepo.Fetch(feed.Url)
+	if err != nil {
+		return make([]repository.RssfeedItem, 0)
+	}
+	return rssfeed.Items
 }
 
 func (srv *FeedService) List() []Feed {

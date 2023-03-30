@@ -2107,7 +2107,9 @@ func (m *ListItemsResponse_Item) validate(all bool) error {
 
 	// no validation rules for Id
 
-	// no validation rules for Attributes
+	// no validation rules for Name
+
+	// no validation rules for Url
 
 	if len(errors) > 0 {
 		return ListItemsResponse_ItemMultiError(errors)

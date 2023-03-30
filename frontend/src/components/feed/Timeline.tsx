@@ -2,10 +2,13 @@ import { css, useTheme } from '@emotion/react'
 import { TimelineItem } from '@/components/feed/TimelineItem'
 import { AiOutlineSwapRight } from 'react-icons/ai'
 import Link from 'next/link'
+import { useListItemsQuery } from '@/lib/feed'
+import { ListItemsRequest } from '@/gen/v1/feed_pb'
 
 export const Timeline = () => {
   const theme = useTheme()
 
+  const feeditem = useListItemsQuery({ id: 'a', page: 1 } as ListItemsRequest)
   const styles = {
     main: css({
       margin: '20px',
@@ -34,7 +37,11 @@ export const Timeline = () => {
         <Link href='/feed/configure'><AiOutlineSwapRight /></Link>
       </h2>
       <ul css={styles.list}>
-        <TimelineItem href='https://example.com/' title='aaa' />
+        {
+          feeditem?.items.map((v,i) => (
+            <TimelineItem key={i} href={v.url} title={v.name} />
+          ))
+        }
       </ul>
     </section>
   )

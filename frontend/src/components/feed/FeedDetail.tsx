@@ -1,7 +1,7 @@
 import { css, useTheme } from '@emotion/react'
 import { TimelineItem } from '@/components/feed/TimelineItem'
-import { useDeleteFeedLazy, useGetFeedQuery } from '@/lib/feed'
-import { GetFeedRequest, DeleteFeedRequest } from '@/gen/v1/feed_pb'
+import { useDeleteFeedLazy, useGetFeedQuery, useFetchLazy } from '@/lib/feed'
+import { GetFeedRequest, DeleteFeedRequest, FetchRequest } from '@/gen/v1/feed_pb'
 import { MouseEventHandler } from 'react'
 
 type Props = {
@@ -12,6 +12,7 @@ export const FeedDetail = ({ id }: Props) => {
 
   const data = useGetFeedQuery({ id } as GetFeedRequest)
   const { invoke: invokeDeleteFeed } = useDeleteFeedLazy()
+  const { invoke: invokeFetchFeed } = useFetchLazy()
 
   const styles = {
     main: css({
@@ -32,6 +33,10 @@ export const FeedDetail = ({ id }: Props) => {
     e.preventDefault()
     invokeDeleteFeed({ id } as DeleteFeedRequest)
   }
+  const handleFetchFeed: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault()
+    invokeFetchFeed({ id } as FetchRequest)
+  }
 
   return (
     <section css={styles.main}>
@@ -39,6 +44,7 @@ export const FeedDetail = ({ id }: Props) => {
         Feed Detail: {data?.name}
       </h2>
       <button onClick={handleDeleteFeed}>delete</button>
+      <button onClick={handleFetchFeed}>fetch</button>
       <ul css={styles.list}>
         {/* <TimelineItem href='https://example.com/' title='aaa' /> */}
       </ul>

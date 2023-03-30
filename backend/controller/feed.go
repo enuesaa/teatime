@@ -11,6 +11,7 @@ import (
 
 type FeedController struct {
 	FeedSrv *service.FeedService
+	FeeditemSrv *service.FeeditemService
 }
 
 func (ctl *FeedController) feed () *service.FeedService {
@@ -18,6 +19,13 @@ func (ctl *FeedController) feed () *service.FeedService {
 		ctl.FeedSrv = service.NewFeedService()
 	}
 	return ctl.FeedSrv
+}
+
+func (ctl *FeedController) feeditem () *service.FeeditemService {
+	if ctl.FeeditemSrv == nil {
+		ctl.FeeditemSrv = service.NewFeeditemService()
+	}
+	return ctl.FeeditemSrv
 }
 
 func (ctl *FeedController) List (c *gin.Context) {
@@ -72,10 +80,21 @@ func (ctl *FeedController) Get (c *gin.Context) {
 func (ctl *FeedController) ListItems (c *gin.Context) {
 	var body v1.ListItemsRequest
 	if !binding.Validate(c, &body) { return }
-	id := body.Id
 
-	ctl.feed().ListItems(id)
-	c.JSON(200, v1.ListItemsResponse {})
+	list := ctl.feeditem().List()
+	items := make([]*v1.ListItemsResponse_Item, 0)
+	for _, v := range list {
+		items = append(items, &v1.ListItemsResponse_Item {
+			Id: v.Id,
+			Name: v.Name,
+			Url: v.Url,
+		})
+	}
+
+	c.JSON(200, v1.ListItemsResponse {
+		Page: 1,
+		Items: items,
+	})
 }
 
 func (ctl *FeedController) GetAppearance (c *gin.Context) {
@@ -99,7 +118,10 @@ func (ctl *FeedController) Fetch (c *gin.Context) {
 	if !binding.Validate(c, &body) { return }
 	id := body.Id
 
-	ctl.feed().Fetch(id)
+	items := ctl.feed().Fetch(id)
+	for _, v := range items {
+		ctl.feeditem().Append(v.Name, v.Url)
+	}
 	c.JSON(200, v1.FetchResponse {})
 }
 
