@@ -34,6 +34,7 @@ func setupRouter() *gin.Engine {
 
 		feedRoute := base.Group("/v1.Feed")
 		feedCtl := controller.FeedController{}
+		feedRoute.POST("/ListFeeds", feedCtl.List)
 		feedRoute.POST("/AddFeed", feedCtl.Add)
 		feedRoute.POST("/GetFeed", feedCtl.Get)
 		feedRoute.POST("/ListItems", feedCtl.ListItems)

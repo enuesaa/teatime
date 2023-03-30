@@ -1,9 +1,12 @@
 import { css, useTheme } from '@emotion/react'
 import Link from 'next/link'
 import { GiCoffeePot } from 'react-icons/gi'
+import { useListFeedsQuery } from '@/lib/feed'
 
 export const ConfigureFeeds = () => {
   const theme = useTheme()
+  const feeds = useListFeedsQuery({})
+
   const styles = {
     list: css({
       listStyleType: 'none',
@@ -28,10 +31,12 @@ export const ConfigureFeeds = () => {
   return (
     <ul  css={styles.list}>
       <li>
-        <Link href={'/feed/items/aaa'}>
-          aaa
-          <GiCoffeePot />
-        </Link>
+        {feeds?.items.map((v,i) => (
+          <Link href={v?.url} key={i}>
+            {v?.name}
+            <GiCoffeePot />
+          </Link>
+        ))}
       </li>
     </ul>
   )

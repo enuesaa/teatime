@@ -35,6 +35,255 @@ var (
 	_ = sort.Sort
 )
 
+// Validate checks the field values on ListFeedsRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ListFeedsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListFeedsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListFeedsRequestMultiError, or nil if none found.
+func (m *ListFeedsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListFeedsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetPage() < 0 {
+		err := ListFeedsRequestValidationError{
+			field:  "Page",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ListFeedsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListFeedsRequestMultiError is an error wrapping multiple validation errors
+// returned by ListFeedsRequest.ValidateAll() if the designated constraints
+// aren't met.
+type ListFeedsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListFeedsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListFeedsRequestMultiError) AllErrors() []error { return m }
+
+// ListFeedsRequestValidationError is the validation error returned by
+// ListFeedsRequest.Validate if the designated constraints aren't met.
+type ListFeedsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListFeedsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListFeedsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListFeedsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListFeedsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListFeedsRequestValidationError) ErrorName() string { return "ListFeedsRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ListFeedsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListFeedsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListFeedsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListFeedsRequestValidationError{}
+
+// Validate checks the field values on ListFeedsResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ListFeedsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListFeedsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListFeedsResponseMultiError, or nil if none found.
+func (m *ListFeedsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListFeedsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Page
+
+	for idx, item := range m.GetItems() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListFeedsResponseValidationError{
+						field:  fmt.Sprintf("Items[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListFeedsResponseValidationError{
+						field:  fmt.Sprintf("Items[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListFeedsResponseValidationError{
+					field:  fmt.Sprintf("Items[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListFeedsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListFeedsResponseMultiError is an error wrapping multiple validation errors
+// returned by ListFeedsResponse.ValidateAll() if the designated constraints
+// aren't met.
+type ListFeedsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListFeedsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListFeedsResponseMultiError) AllErrors() []error { return m }
+
+// ListFeedsResponseValidationError is the validation error returned by
+// ListFeedsResponse.Validate if the designated constraints aren't met.
+type ListFeedsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListFeedsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListFeedsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListFeedsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListFeedsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListFeedsResponseValidationError) ErrorName() string {
+	return "ListFeedsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListFeedsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListFeedsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListFeedsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListFeedsResponseValidationError{}
+
 // Validate checks the field values on AddFeedRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -1725,6 +1974,114 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteFeedResponseValidationError{}
+
+// Validate checks the field values on ListFeedsResponse_Item with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListFeedsResponse_Item) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListFeedsResponse_Item with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListFeedsResponse_ItemMultiError, or nil if none found.
+func (m *ListFeedsResponse_Item) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListFeedsResponse_Item) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Name
+
+	// no validation rules for Url
+
+	if len(errors) > 0 {
+		return ListFeedsResponse_ItemMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListFeedsResponse_ItemMultiError is an error wrapping multiple validation
+// errors returned by ListFeedsResponse_Item.ValidateAll() if the designated
+// constraints aren't met.
+type ListFeedsResponse_ItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListFeedsResponse_ItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListFeedsResponse_ItemMultiError) AllErrors() []error { return m }
+
+// ListFeedsResponse_ItemValidationError is the validation error returned by
+// ListFeedsResponse_Item.Validate if the designated constraints aren't met.
+type ListFeedsResponse_ItemValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListFeedsResponse_ItemValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListFeedsResponse_ItemValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListFeedsResponse_ItemValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListFeedsResponse_ItemValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListFeedsResponse_ItemValidationError) ErrorName() string {
+	return "ListFeedsResponse_ItemValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListFeedsResponse_ItemValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListFeedsResponse_Item.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListFeedsResponse_ItemValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListFeedsResponse_ItemValidationError{}
 
 // Validate checks the field values on ListItemsResponse_Item with the rules
 // defined in the proto definition for this message. If any rules are

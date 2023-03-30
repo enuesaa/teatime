@@ -18,6 +18,26 @@ func (ctl *FeedController) feed () *service.FeedService {
 	return ctl.FeedSrv
 }
 
+func (ctl *FeedController) List (c *gin.Context) {
+	var body v1.ListFeedsRequest
+	if !binding.Validate(c, &body) { return }
+
+	list := ctl.feed().List()
+	items := make([]*v1.ListFeedsResponse_Item, 0)
+	for _, v := range list {
+		items = append(items, &v1.ListFeedsResponse_Item {
+			Id: "",
+			Name: v.Name,
+			Url: v.Url,
+		})
+	}
+
+	c.JSON(200, v1.ListFeedsResponse {
+		Page: 1,
+		Items: items,
+	})
+}
+
 func (ctl *FeedController) Add (c *gin.Context) {
 	var body v1.AddFeedRequest
 	if !binding.Validate(c, &body) { return }

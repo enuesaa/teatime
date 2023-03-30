@@ -27,6 +27,7 @@ const (
 
 // FeedClient is a client for the v1.Feed service.
 type FeedClient interface {
+	ListFeeds(context.Context, *connect_go.Request[v1.ListFeedsRequest]) (*connect_go.Response[v1.ListFeedsResponse], error)
 	AddFeed(context.Context, *connect_go.Request[v1.AddFeedRequest]) (*connect_go.Response[v1.AddFeedResponse], error)
 	GetFeed(context.Context, *connect_go.Request[v1.GetFeedRequest]) (*connect_go.Response[v1.GetFeedResponse], error)
 	ListItems(context.Context, *connect_go.Request[v1.ListItemsRequest]) (*connect_go.Response[v1.ListItemsResponse], error)
@@ -46,6 +47,11 @@ type FeedClient interface {
 func NewFeedClient(httpClient connect_go.HTTPClient, baseURL string, opts ...connect_go.ClientOption) FeedClient {
 	baseURL = strings.TrimRight(baseURL, "/")
 	return &feedClient{
+		listFeeds: connect_go.NewClient[v1.ListFeedsRequest, v1.ListFeedsResponse](
+			httpClient,
+			baseURL+"/v1.Feed/ListFeeds",
+			opts...,
+		),
 		addFeed: connect_go.NewClient[v1.AddFeedRequest, v1.AddFeedResponse](
 			httpClient,
 			baseURL+"/v1.Feed/AddFeed",
@@ -86,6 +92,7 @@ func NewFeedClient(httpClient connect_go.HTTPClient, baseURL string, opts ...con
 
 // feedClient implements FeedClient.
 type feedClient struct {
+	listFeeds        *connect_go.Client[v1.ListFeedsRequest, v1.ListFeedsResponse]
 	addFeed          *connect_go.Client[v1.AddFeedRequest, v1.AddFeedResponse]
 	getFeed          *connect_go.Client[v1.GetFeedRequest, v1.GetFeedResponse]
 	listItems        *connect_go.Client[v1.ListItemsRequest, v1.ListItemsResponse]
@@ -93,6 +100,11 @@ type feedClient struct {
 	updateAppearance *connect_go.Client[v1.UpdateAppearanceRequest, v1.UpdateAppearanceResponse]
 	fetch            *connect_go.Client[v1.FetchRequest, v1.FetchResponse]
 	deleteFeed       *connect_go.Client[v1.DeleteFeedRequest, v1.DeleteFeedResponse]
+}
+
+// ListFeeds calls v1.Feed.ListFeeds.
+func (c *feedClient) ListFeeds(ctx context.Context, req *connect_go.Request[v1.ListFeedsRequest]) (*connect_go.Response[v1.ListFeedsResponse], error) {
+	return c.listFeeds.CallUnary(ctx, req)
 }
 
 // AddFeed calls v1.Feed.AddFeed.
@@ -132,6 +144,7 @@ func (c *feedClient) DeleteFeed(ctx context.Context, req *connect_go.Request[v1.
 
 // FeedHandler is an implementation of the v1.Feed service.
 type FeedHandler interface {
+	ListFeeds(context.Context, *connect_go.Request[v1.ListFeedsRequest]) (*connect_go.Response[v1.ListFeedsResponse], error)
 	AddFeed(context.Context, *connect_go.Request[v1.AddFeedRequest]) (*connect_go.Response[v1.AddFeedResponse], error)
 	GetFeed(context.Context, *connect_go.Request[v1.GetFeedRequest]) (*connect_go.Response[v1.GetFeedResponse], error)
 	ListItems(context.Context, *connect_go.Request[v1.ListItemsRequest]) (*connect_go.Response[v1.ListItemsResponse], error)
@@ -148,6 +161,11 @@ type FeedHandler interface {
 // and JSON codecs. They also support gzip compression.
 func NewFeedHandler(svc FeedHandler, opts ...connect_go.HandlerOption) (string, http.Handler) {
 	mux := http.NewServeMux()
+	mux.Handle("/v1.Feed/ListFeeds", connect_go.NewUnaryHandler(
+		"/v1.Feed/ListFeeds",
+		svc.ListFeeds,
+		opts...,
+	))
 	mux.Handle("/v1.Feed/AddFeed", connect_go.NewUnaryHandler(
 		"/v1.Feed/AddFeed",
 		svc.AddFeed,
@@ -188,6 +206,10 @@ func NewFeedHandler(svc FeedHandler, opts ...connect_go.HandlerOption) (string, 
 
 // UnimplementedFeedHandler returns CodeUnimplemented from all methods.
 type UnimplementedFeedHandler struct{}
+
+func (UnimplementedFeedHandler) ListFeeds(context.Context, *connect_go.Request[v1.ListFeedsRequest]) (*connect_go.Response[v1.ListFeedsResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("v1.Feed.ListFeeds is not implemented"))
+}
 
 func (UnimplementedFeedHandler) AddFeed(context.Context, *connect_go.Request[v1.AddFeedRequest]) (*connect_go.Response[v1.AddFeedResponse], error) {
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("v1.Feed.AddFeed is not implemented"))
