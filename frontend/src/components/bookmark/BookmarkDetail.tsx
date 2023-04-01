@@ -13,11 +13,6 @@ export const BookmarkDetail = ({ id }: Props) => {
   const { invoke: invokeDeleteBookmark } = useDeleteBookmarkLazy()
 
   const styles = {
-    main: css({
-      margin: '20px',
-      padding: '0 10px 10px 10px',
-      color: theme.color.main,
-    }),
     h2: css(theme.heading, {
       padding: '0 0 0 10px',
     }),
@@ -29,7 +24,7 @@ export const BookmarkDetail = ({ id }: Props) => {
   }
 
   return (
-    <section css={styles.main}>
+    <section>
       <h2 css={styles.h2}>
         Bookmark Detail: {data?.name}
       </h2>

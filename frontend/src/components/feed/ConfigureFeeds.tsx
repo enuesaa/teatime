@@ -29,7 +29,7 @@ export const ConfigureFeeds = () => {
   }
 
   return (
-    <ul  css={styles.list}>
+    <ul css={styles.list}>
       <li>
         {feeds?.items.map((v,i) => (
           <Link href={`/feed/items/${v.id}`} key={i}>

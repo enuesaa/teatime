@@ -10,11 +10,6 @@ export const Timeline = () => {
 
   const feeditem = useListItemsQuery({ id: 'a', page: 1 } as ListItemsRequest)
   const styles = {
-    main: css({
-      margin: '20px',
-      padding: '0 10px 10px 10px',
-      color: theme.color.main,
-    }),
     h2: css(theme.heading, {
       padding: '0 0 0 10px',
       'a': {
@@ -31,7 +26,7 @@ export const Timeline = () => {
   }
 
   return (
-    <section css={styles.main}>
+    <section>
       <h2 css={styles.h2}>
         Feed
         <Link href='/feed/configure'><AiOutlineSwapRight /></Link>

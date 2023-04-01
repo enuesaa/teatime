@@ -1,6 +1,7 @@
 import { Header } from '@/components/common/Header'
 import { useRouter } from 'next/router'
 import { BookmarkDetail } from '@/components/bookmark/BookmarkDetail'
+import { Main } from '@/components/common/Main'
 
 export default function Page() {
   const router = useRouter()
@@ -12,7 +13,9 @@ export default function Page() {
   return (
     <>
       <Header />
-      <BookmarkDetail id={id} />
+      <Main>
+        <BookmarkDetail id={id} />
+      </Main>
     </>
   )
 }

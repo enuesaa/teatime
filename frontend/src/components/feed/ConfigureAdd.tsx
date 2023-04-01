@@ -1,31 +1,27 @@
 import { PageTitle } from '@/components/common/PageTitle'
-import { FormEventHandler } from 'react'
 import { useAddFeedLazy } from '@/lib/feed'
 import { AddFeedRequest } from '@/gen/v1/feed_pb'
+import { useForm } from 'react-hook-form';
+import { TextInput } from '@/components/common/TextInput'
 
+type FormData = {
+  name: string;
+  url: string;
+}
 export const ConfigureAdd = () => {
   const { invoke: invokeAddFeed } = useAddFeedLazy()
 
-  const handleAddFeed: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault()
-    const formelms = e.currentTarget.elements
-    const name = (formelms.namedItem('name') as HTMLInputElement).value ?? ''
-    const url = (formelms.namedItem('url') as HTMLInputElement).value ?? ''
-    invokeAddFeed({ name, url } as AddFeedRequest)
-  }
+  const { register, handleSubmit } = useForm<FormData>()
+  const handleAddFeed = handleSubmit((data) => {
+    invokeAddFeed(data as AddFeedRequest)
+  })
 
   return (
     <section>
       <PageTitle title='Feed Add' />
       <form onSubmit={handleAddFeed}>
-        <div>
-          <label htmlFor='name'>name</label>
-          <input type='text' name='name' />
-        </div>
-        <div>
-          <label htmlFor='url'>url</label>
-          <input type='text' name='url' />
-        </div>
+        <TextInput label='name' regist={register('name')} />
+        <TextInput label='url' regist={register('url')} />
         <button type='submit'>add</button>
       </form>
     </section>

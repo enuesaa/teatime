@@ -9,11 +9,6 @@ export const TopDashboard = () => {
   const list = useListBookmarksQuery({})
 
   const styles = {
-    main: css({
-      margin: '20px',
-      padding: '0 10px 10px 10px',
-      color: theme.color.main,
-    }),
     h2: css(theme.heading, {
       padding: '0 0 0 10px',
       'a': {
@@ -30,7 +25,7 @@ export const TopDashboard = () => {
   }
 
   return (
-    <section css={styles.main}>
+    <section>
       <h2 css={styles.h2}>
         Bookmark
         <Link href='/bookmark/configure'><AiOutlineSwapRight /></Link>
