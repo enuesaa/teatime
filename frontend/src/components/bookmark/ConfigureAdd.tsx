@@ -1,9 +1,14 @@
 import { PageTitle } from '@/components/common/PageTitle'
 import { css, useTheme } from '@emotion/react'
 import { useAddBookmarkLazy } from '@/lib/bookmark'
-import { FormEventHandler } from 'react'
 import { AddBookmarkRequest } from '@/gen/v1/bookmark_pb'
+import { useForm } from 'react-hook-form';
+import { TextInput } from '@/components/common/TextInput'
 
+type FormData = {
+  name: string;
+  url: string;
+}
 export const ConfigureAdd = () => {
   const theme = useTheme()
 
@@ -28,27 +33,17 @@ export const ConfigureAdd = () => {
       },
     }),
   }
-
-  const handleAddBookmark: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault()
-    const formelms = e.currentTarget.elements
-    const name = (formelms.namedItem('name') as HTMLInputElement).value ?? ''
-    const url = (formelms.namedItem('url') as HTMLInputElement).value ?? ''
-    invokeAddBookmark({ name, url } as AddBookmarkRequest)
-  }
+  const { register, handleSubmit } = useForm<FormData>()
+  const handleAddBookmark = handleSubmit((data) => {
+    invokeAddBookmark(data as AddBookmarkRequest)
+  })
 
   return (
     <>
       <PageTitle title='Bookmark Add' />
       <form onSubmit={handleAddBookmark} css={styles.form}>
-        <div>
-          <label htmlFor='name'>name</label>
-          <input type='text' name='name' />
-        </div>
-        <div>
-          <label htmlFor='url'>url</label>
-          <input type='text' name='url' />
-        </div>
+        <TextInput label='name' regist={register('name')} />
+        <TextInput label='url' regist={register('url')} />
         <button type='submit'>add</button>
       </form>
     </>
