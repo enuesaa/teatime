@@ -67,9 +67,9 @@ export const Header = () => {
           <FaSearch />
         </div>
       </div>
-      <button css={styles.config} onClick={() => console.log('a')}>
+      <Link href='/setting' css={styles.config}>
         <MdOutlineCoffeeMaker />
-      </button>
+      </Link>
     </header>
   )
 }
