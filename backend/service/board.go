@@ -8,34 +8,28 @@ import (
 )
 
 type Board struct {
-	Id       string `json:"id"`
-	Name     string `json:"name"`
+	Id          string `json:"id"`
+	Name        string `json:"name"`
 	Description string `json:"description"`
-	Start string `json:"start"`
-	End string `json:"end"`
-	boardmeta Boardmeta `json:"boardmeta"`
+	Start       string `json:"start"`
+	End         string `json:"end"`
 }
-type Boardmeta struct {
+type BoardCheckin struct {
+	Time string `json:"time"`
+}
+type BoardMeta struct {
 	Archived bool `json:"archived"`
+	Checkins []BoardCheckin `json:"checkins"`
 }
-func (d *Board) getBoardmeta() Boardmeta {
-	return d.boardmeta
-}
-func (d *Board) setBoardmeta(boardmeta Boardmeta) {
-	d.boardmeta = boardmeta
+type BoardEntity struct {
+	Board       Board `json:"baord"`
+	Meta   BoardMeta `json:"meta"`
 }
 
 
 type BoardService struct {
 	RedisRepo repository.RedisRepositoryInterface
 }
-
-func NewBoardService() *BoardService {
-	return &BoardService{
-		RedisRepo: &repository.RedisRepository{},
-	}
-}
-
 func (srv *BoardService) getRedisId(id string) string {
 	return "board:" + id
 }
@@ -45,41 +39,48 @@ func (srv *BoardService) List() []Board {
 	list := srv.RedisRepo.JsonMget(ids)
 	boards := []Board{}
 	for _, v := range list {
-		board := Board{}
-		err := json.Unmarshal(v, &board)
+		entity := BoardEntity{}
+		err := json.Unmarshal(v, &entity)
 		if err != nil {
 			fmt.Printf("%v", err)
 		}
-		boards = append(boards, board)
+		boards = append(boards, entity.Board)
 	}
 	return boards
 }
 
 func (srv *BoardService) Get(id string) Board {
 	data := srv.RedisRepo.JsonGet(srv.getRedisId(id))
-	board := Board{}
-	err := json.Unmarshal(data, &board)
-	if err != nil {
+	entity := BoardEntity{}
+	if err := json.Unmarshal(data, &entity); err != nil {
 		fmt.Printf("%v", err)
 	}
-	return board
+	return entity.Board
 }
 
 func (srv *BoardService) Create(board Board) string {
 	uuidObj, _ := uuid.NewUUID()
 	id := uuidObj.String()
 	board.Id = id
-	board.setBoardmeta(Boardmeta {
-		Archived: false,
-	})
-	srv.RedisRepo.JsonSet(srv.getRedisId(id), board)
+	entity := BoardEntity {
+		Board: board,
+		Meta: BoardMeta {
+			Archived: false,
+			Checkins: make([]BoardCheckin, 0),
+		},
+	}
+	srv.RedisRepo.JsonSet(srv.getRedisId(id), entity)
 	return id
 }
 
 func (srv *BoardService) Update(id string, board Board) string {
-	prev := srv.Get(id)
-	board.setBoardmeta(prev.getBoardmeta())
-	srv.RedisRepo.JsonSet(srv.getRedisId(id), board)
+	data := srv.RedisRepo.JsonGet(srv.getRedisId(id))
+	entity := BoardEntity{}
+	if err := json.Unmarshal(data, &entity); err != nil {
+		fmt.Printf("%v", err)
+	}
+	entity.Board = board
+	srv.RedisRepo.JsonSet(srv.getRedisId(id), entity)
 	return id
 }
 
@@ -88,25 +89,33 @@ func (srv *BoardService) Delete(id string) {
 }
 
 func (srv *BoardService) Checkin(id string) {
-	board := srv.Get(id)
-	boardmeta := board.getBoardmeta()
-	boardmeta.Archived = true
-	board.setBoardmeta(boardmeta)
-	srv.Update(id, board)
+	data := srv.RedisRepo.JsonGet(srv.getRedisId(id))
+	entity := BoardEntity{}
+	if err := json.Unmarshal(data, &entity); err != nil {
+		fmt.Printf("%v", err)
+	}
+	entity.Meta.Checkins = append(entity.Meta.Checkins, BoardCheckin {
+		Time: "",
+	})
+	srv.RedisRepo.JsonSet(srv.getRedisId(id), entity)
 }
 
 func (srv *BoardService) Archive(id string) {
-	board := srv.Get(id)
-	boardmeta := board.getBoardmeta()
-	boardmeta.Archived = true
-	board.setBoardmeta(boardmeta)
-	srv.Update(id, board)
+	data := srv.RedisRepo.JsonGet(srv.getRedisId(id))
+	entity := BoardEntity{}
+	if err := json.Unmarshal(data, &entity); err != nil {
+		fmt.Printf("%v", err)
+	}
+	entity.Meta.Archived = true
+	srv.RedisRepo.JsonSet(srv.getRedisId(id), entity)
 }
 
 func (srv *BoardService) UnArchive(id string) {
-	board := srv.Get(id)
-	boardmeta := board.getBoardmeta()
-	boardmeta.Archived = false
-	board.setBoardmeta(boardmeta)
-	srv.Update(id, board)
+	data := srv.RedisRepo.JsonGet(srv.getRedisId(id))
+	entity := BoardEntity{}
+	if err := json.Unmarshal(data, &entity); err != nil {
+		fmt.Printf("%v", err)
+	}
+	entity.Meta.Archived = false
+	srv.RedisRepo.JsonSet(srv.getRedisId(id), entity)
 }

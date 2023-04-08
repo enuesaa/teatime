@@ -4,6 +4,7 @@ import (
 	"github.com/enuesaa/teatime-app/backend/binding"
 	"github.com/enuesaa/teatime-app/backend/buf/gen/v1"
 	"github.com/enuesaa/teatime-app/backend/service"
+	"github.com/enuesaa/teatime-app/backend/repository"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,7 +14,9 @@ type BoardController struct {
 
 func (ctl *BoardController) board() *service.BoardService {
 	if ctl.BoardSrv == nil {
-		ctl.BoardSrv = service.NewBoardService()
+		ctl.BoardSrv = &service.BoardService{
+			RedisRepo: &repository.RedisRepository{},
+		}
 	}
 	return ctl.BoardSrv
 }

@@ -60,7 +60,9 @@ message DeleteBoardResponse {}
 message CheckinRequest {
   string id = 1;
 }
-message CheckinResponse {}
+message CheckinResponse {
+  string id = 1;
+}
 
 message ListTimelineRequest {
   string id = 1 [(validate.rules).string.min_len = 1];
@@ -78,12 +80,16 @@ message ListTimelineResponse {
 message ArchiveBoardRequest {
   string id = 1 [(validate.rules).string.min_len = 1];
 }
-message ArchiveBoardResponse {}
+message ArchiveBoardResponse {
+  string id = 1;
+}
 
 message UnArchiveBoardRequest {
   string id = 1 [(validate.rules).string.min_len = 1];
 }
-message UnArchiveBoardResponse {}
+message UnArchiveBoardResponse {
+  string id = 1;
+}
 
 
 service Board {

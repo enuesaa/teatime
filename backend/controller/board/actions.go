@@ -14,7 +14,7 @@ func (ctl *BoardController) Checkin(c *gin.Context) {
 	id := body.Id
 
 	ctl.board().Checkin(id)
-	c.JSON(200, v1.CheckinResponse{})
+	c.JSON(200, v1.CheckinResponse{ Id: id })
 }
 
 func (ctl *BoardController) ListTimeline(c *gin.Context) {
@@ -33,7 +33,7 @@ func (ctl *BoardController) Archive(c *gin.Context) {
 	id := body.Id
 
 	ctl.board().Archive(id)
-	c.JSON(200, v1.ArchiveBoardResponse{})
+	c.JSON(200, v1.ArchiveBoardResponse{ Id: id })
 }
 
 func (ctl *BoardController) UnArchive(c *gin.Context) {
@@ -44,5 +44,5 @@ func (ctl *BoardController) UnArchive(c *gin.Context) {
 	id := body.Id
 
 	ctl.board().UnArchive(id)
-	c.JSON(200, v1.UnArchiveBoardResponse{})
+	c.JSON(200, v1.UnArchiveBoardResponse{ Id: id })
 }

@@ -544,6 +544,11 @@ export class CheckinRequest extends Message<CheckinRequest> {
  * @generated from message v1.CheckinResponse
  */
 export class CheckinResponse extends Message<CheckinResponse> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
   constructor(data?: PartialMessage<CheckinResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -552,6 +557,7 @@ export class CheckinResponse extends Message<CheckinResponse> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "v1.CheckinResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CheckinResponse {
@@ -741,6 +747,11 @@ export class ArchiveBoardRequest extends Message<ArchiveBoardRequest> {
  * @generated from message v1.ArchiveBoardResponse
  */
 export class ArchiveBoardResponse extends Message<ArchiveBoardResponse> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
   constructor(data?: PartialMessage<ArchiveBoardResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -749,6 +760,7 @@ export class ArchiveBoardResponse extends Message<ArchiveBoardResponse> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "v1.ArchiveBoardResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ArchiveBoardResponse {
@@ -809,6 +821,11 @@ export class UnArchiveBoardRequest extends Message<UnArchiveBoardRequest> {
  * @generated from message v1.UnArchiveBoardResponse
  */
 export class UnArchiveBoardResponse extends Message<UnArchiveBoardResponse> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
   constructor(data?: PartialMessage<UnArchiveBoardResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -817,6 +834,7 @@ export class UnArchiveBoardResponse extends Message<UnArchiveBoardResponse> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "v1.UnArchiveBoardResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UnArchiveBoardResponse {

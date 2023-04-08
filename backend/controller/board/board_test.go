@@ -14,8 +14,8 @@ import (
 
 func boardControllerForTest() *BoardController {
 	redisMock := repository.NewRedisRepositoryMock()
-	redisMock.Append("board:aaa", `{"id":"aaa","name":"nameaaa","description":"","start":"2023-03-17T12:39:00+09:00","end":"2023-03-19T12:00:00+09:00"}`)
-	redisMock.Append("board:bbb", `{"id":"bbb","name":"namebbb","description":"","start":"2023-04-17T12:39:00+09:00","end":"2023-04-19T12:00:00+09:00"}`)
+	redisMock.Append("board:aaa", `{"board":{"id":"aaa","name":"nameaaa","description":"","start":"2023-03-17T12:39:00+09:00","end":"2023-03-19T12:00:00+09:00"},"meta":{"archived":false,"checkins":[{"time":"2023-03-20T00:00:00+09:00"},{"time":"2023-03-21T00:00:00+09:00"}]}}`)
+	redisMock.Append("board:bbb", `{"board":{"id":"bbb","name":"namebbb","description":"","start":"2023-04-17T12:39:00+09:00","end":"2023-04-19T12:00:00+09:00"},"meta":{"archived":false,"checkins":[]}}`)
 	boardController := BoardController{
 		BoardSrv: &service.BoardService{
 			RedisRepo: redisMock,

@@ -22,14 +22,14 @@ func TestListTimeline(t *testing.T) {
 
 func TestArchive(t *testing.T) {
 	c, response := contextForTest("/api/v1.Board/Archive", `{"id":"aaa"}`)
-	boardControllerForTest().Delete(c)
+	boardControllerForTest().Archive(c)
 	assert.Equal(t, 200, c.Writer.Status())
 	assert.Equal(t, `{"id":"aaa"}`, response.Body.String())
 }
 
 func TestUnArchive(t *testing.T) {
 	c, response := contextForTest("/api/v1.Board/UnArchive", `{"id":"aaa"}`)
-	boardControllerForTest().Delete(c)
+	boardControllerForTest().UnArchive(c)
 	assert.Equal(t, 200, c.Writer.Status())
 	assert.Equal(t, `{"id":"aaa"}`, response.Body.String())
 }

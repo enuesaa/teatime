@@ -1263,6 +1263,8 @@ func (m *CheckinResponse) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Id
+
 	if len(errors) > 0 {
 		return CheckinResponseMultiError(errors)
 	}
@@ -1749,6 +1751,8 @@ func (m *ArchiveBoardResponse) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Id
+
 	if len(errors) > 0 {
 		return ArchiveBoardResponseMultiError(errors)
 	}
@@ -1963,6 +1967,8 @@ func (m *UnArchiveBoardResponse) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for Id
 
 	if len(errors) > 0 {
 		return UnArchiveBoardResponseMultiError(errors)
