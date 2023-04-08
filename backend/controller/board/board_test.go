@@ -14,14 +14,12 @@ import (
 
 func boardControllerForTest() *BoardController {
 	redisMock := repository.NewRedisRepositoryMock()
-	redisMock.Append("board:aaa", `{"id":"aaa","name":"nameaaa","description":""}`)
-	redisMock.Append("board:bbb", `{"id":"bbb","name":"namebbb","description":""}`)
-
-	boardSrv := service.BoardService{
-		RedisRepo: redisMock,
-	}
+	redisMock.Append("board:aaa", `{"id":"aaa","name":"nameaaa","description":"","start":"2023-03-17T12:39:00+09:00","end":"2023-03-19T12:00:00+09:00"}`)
+	redisMock.Append("board:bbb", `{"id":"bbb","name":"namebbb","description":"","start":"2023-04-17T12:39:00+09:00","end":"2023-04-19T12:00:00+09:00"}`)
 	boardController := BoardController{
-		BoardSrv: &boardSrv,
+		BoardSrv: &service.BoardService{
+			RedisRepo: redisMock,
+		},
 	}
 	return &boardController
 }
@@ -39,18 +37,18 @@ func TestBoardListBoards(t *testing.T) {
 	c, response := contextForTest("/api/v1.Board/ListBoards", `{"page":1}`)
 	boardControllerForTest().List(c)
 	assert.Equal(t, 200, c.Writer.Status())
-	assert.Equal(t, `{"page":1,"items":[{"id":"aaa","name":"nameaaa","url":"https://example.com/aaa"},{"id":"bbb","name":"namebbb","url":"https://example.com/bbb"}]}`, response.Body.String())
+	assert.Equal(t, `{"page":1,"items":[{"id":"aaa","name":"nameaaa","description":"","start":"2023-03-17T12:39:00+09:00","end":"2023-03-19T12:00:00+09:00"},{"id":"bbb","name":"namebbb","description":"","start":"2023-04-17T12:39:00+09:00","end":"2023-04-19T12:00:00+09:00"}]}`, response.Body.String())
 }
 
 func TestBoardGetBoard(t *testing.T) {
 	c, response := contextForTest("/api/v1.Board/GetBoard", `{"id":"aaa"}`)
 	boardControllerForTest().Get(c)
 	assert.Equal(t, 200, c.Writer.Status())
-	assert.Equal(t, `{"id":"aaa","name":"nameaaa","url":"https://example.com/aaa"}`, response.Body.String())
+	assert.Equal(t, `{"id":"aaa","name":"nameaaa","description":"","start":"2023-03-17T12:39:00+09:00","end":"2023-03-19T12:00:00+09:00"}`, response.Body.String())
 }
 
 func TestBoardAddBoard(t *testing.T) {
-	c, _ := contextForTest("/api/v1.Board/AddBoard", `{"name":"nameaaa","url":"https://example.com/aaa"}`)
+	c, _ := contextForTest("/api/v1.Board/AddBoard", `{"name":"nameaaa","description":"","start":"2023-03-17T12:39:00+09:00","end":"2023-03-19T12:00:00+09:00"}`)
 	boardControllerForTest().Add(c)
 	assert.Equal(t, 200, c.Writer.Status())
 }
