@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
+import { Message, proto3 } from "@bufbuild/protobuf";
 
 /**
  * @generated from message v1.ListBoardsRequest
@@ -106,14 +106,14 @@ export class ListBoardsResponse_Item extends Message<ListBoardsResponse_Item> {
   description = "";
 
   /**
-   * @generated from field: google.protobuf.Timestamp start = 4;
+   * @generated from field: string start = 4;
    */
-  start?: Timestamp;
+  start = "";
 
   /**
-   * @generated from field: google.protobuf.Timestamp end = 5;
+   * @generated from field: string end = 5;
    */
-  end?: Timestamp;
+  end = "";
 
   constructor(data?: PartialMessage<ListBoardsResponse_Item>) {
     super();
@@ -126,8 +126,8 @@ export class ListBoardsResponse_Item extends Message<ListBoardsResponse_Item> {
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "start", kind: "message", T: Timestamp },
-    { no: 5, name: "end", kind: "message", T: Timestamp },
+    { no: 4, name: "start", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "end", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListBoardsResponse_Item {
@@ -204,14 +204,14 @@ export class GetBoardResponse extends Message<GetBoardResponse> {
   description = "";
 
   /**
-   * @generated from field: google.protobuf.Timestamp start = 4;
+   * @generated from field: string start = 4;
    */
-  start?: Timestamp;
+  start = "";
 
   /**
-   * @generated from field: google.protobuf.Timestamp end = 5;
+   * @generated from field: string end = 5;
    */
-  end?: Timestamp;
+  end = "";
 
   constructor(data?: PartialMessage<GetBoardResponse>) {
     super();
@@ -224,8 +224,8 @@ export class GetBoardResponse extends Message<GetBoardResponse> {
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "start", kind: "message", T: Timestamp },
-    { no: 5, name: "end", kind: "message", T: Timestamp },
+    { no: 4, name: "start", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "end", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetBoardResponse {
@@ -260,14 +260,14 @@ export class AddBoardRequest extends Message<AddBoardRequest> {
   description = "";
 
   /**
-   * @generated from field: google.protobuf.Timestamp start = 3;
+   * @generated from field: string start = 3;
    */
-  start?: Timestamp;
+  start = "";
 
   /**
-   * @generated from field: google.protobuf.Timestamp end = 4;
+   * @generated from field: string end = 4;
    */
-  end?: Timestamp;
+  end = "";
 
   constructor(data?: PartialMessage<AddBoardRequest>) {
     super();
@@ -279,8 +279,8 @@ export class AddBoardRequest extends Message<AddBoardRequest> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "start", kind: "message", T: Timestamp },
-    { no: 4, name: "end", kind: "message", T: Timestamp },
+    { no: 3, name: "start", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "end", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddBoardRequest {
@@ -357,14 +357,14 @@ export class UpdateBoardRequest extends Message<UpdateBoardRequest> {
   description = "";
 
   /**
-   * @generated from field: google.protobuf.Timestamp start = 4;
+   * @generated from field: string start = 4;
    */
-  start?: Timestamp;
+  start = "";
 
   /**
-   * @generated from field: google.protobuf.Timestamp end = 5;
+   * @generated from field: string end = 5;
    */
-  end?: Timestamp;
+  end = "";
 
   constructor(data?: PartialMessage<UpdateBoardRequest>) {
     super();
@@ -377,8 +377,8 @@ export class UpdateBoardRequest extends Message<UpdateBoardRequest> {
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "start", kind: "message", T: Timestamp },
-    { no: 5, name: "end", kind: "message", T: Timestamp },
+    { no: 4, name: "start", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "end", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateBoardRequest {
@@ -576,7 +576,12 @@ export class CheckinResponse extends Message<CheckinResponse> {
  */
 export class ListTimelineRequest extends Message<ListTimelineRequest> {
   /**
-   * @generated from field: int32 page = 1;
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: int32 page = 2;
    */
   page = 0;
 
@@ -588,7 +593,8 @@ export class ListTimelineRequest extends Message<ListTimelineRequest> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "v1.ListTimelineRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "page", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "page", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListTimelineRequest {
@@ -613,12 +619,17 @@ export class ListTimelineRequest extends Message<ListTimelineRequest> {
  */
 export class ListTimelineResponse extends Message<ListTimelineResponse> {
   /**
-   * @generated from field: int32 page = 1;
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: int32 page = 2;
    */
   page = 0;
 
   /**
-   * @generated from field: repeated v1.ListTimelineResponse.Item items = 2;
+   * @generated from field: repeated v1.ListTimelineResponse.Item items = 3;
    */
   items: ListTimelineResponse_Item[] = [];
 
@@ -630,8 +641,9 @@ export class ListTimelineResponse extends Message<ListTimelineResponse> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "v1.ListTimelineResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "page", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 2, name: "items", kind: "message", T: ListTimelineResponse_Item, repeated: true },
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "page", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 3, name: "items", kind: "message", T: ListTimelineResponse_Item, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListTimelineResponse {
@@ -656,9 +668,9 @@ export class ListTimelineResponse extends Message<ListTimelineResponse> {
  */
 export class ListTimelineResponse_Item extends Message<ListTimelineResponse_Item> {
   /**
-   * @generated from field: google.protobuf.Timestamp time = 1;
+   * @generated from field: string time = 1;
    */
-  time?: Timestamp;
+  time = "";
 
   constructor(data?: PartialMessage<ListTimelineResponse_Item>) {
     super();
@@ -668,7 +680,7 @@ export class ListTimelineResponse_Item extends Message<ListTimelineResponse_Item
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "v1.ListTimelineResponse.Item";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "time", kind: "message", T: Timestamp },
+    { no: 1, name: "time", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListTimelineResponse_Item {

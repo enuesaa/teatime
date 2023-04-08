@@ -647,92 +647,11 @@ func (m *GetFeedResponse) validate(all bool) error {
 
 	// no validation rules for Name
 
-	if all {
-		switch v := interface{}(m.GetLastfetch()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GetFeedResponseValidationError{
-					field:  "Lastfetch",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, GetFeedResponseValidationError{
-					field:  "Lastfetch",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetLastfetch()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return GetFeedResponseValidationError{
-				field:  "Lastfetch",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for Lastfetch
 
-	if all {
-		switch v := interface{}(m.GetCreated()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GetFeedResponseValidationError{
-					field:  "Created",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, GetFeedResponseValidationError{
-					field:  "Created",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetCreated()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return GetFeedResponseValidationError{
-				field:  "Created",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for Created
 
-	if all {
-		switch v := interface{}(m.GetModified()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GetFeedResponseValidationError{
-					field:  "Modified",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, GetFeedResponseValidationError{
-					field:  "Modified",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetModified()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return GetFeedResponseValidationError{
-				field:  "Modified",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for Modified
 
 	if len(errors) > 0 {
 		return GetFeedResponseMultiError(errors)

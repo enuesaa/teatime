@@ -416,63 +416,9 @@ func (m *GetBoardResponse) validate(all bool) error {
 
 	// no validation rules for Description
 
-	if all {
-		switch v := interface{}(m.GetStart()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GetBoardResponseValidationError{
-					field:  "Start",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, GetBoardResponseValidationError{
-					field:  "Start",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetStart()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return GetBoardResponseValidationError{
-				field:  "Start",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for Start
 
-	if all {
-		switch v := interface{}(m.GetEnd()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GetBoardResponseValidationError{
-					field:  "End",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, GetBoardResponseValidationError{
-					field:  "End",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetEnd()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return GetBoardResponseValidationError{
-				field:  "End",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for End
 
 	if len(errors) > 0 {
 		return GetBoardResponseMultiError(errors)
@@ -578,63 +524,9 @@ func (m *AddBoardRequest) validate(all bool) error {
 
 	// no validation rules for Description
 
-	if all {
-		switch v := interface{}(m.GetStart()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, AddBoardRequestValidationError{
-					field:  "Start",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, AddBoardRequestValidationError{
-					field:  "Start",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetStart()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return AddBoardRequestValidationError{
-				field:  "Start",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for Start
 
-	if all {
-		switch v := interface{}(m.GetEnd()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, AddBoardRequestValidationError{
-					field:  "End",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, AddBoardRequestValidationError{
-					field:  "End",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetEnd()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return AddBoardRequestValidationError{
-				field:  "End",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for End
 
 	if len(errors) > 0 {
 		return AddBoardRequestMultiError(errors)
@@ -844,63 +736,9 @@ func (m *UpdateBoardRequest) validate(all bool) error {
 
 	// no validation rules for Description
 
-	if all {
-		switch v := interface{}(m.GetStart()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, UpdateBoardRequestValidationError{
-					field:  "Start",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, UpdateBoardRequestValidationError{
-					field:  "Start",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetStart()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return UpdateBoardRequestValidationError{
-				field:  "Start",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for Start
 
-	if all {
-		switch v := interface{}(m.GetEnd()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, UpdateBoardRequestValidationError{
-					field:  "End",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, UpdateBoardRequestValidationError{
-					field:  "End",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetEnd()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return UpdateBoardRequestValidationError{
-				field:  "End",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for End
 
 	if len(errors) > 0 {
 		return UpdateBoardRequestMultiError(errors)
@@ -1525,6 +1363,17 @@ func (m *ListTimelineRequest) validate(all bool) error {
 
 	var errors []error
 
+	if utf8.RuneCountInString(m.GetId()) < 1 {
+		err := ListTimelineRequestValidationError{
+			field:  "Id",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if m.GetPage() < 0 {
 		err := ListTimelineRequestValidationError{
 			field:  "Page",
@@ -1637,6 +1486,17 @@ func (m *ListTimelineResponse) validate(all bool) error {
 	}
 
 	var errors []error
+
+	if utf8.RuneCountInString(m.GetId()) < 1 {
+		err := ListTimelineResponseValidationError{
+			field:  "Id",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Page
 
@@ -2212,63 +2072,9 @@ func (m *ListBoardsResponse_Item) validate(all bool) error {
 
 	// no validation rules for Description
 
-	if all {
-		switch v := interface{}(m.GetStart()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ListBoardsResponse_ItemValidationError{
-					field:  "Start",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, ListBoardsResponse_ItemValidationError{
-					field:  "Start",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetStart()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ListBoardsResponse_ItemValidationError{
-				field:  "Start",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for Start
 
-	if all {
-		switch v := interface{}(m.GetEnd()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ListBoardsResponse_ItemValidationError{
-					field:  "End",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, ListBoardsResponse_ItemValidationError{
-					field:  "End",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetEnd()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ListBoardsResponse_ItemValidationError{
-				field:  "End",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for End
 
 	if len(errors) > 0 {
 		return ListBoardsResponse_ItemMultiError(errors)
@@ -2372,34 +2178,7 @@ func (m *ListTimelineResponse_Item) validate(all bool) error {
 
 	var errors []error
 
-	if all {
-		switch v := interface{}(m.GetTime()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ListTimelineResponse_ItemValidationError{
-					field:  "Time",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, ListTimelineResponse_ItemValidationError{
-					field:  "Time",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetTime()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ListTimelineResponse_ItemValidationError{
-				field:  "Time",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for Time
 
 	if len(errors) > 0 {
 		return ListTimelineResponse_ItemMultiError(errors)

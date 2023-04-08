@@ -11,7 +11,9 @@ func (ctl *BoardController) Checkin(c *gin.Context) {
 	if !binding.Validate(c, &body) {
 		return
 	}
-	// create item
+	id := body.Id
+
+	ctl.board().Checkin(id)
 	c.JSON(200, v1.CheckinResponse{})
 }
 
@@ -20,7 +22,6 @@ func (ctl *BoardController) ListTimeline(c *gin.Context) {
 	if !binding.Validate(c, &body) {
 		return
 	}
-	// list items
 	c.JSON(200, v1.ListTimelineResponse{})
 }
 

@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package v1;
 
-import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
 
 message ListFeedsRequest {
@@ -33,9 +32,9 @@ message GetFeedResponse {
   string id = 1;
   string url = 2;
   string name = 3;
-  google.protobuf.Timestamp lastfetch = 4;
-  google.protobuf.Timestamp created = 5;
-  google.protobuf.Timestamp modified = 6;
+  string lastfetch = 4;
+  string created = 5;
+  string modified = 6;
 }
 
 message ListItemsRequest {

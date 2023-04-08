@@ -30,6 +30,9 @@ func (ctl *BoardController) List(c *gin.Context) {
 		items = append(items, &v1.ListBoardsResponse_Item{
 			Id:   v.Id,
 			Name: v.Name,
+			Description: v.Description,
+			Start: v.Start,
+			End: v.End,
 		})
 	}
 
@@ -50,6 +53,9 @@ func (ctl *BoardController) Get(c *gin.Context) {
 	c.JSON(200, v1.GetBoardResponse{
 		Id:   id,
 		Name: data.Name,
+		Description: data.Description,
+		Start: data.Start,
+		End: data.End,
 	})
 }
 
@@ -61,6 +67,9 @@ func (ctl *BoardController) Add(c *gin.Context) {
 
 	id := ctl.board().Create(service.Board{
 		Name: body.Name,
+		Description: body.Description,
+		Start: body.Start,
+		End: body.End,
 	})
 	c.JSON(200, v1.AddBoardResponse{Id: id})
 }
@@ -74,6 +83,9 @@ func (ctl *BoardController) Update(c *gin.Context) {
 
 	ctl.board().Update(id, service.Board{
 		Name: body.Name,
+		Description: body.Description,
+		Start: body.Start,
+		End: body.End,
 	})
 	c.JSON(200, v1.UpdateBoardResponse{Id: id})
 }

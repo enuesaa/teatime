@@ -10,9 +10,21 @@ import (
 type Board struct {
 	Id       string `json:"id"`
 	Name     string `json:"name"`
-	Url      string `json:"url"`
-	Archived bool   `json:"archived"`
+	Description string `json:"description"`
+	Start string `json:"start"`
+	End string `json:"end"`
+	boardmeta Boardmeta `json:"boardmeta"`
 }
+type Boardmeta struct {
+	Archived bool `json:"archived"`
+}
+func (d *Board) getBoardmeta() Boardmeta {
+	return d.boardmeta
+}
+func (d *Board) setBoardmeta(boardmeta Boardmeta) {
+	d.boardmeta = boardmeta
+}
+
 
 type BoardService struct {
 	RedisRepo repository.RedisRepositoryInterface
@@ -57,11 +69,16 @@ func (srv *BoardService) Create(board Board) string {
 	uuidObj, _ := uuid.NewUUID()
 	id := uuidObj.String()
 	board.Id = id
+	board.setBoardmeta(Boardmeta {
+		Archived: false,
+	})
 	srv.RedisRepo.JsonSet(srv.getRedisId(id), board)
 	return id
 }
 
 func (srv *BoardService) Update(id string, board Board) string {
+	prev := srv.Get(id)
+	board.setBoardmeta(prev.getBoardmeta())
 	srv.RedisRepo.JsonSet(srv.getRedisId(id), board)
 	return id
 }
@@ -70,14 +87,26 @@ func (srv *BoardService) Delete(id string) {
 	srv.RedisRepo.Delete(srv.getRedisId(id))
 }
 
+func (srv *BoardService) Checkin(id string) {
+	board := srv.Get(id)
+	boardmeta := board.getBoardmeta()
+	boardmeta.Archived = true
+	board.setBoardmeta(boardmeta)
+	srv.Update(id, board)
+}
+
 func (srv *BoardService) Archive(id string) {
 	board := srv.Get(id)
-	board.Archived = true
+	boardmeta := board.getBoardmeta()
+	boardmeta.Archived = true
+	board.setBoardmeta(boardmeta)
 	srv.Update(id, board)
 }
 
 func (srv *BoardService) UnArchive(id string) {
 	board := srv.Get(id)
-	board.Archived = false
+	boardmeta := board.getBoardmeta()
+	boardmeta.Archived = false
+	board.setBoardmeta(boardmeta)
 	srv.Update(id, board)
 }

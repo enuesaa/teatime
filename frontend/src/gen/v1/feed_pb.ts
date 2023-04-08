@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
+import { Message, proto3 } from "@bufbuild/protobuf";
 
 /**
  * @generated from message v1.ListFeedsRequest
@@ -272,19 +272,19 @@ export class GetFeedResponse extends Message<GetFeedResponse> {
   name = "";
 
   /**
-   * @generated from field: google.protobuf.Timestamp lastfetch = 4;
+   * @generated from field: string lastfetch = 4;
    */
-  lastfetch?: Timestamp;
+  lastfetch = "";
 
   /**
-   * @generated from field: google.protobuf.Timestamp created = 5;
+   * @generated from field: string created = 5;
    */
-  created?: Timestamp;
+  created = "";
 
   /**
-   * @generated from field: google.protobuf.Timestamp modified = 6;
+   * @generated from field: string modified = 6;
    */
-  modified?: Timestamp;
+  modified = "";
 
   constructor(data?: PartialMessage<GetFeedResponse>) {
     super();
@@ -297,9 +297,9 @@ export class GetFeedResponse extends Message<GetFeedResponse> {
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "lastfetch", kind: "message", T: Timestamp },
-    { no: 5, name: "created", kind: "message", T: Timestamp },
-    { no: 6, name: "modified", kind: "message", T: Timestamp },
+    { no: 4, name: "lastfetch", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "created", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "modified", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetFeedResponse {
