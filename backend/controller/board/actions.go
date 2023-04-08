@@ -22,7 +22,21 @@ func (ctl *BoardController) ListTimeline(c *gin.Context) {
 	if !binding.Validate(c, &body) {
 		return
 	}
-	c.JSON(200, v1.ListTimelineResponse{})
+	id := body.Id
+	page := body.Page
+
+	checkins := ctl.board().ListCheckins(id)
+	items := make([]*v1.ListTimelineResponse_Item, 0)
+	for _, v := range checkins {
+		items = append(items, &v1.ListTimelineResponse_Item{
+			Time: v.Time,
+		})
+	}
+	c.JSON(200, v1.ListTimelineResponse{
+		Id: id,
+		Page: page,
+		Items: items,
+	})
 }
 
 func (ctl *BoardController) Archive(c *gin.Context) {

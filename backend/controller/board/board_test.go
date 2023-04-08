@@ -48,7 +48,7 @@ func TestBoardGetBoard(t *testing.T) {
 }
 
 func TestBoardAddBoard(t *testing.T) {
-	c, _ := contextForTest("/api/v1.Board/AddBoard", `{"name":"nameaaa","description":"","start":"2023-03-17T12:39:00+09:00","end":"2023-03-19T12:00:00+09:00"}`)
+	c, _ := contextForTest("/api/v1.Board/AddBoard", `{"name":"nameaaa","description":"a","start":"2023-03-17T12:39:00+09:00","end":"2023-03-19T12:00:00+09:00"}`)
 	boardControllerForTest().Add(c)
 	assert.Equal(t, 200, c.Writer.Status())
 }

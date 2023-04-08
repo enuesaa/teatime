@@ -308,7 +308,16 @@ func (m *GetBoardRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Id
+	if utf8.RuneCountInString(m.GetId()) < 1 {
+		err := GetBoardRequestValidationError{
+			field:  "Id",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return GetBoardRequestMultiError(errors)
@@ -520,13 +529,49 @@ func (m *AddBoardRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Name
+	if utf8.RuneCountInString(m.GetName()) < 1 {
+		err := AddBoardRequestValidationError{
+			field:  "Name",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Description
+	if utf8.RuneCountInString(m.GetDescription()) < 1 {
+		err := AddBoardRequestValidationError{
+			field:  "Description",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Start
+	if utf8.RuneCountInString(m.GetStart()) < 1 {
+		err := AddBoardRequestValidationError{
+			field:  "Start",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for End
+	if utf8.RuneCountInString(m.GetEnd()) < 1 {
+		err := AddBoardRequestValidationError{
+			field:  "End",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return AddBoardRequestMultiError(errors)
@@ -730,15 +775,60 @@ func (m *UpdateBoardRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Id
+	if utf8.RuneCountInString(m.GetId()) < 1 {
+		err := UpdateBoardRequestValidationError{
+			field:  "Id",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Name
+	if utf8.RuneCountInString(m.GetName()) < 1 {
+		err := UpdateBoardRequestValidationError{
+			field:  "Name",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Description
+	if utf8.RuneCountInString(m.GetDescription()) < 1 {
+		err := UpdateBoardRequestValidationError{
+			field:  "Description",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Start
+	if utf8.RuneCountInString(m.GetStart()) < 1 {
+		err := UpdateBoardRequestValidationError{
+			field:  "Start",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for End
+	if utf8.RuneCountInString(m.GetEnd()) < 1 {
+		err := UpdateBoardRequestValidationError{
+			field:  "End",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return UpdateBoardRequestMultiError(errors)
@@ -1161,7 +1251,16 @@ func (m *CheckinRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Id
+	if utf8.RuneCountInString(m.GetId()) < 1 {
+		err := CheckinRequestValidationError{
+			field:  "Id",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return CheckinRequestMultiError(errors)
@@ -1489,16 +1588,7 @@ func (m *ListTimelineResponse) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetId()) < 1 {
-		err := ListTimelineResponseValidationError{
-			field:  "Id",
-			reason: "value length must be at least 1 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	// no validation rules for Id
 
 	// no validation rules for Page
 

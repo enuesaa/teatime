@@ -3,6 +3,7 @@ package service
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 	"github.com/enuesaa/teatime-app/backend/repository"
 	"github.com/google/uuid"
 )
@@ -22,7 +23,7 @@ type BoardMeta struct {
 	Checkins []BoardCheckin `json:"checkins"`
 }
 type BoardEntity struct {
-	Board       Board `json:"baord"`
+	Board       Board `json:"board"`
 	Meta   BoardMeta `json:"meta"`
 }
 
@@ -95,9 +96,18 @@ func (srv *BoardService) Checkin(id string) {
 		fmt.Printf("%v", err)
 	}
 	entity.Meta.Checkins = append(entity.Meta.Checkins, BoardCheckin {
-		Time: "",
+		Time: time.Now().String(),
 	})
 	srv.RedisRepo.JsonSet(srv.getRedisId(id), entity)
+}
+
+func (srv *BoardService) ListCheckins(id string) []BoardCheckin {
+	data := srv.RedisRepo.JsonGet(srv.getRedisId(id))
+	entity := BoardEntity{}
+	if err := json.Unmarshal(data, &entity); err != nil {
+		fmt.Printf("%v", err)
+	}
+	return entity.Meta.Checkins
 }
 
 func (srv *BoardService) Archive(id string) {
