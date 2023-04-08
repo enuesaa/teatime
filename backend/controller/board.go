@@ -18,16 +18,6 @@ func (ctl *BoardController) board () *service.BoardService {
 	return ctl.BoardSrv
 }
 
-func (ctl *BoardController) Add (c *gin.Context) {
-	var body v1.AddBoardRequest
-	if !binding.Validate(c, &body) { return }
-
-	id := ctl.board().Create(service.Board {
-		Name: body.Name,
-	})
-	c.JSON(200, v1.AddBoardResponse { Id: id })
-}
-
 func (ctl *BoardController) List (c *gin.Context) {
 	var body v1.ListBoardsRequest
 	if !binding.Validate(c, &body) { return }
@@ -46,6 +36,49 @@ func (ctl *BoardController) List (c *gin.Context) {
 		Items: items,
 	})
 }
+
+func (ctl *BoardController) Get (c *gin.Context) {
+	var body v1.GetBoardRequest
+	if !binding.Validate(c, &body) { return }
+	id := body.Id
+
+	data := ctl.board().Get(id)	
+	c.JSON(200, v1.GetBoardResponse {
+		Id: id,
+		Name: data.Name,
+	})
+}
+
+func (ctl *BoardController) Add (c *gin.Context) {
+	var body v1.AddBoardRequest
+	if !binding.Validate(c, &body) { return }
+
+	id := ctl.board().Create(service.Board {
+		Name: body.Name,
+	})
+	c.JSON(200, v1.AddBoardResponse { Id: id })
+}
+
+func (ctl *BoardController) Update (c *gin.Context) {
+	var body v1.UpdateBoardRequest
+	if !binding.Validate(c, &body) { return }
+	id := body.Id
+
+	ctl.board().Update(id, service.Board {
+		Name: body.Name,
+	})
+	c.JSON(200, v1.UpdateBoardResponse { Id: id })
+}
+
+func (ctl *BoardController) Delete (c *gin.Context) {
+	var body v1.DeleteBoardRequest
+	if !binding.Validate(c, &body) { return }
+	id := body.Id
+
+	ctl.board().Delete(id)
+	c.JSON(200, v1.DeleteBoardResponse {})
+}
+
 
 func (ctl *BoardController) Checkin (c *gin.Context) {
 	var body v1.CheckinRequest

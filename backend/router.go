@@ -45,8 +45,11 @@ func setupRouter() *gin.Engine {
 
 		boardRoute := base.Group("/v1.Board")
 		boardCtl := controller.BoardController{}
+		boardRoute.POST("/ListBoards", boardCtl.List)
+		boardRoute.POST("/GetBoard", boardCtl.Get)
 		boardRoute.POST("/AddBoard", boardCtl.Add)
-		boardRoute.POST("/ListBoard", boardCtl.List)
+		boardRoute.POST("/UpdateBoard", boardCtl.Update)
+		boardRoute.POST("/DeleteBoard", boardCtl.Delete)
 		boardRoute.POST("/Checkin", boardCtl.Checkin)
 		boardRoute.POST("/ListTimeline", boardCtl.ListTimeline)
 		boardRoute.POST("/ArchiveBoard", boardCtl.Archive)
