@@ -1,4 +1,4 @@
-package controller
+package board
 
 import (
 	"bytes"
@@ -13,7 +13,7 @@ import (
 
 type RedisRepositoryMock struct {}
 func (repo *RedisRepositoryMock) Keys(pattern string) []string {
-	return []string{ "bookmark:aaa", "bookmark:bbb" }
+	return []string{ "board:aaa", "board:bbb" }
 }
 func (repo *RedisRepositoryMock) Delete(key string) {
 }
@@ -28,14 +28,14 @@ func (repo *RedisRepositoryMock) JsonGet(key string) []byte {
 }
 func (repo *RedisRepositoryMock) JsonSet(key string, value interface{}) {}
 
-func bookmarkControllerForTest() *BookmarkController {
-	bookmarkSrv := service.BookmarkService {
+func boardControllerForTest() *BoardController {
+	boardSrv := service.BoardService {
 		RedisRepo: &RedisRepositoryMock {},
 	}
-	bookmarkController := BookmarkController {
-		BookmarkSrv: &bookmarkSrv,
+	boardController := BoardController {
+		BoardSrv: &boardSrv,
 	}
-	return &bookmarkController
+	return &boardController
 }
 
 func contextForTest(path string, body string) (*gin.Context, *httptest.ResponseRecorder) {
@@ -47,28 +47,28 @@ func contextForTest(path string, body string) (*gin.Context, *httptest.ResponseR
 	return c, response
 }
 
-func TestBookmarkListBookmarks(t *testing.T) {
-	c, response := contextForTest("/api/v1.Bookmark/ListBookmarks", `{"page":1}`)
-	bookmarkControllerForTest().List(c)
+func TestBoardListBoards(t *testing.T) {
+	c, response := contextForTest("/api/v1.Board/ListBoards", `{"page":1}`)
+	boardControllerForTest().List(c)
 	assert.Equal(t, 200, c.Writer.Status())
 	assert.Equal(t,`{"page":1,"items":[{"id":"aaa","name":"nameaaa","url":"https://example.com/aaa"},{"id":"bbb","name":"namebbb","url":"https://example.com/bbb"}]}`, response.Body.String())
 }
 
-func TestBookmarkGetBookmark(t *testing.T) {
-	c, response := contextForTest("/api/v1.Bookmark/GetBookmark", `{"id":"aaa"}`)
-	bookmarkControllerForTest().Get(c)
+func TestBoardGetBoard(t *testing.T) {
+	c, response := contextForTest("/api/v1.Board/GetBoard", `{"id":"aaa"}`)
+	boardControllerForTest().Get(c)
 	assert.Equal(t, 200, c.Writer.Status())
 	assert.Equal(t,`{"id":"aaa","name":"nameaaa","url":"https://example.com/aaa"}`, response.Body.String())
 }
 
-func TestBookmarkAddBookmark(t *testing.T) {
-	c, _ := contextForTest("/api/v1.Bookmark/AddBookmark", `{"name":"nameaaa","url":"https://example.com/aaa"}`)
-	bookmarkControllerForTest().Add(c)
+func TestBoardAddBoard(t *testing.T) {
+	c, _ := contextForTest("/api/v1.Board/AddBoard", `{"name":"nameaaa","url":"https://example.com/aaa"}`)
+	boardControllerForTest().Add(c)
 	assert.Equal(t, 200, c.Writer.Status())
 }
 
-func TestBookmarkDeleteBookmark(t *testing.T) {
-	c, _ := contextForTest("/api/v1.Bookmark/DeleteBookmark", `{"id":"aaa"}`)
-	bookmarkControllerForTest().Delete(c)
+func TestBoardDeleteBoard(t *testing.T) {
+	c, _ := contextForTest("/api/v1.Board/DeleteBoard", `{"id":"aaa"}`)
+	boardControllerForTest().Delete(c)
 	assert.Equal(t, 200, c.Writer.Status())
 }

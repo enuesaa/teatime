@@ -1,4 +1,4 @@
-package controller
+package bookmark
 
 import (
 	"github.com/gin-gonic/gin"
