@@ -28,6 +28,25 @@ func (ctl *BoardController) Add (c *gin.Context) {
 	c.JSON(200, v1.AddBoardResponse { Id: id })
 }
 
+func (ctl *BoardController) List (c *gin.Context) {
+	var body v1.ListBoardsRequest
+	if !binding.Validate(c, &body) { return }
+
+	list := ctl.board().List()
+	items := make([]*v1.ListBoardsResponse_Item, 0)
+	for _, v := range list {
+		items = append(items, &v1.ListBoardsResponse_Item {
+			Id: v.Id,
+			Name: v.Name,
+		})
+	}
+
+	c.JSON(200, v1.ListBoardsResponse {
+		Page: 1,
+		Items: items,
+	})
+}
+
 func (ctl *BoardController) Checkin (c *gin.Context) {
 	var body v1.CheckinRequest
 	if !binding.Validate(c, &body) { return }
