@@ -17,6 +17,7 @@ services:
       - ./:/workspace
     environment:
       - REDIS_ADDR=teatime-app-redis-1:6379
+      - GIN_MODE=release
     tty: true
     depends_on:
       - redis
