@@ -8,18 +8,19 @@ import (
 )
 
 type Feed struct {
-	Id string `json:"id"`
+	Id   string `json:"id"`
 	Name string `json:"name"`
-	Url string `json:"url"`
+	Url  string `json:"url"`
 }
 
 type FeedService struct {
-	redisRepo repository.RedisRepositoryInterface
+	redisRepo   repository.RedisRepositoryInterface
 	rssfeedRepo repository.RssfeedRepositoryInterface
 }
-func NewFeedService () *FeedService {
-	return &FeedService {
-		redisRepo: &repository.RedisRepository{},
+
+func NewFeedService() *FeedService {
+	return &FeedService{
+		redisRepo:   &repository.RedisRepository{},
 		rssfeedRepo: &repository.RssfeedRepository{},
 	}
 }

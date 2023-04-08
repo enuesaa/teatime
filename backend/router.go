@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/enuesaa/teatime-app/backend/controller/bookmark"
 	"github.com/enuesaa/teatime-app/backend/controller/board"
+	"github.com/enuesaa/teatime-app/backend/controller/bookmark"
 	"github.com/enuesaa/teatime-app/backend/controller/feed"
 	"github.com/enuesaa/teatime-app/backend/controller/setting"
 	"github.com/gin-gonic/gin"
@@ -55,8 +55,8 @@ func setupRouter() *gin.Engine {
 		boardRoute.POST("/DeleteBoard", boardCtl.Delete)
 		boardRoute.POST("/Checkin", boardCtl.Checkin)
 		boardRoute.POST("/ListTimeline", boardCtl.ListTimeline)
-		boardRoute.POST("/ArchiveBoard", boardCtl.Archive)
-		boardRoute.POST("/UnArchiveBoard", boardCtl.UnArchive)
+		boardRoute.POST("/Archive", boardCtl.Archive)
+		boardRoute.POST("/UnArchive", boardCtl.UnArchive)
 	}
 
 	return router

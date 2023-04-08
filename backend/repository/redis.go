@@ -1,11 +1,11 @@
 package repository
- 
+
 import (
+	"context"
 	"fmt"
 	"github.com/go-redis/redis/v8"
 	"github.com/nitishm/go-rejson/v4"
 	"os"
-	"context"
 )
 
 type RedisRepositoryInterface interface {
@@ -18,7 +18,8 @@ type RedisRepositoryInterface interface {
 	JsonSet(key string, value interface{})
 }
 
-type RedisRepository struct {}
+type RedisRepository struct{}
+
 func (repo *RedisRepository) client() *redis.Client {
 	client := redis.NewClient(&redis.Options{
 		Addr:     os.Getenv("REDIS_ADDR"),
@@ -69,7 +70,7 @@ func (repo *RedisRepository) JsonMget(ids []string) [][]byte {
 			listbytes = append(listbytes, v.([]byte))
 		}
 		return listbytes
-    }
+	}
 	return make([][]byte, 0)
 }
 

@@ -8,16 +8,17 @@ import (
 )
 
 type Bookmark struct {
-	Id string `json:"id"`
+	Id   string `json:"id"`
 	Name string `json:"name"`
-	Url string `json:"url"`
+	Url  string `json:"url"`
 }
 
 type BookmarkService struct {
 	RedisRepo repository.RedisRepositoryInterface
 }
-func NewBookmarkService () *BookmarkService {
-	return &BookmarkService {
+
+func NewBookmarkService() *BookmarkService {
+	return &BookmarkService{
 		RedisRepo: &repository.RedisRepository{},
 	}
 }

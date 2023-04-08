@@ -8,17 +8,18 @@ import (
 )
 
 type Board struct {
-	Id string `json:"id"`
-	Name string `json:"name"`
-	Url string `json:"url"`
-	Archived bool `json:"archived"`
+	Id       string `json:"id"`
+	Name     string `json:"name"`
+	Url      string `json:"url"`
+	Archived bool   `json:"archived"`
 }
 
 type BoardService struct {
 	RedisRepo repository.RedisRepositoryInterface
 }
-func NewBoardService () *BoardService {
-	return &BoardService {
+
+func NewBoardService() *BoardService {
+	return &BoardService{
 		RedisRepo: &repository.RedisRepository{},
 	}
 }

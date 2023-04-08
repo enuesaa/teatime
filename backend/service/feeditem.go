@@ -3,21 +3,22 @@ package service
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/google/uuid"
 	"github.com/enuesaa/teatime-app/backend/repository"
+	"github.com/google/uuid"
 )
 
 type Feeditem struct {
-	Id string `json:"id"`
+	Id   string `json:"id"`
 	Name string `json:"name"`
-	Url string `json:"url"`
+	Url  string `json:"url"`
 }
 
 type FeeditemService struct {
 	redisRepo repository.RedisRepositoryInterface
 }
-func NewFeeditemService () *FeeditemService {
-	return &FeeditemService {
+
+func NewFeeditemService() *FeeditemService {
+	return &FeeditemService{
 		redisRepo: &repository.RedisRepository{},
 	}
 }
@@ -29,7 +30,7 @@ func (srv *FeeditemService) getRedisId(id string) string {
 func (srv *FeeditemService) Append(name string, url string) string {
 	uuidObj, _ := uuid.NewUUID()
 	id := uuidObj.String()
-	feeditem := Feeditem { Name: name, Url: url, Id: id }
+	feeditem := Feeditem{Name: name, Url: url, Id: id}
 	srv.redisRepo.JsonSet(srv.getRedisId(id), feeditem)
 	return id
 }
