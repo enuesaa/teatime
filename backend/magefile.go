@@ -39,7 +39,7 @@ func removeOmitEmpty() {
 			filepath := fmt.Sprintf("./buf/gen/v1/%s", entry.Name())
 			file, _ := os.ReadFile(filepath)
 			trimed := strings.Replace(string(file), ",omitempty", "", -1)
-			
+
 			os.WriteFile(filepath, []byte(trimed), fileInfo.Mode())
 		}
 	}

@@ -1,7 +1,10 @@
 package main
 
 import (
-	"github.com/enuesaa/teatime-app/backend/controller"
+	"github.com/enuesaa/teatime-app/backend/controller/board"
+	"github.com/enuesaa/teatime-app/backend/controller/bookmark"
+	"github.com/enuesaa/teatime-app/backend/controller/feed"
+	"github.com/enuesaa/teatime-app/backend/controller/setting"
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,12 +23,12 @@ func setupRouter() *gin.Engine {
 	base := router.Group("/api")
 	{
 		settingRoute := base.Group("/v1.Setting")
-		settingCtl := controller.SettingController{}
+		settingCtl := setting.SettingController{}
 		settingRoute.POST("/GetAppearance", settingCtl.Get)
 		settingRoute.POST("/PutAppearance", settingCtl.Put)
 
 		bookmarkRoute := base.Group("/v1.Bookmark")
-		bookmarkCtl := controller.BookmarkController{}
+		bookmarkCtl := bookmark.BookmarkController{}
 		bookmarkRoute.POST("/ListBookmarks", bookmarkCtl.List)
 		bookmarkRoute.POST("/GetBookmark", bookmarkCtl.Get)
 		bookmarkRoute.POST("/AddBookmark", bookmarkCtl.Add)
@@ -33,7 +36,7 @@ func setupRouter() *gin.Engine {
 		bookmarkRoute.POST("/DeleteBookmark", bookmarkCtl.Delete)
 
 		feedRoute := base.Group("/v1.Feed")
-		feedCtl := controller.FeedController{}
+		feedCtl := feed.FeedController{}
 		feedRoute.POST("/ListFeeds", feedCtl.List)
 		feedRoute.POST("/AddFeed", feedCtl.Add)
 		feedRoute.POST("/GetFeed", feedCtl.Get)
@@ -44,7 +47,7 @@ func setupRouter() *gin.Engine {
 		feedRoute.POST("/DeleteFeed", feedCtl.Delete)
 
 		boardRoute := base.Group("/v1.Board")
-		boardCtl := controller.BoardController{}
+		boardCtl := board.BoardController{}
 		boardRoute.POST("/ListBoards", boardCtl.List)
 		boardRoute.POST("/GetBoard", boardCtl.Get)
 		boardRoute.POST("/AddBoard", boardCtl.Add)
@@ -52,8 +55,8 @@ func setupRouter() *gin.Engine {
 		boardRoute.POST("/DeleteBoard", boardCtl.Delete)
 		boardRoute.POST("/Checkin", boardCtl.Checkin)
 		boardRoute.POST("/ListTimeline", boardCtl.ListTimeline)
-		boardRoute.POST("/ArchiveBoard", boardCtl.Archive)
-		boardRoute.POST("/UnArchiveBoard", boardCtl.UnArchive)
+		boardRoute.POST("/Archive", boardCtl.Archive)
+		boardRoute.POST("/UnArchive", boardCtl.UnArchive)
 	}
 
 	return router
