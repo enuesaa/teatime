@@ -28,6 +28,7 @@ const (
 // BoardClient is a client for the v1.Board service.
 type BoardClient interface {
 	AddBoard(context.Context, *connect_go.Request[v1.AddBoardRequest]) (*connect_go.Response[v1.AddBoardResponse], error)
+	ListBoards(context.Context, *connect_go.Request[v1.ListBoardsRequest]) (*connect_go.Response[v1.ListBoardsResponse], error)
 	Checkin(context.Context, *connect_go.Request[v1.CheckinRequest]) (*connect_go.Response[v1.CheckinResponse], error)
 	ListTimeline(context.Context, *connect_go.Request[v1.ListTimelineRequest]) (*connect_go.Response[v1.ListTimelineResponse], error)
 	ArchiveBoard(context.Context, *connect_go.Request[v1.ArchiveBoardRequest]) (*connect_go.Response[v1.ArchiveBoardResponse], error)
@@ -47,6 +48,11 @@ func NewBoardClient(httpClient connect_go.HTTPClient, baseURL string, opts ...co
 		addBoard: connect_go.NewClient[v1.AddBoardRequest, v1.AddBoardResponse](
 			httpClient,
 			baseURL+"/v1.Board/AddBoard",
+			opts...,
+		),
+		listBoards: connect_go.NewClient[v1.ListBoardsRequest, v1.ListBoardsResponse](
+			httpClient,
+			baseURL+"/v1.Board/ListBoards",
 			opts...,
 		),
 		checkin: connect_go.NewClient[v1.CheckinRequest, v1.CheckinResponse](
@@ -75,6 +81,7 @@ func NewBoardClient(httpClient connect_go.HTTPClient, baseURL string, opts ...co
 // boardClient implements BoardClient.
 type boardClient struct {
 	addBoard       *connect_go.Client[v1.AddBoardRequest, v1.AddBoardResponse]
+	listBoards     *connect_go.Client[v1.ListBoardsRequest, v1.ListBoardsResponse]
 	checkin        *connect_go.Client[v1.CheckinRequest, v1.CheckinResponse]
 	listTimeline   *connect_go.Client[v1.ListTimelineRequest, v1.ListTimelineResponse]
 	archiveBoard   *connect_go.Client[v1.ArchiveBoardRequest, v1.ArchiveBoardResponse]
@@ -84,6 +91,11 @@ type boardClient struct {
 // AddBoard calls v1.Board.AddBoard.
 func (c *boardClient) AddBoard(ctx context.Context, req *connect_go.Request[v1.AddBoardRequest]) (*connect_go.Response[v1.AddBoardResponse], error) {
 	return c.addBoard.CallUnary(ctx, req)
+}
+
+// ListBoards calls v1.Board.ListBoards.
+func (c *boardClient) ListBoards(ctx context.Context, req *connect_go.Request[v1.ListBoardsRequest]) (*connect_go.Response[v1.ListBoardsResponse], error) {
+	return c.listBoards.CallUnary(ctx, req)
 }
 
 // Checkin calls v1.Board.Checkin.
@@ -109,6 +121,7 @@ func (c *boardClient) UnArchiveBoard(ctx context.Context, req *connect_go.Reques
 // BoardHandler is an implementation of the v1.Board service.
 type BoardHandler interface {
 	AddBoard(context.Context, *connect_go.Request[v1.AddBoardRequest]) (*connect_go.Response[v1.AddBoardResponse], error)
+	ListBoards(context.Context, *connect_go.Request[v1.ListBoardsRequest]) (*connect_go.Response[v1.ListBoardsResponse], error)
 	Checkin(context.Context, *connect_go.Request[v1.CheckinRequest]) (*connect_go.Response[v1.CheckinResponse], error)
 	ListTimeline(context.Context, *connect_go.Request[v1.ListTimelineRequest]) (*connect_go.Response[v1.ListTimelineResponse], error)
 	ArchiveBoard(context.Context, *connect_go.Request[v1.ArchiveBoardRequest]) (*connect_go.Response[v1.ArchiveBoardResponse], error)
@@ -125,6 +138,11 @@ func NewBoardHandler(svc BoardHandler, opts ...connect_go.HandlerOption) (string
 	mux.Handle("/v1.Board/AddBoard", connect_go.NewUnaryHandler(
 		"/v1.Board/AddBoard",
 		svc.AddBoard,
+		opts...,
+	))
+	mux.Handle("/v1.Board/ListBoards", connect_go.NewUnaryHandler(
+		"/v1.Board/ListBoards",
+		svc.ListBoards,
 		opts...,
 	))
 	mux.Handle("/v1.Board/Checkin", connect_go.NewUnaryHandler(
@@ -155,6 +173,10 @@ type UnimplementedBoardHandler struct{}
 
 func (UnimplementedBoardHandler) AddBoard(context.Context, *connect_go.Request[v1.AddBoardRequest]) (*connect_go.Response[v1.AddBoardResponse], error) {
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("v1.Board.AddBoard is not implemented"))
+}
+
+func (UnimplementedBoardHandler) ListBoards(context.Context, *connect_go.Request[v1.ListBoardsRequest]) (*connect_go.Response[v1.ListBoardsResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("v1.Board.ListBoards is not implemented"))
 }
 
 func (UnimplementedBoardHandler) Checkin(context.Context, *connect_go.Request[v1.CheckinRequest]) (*connect_go.Response[v1.CheckinResponse], error) {

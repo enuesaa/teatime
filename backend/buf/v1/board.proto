@@ -12,6 +12,18 @@ message AddBoardResponse {
   string id = 1;
 }
 
+message ListBoardsRequest {
+  int32 page = 1 [(validate.rules).int32.gte = 0];
+}
+message ListBoardsResponse {
+  int32 page = 1;
+  message Item {
+    string id = 1;
+    string name = 2;
+  }
+  repeated Item items = 2;
+}
+
 message CheckinRequest {
   google.protobuf.Timestamp time = 1;
 }
@@ -36,6 +48,7 @@ message UnArchiveBoardResponse {}
 
 service Board {
   rpc AddBoard(AddBoardRequest) returns (AddBoardResponse) {}
+  rpc ListBoards(ListBoardsRequest) returns (ListBoardsResponse) {}
   rpc Checkin(CheckinRequest) returns (CheckinResponse) {}
   rpc ListTimeline(ListTimelineRequest) returns (ListTimelineResponse) {}
   rpc ArchiveBoard(ArchiveBoardRequest) returns (ArchiveBoardResponse) {}

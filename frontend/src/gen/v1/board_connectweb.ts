@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AddBoardRequest, AddBoardResponse, ArchiveBoardRequest, ArchiveBoardResponse, CheckinRequest, CheckinResponse, ListTimelineRequest, ListTimelineResponse, UnArchiveBoardRequest, UnArchiveBoardResponse } from "./board_pb";
+import { AddBoardRequest, AddBoardResponse, ArchiveBoardRequest, ArchiveBoardResponse, CheckinRequest, CheckinResponse, ListBoardsRequest, ListBoardsResponse, ListTimelineRequest, ListTimelineResponse, UnArchiveBoardRequest, UnArchiveBoardResponse } from "./board_pb";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -19,6 +19,15 @@ export const Board = {
       name: "AddBoard",
       I: AddBoardRequest,
       O: AddBoardResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc v1.Board.ListBoards
+     */
+    listBoards: {
+      name: "ListBoards",
+      I: ListBoardsRequest,
+      O: ListBoardsResponse,
       kind: MethodKind.Unary,
     },
     /**
