@@ -35,210 +35,6 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on AddBoardRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *AddBoardRequest) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on AddBoardRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// AddBoardRequestMultiError, or nil if none found.
-func (m *AddBoardRequest) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *AddBoardRequest) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for Name
-
-	if len(errors) > 0 {
-		return AddBoardRequestMultiError(errors)
-	}
-
-	return nil
-}
-
-// AddBoardRequestMultiError is an error wrapping multiple validation errors
-// returned by AddBoardRequest.ValidateAll() if the designated constraints
-// aren't met.
-type AddBoardRequestMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m AddBoardRequestMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m AddBoardRequestMultiError) AllErrors() []error { return m }
-
-// AddBoardRequestValidationError is the validation error returned by
-// AddBoardRequest.Validate if the designated constraints aren't met.
-type AddBoardRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e AddBoardRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e AddBoardRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e AddBoardRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e AddBoardRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e AddBoardRequestValidationError) ErrorName() string { return "AddBoardRequestValidationError" }
-
-// Error satisfies the builtin error interface
-func (e AddBoardRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sAddBoardRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = AddBoardRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = AddBoardRequestValidationError{}
-
-// Validate checks the field values on AddBoardResponse with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *AddBoardResponse) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on AddBoardResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// AddBoardResponseMultiError, or nil if none found.
-func (m *AddBoardResponse) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *AddBoardResponse) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for Id
-
-	if len(errors) > 0 {
-		return AddBoardResponseMultiError(errors)
-	}
-
-	return nil
-}
-
-// AddBoardResponseMultiError is an error wrapping multiple validation errors
-// returned by AddBoardResponse.ValidateAll() if the designated constraints
-// aren't met.
-type AddBoardResponseMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m AddBoardResponseMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m AddBoardResponseMultiError) AllErrors() []error { return m }
-
-// AddBoardResponseValidationError is the validation error returned by
-// AddBoardResponse.Validate if the designated constraints aren't met.
-type AddBoardResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e AddBoardResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e AddBoardResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e AddBoardResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e AddBoardResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e AddBoardResponseValidationError) ErrorName() string { return "AddBoardResponseValidationError" }
-
-// Error satisfies the builtin error interface
-func (e AddBoardResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sAddBoardResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = AddBoardResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = AddBoardResponseValidationError{}
-
 // Validate checks the field values on ListBoardsRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -490,6 +286,1021 @@ var _ interface {
 	ErrorName() string
 } = ListBoardsResponseValidationError{}
 
+// Validate checks the field values on GetBoardRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *GetBoardRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetBoardRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetBoardRequestMultiError, or nil if none found.
+func (m *GetBoardRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetBoardRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return GetBoardRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetBoardRequestMultiError is an error wrapping multiple validation errors
+// returned by GetBoardRequest.ValidateAll() if the designated constraints
+// aren't met.
+type GetBoardRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetBoardRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetBoardRequestMultiError) AllErrors() []error { return m }
+
+// GetBoardRequestValidationError is the validation error returned by
+// GetBoardRequest.Validate if the designated constraints aren't met.
+type GetBoardRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetBoardRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetBoardRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetBoardRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetBoardRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetBoardRequestValidationError) ErrorName() string { return "GetBoardRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e GetBoardRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetBoardRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetBoardRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetBoardRequestValidationError{}
+
+// Validate checks the field values on GetBoardResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *GetBoardResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetBoardResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetBoardResponseMultiError, or nil if none found.
+func (m *GetBoardResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetBoardResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Name
+
+	// no validation rules for Description
+
+	if all {
+		switch v := interface{}(m.GetStart()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetBoardResponseValidationError{
+					field:  "Start",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetBoardResponseValidationError{
+					field:  "Start",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStart()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetBoardResponseValidationError{
+				field:  "Start",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetEnd()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetBoardResponseValidationError{
+					field:  "End",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetBoardResponseValidationError{
+					field:  "End",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEnd()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetBoardResponseValidationError{
+				field:  "End",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetBoardResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetBoardResponseMultiError is an error wrapping multiple validation errors
+// returned by GetBoardResponse.ValidateAll() if the designated constraints
+// aren't met.
+type GetBoardResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetBoardResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetBoardResponseMultiError) AllErrors() []error { return m }
+
+// GetBoardResponseValidationError is the validation error returned by
+// GetBoardResponse.Validate if the designated constraints aren't met.
+type GetBoardResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetBoardResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetBoardResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetBoardResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetBoardResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetBoardResponseValidationError) ErrorName() string { return "GetBoardResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e GetBoardResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetBoardResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetBoardResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetBoardResponseValidationError{}
+
+// Validate checks the field values on AddBoardRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *AddBoardRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AddBoardRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AddBoardRequestMultiError, or nil if none found.
+func (m *AddBoardRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AddBoardRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	// no validation rules for Description
+
+	if all {
+		switch v := interface{}(m.GetStart()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, AddBoardRequestValidationError{
+					field:  "Start",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, AddBoardRequestValidationError{
+					field:  "Start",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStart()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AddBoardRequestValidationError{
+				field:  "Start",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetEnd()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, AddBoardRequestValidationError{
+					field:  "End",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, AddBoardRequestValidationError{
+					field:  "End",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEnd()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AddBoardRequestValidationError{
+				field:  "End",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return AddBoardRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// AddBoardRequestMultiError is an error wrapping multiple validation errors
+// returned by AddBoardRequest.ValidateAll() if the designated constraints
+// aren't met.
+type AddBoardRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AddBoardRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AddBoardRequestMultiError) AllErrors() []error { return m }
+
+// AddBoardRequestValidationError is the validation error returned by
+// AddBoardRequest.Validate if the designated constraints aren't met.
+type AddBoardRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddBoardRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddBoardRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddBoardRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddBoardRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddBoardRequestValidationError) ErrorName() string { return "AddBoardRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e AddBoardRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddBoardRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddBoardRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddBoardRequestValidationError{}
+
+// Validate checks the field values on AddBoardResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *AddBoardResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AddBoardResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AddBoardResponseMultiError, or nil if none found.
+func (m *AddBoardResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AddBoardResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return AddBoardResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// AddBoardResponseMultiError is an error wrapping multiple validation errors
+// returned by AddBoardResponse.ValidateAll() if the designated constraints
+// aren't met.
+type AddBoardResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AddBoardResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AddBoardResponseMultiError) AllErrors() []error { return m }
+
+// AddBoardResponseValidationError is the validation error returned by
+// AddBoardResponse.Validate if the designated constraints aren't met.
+type AddBoardResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddBoardResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddBoardResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddBoardResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddBoardResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddBoardResponseValidationError) ErrorName() string { return "AddBoardResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e AddBoardResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddBoardResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddBoardResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddBoardResponseValidationError{}
+
+// Validate checks the field values on UpdateBoardRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateBoardRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateBoardRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateBoardRequestMultiError, or nil if none found.
+func (m *UpdateBoardRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateBoardRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Name
+
+	// no validation rules for Description
+
+	if all {
+		switch v := interface{}(m.GetStart()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateBoardRequestValidationError{
+					field:  "Start",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateBoardRequestValidationError{
+					field:  "Start",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStart()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateBoardRequestValidationError{
+				field:  "Start",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetEnd()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateBoardRequestValidationError{
+					field:  "End",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateBoardRequestValidationError{
+					field:  "End",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEnd()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateBoardRequestValidationError{
+				field:  "End",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UpdateBoardRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateBoardRequestMultiError is an error wrapping multiple validation errors
+// returned by UpdateBoardRequest.ValidateAll() if the designated constraints
+// aren't met.
+type UpdateBoardRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateBoardRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateBoardRequestMultiError) AllErrors() []error { return m }
+
+// UpdateBoardRequestValidationError is the validation error returned by
+// UpdateBoardRequest.Validate if the designated constraints aren't met.
+type UpdateBoardRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateBoardRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateBoardRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateBoardRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateBoardRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateBoardRequestValidationError) ErrorName() string {
+	return "UpdateBoardRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateBoardRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateBoardRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateBoardRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateBoardRequestValidationError{}
+
+// Validate checks the field values on UpdateBoardResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateBoardResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateBoardResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateBoardResponseMultiError, or nil if none found.
+func (m *UpdateBoardResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateBoardResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return UpdateBoardResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateBoardResponseMultiError is an error wrapping multiple validation
+// errors returned by UpdateBoardResponse.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateBoardResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateBoardResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateBoardResponseMultiError) AllErrors() []error { return m }
+
+// UpdateBoardResponseValidationError is the validation error returned by
+// UpdateBoardResponse.Validate if the designated constraints aren't met.
+type UpdateBoardResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateBoardResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateBoardResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateBoardResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateBoardResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateBoardResponseValidationError) ErrorName() string {
+	return "UpdateBoardResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateBoardResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateBoardResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateBoardResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateBoardResponseValidationError{}
+
+// Validate checks the field values on DeleteBoardRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteBoardRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteBoardRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteBoardRequestMultiError, or nil if none found.
+func (m *DeleteBoardRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteBoardRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetId()) < 1 {
+		err := DeleteBoardRequestValidationError{
+			field:  "Id",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return DeleteBoardRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteBoardRequestMultiError is an error wrapping multiple validation errors
+// returned by DeleteBoardRequest.ValidateAll() if the designated constraints
+// aren't met.
+type DeleteBoardRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteBoardRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteBoardRequestMultiError) AllErrors() []error { return m }
+
+// DeleteBoardRequestValidationError is the validation error returned by
+// DeleteBoardRequest.Validate if the designated constraints aren't met.
+type DeleteBoardRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteBoardRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteBoardRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteBoardRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteBoardRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteBoardRequestValidationError) ErrorName() string {
+	return "DeleteBoardRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteBoardRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteBoardRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteBoardRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteBoardRequestValidationError{}
+
+// Validate checks the field values on DeleteBoardResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteBoardResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteBoardResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteBoardResponseMultiError, or nil if none found.
+func (m *DeleteBoardResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteBoardResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return DeleteBoardResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteBoardResponseMultiError is an error wrapping multiple validation
+// errors returned by DeleteBoardResponse.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteBoardResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteBoardResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteBoardResponseMultiError) AllErrors() []error { return m }
+
+// DeleteBoardResponseValidationError is the validation error returned by
+// DeleteBoardResponse.Validate if the designated constraints aren't met.
+type DeleteBoardResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteBoardResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteBoardResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteBoardResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteBoardResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteBoardResponseValidationError) ErrorName() string {
+	return "DeleteBoardResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteBoardResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteBoardResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteBoardResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteBoardResponseValidationError{}
+
 // Validate checks the field values on CheckinRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -512,34 +1323,7 @@ func (m *CheckinRequest) validate(all bool) error {
 
 	var errors []error
 
-	if all {
-		switch v := interface{}(m.GetTime()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, CheckinRequestValidationError{
-					field:  "Time",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, CheckinRequestValidationError{
-					field:  "Time",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetTime()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return CheckinRequestValidationError{
-				field:  "Time",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for Id
 
 	if len(errors) > 0 {
 		return CheckinRequestMultiError(errors)
@@ -855,6 +1639,40 @@ func (m *ListTimelineResponse) validate(all bool) error {
 	var errors []error
 
 	// no validation rules for Page
+
+	for idx, item := range m.GetItems() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListTimelineResponseValidationError{
+						field:  fmt.Sprintf("Items[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListTimelineResponseValidationError{
+						field:  fmt.Sprintf("Items[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListTimelineResponseValidationError{
+					field:  fmt.Sprintf("Items[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	if len(errors) > 0 {
 		return ListTimelineResponseMultiError(errors)
@@ -1392,6 +2210,66 @@ func (m *ListBoardsResponse_Item) validate(all bool) error {
 
 	// no validation rules for Name
 
+	// no validation rules for Description
+
+	if all {
+		switch v := interface{}(m.GetStart()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListBoardsResponse_ItemValidationError{
+					field:  "Start",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListBoardsResponse_ItemValidationError{
+					field:  "Start",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStart()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListBoardsResponse_ItemValidationError{
+				field:  "Start",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetEnd()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListBoardsResponse_ItemValidationError{
+					field:  "End",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListBoardsResponse_ItemValidationError{
+					field:  "End",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEnd()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListBoardsResponse_ItemValidationError{
+				field:  "End",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return ListBoardsResponse_ItemMultiError(errors)
 	}
@@ -1471,3 +2349,134 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListBoardsResponse_ItemValidationError{}
+
+// Validate checks the field values on ListTimelineResponse_Item with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListTimelineResponse_Item) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListTimelineResponse_Item with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListTimelineResponse_ItemMultiError, or nil if none found.
+func (m *ListTimelineResponse_Item) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListTimelineResponse_Item) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetTime()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ListTimelineResponse_ItemValidationError{
+					field:  "Time",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ListTimelineResponse_ItemValidationError{
+					field:  "Time",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ListTimelineResponse_ItemValidationError{
+				field:  "Time",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return ListTimelineResponse_ItemMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListTimelineResponse_ItemMultiError is an error wrapping multiple validation
+// errors returned by ListTimelineResponse_Item.ValidateAll() if the
+// designated constraints aren't met.
+type ListTimelineResponse_ItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListTimelineResponse_ItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListTimelineResponse_ItemMultiError) AllErrors() []error { return m }
+
+// ListTimelineResponse_ItemValidationError is the validation error returned by
+// ListTimelineResponse_Item.Validate if the designated constraints aren't met.
+type ListTimelineResponse_ItemValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListTimelineResponse_ItemValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListTimelineResponse_ItemValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListTimelineResponse_ItemValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListTimelineResponse_ItemValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListTimelineResponse_ItemValidationError) ErrorName() string {
+	return "ListTimelineResponse_ItemValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListTimelineResponse_ItemValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListTimelineResponse_Item.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListTimelineResponse_ItemValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListTimelineResponse_ItemValidationError{}

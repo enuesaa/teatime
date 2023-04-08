@@ -7,80 +7,6 @@ import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialM
 import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
 
 /**
- * @generated from message v1.AddBoardRequest
- */
-export class AddBoardRequest extends Message<AddBoardRequest> {
-  /**
-   * @generated from field: string name = 1;
-   */
-  name = "";
-
-  constructor(data?: PartialMessage<AddBoardRequest>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "v1.AddBoardRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddBoardRequest {
-    return new AddBoardRequest().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddBoardRequest {
-    return new AddBoardRequest().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddBoardRequest {
-    return new AddBoardRequest().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: AddBoardRequest | PlainMessage<AddBoardRequest> | undefined, b: AddBoardRequest | PlainMessage<AddBoardRequest> | undefined): boolean {
-    return proto3.util.equals(AddBoardRequest, a, b);
-  }
-}
-
-/**
- * @generated from message v1.AddBoardResponse
- */
-export class AddBoardResponse extends Message<AddBoardResponse> {
-  /**
-   * @generated from field: string id = 1;
-   */
-  id = "";
-
-  constructor(data?: PartialMessage<AddBoardResponse>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "v1.AddBoardResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddBoardResponse {
-    return new AddBoardResponse().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddBoardResponse {
-    return new AddBoardResponse().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddBoardResponse {
-    return new AddBoardResponse().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: AddBoardResponse | PlainMessage<AddBoardResponse> | undefined, b: AddBoardResponse | PlainMessage<AddBoardResponse> | undefined): boolean {
-    return proto3.util.equals(AddBoardResponse, a, b);
-  }
-}
-
-/**
  * @generated from message v1.ListBoardsRequest
  */
 export class ListBoardsRequest extends Message<ListBoardsRequest> {
@@ -174,6 +100,21 @@ export class ListBoardsResponse_Item extends Message<ListBoardsResponse_Item> {
    */
   name = "";
 
+  /**
+   * @generated from field: string description = 3;
+   */
+  description = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp start = 4;
+   */
+  start?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp end = 5;
+   */
+  end?: Timestamp;
+
   constructor(data?: PartialMessage<ListBoardsResponse_Item>) {
     super();
     proto3.util.initPartial(data, this);
@@ -184,6 +125,9 @@ export class ListBoardsResponse_Item extends Message<ListBoardsResponse_Item> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "start", kind: "message", T: Timestamp },
+    { no: 5, name: "end", kind: "message", T: Timestamp },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListBoardsResponse_Item {
@@ -204,13 +148,369 @@ export class ListBoardsResponse_Item extends Message<ListBoardsResponse_Item> {
 }
 
 /**
+ * @generated from message v1.GetBoardRequest
+ */
+export class GetBoardRequest extends Message<GetBoardRequest> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  constructor(data?: PartialMessage<GetBoardRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "v1.GetBoardRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetBoardRequest {
+    return new GetBoardRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetBoardRequest {
+    return new GetBoardRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetBoardRequest {
+    return new GetBoardRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetBoardRequest | PlainMessage<GetBoardRequest> | undefined, b: GetBoardRequest | PlainMessage<GetBoardRequest> | undefined): boolean {
+    return proto3.util.equals(GetBoardRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message v1.GetBoardResponse
+ */
+export class GetBoardResponse extends Message<GetBoardResponse> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string description = 3;
+   */
+  description = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp start = 4;
+   */
+  start?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp end = 5;
+   */
+  end?: Timestamp;
+
+  constructor(data?: PartialMessage<GetBoardResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "v1.GetBoardResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "start", kind: "message", T: Timestamp },
+    { no: 5, name: "end", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetBoardResponse {
+    return new GetBoardResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetBoardResponse {
+    return new GetBoardResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetBoardResponse {
+    return new GetBoardResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetBoardResponse | PlainMessage<GetBoardResponse> | undefined, b: GetBoardResponse | PlainMessage<GetBoardResponse> | undefined): boolean {
+    return proto3.util.equals(GetBoardResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message v1.AddBoardRequest
+ */
+export class AddBoardRequest extends Message<AddBoardRequest> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string description = 2;
+   */
+  description = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp start = 3;
+   */
+  start?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp end = 4;
+   */
+  end?: Timestamp;
+
+  constructor(data?: PartialMessage<AddBoardRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "v1.AddBoardRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "start", kind: "message", T: Timestamp },
+    { no: 4, name: "end", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddBoardRequest {
+    return new AddBoardRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddBoardRequest {
+    return new AddBoardRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddBoardRequest {
+    return new AddBoardRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AddBoardRequest | PlainMessage<AddBoardRequest> | undefined, b: AddBoardRequest | PlainMessage<AddBoardRequest> | undefined): boolean {
+    return proto3.util.equals(AddBoardRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message v1.AddBoardResponse
+ */
+export class AddBoardResponse extends Message<AddBoardResponse> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  constructor(data?: PartialMessage<AddBoardResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "v1.AddBoardResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AddBoardResponse {
+    return new AddBoardResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AddBoardResponse {
+    return new AddBoardResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AddBoardResponse {
+    return new AddBoardResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AddBoardResponse | PlainMessage<AddBoardResponse> | undefined, b: AddBoardResponse | PlainMessage<AddBoardResponse> | undefined): boolean {
+    return proto3.util.equals(AddBoardResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message v1.UpdateBoardRequest
+ */
+export class UpdateBoardRequest extends Message<UpdateBoardRequest> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  /**
+   * @generated from field: string description = 3;
+   */
+  description = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp start = 4;
+   */
+  start?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp end = 5;
+   */
+  end?: Timestamp;
+
+  constructor(data?: PartialMessage<UpdateBoardRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "v1.UpdateBoardRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "start", kind: "message", T: Timestamp },
+    { no: 5, name: "end", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateBoardRequest {
+    return new UpdateBoardRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateBoardRequest {
+    return new UpdateBoardRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateBoardRequest {
+    return new UpdateBoardRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateBoardRequest | PlainMessage<UpdateBoardRequest> | undefined, b: UpdateBoardRequest | PlainMessage<UpdateBoardRequest> | undefined): boolean {
+    return proto3.util.equals(UpdateBoardRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message v1.UpdateBoardResponse
+ */
+export class UpdateBoardResponse extends Message<UpdateBoardResponse> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  constructor(data?: PartialMessage<UpdateBoardResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "v1.UpdateBoardResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateBoardResponse {
+    return new UpdateBoardResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpdateBoardResponse {
+    return new UpdateBoardResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpdateBoardResponse {
+    return new UpdateBoardResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UpdateBoardResponse | PlainMessage<UpdateBoardResponse> | undefined, b: UpdateBoardResponse | PlainMessage<UpdateBoardResponse> | undefined): boolean {
+    return proto3.util.equals(UpdateBoardResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message v1.DeleteBoardRequest
+ */
+export class DeleteBoardRequest extends Message<DeleteBoardRequest> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  constructor(data?: PartialMessage<DeleteBoardRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "v1.DeleteBoardRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteBoardRequest {
+    return new DeleteBoardRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteBoardRequest {
+    return new DeleteBoardRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteBoardRequest {
+    return new DeleteBoardRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteBoardRequest | PlainMessage<DeleteBoardRequest> | undefined, b: DeleteBoardRequest | PlainMessage<DeleteBoardRequest> | undefined): boolean {
+    return proto3.util.equals(DeleteBoardRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message v1.DeleteBoardResponse
+ */
+export class DeleteBoardResponse extends Message<DeleteBoardResponse> {
+  constructor(data?: PartialMessage<DeleteBoardResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "v1.DeleteBoardResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteBoardResponse {
+    return new DeleteBoardResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteBoardResponse {
+    return new DeleteBoardResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteBoardResponse {
+    return new DeleteBoardResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteBoardResponse | PlainMessage<DeleteBoardResponse> | undefined, b: DeleteBoardResponse | PlainMessage<DeleteBoardResponse> | undefined): boolean {
+    return proto3.util.equals(DeleteBoardResponse, a, b);
+  }
+}
+
+/**
  * @generated from message v1.CheckinRequest
  */
 export class CheckinRequest extends Message<CheckinRequest> {
   /**
-   * @generated from field: google.protobuf.Timestamp time = 1;
+   * @generated from field: string id = 1;
    */
-  time?: Timestamp;
+  id = "";
 
   constructor(data?: PartialMessage<CheckinRequest>) {
     super();
@@ -220,7 +520,7 @@ export class CheckinRequest extends Message<CheckinRequest> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "v1.CheckinRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "time", kind: "message", T: Timestamp },
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CheckinRequest {
@@ -317,6 +617,11 @@ export class ListTimelineResponse extends Message<ListTimelineResponse> {
    */
   page = 0;
 
+  /**
+   * @generated from field: repeated v1.ListTimelineResponse.Item items = 2;
+   */
+  items: ListTimelineResponse_Item[] = [];
+
   constructor(data?: PartialMessage<ListTimelineResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -326,6 +631,7 @@ export class ListTimelineResponse extends Message<ListTimelineResponse> {
   static readonly typeName = "v1.ListTimelineResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "page", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "items", kind: "message", T: ListTimelineResponse_Item, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListTimelineResponse {
@@ -342,6 +648,43 @@ export class ListTimelineResponse extends Message<ListTimelineResponse> {
 
   static equals(a: ListTimelineResponse | PlainMessage<ListTimelineResponse> | undefined, b: ListTimelineResponse | PlainMessage<ListTimelineResponse> | undefined): boolean {
     return proto3.util.equals(ListTimelineResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message v1.ListTimelineResponse.Item
+ */
+export class ListTimelineResponse_Item extends Message<ListTimelineResponse_Item> {
+  /**
+   * @generated from field: google.protobuf.Timestamp time = 1;
+   */
+  time?: Timestamp;
+
+  constructor(data?: PartialMessage<ListTimelineResponse_Item>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "v1.ListTimelineResponse.Item";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "time", kind: "message", T: Timestamp },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListTimelineResponse_Item {
+    return new ListTimelineResponse_Item().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListTimelineResponse_Item {
+    return new ListTimelineResponse_Item().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListTimelineResponse_Item {
+    return new ListTimelineResponse_Item().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ListTimelineResponse_Item | PlainMessage<ListTimelineResponse_Item> | undefined, b: ListTimelineResponse_Item | PlainMessage<ListTimelineResponse_Item> | undefined): boolean {
+    return proto3.util.equals(ListTimelineResponse_Item, a, b);
   }
 }
 

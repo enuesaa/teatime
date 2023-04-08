@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AddBoardRequest, AddBoardResponse, ArchiveBoardRequest, ArchiveBoardResponse, CheckinRequest, CheckinResponse, ListBoardsRequest, ListBoardsResponse, ListTimelineRequest, ListTimelineResponse, UnArchiveBoardRequest, UnArchiveBoardResponse } from "./board_pb";
+import { AddBoardRequest, AddBoardResponse, ArchiveBoardRequest, ArchiveBoardResponse, CheckinRequest, CheckinResponse, DeleteBoardRequest, DeleteBoardResponse, GetBoardRequest, GetBoardResponse, ListBoardsRequest, ListBoardsResponse, ListTimelineRequest, ListTimelineResponse, UnArchiveBoardRequest, UnArchiveBoardResponse, UpdateBoardRequest, UpdateBoardResponse } from "./board_pb";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -12,6 +12,24 @@ import { MethodKind } from "@bufbuild/protobuf";
 export const Board = {
   typeName: "v1.Board",
   methods: {
+    /**
+     * @generated from rpc v1.Board.ListBoards
+     */
+    listBoards: {
+      name: "ListBoards",
+      I: ListBoardsRequest,
+      O: ListBoardsResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc v1.Board.GetBoard
+     */
+    getBoard: {
+      name: "GetBoard",
+      I: GetBoardRequest,
+      O: GetBoardResponse,
+      kind: MethodKind.Unary,
+    },
     /**
      * @generated from rpc v1.Board.AddBoard
      */
@@ -22,12 +40,21 @@ export const Board = {
       kind: MethodKind.Unary,
     },
     /**
-     * @generated from rpc v1.Board.ListBoards
+     * @generated from rpc v1.Board.UpdateBoard
      */
-    listBoards: {
-      name: "ListBoards",
-      I: ListBoardsRequest,
-      O: ListBoardsResponse,
+    updateBoard: {
+      name: "UpdateBoard",
+      I: UpdateBoardRequest,
+      O: UpdateBoardResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc v1.Board.DeleteBoard
+     */
+    deleteBoard: {
+      name: "DeleteBoard",
+      I: DeleteBoardRequest,
+      O: DeleteBoardResponse,
       kind: MethodKind.Unary,
     },
     /**

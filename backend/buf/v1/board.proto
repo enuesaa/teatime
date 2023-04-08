@@ -5,13 +5,6 @@ package v1;
 import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
 
-message AddBoardRequest {
-  string name = 1;
-}
-message AddBoardResponse {
-  string id = 1;
-}
-
 message ListBoardsRequest {
   int32 page = 1 [(validate.rules).int32.gte = 0];
 }
@@ -20,12 +13,53 @@ message ListBoardsResponse {
   message Item {
     string id = 1;
     string name = 2;
+    string description = 3;
+    google.protobuf.Timestamp start = 4;
+    google.protobuf.Timestamp end = 5;
   }
   repeated Item items = 2;
 }
 
+message GetBoardRequest {
+  string id = 1;
+}
+message GetBoardResponse {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  google.protobuf.Timestamp start = 4;
+  google.protobuf.Timestamp end = 5;
+}
+
+message AddBoardRequest {
+  string name = 1;
+  string description = 2;
+  google.protobuf.Timestamp start = 3;
+  google.protobuf.Timestamp end = 4;
+}
+message AddBoardResponse {
+  string id = 1;
+}
+
+message UpdateBoardRequest {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  google.protobuf.Timestamp start = 4;
+  google.protobuf.Timestamp end = 5;
+}
+message UpdateBoardResponse {
+  string id = 1;
+}
+
+message DeleteBoardRequest {
+  string id = 1 [(validate.rules).string.min_len = 1];
+}
+message DeleteBoardResponse {}
+
+
 message CheckinRequest {
-  google.protobuf.Timestamp time = 1;
+  string id = 1;
 }
 message CheckinResponse {}
 
@@ -34,6 +68,10 @@ message ListTimelineRequest {
 }
 message ListTimelineResponse {
   int32 page = 1;
+  message Item {
+    google.protobuf.Timestamp time = 1;
+  }
+  repeated Item items = 2;
 }
 
 message ArchiveBoardRequest {
@@ -46,9 +84,14 @@ message UnArchiveBoardRequest {
 }
 message UnArchiveBoardResponse {}
 
+
 service Board {
-  rpc AddBoard(AddBoardRequest) returns (AddBoardResponse) {}
   rpc ListBoards(ListBoardsRequest) returns (ListBoardsResponse) {}
+  rpc GetBoard(GetBoardRequest) returns (GetBoardResponse) {}
+  rpc AddBoard(AddBoardRequest) returns (AddBoardResponse) {}
+  rpc UpdateBoard(UpdateBoardRequest) returns (UpdateBoardResponse) {}
+  rpc DeleteBoard(DeleteBoardRequest) returns (DeleteBoardResponse) {}
+
   rpc Checkin(CheckinRequest) returns (CheckinResponse) {}
   rpc ListTimeline(ListTimelineRequest) returns (ListTimelineResponse) {}
   rpc ArchiveBoard(ArchiveBoardRequest) returns (ArchiveBoardResponse) {}
