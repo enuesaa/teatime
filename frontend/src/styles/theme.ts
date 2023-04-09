@@ -3,16 +3,16 @@ import { type Theme } from '@emotion/react'
 export const baseTheme: Theme = {
   surf: {
     main: {
-      color: '#111111',
-      background: '#fafafa',
+      color: '#fafafa',
+      background: '#222222',
     },
     sub: {
-      color: '#cccccc',
-      background: '#fafafa',
+      color: '#fafafa',
+      background: '#333333',
     },
     reverse: {
-      color: '#fafafa',
-      background: '#111111',
+      color: '#111111',
+      background: '#fafafa',
     },
     transparent: {
       color: 'none',
@@ -23,17 +23,17 @@ export const baseTheme: Theme = {
     x1: {
       fontSize: '16px',
       fontWeight: '400',
-      padding: '2px 5px',
+      // padding: '2px 5px',
     },
     x2: {
       fontSize: '20px',
       fontWeight: '600',
-      padding: '5px 10px',
+      // padding: '5px 10px',
     },
     x3: {
       fontSize: '25px',
       fontWeight: '800',
-      padding: '10px 15px',
+      // padding: '10px 15px',
     },
   },
   decorate: {

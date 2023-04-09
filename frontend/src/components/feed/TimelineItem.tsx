@@ -1,15 +1,13 @@
-import { css, useTheme } from '@emotion/react'
 import Link from 'next/link'
+import { useStyles } from '@/styles/use'
 
 type Props = {
   title: string,
   href: string,
 }
 export const TimelineItem = ({ title, href }: Props) => {
-  const theme = useTheme()
-
-  const styles = {
-    li: css({
+  const styles = useStyles(theme => ({
+    li: theme({}).css({
       padding: '10px',
       border: 'solid 1px rgba(255,255,255,0.2)',
       a: {
@@ -18,10 +16,10 @@ export const TimelineItem = ({ title, href }: Props) => {
         height: '100%',
       },
       '&:hover': {
-        background: theme.color.sub,
+        // background: theme.color.sub,
       },
     })
-  }
+  }))
 
   return (
     <li css={styles.li}>

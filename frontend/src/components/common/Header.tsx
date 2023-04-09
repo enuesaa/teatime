@@ -1,50 +1,40 @@
 import Link from 'next/link'
-import { css, useTheme } from '@emotion/react'
+// import { css, useTheme } from '@emotion/react'
+import { useStyles } from '@/styles/use'
 import { BiCoffee } from 'react-icons/bi'
 import { FaSearch } from 'react-icons/fa'
 import { MdOutlineCoffeeMaker } from 'react-icons/md'
 
 export const Header = () => {
-  const theme = useTheme()
 
-  const styles = {
-    top: css(theme.box, {
+  const styles = useStyles(theme => ({
+    top: theme({surf: 'main'}).css({
       boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.7)',
-      padding: '0',
       height: '50px',
       display: 'flex',
     }),
-    title: css(theme.heading, {
+    title: theme({size: 'x3'}).css({
       flex: '1 0 auto',
-      color: '#fafafa',
-      padding: '0',
       margin: '0 30px',
       lineHeight: '50px',
-      fontSize: theme.fontSize.xlarge,
       'svg': {
         verticalAlign: 'middle',
-        color: theme.color.main,
         margin: '0 5px',
         cursor: 'pointer',
       },
     }),
-    search: css({
+    search: theme({size: 'x1'}).css({
       display: 'inline-block',
-      margin: '3px 30px',
-      fontSize: theme.fontSize.normal,
+      margin: '0 30px',
       'input': {
-        ...theme.input,
         margin: '10px',
         width: '300px',
         padding: '5px',
         borderRadius: '5px',
         display: 'inline-block',
-        color: theme.color.contrast,
       },
     }),
-    config: css(theme.input, {
-      color: theme.color.main,
-      fontSize: theme.fontSize.xlarge,
+    config: theme({surf: 'main', size: 'x1'}).css({
       background: 'rgba(0,0,0,0)',
       lineHeight: '50px',
       cursor: 'pointer',
@@ -53,7 +43,7 @@ export const Header = () => {
         margin: '0 10px',
       },
     }),
-  }
+  }))
 
   return (
     <header css={styles.top}>

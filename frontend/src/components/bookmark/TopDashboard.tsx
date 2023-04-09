@@ -1,28 +1,27 @@
-import { css, useTheme } from '@emotion/react'
 import { TopDashboardItem } from '@/components/bookmark/TopDashboardItem'
 import { AiOutlineSwapRight } from 'react-icons/ai'
 import Link from 'next/link'
 import { useListBookmarksQuery } from '@/lib/bookmark'
+import { useStyles } from '@/styles/use'
 
 export const TopDashboard = () => {
-  const theme = useTheme()
   const list = useListBookmarksQuery({})
 
-  const styles = {
-    h2: css(theme.heading, {
+  const styles = useStyles(theme => ({
+    h2: theme({}).css({
       padding: '0 0 0 10px',
       'a': {
         margin: '10px',
         display: 'inline-block',
-        color: theme.color.main,
-        fontSize: theme.fontSize.large,
+        // color: theme.color.main,
+        // fontSize: theme.fontSize.large,
       },
     }),
-    list: css({
+    list: theme({}).css({
       listStyleType: 'none',
       padding: '0',
     }),
-  }
+  }))
 
   return (
     <section>

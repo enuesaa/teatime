@@ -16,8 +16,13 @@ export const globalStyle = css`
   }
   * {
     box-sizing: border-box;
+    border: solid 1px #ff6633;
   }
   body {
     background: #1a1a1a;
+  }
+
+  input {
+    outline: none;
   }
 `
