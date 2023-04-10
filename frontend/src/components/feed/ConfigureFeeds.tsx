@@ -1,14 +1,13 @@
-import { css, useTheme } from '@emotion/react'
+import { useStyles } from '@/styles/use'
 import Link from 'next/link'
 import { GiCoffeePot } from 'react-icons/gi'
 import { useListFeedsQuery } from '@/lib/feed'
 
 export const ConfigureFeeds = () => {
-  const theme = useTheme()
   const feeds = useListFeedsQuery({})
 
-  const styles = {
-    list: css({
+  const styles = useStyles(theme => ({
+    list: theme({}).css({
       listStyleType: 'none',
       'li': {
         padding: '10px',
@@ -19,14 +18,14 @@ export const ConfigureFeeds = () => {
           height: '100%',
         },
         '&:hover': {
-          background: theme.color.sub,
+          // background: theme.color.sub,
         },
         'svg': {
           margin: '0 5px',
         }
       },
-    })
-  }
+    }),
+  }))
 
   return (
     <ul css={styles.list}>

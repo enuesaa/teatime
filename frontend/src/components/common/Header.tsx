@@ -1,5 +1,4 @@
 import Link from 'next/link'
-// import { css, useTheme } from '@emotion/react'
 import { useStyles } from '@/styles/use'
 import { BiCoffee } from 'react-icons/bi'
 import { FaSearch } from 'react-icons/fa'

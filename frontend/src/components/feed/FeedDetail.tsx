@@ -1,28 +1,25 @@
-import { css, useTheme } from '@emotion/react'
-import { TimelineItem } from '@/components/feed/TimelineItem'
 import { useDeleteFeedLazy, useGetFeedQuery, useFetchLazy } from '@/lib/feed'
 import { GetFeedRequest, DeleteFeedRequest, FetchRequest } from '@/gen/v1/feed_pb'
 import { MouseEventHandler } from 'react'
+import { useStyles } from '@/styles/use'
 
 type Props = {
   id: string,
 }
 export const FeedDetail = ({ id }: Props) => {
-  const theme = useTheme()
-
   const data = useGetFeedQuery({ id } as GetFeedRequest)
   const { invoke: invokeDeleteFeed } = useDeleteFeedLazy()
   const { invoke: invokeFetchFeed } = useFetchLazy()
 
-  const styles = {
-    h2: css(theme.heading, {
+  const styles = useStyles(theme => ({
+    h2: theme({}).css({
       padding: '0 0 0 10px',
     }),
-    list: css({
+    list: theme({}).css({
       listStyleType: 'none',
       padding: '0',
     }),
-  }
+  }))
 
   const handleDeleteFeed: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault()

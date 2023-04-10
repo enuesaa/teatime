@@ -1,5 +1,5 @@
 import { PageTitle } from '@/components/common/PageTitle'
-import { css, useTheme } from '@emotion/react'
+import { useStyles } from '@/styles/use'
 import { useAddBookmarkLazy } from '@/lib/bookmark'
 import { AddBookmarkRequest } from '@/gen/v1/bookmark_pb'
 import { useForm } from 'react-hook-form';
@@ -10,29 +10,27 @@ type FormData = {
   url: string;
 }
 export const ConfigureAdd = () => {
-  const theme = useTheme()
-
   const { invoke: invokeAddBookmark } = useAddBookmarkLazy()
-  const styles = {
-    form: css({
+  const styles = useStyles(theme => ({
+    form: theme({}).css({
       margin: '20px',
       'input': { 
-        ...theme.input,
+        // ...theme.input,
         background: 'rgba(255,255,255,0.1)',
         padding: '5px 7px',
         borderRadius: '5px',
-        color: theme.color.main,
+        // color: theme.color.main,
         margin: '5px 0 20px 0',
-        fontSize: theme.fontSize.large,
+        // fontSize: theme.fontSize.large,
       },
       'button': {
-        ...theme.input,
+        // ...theme.input,
         background: 'rgna(0,0,0,0.1)',
         padding: '5px',
         borderRadius: '5px',
       },
     }),
-  }
+  }))
   const { register, handleSubmit } = useForm<FormData>()
   const handleAddBookmark = handleSubmit((data) => {
     invokeAddBookmark(data as AddBookmarkRequest)
