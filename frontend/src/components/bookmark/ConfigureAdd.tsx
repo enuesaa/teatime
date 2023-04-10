@@ -15,16 +15,12 @@ export const ConfigureAdd = () => {
     form: theme().css({
       margin: '20px',
       'input': { 
-        // ...theme.input,
         background: 'rgba(255,255,255,0.1)',
         padding: '5px 7px',
         borderRadius: '5px',
-        // color: theme.color.main,
         margin: '5px 0 20px 0',
-        // fontSize: theme.fontSize.large,
       },
       'button': {
-        // ...theme.input,
         background: 'rgna(0,0,0,0.1)',
         padding: '5px',
         borderRadius: '5px',

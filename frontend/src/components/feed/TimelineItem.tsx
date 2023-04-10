@@ -15,9 +15,6 @@ export const TimelineItem = ({ title, href }: Props) => {
         width: '100%',
         height: '100%',
       },
-      '&:hover': {
-        // background: theme.color.sub,
-      },
     })
   }))
 

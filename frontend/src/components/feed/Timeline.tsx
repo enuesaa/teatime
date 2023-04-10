@@ -13,8 +13,6 @@ export const Timeline = () => {
       'a': {
         margin: '10px',
         display: 'inline-block',
-        // color: theme.color.main,
-        // fontSize: theme.fontSize.large,
       },
     }),
     list: theme().css({

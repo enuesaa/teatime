@@ -47,5 +47,15 @@ export const baseTheme: Theme = {
       borderRadius: '10px',
       boxShadow: 'none',
     },
-  }
+    shadow: {
+      border: 'none',
+      borderRadius: '0',
+      boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.7)',
+    },
+  },
+  // hover: {
+  //   darken: {
+  //     background: 'rgba(0,0,0,0.1)'
+  //   }
+  // }
 }

@@ -5,13 +5,11 @@ import { useStyles } from '@/styles/use'
 
 export const TopDashboard = () => {
   const styles = useStyles(theme => ({
-    h2: theme().css({
+    h2: theme({size: 'x3'}).css({
       padding: '0 0 0 10px',
       'a': {
         margin: '10px',
         display: 'inline-block',
-        // color: theme.color.main,
-        // fontSize: theme.fontSize.large,
       },
     }),
     list: theme().css({

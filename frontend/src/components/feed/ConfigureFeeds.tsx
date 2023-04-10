@@ -17,9 +17,6 @@ export const ConfigureFeeds = () => {
           width: '100%',
           height: '100%',
         },
-        '&:hover': {
-          // background: theme.color.sub,
-        },
         'svg': {
           margin: '0 5px',
         }

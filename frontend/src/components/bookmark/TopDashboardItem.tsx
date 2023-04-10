@@ -11,11 +11,6 @@ export const TopDashboardItem = ({ title, href }: Props) => {
       border: 'solid 1px rgba(255,255,255,0.2)',
       borderRadius: '10px',
       padding: '10px 20px',
-      // fontSize: theme.fontSize.large,
-      // color: theme.color.main,
-      '&:hover': {
-        // background: theme.color.sub,
-      },
     }),
   }))
   return (

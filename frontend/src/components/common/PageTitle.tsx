@@ -6,7 +6,6 @@ type Props = {
 export const PageTitle = ({ title }: Props) => {
   const styles = useStyles(theme => ({
     h2: theme().css({
-      // color: theme.color.main,
       padding: '0 0 0 10px',
     }),
   }))
