@@ -7,7 +7,7 @@ type Props = {
 }
 export const TimelineItem = ({ title, href }: Props) => {
   const styles = useStyles(theme => ({
-    li: theme({}).css({
+    li: theme().css({
       padding: '10px',
       border: 'solid 1px rgba(255,255,255,0.2)',
       a: {

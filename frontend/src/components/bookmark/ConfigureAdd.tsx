@@ -12,7 +12,7 @@ type FormData = {
 export const ConfigureAdd = () => {
   const { invoke: invokeAddBookmark } = useAddBookmarkLazy()
   const styles = useStyles(theme => ({
-    form: theme({}).css({
+    form: theme().css({
       margin: '20px',
       'input': { 
         // ...theme.input,

@@ -11,7 +11,7 @@ export const BookmarkDetail = ({ id }: Props) => {
   const { invoke: invokeDeleteBookmark } = useDeleteBookmarkLazy()
 
   const styles = useStyles(theme => ({
-    h2: theme({}).css({
+    h2: theme().css({
       padding: '0 0 0 10px',
     }),
   }))

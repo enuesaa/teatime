@@ -8,7 +8,7 @@ type Props = {
 }
 export const LinkCard = ({ href, text }: Props) => {
   const styles = useStyles(theme => ({
-    link: theme({}).css({
+    link: theme().css({
       display: 'inline-block',
       padding: '10px 20px',
       color: '#cccccc',

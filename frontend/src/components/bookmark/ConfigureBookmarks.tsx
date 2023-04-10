@@ -5,7 +5,7 @@ import Link from 'next/link'
 export const ConfigureBookmarks = () => {
   const bookmarks = useListBookmarksQuery({})
   const styles = useStyles(theme => ({
-    item: theme({}).css({
+    item: theme().css({
       padding: '10px',
       margin: '10px',
       borderRadius: '10px',

@@ -6,7 +6,7 @@ type Props = {
 }
 export const Main = ({ children }: Props) => {
   const styles = useStyles(theme => ({
-    main: theme({}).css({
+    main: theme().css({
       margin: '20px',
       padding: '0 10px 10px 10px',
       // color: theme.color.main,

@@ -7,7 +7,7 @@ export const ConfigureFeeds = () => {
   const feeds = useListFeedsQuery({})
 
   const styles = useStyles(theme => ({
-    list: theme({}).css({
+    list: theme().css({
       listStyleType: 'none',
       'li': {
         padding: '10px',

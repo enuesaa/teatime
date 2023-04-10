@@ -8,7 +8,7 @@ export const TopDashboard = () => {
   const list = useListBookmarksQuery({})
 
   const styles = useStyles(theme => ({
-    h2: theme({}).css({
+    h2: theme().css({
       padding: '0 0 0 10px',
       'a': {
         margin: '10px',
@@ -17,7 +17,7 @@ export const TopDashboard = () => {
         // fontSize: theme.fontSize.large,
       },
     }),
-    list: theme({}).css({
+    list: theme().css({
       listStyleType: 'none',
       padding: '0',
     }),

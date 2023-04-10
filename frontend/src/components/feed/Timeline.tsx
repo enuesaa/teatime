@@ -8,7 +8,7 @@ import { useStyles } from '@/styles/use'
 export const Timeline = () => {
   const feeditem = useListItemsQuery({ id: 'a', page: 1 } as ListItemsRequest)
   const styles = useStyles(theme => ({
-    h2: theme({}).css({
+    h2: theme().css({
       padding: '0 0 0 10px',
       'a': {
         margin: '10px',
@@ -17,7 +17,7 @@ export const Timeline = () => {
         // fontSize: theme.fontSize.large,
       },
     }),
-    list: theme({}).css({
+    list: theme().css({
       listStyleType: 'none',
       padding: '0',
     }),

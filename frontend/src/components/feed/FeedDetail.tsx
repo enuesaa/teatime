@@ -12,10 +12,10 @@ export const FeedDetail = ({ id }: Props) => {
   const { invoke: invokeFetchFeed } = useFetchLazy()
 
   const styles = useStyles(theme => ({
-    h2: theme({}).css({
+    h2: theme().css({
       padding: '0 0 0 10px',
     }),
-    list: theme({}).css({
+    list: theme().css({
       listStyleType: 'none',
       padding: '0',
     }),
