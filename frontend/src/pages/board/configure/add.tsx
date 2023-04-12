@@ -1,13 +1,13 @@
 import { Header } from '@/components/common/Header'
-import { Configure } from '@/components/bookmark/Configure'
 import { Main } from '@/components/common/Main'
+import { ConfigureAdd } from '@/components/board/ConfigureAdd'
 
 export default function Page() {
   return (
     <>
       <Header />
       <Main>
-        <Configure />
+        <ConfigureAdd />
       </Main>
     </>
   )

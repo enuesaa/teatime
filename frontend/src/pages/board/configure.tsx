@@ -1,5 +1,5 @@
 import { Header } from '@/components/common/Header'
-import { Configure } from '@/components/board/Cofigure'
+import { Configure } from '@/components/board/Configure'
 import { Main } from '@/components/common/Main'
 
 export default function Page() {
