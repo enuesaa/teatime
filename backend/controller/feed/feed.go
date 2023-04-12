@@ -4,6 +4,7 @@ import (
 	"github.com/enuesaa/teatime-app/backend/binding"
 	"github.com/enuesaa/teatime-app/backend/buf/gen/v1"
 	"github.com/enuesaa/teatime-app/backend/service"
+	"github.com/enuesaa/teatime-app/backend/repository"
 	"github.com/gin-gonic/gin"
 	"net/url"
 	"strings"
@@ -16,14 +17,19 @@ type FeedController struct {
 
 func (ctl *FeedController) feed() *service.FeedService {
 	if ctl.FeedSrv == nil {
-		ctl.FeedSrv = service.NewFeedService()
+		ctl.FeedSrv = &service.FeedService{
+			RedisRepo:   &repository.RedisRepository{},
+			RssfeedRepo: &repository.RssfeedRepository{},
+		}
 	}
 	return ctl.FeedSrv
 }
 
 func (ctl *FeedController) feeditem() *service.FeeditemService {
 	if ctl.FeeditemSrv == nil {
-		ctl.FeeditemSrv = service.NewFeeditemService()
+		ctl.FeeditemSrv = &service.FeeditemService{
+			RedisRepo: &repository.RedisRepository{},
+		}
 	}
 	return ctl.FeeditemSrv
 }

@@ -14,13 +14,7 @@ type Feeditem struct {
 }
 
 type FeeditemService struct {
-	redisRepo repository.RedisRepositoryInterface
-}
-
-func NewFeeditemService() *FeeditemService {
-	return &FeeditemService{
-		redisRepo: &repository.RedisRepository{},
-	}
+	RedisRepo repository.RedisRepositoryInterface
 }
 
 func (srv *FeeditemService) getRedisId(id string) string {
@@ -31,13 +25,13 @@ func (srv *FeeditemService) Append(name string, url string) string {
 	uuidObj, _ := uuid.NewUUID()
 	id := uuidObj.String()
 	feeditem := Feeditem{Name: name, Url: url, Id: id}
-	srv.redisRepo.JsonSet(srv.getRedisId(id), feeditem)
+	srv.RedisRepo.JsonSet(srv.getRedisId(id), feeditem)
 	return id
 }
 
 func (srv *FeeditemService) List() []Feeditem {
-	ids := srv.redisRepo.Keys(srv.getRedisId("*"))
-	list := srv.redisRepo.JsonMget(ids)
+	ids := srv.RedisRepo.Keys(srv.getRedisId("*"))
+	list := srv.RedisRepo.JsonMget(ids)
 	feeditems := []Feeditem{}
 	for _, v := range list {
 		feeditem := Feeditem{}
