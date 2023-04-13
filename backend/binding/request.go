@@ -22,3 +22,19 @@ func Validate(c *gin.Context, body WithValidator) bool {
 	}
 	return true
 }
+
+
+func BindRequest[T any, PT interface { Validate() error; *T}](c *gin.Context) (PT, error) {
+	var body PT
+	if err := c.ShouldBindJSON(&body); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		c.Abort()
+		return body, err
+	}
+	if err := body.Validate(); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		c.Abort()
+		return body, err
+	}
+	return body, nil
+}

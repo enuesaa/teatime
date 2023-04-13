@@ -4,7 +4,6 @@ import (
 	"github.com/enuesaa/teatime-app/backend/controller/board"
 	"github.com/enuesaa/teatime-app/backend/controller/bookmark"
 	"github.com/enuesaa/teatime-app/backend/controller/feed"
-	"github.com/enuesaa/teatime-app/backend/controller/setting"
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,11 +21,6 @@ func setupRouter() *gin.Engine {
 
 	base := router.Group("/api")
 	{
-		settingRoute := base.Group("/v1.Setting")
-		settingCtl := setting.SettingController{}
-		settingRoute.POST("/GetAppearance", settingCtl.Get)
-		settingRoute.POST("/PutAppearance", settingCtl.Put)
-
 		bookmarkRoute := base.Group("/v1.Bookmark")
 		bookmarkCtl := bookmark.BookmarkController{}
 		bookmarkRoute.POST("/ListBookmarks", bookmarkCtl.List)

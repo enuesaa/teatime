@@ -22,6 +22,7 @@ func (srv *FeeditemService) getRedisId(id string) string {
 }
 
 func (srv *FeeditemService) Append(name string, url string) string {
+	// todo 重複削除
 	uuidObj, _ := uuid.NewUUID()
 	id := uuidObj.String()
 	feeditem := Feeditem{Name: name, Url: url, Id: id}
