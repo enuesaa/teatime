@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/go-redis/redis/v8"
 	"github.com/nitishm/go-rejson/v4"
-	"github.com/RediSearch/redisearch-go/redisearch"
 	"os"
 )
 
@@ -17,8 +16,7 @@ type RedisRepositoryInterface interface {
 	JsonMget(ids []string) [][]byte
 	JsonGet(key string) []byte
 	JsonSet(key string, value interface{})
-	CreateIndex(name string, field string)
-	JsonSearch(name string, field string, value string)
+	JsonDel(key string)
 }
 
 type RedisRepository struct{}
@@ -30,10 +28,6 @@ func (repo *RedisRepository) client() *redis.Client {
 		DB:       0,
 	})
 	return client
-}
-
-func (repo *RedisRepository) searchClient(name string) *redisearch.Client {
-	return redisearch.NewClient(os.Getenv("REDIS_ADDR"), name)
 }
 
 func (repo *RedisRepository) jsonHandler() *rejson.Handler {
@@ -93,22 +87,9 @@ func (repo *RedisRepository) JsonSet(key string, value interface{}) {
 	}
 }
 
-func (repo *RedisRepository) CreateIndex(name string, field string) {
-	schema := redisearch.NewSchema(redisearch.DefaultOptions).
-		AddField(redisearch.NewTextField("$." + field))
-	def := redisearch.NewIndexDefinition().AddPrefix(
-		fmt.Sprintf("%s:", name),
-	)
-	def.IndexOn = "JSON"
-	repo.searchClient(name).CreateIndexWithIndexDefinition(schema, def)
-}
-
-func (repo *RedisRepository) JsonSearch(name string, field string, value string) {
-	fmt.Printf("%+v", value)
-	items, _, _ := repo.searchClient(name).Search(
-		redisearch.NewQuery(fmt.Sprintf("@%s:(%s)", field, value)),
-	)
-	for item := range items {
-		fmt.Printf("%+v", item)
+func (repo *RedisRepository) JsonDel(key string) {
+	_, err := repo.jsonHandler().JSONDel(key, "$")
+	if err != nil {
+		fmt.Printf("%+v", err)
 	}
 }

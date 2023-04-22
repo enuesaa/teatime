@@ -59,14 +59,9 @@ func (srv *FeeditemService) List(feedId string) []Feeditem {
 		}
 		feeditems = append(feeditems, feeditem)
 	}
-	fmt.Printf("%+v", feeditems)
 	return feeditems
 }
 
 func (srv *FeeditemService) Delete(feedId string, id string) {
-	srv.RedisRepo.Delete(srv.getRedisId(feedId, id))
+	srv.RedisRepo.JsonDel(srv.getRedisId(feedId, id))
 }
-
-// func (srv *FeeditemService) CreateIndex() {
-// 	srv.RedisRepo.CreateIndex("feeditem", "feedId")
-// }

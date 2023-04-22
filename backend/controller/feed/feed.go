@@ -173,12 +173,12 @@ func (ctl *FeedController) RemoveAllItems(c *gin.Context) {
 	if !binding.Validate(c, &body) {
 		return
 	}
-	// _id := body.Id
+	id := body.Id
 
-	// list := ctl.feeditem().ListAll()
-	// for _, v := range list {
-	// 	ctl.feeditem().Delete(v.Id)
-	// }
+	list := ctl.feeditem().List(id)
+	for _, v := range list {
+		ctl.feeditem().Delete(id, v.Id)
+	}
 	c.JSON(200, v1.RemoveAllItemsResponse{})
 }
 
