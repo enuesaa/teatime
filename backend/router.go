@@ -34,6 +34,7 @@ func setupRouter() *gin.Engine {
 		feedRoute.POST("/ListFeeds", feedCtl.List)
 		feedRoute.POST("/AddFeed", feedCtl.Add)
 		feedRoute.POST("/GetFeed", feedCtl.Get)
+		feedRoute.POST("/ListAllItems", feedCtl.ListAllItems)
 		feedRoute.POST("/ListItems", feedCtl.ListItems)
 		feedRoute.POST("/GetAppearance", feedCtl.GetAppearance)
 		feedRoute.POST("/UpdateAppearance", feedCtl.UpdateAppearance)

@@ -71,6 +71,7 @@ func (ctl *FeedController) Add(c *gin.Context) {
 		Name: body.Name,
 		Url:  body.Url,
 	})
+	ctl.feeditem().CreateIndex()
 	c.JSON(200, v1.AddFeedResponse{Id: id})
 }
 
@@ -89,13 +90,13 @@ func (ctl *FeedController) Get(c *gin.Context) {
 	})
 }
 
-func (ctl *FeedController) ListItems(c *gin.Context) {
+func (ctl *FeedController) ListAllItems(c *gin.Context) {
 	var body v1.ListItemsRequest
 	if !binding.Validate(c, &body) {
 		return
 	}
 
-	list := ctl.feeditem().List()
+	list := ctl.feeditem().ListAll()
 	items := make([]*v1.ListItemsResponse_Item, 0)
 	for _, v := range list {
 		items = append(items, &v1.ListItemsResponse_Item{
@@ -108,6 +109,29 @@ func (ctl *FeedController) ListItems(c *gin.Context) {
 	c.JSON(200, v1.ListItemsResponse{
 		Page:  1,
 		Items: items,
+	})
+}
+
+func (ctl *FeedController) ListItems(c *gin.Context) {
+	var body v1.ListItemsRequest
+	if !binding.Validate(c, &body) {
+		return
+	}
+	id := body.Id
+
+	ctl.feeditem().List(id)
+	// items := make([]*v1.ListItemsResponse_Item, 0)
+	// for _, v := range list {
+	// 	items = append(items, &v1.ListItemsResponse_Item{
+	// 		Id:   v.Id,
+	// 		Name: v.Name,
+	// 		Url:  v.Url,
+	// 	})
+	// }
+
+	c.JSON(200, v1.ListItemsResponse{
+		Page:  1,
+		Items: make([]*v1.ListItemsResponse_Item, 0),
 	})
 }
 
@@ -140,8 +164,9 @@ func (ctl *FeedController) Fetch(c *gin.Context) {
 
 	items := ctl.feed().Fetch(id)
 	for _, v := range items {
-		ctl.feeditem().Append(v.Name, v.Url)
+		ctl.feeditem().Append(id, v.Name, v.Url)
 	}
+	ctl.feeditem().CreateIndex()
 	c.JSON(200, v1.FetchResponse{})
 }
 
@@ -152,7 +177,7 @@ func (ctl *FeedController) RemoveAllItems(c *gin.Context) {
 	}
 	// _id := body.Id
 
-	list := ctl.feeditem().List()
+	list := ctl.feeditem().ListAll()
 	for _, v := range list {
 		ctl.feeditem().Delete(v.Id)
 	}

@@ -9,6 +9,7 @@ import (
 
 type Feeditem struct {
 	Id   string `json:"id"`
+	FeedId string `json:"feedId"`
 	Name string `json:"name"`
 	Url  string `json:"url"`
 }
@@ -21,16 +22,16 @@ func (srv *FeeditemService) getRedisId(id string) string {
 	return "feeditem:" + id
 }
 
-func (srv *FeeditemService) Append(name string, url string) string {
+func (srv *FeeditemService) Append(feedId string, name string, url string) string {
 	// todo 重複削除
 	uuidObj, _ := uuid.NewUUID()
 	id := uuidObj.String()
-	feeditem := Feeditem{Name: name, Url: url, Id: id}
+	feeditem := Feeditem{Id: id, FeedId: feedId, Name: name, Url: url}
 	srv.RedisRepo.JsonSet(srv.getRedisId(id), feeditem)
 	return id
 }
 
-func (srv *FeeditemService) List() []Feeditem {
+func (srv *FeeditemService) ListAll() []Feeditem {
 	ids := srv.RedisRepo.Keys(srv.getRedisId("*"))
 	list := srv.RedisRepo.JsonMget(ids)
 	feeditems := []Feeditem{}
@@ -46,6 +47,14 @@ func (srv *FeeditemService) List() []Feeditem {
 	return feeditems
 }
 
+func (srv *FeeditemService) List(feedId string) {
+	srv.RedisRepo.JsonSearch("feeditem", "feedId", feedId)
+}
+
 func (srv *FeeditemService) Delete(id string) {
 	srv.RedisRepo.Delete(srv.getRedisId(id))
+}
+
+func (srv *FeeditemService) CreateIndex() {
+	srv.RedisRepo.CreateIndex("feeditem", "feedId")
 }
