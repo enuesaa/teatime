@@ -320,6 +320,137 @@ export class GetFeedResponse extends Message<GetFeedResponse> {
 }
 
 /**
+ * @generated from message v1.ListAllItemsRequest
+ */
+export class ListAllItemsRequest extends Message<ListAllItemsRequest> {
+  /**
+   * @generated from field: int32 page = 2;
+   */
+  page = 0;
+
+  constructor(data?: PartialMessage<ListAllItemsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "v1.ListAllItemsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 2, name: "page", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListAllItemsRequest {
+    return new ListAllItemsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListAllItemsRequest {
+    return new ListAllItemsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListAllItemsRequest {
+    return new ListAllItemsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ListAllItemsRequest | PlainMessage<ListAllItemsRequest> | undefined, b: ListAllItemsRequest | PlainMessage<ListAllItemsRequest> | undefined): boolean {
+    return proto3.util.equals(ListAllItemsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message v1.ListAllItemsResponse
+ */
+export class ListAllItemsResponse extends Message<ListAllItemsResponse> {
+  /**
+   * @generated from field: int32 page = 1;
+   */
+  page = 0;
+
+  /**
+   * @generated from field: repeated v1.ListAllItemsResponse.Item items = 2;
+   */
+  items: ListAllItemsResponse_Item[] = [];
+
+  constructor(data?: PartialMessage<ListAllItemsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "v1.ListAllItemsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "page", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "items", kind: "message", T: ListAllItemsResponse_Item, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListAllItemsResponse {
+    return new ListAllItemsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListAllItemsResponse {
+    return new ListAllItemsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListAllItemsResponse {
+    return new ListAllItemsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ListAllItemsResponse | PlainMessage<ListAllItemsResponse> | undefined, b: ListAllItemsResponse | PlainMessage<ListAllItemsResponse> | undefined): boolean {
+    return proto3.util.equals(ListAllItemsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message v1.ListAllItemsResponse.Item
+ */
+export class ListAllItemsResponse_Item extends Message<ListAllItemsResponse_Item> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  /**
+   * map<string, string> attributes = 2; // includes url, title, description... 
+   *
+   * @generated from field: string url = 3;
+   */
+  url = "";
+
+  constructor(data?: PartialMessage<ListAllItemsResponse_Item>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "v1.ListAllItemsResponse.Item";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListAllItemsResponse_Item {
+    return new ListAllItemsResponse_Item().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListAllItemsResponse_Item {
+    return new ListAllItemsResponse_Item().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListAllItemsResponse_Item {
+    return new ListAllItemsResponse_Item().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ListAllItemsResponse_Item | PlainMessage<ListAllItemsResponse_Item> | undefined, b: ListAllItemsResponse_Item | PlainMessage<ListAllItemsResponse_Item> | undefined): boolean {
+    return proto3.util.equals(ListAllItemsResponse_Item, a, b);
+  }
+}
+
+/**
  * @generated from message v1.ListItemsRequest
  */
 export class ListItemsRequest extends Message<ListItemsRequest> {

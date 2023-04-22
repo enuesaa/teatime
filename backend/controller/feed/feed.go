@@ -7,7 +7,6 @@ import (
 	"github.com/enuesaa/teatime-app/backend/repository"
 	"github.com/gin-gonic/gin"
 	"net/url"
-	"strings"
 )
 
 type FeedController struct {
@@ -62,7 +61,8 @@ func (ctl *FeedController) Add(c *gin.Context) {
 		return
 	}
 
-	if _, err := url.ParseRequestURI(body.Url); err != nil || !strings.HasSuffix(body.Url, ".rss") {
+	if _, err := url.ParseRequestURI(body.Url); err != nil {
+	// if _, err := url.ParseRequestURI(body.Url); err != nil || !strings.HasSuffix(body.Url, ".rss") {
 		c.JSON(400, gin.H{"error": "invalid url"})
 		return
 	}
@@ -71,7 +71,6 @@ func (ctl *FeedController) Add(c *gin.Context) {
 		Name: body.Name,
 		Url:  body.Url,
 	})
-	ctl.feeditem().CreateIndex()
 	c.JSON(200, v1.AddFeedResponse{Id: id})
 }
 
@@ -91,22 +90,22 @@ func (ctl *FeedController) Get(c *gin.Context) {
 }
 
 func (ctl *FeedController) ListAllItems(c *gin.Context) {
-	var body v1.ListItemsRequest
+	var body v1.ListAllItemsRequest
 	if !binding.Validate(c, &body) {
 		return
 	}
 
 	list := ctl.feeditem().ListAll()
-	items := make([]*v1.ListItemsResponse_Item, 0)
+	items := make([]*v1.ListAllItemsResponse_Item, 0)
 	for _, v := range list {
-		items = append(items, &v1.ListItemsResponse_Item{
+		items = append(items, &v1.ListAllItemsResponse_Item{
 			Id:   v.Id,
 			Name: v.Name,
 			Url:  v.Url,
 		})
 	}
 
-	c.JSON(200, v1.ListItemsResponse{
+	c.JSON(200, v1.ListAllItemsResponse{
 		Page:  1,
 		Items: items,
 	})
@@ -119,19 +118,19 @@ func (ctl *FeedController) ListItems(c *gin.Context) {
 	}
 	id := body.Id
 
-	ctl.feeditem().List(id)
-	// items := make([]*v1.ListItemsResponse_Item, 0)
-	// for _, v := range list {
-	// 	items = append(items, &v1.ListItemsResponse_Item{
-	// 		Id:   v.Id,
-	// 		Name: v.Name,
-	// 		Url:  v.Url,
-	// 	})
-	// }
+	list := ctl.feeditem().List(id)
+	items := make([]*v1.ListItemsResponse_Item, 0)
+	for _, v := range list {
+		items = append(items, &v1.ListItemsResponse_Item{
+			Id:   v.Id,
+			Name: v.Name,
+			Url:  v.Url,
+		})
+	}
 
 	c.JSON(200, v1.ListItemsResponse{
 		Page:  1,
-		Items: make([]*v1.ListItemsResponse_Item, 0),
+		Items: items,
 	})
 }
 
@@ -166,7 +165,6 @@ func (ctl *FeedController) Fetch(c *gin.Context) {
 	for _, v := range items {
 		ctl.feeditem().Append(id, v.Name, v.Url)
 	}
-	ctl.feeditem().CreateIndex()
 	c.JSON(200, v1.FetchResponse{})
 }
 
@@ -177,10 +175,10 @@ func (ctl *FeedController) RemoveAllItems(c *gin.Context) {
 	}
 	// _id := body.Id
 
-	list := ctl.feeditem().ListAll()
-	for _, v := range list {
-		ctl.feeditem().Delete(v.Id)
-	}
+	// list := ctl.feeditem().ListAll()
+	// for _, v := range list {
+	// 	ctl.feeditem().Delete(v.Id)
+	// }
 	c.JSON(200, v1.RemoveAllItemsResponse{})
 }
 

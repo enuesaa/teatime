@@ -39,6 +39,8 @@ const (
 	FeedAddFeedProcedure = "/v1.Feed/AddFeed"
 	// FeedGetFeedProcedure is the fully-qualified name of the Feed's GetFeed RPC.
 	FeedGetFeedProcedure = "/v1.Feed/GetFeed"
+	// FeedListAllItemsProcedure is the fully-qualified name of the Feed's ListAllItems RPC.
+	FeedListAllItemsProcedure = "/v1.Feed/ListAllItems"
 	// FeedListItemsProcedure is the fully-qualified name of the Feed's ListItems RPC.
 	FeedListItemsProcedure = "/v1.Feed/ListItems"
 	// FeedGetAppearanceProcedure is the fully-qualified name of the Feed's GetAppearance RPC.
@@ -58,6 +60,7 @@ type FeedClient interface {
 	ListFeeds(context.Context, *connect_go.Request[v1.ListFeedsRequest]) (*connect_go.Response[v1.ListFeedsResponse], error)
 	AddFeed(context.Context, *connect_go.Request[v1.AddFeedRequest]) (*connect_go.Response[v1.AddFeedResponse], error)
 	GetFeed(context.Context, *connect_go.Request[v1.GetFeedRequest]) (*connect_go.Response[v1.GetFeedResponse], error)
+	ListAllItems(context.Context, *connect_go.Request[v1.ListItemsRequest]) (*connect_go.Response[v1.ListAllItemsResponse], error)
 	ListItems(context.Context, *connect_go.Request[v1.ListItemsRequest]) (*connect_go.Response[v1.ListItemsResponse], error)
 	GetAppearance(context.Context, *connect_go.Request[v1.GetAppearanceRequest]) (*connect_go.Response[v1.GetAppearanceResponse], error)
 	UpdateAppearance(context.Context, *connect_go.Request[v1.UpdateAppearanceRequest]) (*connect_go.Response[v1.UpdateAppearanceResponse], error)
@@ -89,6 +92,11 @@ func NewFeedClient(httpClient connect_go.HTTPClient, baseURL string, opts ...con
 		getFeed: connect_go.NewClient[v1.GetFeedRequest, v1.GetFeedResponse](
 			httpClient,
 			baseURL+FeedGetFeedProcedure,
+			opts...,
+		),
+		listAllItems: connect_go.NewClient[v1.ListItemsRequest, v1.ListAllItemsResponse](
+			httpClient,
+			baseURL+FeedListAllItemsProcedure,
 			opts...,
 		),
 		listItems: connect_go.NewClient[v1.ListItemsRequest, v1.ListItemsResponse](
@@ -129,6 +137,7 @@ type feedClient struct {
 	listFeeds        *connect_go.Client[v1.ListFeedsRequest, v1.ListFeedsResponse]
 	addFeed          *connect_go.Client[v1.AddFeedRequest, v1.AddFeedResponse]
 	getFeed          *connect_go.Client[v1.GetFeedRequest, v1.GetFeedResponse]
+	listAllItems     *connect_go.Client[v1.ListItemsRequest, v1.ListAllItemsResponse]
 	listItems        *connect_go.Client[v1.ListItemsRequest, v1.ListItemsResponse]
 	getAppearance    *connect_go.Client[v1.GetAppearanceRequest, v1.GetAppearanceResponse]
 	updateAppearance *connect_go.Client[v1.UpdateAppearanceRequest, v1.UpdateAppearanceResponse]
@@ -150,6 +159,11 @@ func (c *feedClient) AddFeed(ctx context.Context, req *connect_go.Request[v1.Add
 // GetFeed calls v1.Feed.GetFeed.
 func (c *feedClient) GetFeed(ctx context.Context, req *connect_go.Request[v1.GetFeedRequest]) (*connect_go.Response[v1.GetFeedResponse], error) {
 	return c.getFeed.CallUnary(ctx, req)
+}
+
+// ListAllItems calls v1.Feed.ListAllItems.
+func (c *feedClient) ListAllItems(ctx context.Context, req *connect_go.Request[v1.ListItemsRequest]) (*connect_go.Response[v1.ListAllItemsResponse], error) {
+	return c.listAllItems.CallUnary(ctx, req)
 }
 
 // ListItems calls v1.Feed.ListItems.
@@ -187,6 +201,7 @@ type FeedHandler interface {
 	ListFeeds(context.Context, *connect_go.Request[v1.ListFeedsRequest]) (*connect_go.Response[v1.ListFeedsResponse], error)
 	AddFeed(context.Context, *connect_go.Request[v1.AddFeedRequest]) (*connect_go.Response[v1.AddFeedResponse], error)
 	GetFeed(context.Context, *connect_go.Request[v1.GetFeedRequest]) (*connect_go.Response[v1.GetFeedResponse], error)
+	ListAllItems(context.Context, *connect_go.Request[v1.ListItemsRequest]) (*connect_go.Response[v1.ListAllItemsResponse], error)
 	ListItems(context.Context, *connect_go.Request[v1.ListItemsRequest]) (*connect_go.Response[v1.ListItemsResponse], error)
 	GetAppearance(context.Context, *connect_go.Request[v1.GetAppearanceRequest]) (*connect_go.Response[v1.GetAppearanceResponse], error)
 	UpdateAppearance(context.Context, *connect_go.Request[v1.UpdateAppearanceRequest]) (*connect_go.Response[v1.UpdateAppearanceResponse], error)
@@ -215,6 +230,11 @@ func NewFeedHandler(svc FeedHandler, opts ...connect_go.HandlerOption) (string, 
 	mux.Handle(FeedGetFeedProcedure, connect_go.NewUnaryHandler(
 		FeedGetFeedProcedure,
 		svc.GetFeed,
+		opts...,
+	))
+	mux.Handle(FeedListAllItemsProcedure, connect_go.NewUnaryHandler(
+		FeedListAllItemsProcedure,
+		svc.ListAllItems,
 		opts...,
 	))
 	mux.Handle(FeedListItemsProcedure, connect_go.NewUnaryHandler(
@@ -263,6 +283,10 @@ func (UnimplementedFeedHandler) AddFeed(context.Context, *connect_go.Request[v1.
 
 func (UnimplementedFeedHandler) GetFeed(context.Context, *connect_go.Request[v1.GetFeedRequest]) (*connect_go.Response[v1.GetFeedResponse], error) {
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("v1.Feed.GetFeed is not implemented"))
+}
+
+func (UnimplementedFeedHandler) ListAllItems(context.Context, *connect_go.Request[v1.ListItemsRequest]) (*connect_go.Response[v1.ListAllItemsResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("v1.Feed.ListAllItems is not implemented"))
 }
 
 func (UnimplementedFeedHandler) ListItems(context.Context, *connect_go.Request[v1.ListItemsRequest]) (*connect_go.Response[v1.ListItemsResponse], error) {
