@@ -25,7 +25,7 @@ export const TopDashboard = () => {
     <section>
       <h2 css={styles.h2}>
         Bookmark
-        <Link href='/bookmark/configure'><AiOutlineSwapRight /></Link>
+        <Link href='/bookmarks'><AiOutlineSwapRight /></Link>
       </h2>
       <ul css={styles.list}>
         {

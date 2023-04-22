@@ -8,7 +8,7 @@ type FormData = {
   name: string;
   url: string;
 }
-export const ConfigureAdd = () => {
+export const Add = () => {
   const { invoke: invokeAddFeed } = useAddFeedLazy()
 
   const { register, handleSubmit } = useForm<FormData>()

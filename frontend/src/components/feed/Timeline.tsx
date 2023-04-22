@@ -25,7 +25,7 @@ export const Timeline = () => {
     <section>
       <h2 css={styles.h2}>
         Feed
-        <Link href='/feed/configure'><AiOutlineSwapRight /></Link>
+        <Link href='/feeds'><AiOutlineSwapRight /></Link>
       </h2>
       <ul css={styles.list}>
         {

@@ -7,15 +7,14 @@ type Props = {
 }
 export const TopDashboardItem = ({ title, id }: Props) => {
   const styles = useStyles(theme => ({
-    link: theme({size:'x1'}).css({
+    link: theme({ size:'x1', around: 'x2' }).css({
       border: 'solid 1px rgba(255,255,255,0.2)',
       borderRadius: '10px',
-      padding: '10px 20px',
     }),
   }))
 
   return (
-    <Link href={`/board/items/${id}`} css={styles.link}>
+    <Link href={`/boards/${id}`} css={styles.link}>
       {title}
     </Link>
   )

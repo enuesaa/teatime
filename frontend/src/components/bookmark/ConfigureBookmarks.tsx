@@ -16,7 +16,7 @@ export const ConfigureBookmarks = () => {
   return (
     <>
       {bookmarks?.items.map((v,i) => (
-        <Link key={i} href={`/bookmark/items/${v.id}`} css={styles.item}>
+        <Link key={i} href={`/bookmarks/${v.id}`} css={styles.item}>
           {v?.name}
         </Link>
       ))}

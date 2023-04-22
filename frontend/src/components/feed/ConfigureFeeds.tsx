@@ -28,7 +28,7 @@ export const ConfigureFeeds = () => {
     <ul css={styles.list}>
       <li>
         {feeds?.items.map((v,i) => (
-          <Link href={`/feed/items/${v.id}`} key={i}>
+          <Link href={`/feeds/${v.id}`} key={i}>
             {v?.name}
             <GiCoffeePot />
           </Link>

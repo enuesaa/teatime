@@ -9,7 +9,7 @@ type FormData = {
   name: string;
   url: string;
 }
-export const ConfigureAdd = () => {
+export const Add = () => {
   const { invoke: invokeAddBookmark } = useAddBookmarkLazy()
   const styles = useStyles(theme => ({
     form: theme().css({

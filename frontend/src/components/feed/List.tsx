@@ -3,12 +3,12 @@ import Link from 'next/link'
 import { FaPlus } from 'react-icons/fa'
 import { ConfigureFeeds } from '@/components/feed/ConfigureFeeds'
 
-export const Configure = () => {
+export const List = () => {
   return (
     <>
       <PageTitle title='Feed' />
       <div>
-        <Link href='/feed/configure/add'><FaPlus /></Link>
+        <Link href='/feeds?create'><FaPlus /></Link>
       </div>
       <ConfigureFeeds />
     </>

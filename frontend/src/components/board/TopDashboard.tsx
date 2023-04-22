@@ -22,7 +22,7 @@ export const TopDashboard = () => {
     <section>
       <h2 css={styles.h2}>
         Board
-        <Link href='/board/configure'><AiOutlineSwapRight /></Link>
+        <Link href='/boards'><AiOutlineSwapRight /></Link>
       </h2>
       <ul css={styles.list}>
         <TopDashboardItem title='aa' id='aa' />
