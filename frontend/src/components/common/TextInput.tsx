@@ -1,16 +1,15 @@
 import { UseFormRegisterReturn } from 'react-hook-form'
 
 type Props = {
-  label: string;
-  regist: UseFormRegisterReturn<string>;
+  label: string
+  defaultValue?: string
+  regist: UseFormRegisterReturn<string>
 }
-export const TextInput = ({ label, regist }: Props) => {
-  // see https://zenn.dev/dqn/articles/59b4f12ad37b6b
-
+export const TextInput = ({ label, regist, defaultValue }: Props) => {
   return (
     <label>
       {label}
-      <input type='text' {...regist} />    
+      <input type='text' defaultValue={defaultValue ?? ''} {...regist} />
     </label>
   )
 }

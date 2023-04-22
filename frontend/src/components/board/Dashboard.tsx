@@ -9,10 +9,7 @@ type ItemProps = {
 }
 export const Item = ({ title, id }: ItemProps) => {
   const styles = useStyles(theme => ({
-    link: theme({ size:'x1', around: 'x2' }).css({
-      border: 'solid 1px rgba(255,255,255,0.2)',
-      borderRadius: '10px',
-    }),
+    link: theme({ size:'x1', around: 'x2', decorate: 'card' }),
   }))
 
   return (
@@ -25,10 +22,6 @@ export const Item = ({ title, id }: ItemProps) => {
 export const Dashboard = () => {
   const styles = useStyles(theme => ({
     main: theme({ around: 'x1tb' }),
-    list: theme().css({
-      listStyleType: 'none',
-      padding: '0',
-    }),
   }))
 
   return (
@@ -36,7 +29,7 @@ export const Dashboard = () => {
       <PageTitle title='Boards'>
         <Link href='/boards'><AiOutlineSwapRight /></Link>
       </PageTitle>
-      <ul css={styles.list}>
+      <ul>
         <Item title='aa' id='aa' />
       </ul>
     </section>

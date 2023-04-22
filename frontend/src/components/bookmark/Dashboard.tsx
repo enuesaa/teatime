@@ -10,10 +10,7 @@ type ItemProps = {
 }
 export const Item = ({ title, href }: ItemProps) => {
   const styles = useStyles(theme => ({
-    link: theme({ size:'x1', around: 'x2' }).css({
-      border: 'solid 1px rgba(255,255,255,0.2)',
-      borderRadius: '10px',
-    }),
+    link: theme({ size:'x1', around: 'x2', decorate: 'card' }),
   }))
 
   return (
@@ -28,10 +25,6 @@ export const Dashboard = () => {
 
   const styles = useStyles(theme => ({
     main: theme({ around: 'x1tb' }),
-    list: theme().css({
-      listStyleType: 'none',
-      padding: '0',
-    }),
   }))
 
   return (
@@ -39,12 +32,10 @@ export const Dashboard = () => {
       <PageTitle title='Bookmark'>
         <Link href='/bookmarks'><AiOutlineSwapRight /></Link>
       </PageTitle>
-      <ul css={styles.list}>
-        {
-          list?.items.map((v,i) => {
-            return (<Item title={v?.name} href={v?.url ?? 'https://example.com/'} key={i} />)
-          })
-        }
+      <ul>
+        {list?.items.map((v,i) => (
+          <Item title={v?.name} href={v?.url ?? 'https://example.com/'} key={i} />)
+        )}
       </ul>
     </section>
   )

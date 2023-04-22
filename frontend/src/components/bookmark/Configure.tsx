@@ -4,35 +4,37 @@ import { FaPlus } from 'react-icons/fa'
 import { useStyles } from '@/styles/use'
 import { useListBookmarksQuery } from '@/lib/bookmark'
 
-const List = () => {
-  const bookmarks = useListBookmarksQuery({})
-  const styles = useStyles(theme => ({
-    item: theme().css({
-      padding: '10px',
-      margin: '10px',
-      borderRadius: '10px',
-      border: 'solid 1px rgba(255,255,255,0.2)',
-    }),
-  }))
-
+type ItemProps = {
+  id: string;
+  name: string;
+}
+const Item = ({ id, name }: ItemProps) => {
   return (
-    <>
-      {bookmarks?.items.map((v,i) => (
-        <Link key={i} href={`/bookmarks/${v.id}`} css={styles.item}>
-          {v?.name}
-        </Link>
-      ))}
-    </>
+    <Link href={`/bookmarks/${id}`}>
+      {name}
+    </Link>
   )
 }
 
 export const Configure = () => {
+  const bookmarks = useListBookmarksQuery({})
+  const styles = useStyles(theme => ({
+    main: theme({ around: 'x1tb' }),
+    list: theme({ around: 'x1' }).css({
+      a: theme({ around: 'x1', decorate: 'card' }).to(),
+    }),
+  }))
+
   return (
-    <>
-      <PageTitle title='Feed'>
+    <section css={styles.main}>
+      <PageTitle title='Bookmarks'>
         <Link href='/bookmarks?create'><FaPlus /></Link>
       </PageTitle>
-      <List />
-    </>
+      <div css={styles.list}>
+        {bookmarks?.items.map((v,i) => (
+          <Item id={v.id} name={v.name} key={i} />
+        ))}
+      </div>
+    </section>
   )
 }

@@ -40,10 +40,6 @@ export const Dashboard = () => {
         display: 'inline-block',
       },
     }),
-    list: theme().css({
-      listStyleType: 'none',
-      padding: '0',
-    }),
   }))
 
   return (
@@ -51,12 +47,10 @@ export const Dashboard = () => {
       <PageTitle title='Feed'>
         <Link href='/feeds'><AiOutlineSwapRight /></Link>
       </PageTitle>
-      <ul css={styles.list}>
-        {
-          feeditem?.items.map((v,i) => (
-            <Item key={i} href={v.url} title={v.name} />
-          ))
-        }
+      <ul>
+        {feeditem?.items.map((v,i) => (
+          <Item key={i} href={v.url} title={v.name} />
+        ))}
       </ul>
     </section>
   )

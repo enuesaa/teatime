@@ -12,6 +12,7 @@ type FormData = {
 export const Add = () => {
   const { invoke: invokeAddBookmark } = useAddBookmarkLazy()
   const styles = useStyles(theme => ({
+    main: theme({ around: 'x1tb' }),
     form: theme().css({
       margin: '20px',
       'input': { 
@@ -33,13 +34,13 @@ export const Add = () => {
   })
 
   return (
-    <>
+    <section css={styles.main}>
       <PageTitle title='Bookmark Add' />
       <form onSubmit={handleAddBookmark} css={styles.form}>
         <TextInput label='name' regist={register('name')} />
         <TextInput label='url' regist={register('url')} />
         <button type='submit'>add</button>
       </form>
-    </>
+    </section>
   )
 }

@@ -2,42 +2,43 @@ import { PageTitle } from '@/components/common/PageTitle'
 import Link from 'next/link'
 import { FaPlus } from 'react-icons/fa'
 import { useStyles } from '@/styles/use'
-import { GiCoffeePot } from 'react-icons/gi'
 import { useListFeedsQuery } from '@/lib/feed'
 
-const List = () => {
-  const feeds = useListFeedsQuery({})
-
+type ItemProps = {
+  id: string;
+  name: string;
+}
+const Item = ({ id, name }: ItemProps) => {
   const styles = useStyles(theme => ({
-    list: theme().css({
-      'li': {
-        padding: '10px',
-        border: 'solid 1px #fafafa',
-      },
+    link: theme({ around: 'x1' }).css({
+      display: 'block',
+      border: 'solid 1px #fafafa',
     }),
   }))
 
   return (
-    <ul css={styles.list}>
-      <li>
-        {feeds?.items.map((v,i) => (
-          <Link href={`/feeds/${v.id}`} key={i}>
-            {v?.name}
-            <GiCoffeePot />
-          </Link>
-        ))}
-      </li>
-    </ul>
+    <Link href={`/feeds/${id}`} css={styles.link}>
+      {name}
+    </Link>
   )
 }
 
 export const Configure = () => {
+  const feeds = useListFeedsQuery({})
+  const styles = useStyles(theme => ({
+    main: theme({ around: 'x1tb' }),
+  }))
+
   return (
-    <>
+    <section css={styles.main}>
       <PageTitle title='Feed'>
-        <Link href='/bookmarks?create'><FaPlus /></Link>
+        <Link href='/feeds?create'><FaPlus /></Link>
       </PageTitle>
-      <List />
-    </>
+      <ul>
+        {feeds?.items.map((v,i) => (
+          <Item id={v.id} name={v?.name} key={i} />
+        ))}
+      </ul>
+    </section>
   )
 }

@@ -13,9 +13,8 @@ export type SizeDef = {
   x3: CSSObject;
 }
 export type DecorateDef = {
-  a: CSSObject;
-  b: CSSObject;
   shadow: CSSObject;
+  card: CSSObject;
 }
 export type AroundDef = {
   x1: CSSObject
