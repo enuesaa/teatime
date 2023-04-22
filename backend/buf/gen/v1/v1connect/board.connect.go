@@ -25,6 +25,34 @@ const (
 	BoardName = "v1.Board"
 )
 
+// These constants are the fully-qualified names of the RPCs defined in this package. They're
+// exposed at runtime as Spec.Procedure and as the final two segments of the HTTP route.
+//
+// Note that these are different from the fully-qualified method names used by
+// google.golang.org/protobuf/reflect/protoreflect. To convert from these constants to
+// reflection-formatted method names, remove the leading slash and convert the remaining slash to a
+// period.
+const (
+	// BoardListBoardsProcedure is the fully-qualified name of the Board's ListBoards RPC.
+	BoardListBoardsProcedure = "/v1.Board/ListBoards"
+	// BoardGetBoardProcedure is the fully-qualified name of the Board's GetBoard RPC.
+	BoardGetBoardProcedure = "/v1.Board/GetBoard"
+	// BoardAddBoardProcedure is the fully-qualified name of the Board's AddBoard RPC.
+	BoardAddBoardProcedure = "/v1.Board/AddBoard"
+	// BoardUpdateBoardProcedure is the fully-qualified name of the Board's UpdateBoard RPC.
+	BoardUpdateBoardProcedure = "/v1.Board/UpdateBoard"
+	// BoardDeleteBoardProcedure is the fully-qualified name of the Board's DeleteBoard RPC.
+	BoardDeleteBoardProcedure = "/v1.Board/DeleteBoard"
+	// BoardCheckinProcedure is the fully-qualified name of the Board's Checkin RPC.
+	BoardCheckinProcedure = "/v1.Board/Checkin"
+	// BoardListTimelineProcedure is the fully-qualified name of the Board's ListTimeline RPC.
+	BoardListTimelineProcedure = "/v1.Board/ListTimeline"
+	// BoardArchiveBoardProcedure is the fully-qualified name of the Board's ArchiveBoard RPC.
+	BoardArchiveBoardProcedure = "/v1.Board/ArchiveBoard"
+	// BoardUnArchiveBoardProcedure is the fully-qualified name of the Board's UnArchiveBoard RPC.
+	BoardUnArchiveBoardProcedure = "/v1.Board/UnArchiveBoard"
+)
+
 // BoardClient is a client for the v1.Board service.
 type BoardClient interface {
 	ListBoards(context.Context, *connect_go.Request[v1.ListBoardsRequest]) (*connect_go.Response[v1.ListBoardsResponse], error)
@@ -50,47 +78,47 @@ func NewBoardClient(httpClient connect_go.HTTPClient, baseURL string, opts ...co
 	return &boardClient{
 		listBoards: connect_go.NewClient[v1.ListBoardsRequest, v1.ListBoardsResponse](
 			httpClient,
-			baseURL+"/v1.Board/ListBoards",
+			baseURL+BoardListBoardsProcedure,
 			opts...,
 		),
 		getBoard: connect_go.NewClient[v1.GetBoardRequest, v1.GetBoardResponse](
 			httpClient,
-			baseURL+"/v1.Board/GetBoard",
+			baseURL+BoardGetBoardProcedure,
 			opts...,
 		),
 		addBoard: connect_go.NewClient[v1.AddBoardRequest, v1.AddBoardResponse](
 			httpClient,
-			baseURL+"/v1.Board/AddBoard",
+			baseURL+BoardAddBoardProcedure,
 			opts...,
 		),
 		updateBoard: connect_go.NewClient[v1.UpdateBoardRequest, v1.UpdateBoardResponse](
 			httpClient,
-			baseURL+"/v1.Board/UpdateBoard",
+			baseURL+BoardUpdateBoardProcedure,
 			opts...,
 		),
 		deleteBoard: connect_go.NewClient[v1.DeleteBoardRequest, v1.DeleteBoardResponse](
 			httpClient,
-			baseURL+"/v1.Board/DeleteBoard",
+			baseURL+BoardDeleteBoardProcedure,
 			opts...,
 		),
 		checkin: connect_go.NewClient[v1.CheckinRequest, v1.CheckinResponse](
 			httpClient,
-			baseURL+"/v1.Board/Checkin",
+			baseURL+BoardCheckinProcedure,
 			opts...,
 		),
 		listTimeline: connect_go.NewClient[v1.ListTimelineRequest, v1.ListTimelineResponse](
 			httpClient,
-			baseURL+"/v1.Board/ListTimeline",
+			baseURL+BoardListTimelineProcedure,
 			opts...,
 		),
 		archiveBoard: connect_go.NewClient[v1.ArchiveBoardRequest, v1.ArchiveBoardResponse](
 			httpClient,
-			baseURL+"/v1.Board/ArchiveBoard",
+			baseURL+BoardArchiveBoardProcedure,
 			opts...,
 		),
 		unArchiveBoard: connect_go.NewClient[v1.UnArchiveBoardRequest, v1.UnArchiveBoardResponse](
 			httpClient,
-			baseURL+"/v1.Board/UnArchiveBoard",
+			baseURL+BoardUnArchiveBoardProcedure,
 			opts...,
 		),
 	}
@@ -174,48 +202,48 @@ type BoardHandler interface {
 // and JSON codecs. They also support gzip compression.
 func NewBoardHandler(svc BoardHandler, opts ...connect_go.HandlerOption) (string, http.Handler) {
 	mux := http.NewServeMux()
-	mux.Handle("/v1.Board/ListBoards", connect_go.NewUnaryHandler(
-		"/v1.Board/ListBoards",
+	mux.Handle(BoardListBoardsProcedure, connect_go.NewUnaryHandler(
+		BoardListBoardsProcedure,
 		svc.ListBoards,
 		opts...,
 	))
-	mux.Handle("/v1.Board/GetBoard", connect_go.NewUnaryHandler(
-		"/v1.Board/GetBoard",
+	mux.Handle(BoardGetBoardProcedure, connect_go.NewUnaryHandler(
+		BoardGetBoardProcedure,
 		svc.GetBoard,
 		opts...,
 	))
-	mux.Handle("/v1.Board/AddBoard", connect_go.NewUnaryHandler(
-		"/v1.Board/AddBoard",
+	mux.Handle(BoardAddBoardProcedure, connect_go.NewUnaryHandler(
+		BoardAddBoardProcedure,
 		svc.AddBoard,
 		opts...,
 	))
-	mux.Handle("/v1.Board/UpdateBoard", connect_go.NewUnaryHandler(
-		"/v1.Board/UpdateBoard",
+	mux.Handle(BoardUpdateBoardProcedure, connect_go.NewUnaryHandler(
+		BoardUpdateBoardProcedure,
 		svc.UpdateBoard,
 		opts...,
 	))
-	mux.Handle("/v1.Board/DeleteBoard", connect_go.NewUnaryHandler(
-		"/v1.Board/DeleteBoard",
+	mux.Handle(BoardDeleteBoardProcedure, connect_go.NewUnaryHandler(
+		BoardDeleteBoardProcedure,
 		svc.DeleteBoard,
 		opts...,
 	))
-	mux.Handle("/v1.Board/Checkin", connect_go.NewUnaryHandler(
-		"/v1.Board/Checkin",
+	mux.Handle(BoardCheckinProcedure, connect_go.NewUnaryHandler(
+		BoardCheckinProcedure,
 		svc.Checkin,
 		opts...,
 	))
-	mux.Handle("/v1.Board/ListTimeline", connect_go.NewUnaryHandler(
-		"/v1.Board/ListTimeline",
+	mux.Handle(BoardListTimelineProcedure, connect_go.NewUnaryHandler(
+		BoardListTimelineProcedure,
 		svc.ListTimeline,
 		opts...,
 	))
-	mux.Handle("/v1.Board/ArchiveBoard", connect_go.NewUnaryHandler(
-		"/v1.Board/ArchiveBoard",
+	mux.Handle(BoardArchiveBoardProcedure, connect_go.NewUnaryHandler(
+		BoardArchiveBoardProcedure,
 		svc.ArchiveBoard,
 		opts...,
 	))
-	mux.Handle("/v1.Board/UnArchiveBoard", connect_go.NewUnaryHandler(
-		"/v1.Board/UnArchiveBoard",
+	mux.Handle(BoardUnArchiveBoardProcedure, connect_go.NewUnaryHandler(
+		BoardUnArchiveBoardProcedure,
 		svc.UnArchiveBoard,
 		opts...,
 	))

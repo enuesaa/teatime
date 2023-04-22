@@ -25,6 +25,34 @@ const (
 	FeedName = "v1.Feed"
 )
 
+// These constants are the fully-qualified names of the RPCs defined in this package. They're
+// exposed at runtime as Spec.Procedure and as the final two segments of the HTTP route.
+//
+// Note that these are different from the fully-qualified method names used by
+// google.golang.org/protobuf/reflect/protoreflect. To convert from these constants to
+// reflection-formatted method names, remove the leading slash and convert the remaining slash to a
+// period.
+const (
+	// FeedListFeedsProcedure is the fully-qualified name of the Feed's ListFeeds RPC.
+	FeedListFeedsProcedure = "/v1.Feed/ListFeeds"
+	// FeedAddFeedProcedure is the fully-qualified name of the Feed's AddFeed RPC.
+	FeedAddFeedProcedure = "/v1.Feed/AddFeed"
+	// FeedGetFeedProcedure is the fully-qualified name of the Feed's GetFeed RPC.
+	FeedGetFeedProcedure = "/v1.Feed/GetFeed"
+	// FeedListItemsProcedure is the fully-qualified name of the Feed's ListItems RPC.
+	FeedListItemsProcedure = "/v1.Feed/ListItems"
+	// FeedGetAppearanceProcedure is the fully-qualified name of the Feed's GetAppearance RPC.
+	FeedGetAppearanceProcedure = "/v1.Feed/GetAppearance"
+	// FeedUpdateAppearanceProcedure is the fully-qualified name of the Feed's UpdateAppearance RPC.
+	FeedUpdateAppearanceProcedure = "/v1.Feed/UpdateAppearance"
+	// FeedFetchProcedure is the fully-qualified name of the Feed's Fetch RPC.
+	FeedFetchProcedure = "/v1.Feed/Fetch"
+	// FeedRemoveAllItemsProcedure is the fully-qualified name of the Feed's RemoveAllItems RPC.
+	FeedRemoveAllItemsProcedure = "/v1.Feed/RemoveAllItems"
+	// FeedDeleteFeedProcedure is the fully-qualified name of the Feed's DeleteFeed RPC.
+	FeedDeleteFeedProcedure = "/v1.Feed/DeleteFeed"
+)
+
 // FeedClient is a client for the v1.Feed service.
 type FeedClient interface {
 	ListFeeds(context.Context, *connect_go.Request[v1.ListFeedsRequest]) (*connect_go.Response[v1.ListFeedsResponse], error)
@@ -34,6 +62,7 @@ type FeedClient interface {
 	GetAppearance(context.Context, *connect_go.Request[v1.GetAppearanceRequest]) (*connect_go.Response[v1.GetAppearanceResponse], error)
 	UpdateAppearance(context.Context, *connect_go.Request[v1.UpdateAppearanceRequest]) (*connect_go.Response[v1.UpdateAppearanceResponse], error)
 	Fetch(context.Context, *connect_go.Request[v1.FetchRequest]) (*connect_go.Response[v1.FetchResponse], error)
+	RemoveAllItems(context.Context, *connect_go.Request[v1.RemoveAllItemsRequest]) (*connect_go.Response[v1.RemoveAllItemsResponse], error)
 	DeleteFeed(context.Context, *connect_go.Request[v1.DeleteFeedRequest]) (*connect_go.Response[v1.DeleteFeedResponse], error)
 }
 
@@ -49,42 +78,47 @@ func NewFeedClient(httpClient connect_go.HTTPClient, baseURL string, opts ...con
 	return &feedClient{
 		listFeeds: connect_go.NewClient[v1.ListFeedsRequest, v1.ListFeedsResponse](
 			httpClient,
-			baseURL+"/v1.Feed/ListFeeds",
+			baseURL+FeedListFeedsProcedure,
 			opts...,
 		),
 		addFeed: connect_go.NewClient[v1.AddFeedRequest, v1.AddFeedResponse](
 			httpClient,
-			baseURL+"/v1.Feed/AddFeed",
+			baseURL+FeedAddFeedProcedure,
 			opts...,
 		),
 		getFeed: connect_go.NewClient[v1.GetFeedRequest, v1.GetFeedResponse](
 			httpClient,
-			baseURL+"/v1.Feed/GetFeed",
+			baseURL+FeedGetFeedProcedure,
 			opts...,
 		),
 		listItems: connect_go.NewClient[v1.ListItemsRequest, v1.ListItemsResponse](
 			httpClient,
-			baseURL+"/v1.Feed/ListItems",
+			baseURL+FeedListItemsProcedure,
 			opts...,
 		),
 		getAppearance: connect_go.NewClient[v1.GetAppearanceRequest, v1.GetAppearanceResponse](
 			httpClient,
-			baseURL+"/v1.Feed/GetAppearance",
+			baseURL+FeedGetAppearanceProcedure,
 			opts...,
 		),
 		updateAppearance: connect_go.NewClient[v1.UpdateAppearanceRequest, v1.UpdateAppearanceResponse](
 			httpClient,
-			baseURL+"/v1.Feed/UpdateAppearance",
+			baseURL+FeedUpdateAppearanceProcedure,
 			opts...,
 		),
 		fetch: connect_go.NewClient[v1.FetchRequest, v1.FetchResponse](
 			httpClient,
-			baseURL+"/v1.Feed/Fetch",
+			baseURL+FeedFetchProcedure,
+			opts...,
+		),
+		removeAllItems: connect_go.NewClient[v1.RemoveAllItemsRequest, v1.RemoveAllItemsResponse](
+			httpClient,
+			baseURL+FeedRemoveAllItemsProcedure,
 			opts...,
 		),
 		deleteFeed: connect_go.NewClient[v1.DeleteFeedRequest, v1.DeleteFeedResponse](
 			httpClient,
-			baseURL+"/v1.Feed/DeleteFeed",
+			baseURL+FeedDeleteFeedProcedure,
 			opts...,
 		),
 	}
@@ -99,6 +133,7 @@ type feedClient struct {
 	getAppearance    *connect_go.Client[v1.GetAppearanceRequest, v1.GetAppearanceResponse]
 	updateAppearance *connect_go.Client[v1.UpdateAppearanceRequest, v1.UpdateAppearanceResponse]
 	fetch            *connect_go.Client[v1.FetchRequest, v1.FetchResponse]
+	removeAllItems   *connect_go.Client[v1.RemoveAllItemsRequest, v1.RemoveAllItemsResponse]
 	deleteFeed       *connect_go.Client[v1.DeleteFeedRequest, v1.DeleteFeedResponse]
 }
 
@@ -137,6 +172,11 @@ func (c *feedClient) Fetch(ctx context.Context, req *connect_go.Request[v1.Fetch
 	return c.fetch.CallUnary(ctx, req)
 }
 
+// RemoveAllItems calls v1.Feed.RemoveAllItems.
+func (c *feedClient) RemoveAllItems(ctx context.Context, req *connect_go.Request[v1.RemoveAllItemsRequest]) (*connect_go.Response[v1.RemoveAllItemsResponse], error) {
+	return c.removeAllItems.CallUnary(ctx, req)
+}
+
 // DeleteFeed calls v1.Feed.DeleteFeed.
 func (c *feedClient) DeleteFeed(ctx context.Context, req *connect_go.Request[v1.DeleteFeedRequest]) (*connect_go.Response[v1.DeleteFeedResponse], error) {
 	return c.deleteFeed.CallUnary(ctx, req)
@@ -151,6 +191,7 @@ type FeedHandler interface {
 	GetAppearance(context.Context, *connect_go.Request[v1.GetAppearanceRequest]) (*connect_go.Response[v1.GetAppearanceResponse], error)
 	UpdateAppearance(context.Context, *connect_go.Request[v1.UpdateAppearanceRequest]) (*connect_go.Response[v1.UpdateAppearanceResponse], error)
 	Fetch(context.Context, *connect_go.Request[v1.FetchRequest]) (*connect_go.Response[v1.FetchResponse], error)
+	RemoveAllItems(context.Context, *connect_go.Request[v1.RemoveAllItemsRequest]) (*connect_go.Response[v1.RemoveAllItemsResponse], error)
 	DeleteFeed(context.Context, *connect_go.Request[v1.DeleteFeedRequest]) (*connect_go.Response[v1.DeleteFeedResponse], error)
 }
 
@@ -161,43 +202,48 @@ type FeedHandler interface {
 // and JSON codecs. They also support gzip compression.
 func NewFeedHandler(svc FeedHandler, opts ...connect_go.HandlerOption) (string, http.Handler) {
 	mux := http.NewServeMux()
-	mux.Handle("/v1.Feed/ListFeeds", connect_go.NewUnaryHandler(
-		"/v1.Feed/ListFeeds",
+	mux.Handle(FeedListFeedsProcedure, connect_go.NewUnaryHandler(
+		FeedListFeedsProcedure,
 		svc.ListFeeds,
 		opts...,
 	))
-	mux.Handle("/v1.Feed/AddFeed", connect_go.NewUnaryHandler(
-		"/v1.Feed/AddFeed",
+	mux.Handle(FeedAddFeedProcedure, connect_go.NewUnaryHandler(
+		FeedAddFeedProcedure,
 		svc.AddFeed,
 		opts...,
 	))
-	mux.Handle("/v1.Feed/GetFeed", connect_go.NewUnaryHandler(
-		"/v1.Feed/GetFeed",
+	mux.Handle(FeedGetFeedProcedure, connect_go.NewUnaryHandler(
+		FeedGetFeedProcedure,
 		svc.GetFeed,
 		opts...,
 	))
-	mux.Handle("/v1.Feed/ListItems", connect_go.NewUnaryHandler(
-		"/v1.Feed/ListItems",
+	mux.Handle(FeedListItemsProcedure, connect_go.NewUnaryHandler(
+		FeedListItemsProcedure,
 		svc.ListItems,
 		opts...,
 	))
-	mux.Handle("/v1.Feed/GetAppearance", connect_go.NewUnaryHandler(
-		"/v1.Feed/GetAppearance",
+	mux.Handle(FeedGetAppearanceProcedure, connect_go.NewUnaryHandler(
+		FeedGetAppearanceProcedure,
 		svc.GetAppearance,
 		opts...,
 	))
-	mux.Handle("/v1.Feed/UpdateAppearance", connect_go.NewUnaryHandler(
-		"/v1.Feed/UpdateAppearance",
+	mux.Handle(FeedUpdateAppearanceProcedure, connect_go.NewUnaryHandler(
+		FeedUpdateAppearanceProcedure,
 		svc.UpdateAppearance,
 		opts...,
 	))
-	mux.Handle("/v1.Feed/Fetch", connect_go.NewUnaryHandler(
-		"/v1.Feed/Fetch",
+	mux.Handle(FeedFetchProcedure, connect_go.NewUnaryHandler(
+		FeedFetchProcedure,
 		svc.Fetch,
 		opts...,
 	))
-	mux.Handle("/v1.Feed/DeleteFeed", connect_go.NewUnaryHandler(
-		"/v1.Feed/DeleteFeed",
+	mux.Handle(FeedRemoveAllItemsProcedure, connect_go.NewUnaryHandler(
+		FeedRemoveAllItemsProcedure,
+		svc.RemoveAllItems,
+		opts...,
+	))
+	mux.Handle(FeedDeleteFeedProcedure, connect_go.NewUnaryHandler(
+		FeedDeleteFeedProcedure,
 		svc.DeleteFeed,
 		opts...,
 	))
@@ -233,6 +279,10 @@ func (UnimplementedFeedHandler) UpdateAppearance(context.Context, *connect_go.Re
 
 func (UnimplementedFeedHandler) Fetch(context.Context, *connect_go.Request[v1.FetchRequest]) (*connect_go.Response[v1.FetchResponse], error) {
 	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("v1.Feed.Fetch is not implemented"))
+}
+
+func (UnimplementedFeedHandler) RemoveAllItems(context.Context, *connect_go.Request[v1.RemoveAllItemsRequest]) (*connect_go.Response[v1.RemoveAllItemsResponse], error) {
+	return nil, connect_go.NewError(connect_go.CodeUnimplemented, errors.New("v1.Feed.RemoveAllItems is not implemented"))
 }
 
 func (UnimplementedFeedHandler) DeleteFeed(context.Context, *connect_go.Request[v1.DeleteFeedRequest]) (*connect_go.Response[v1.DeleteFeedResponse], error) {

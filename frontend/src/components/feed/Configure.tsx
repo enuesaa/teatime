@@ -10,10 +10,7 @@ type ItemProps = {
 }
 const Item = ({ id, name }: ItemProps) => {
   const styles = useStyles(theme => ({
-    link: theme({ around: 'x1' }).css({
-      display: 'block',
-      border: 'solid 1px #fafafa',
-    }),
+    link: theme({ around: 'x2', decorate: 'card' }),
   }))
 
   return (

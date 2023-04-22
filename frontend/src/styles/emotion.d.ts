@@ -16,13 +16,16 @@ export type DecorateDef = {
   shadow: CSSObject;
   card: CSSObject;
 }
+export type HoverDef = {
+  shadow: CSSObject;
+}
 export type AroundDef = {
-  x1: CSSObject
-  x1tb: CSSObject
-  x2: CSSObject
-  x2tb: CSSObject
-  x3: CSSObject
-  x3tb: CSSObject
+  x1: CSSObject;
+  x1tb: CSSObject;
+  x2: CSSObject;
+  x2tb: CSSObject;
+  x3: CSSObject;
+  x3tb: CSSObject;
 }
 
 declare module '@emotion/react' {
@@ -30,6 +33,7 @@ declare module '@emotion/react' {
     surf: SurfDef;
     size: SizeDef;
     decorate: DecorateDef;
+    hover: HoverDef;
     around: AroundDef;
   }
 }

@@ -25,6 +25,24 @@ const (
 	TagName = "v1.Tag"
 )
 
+// These constants are the fully-qualified names of the RPCs defined in this package. They're
+// exposed at runtime as Spec.Procedure and as the final two segments of the HTTP route.
+//
+// Note that these are different from the fully-qualified method names used by
+// google.golang.org/protobuf/reflect/protoreflect. To convert from these constants to
+// reflection-formatted method names, remove the leading slash and convert the remaining slash to a
+// period.
+const (
+	// TagListTagsProcedure is the fully-qualified name of the Tag's ListTags RPC.
+	TagListTagsProcedure = "/v1.Tag/ListTags"
+	// TagAddTagItemProcedure is the fully-qualified name of the Tag's AddTagItem RPC.
+	TagAddTagItemProcedure = "/v1.Tag/AddTagItem"
+	// TagListTagItemsProcedure is the fully-qualified name of the Tag's ListTagItems RPC.
+	TagListTagItemsProcedure = "/v1.Tag/ListTagItems"
+	// TagRemoveTagItemProcedure is the fully-qualified name of the Tag's RemoveTagItem RPC.
+	TagRemoveTagItemProcedure = "/v1.Tag/RemoveTagItem"
+)
+
 // TagClient is a client for the v1.Tag service.
 type TagClient interface {
 	ListTags(context.Context, *connect_go.Request[v1.ListTagsRequest]) (*connect_go.Response[v1.ListTagsResponse], error)
@@ -45,22 +63,22 @@ func NewTagClient(httpClient connect_go.HTTPClient, baseURL string, opts ...conn
 	return &tagClient{
 		listTags: connect_go.NewClient[v1.ListTagsRequest, v1.ListTagsResponse](
 			httpClient,
-			baseURL+"/v1.Tag/ListTags",
+			baseURL+TagListTagsProcedure,
 			opts...,
 		),
 		addTagItem: connect_go.NewClient[v1.AddTagItemRequest, v1.AddTagItemResponse](
 			httpClient,
-			baseURL+"/v1.Tag/AddTagItem",
+			baseURL+TagAddTagItemProcedure,
 			opts...,
 		),
 		listTagItems: connect_go.NewClient[v1.ListTagItemsRequest, v1.ListTagItemsResponse](
 			httpClient,
-			baseURL+"/v1.Tag/ListTagItems",
+			baseURL+TagListTagItemsProcedure,
 			opts...,
 		),
 		removeTagItem: connect_go.NewClient[v1.RemoveTagItemRequest, v1.RemoveTagItemResponse](
 			httpClient,
-			baseURL+"/v1.Tag/RemoveTagItem",
+			baseURL+TagRemoveTagItemProcedure,
 			opts...,
 		),
 	}
@@ -109,23 +127,23 @@ type TagHandler interface {
 // and JSON codecs. They also support gzip compression.
 func NewTagHandler(svc TagHandler, opts ...connect_go.HandlerOption) (string, http.Handler) {
 	mux := http.NewServeMux()
-	mux.Handle("/v1.Tag/ListTags", connect_go.NewUnaryHandler(
-		"/v1.Tag/ListTags",
+	mux.Handle(TagListTagsProcedure, connect_go.NewUnaryHandler(
+		TagListTagsProcedure,
 		svc.ListTags,
 		opts...,
 	))
-	mux.Handle("/v1.Tag/AddTagItem", connect_go.NewUnaryHandler(
-		"/v1.Tag/AddTagItem",
+	mux.Handle(TagAddTagItemProcedure, connect_go.NewUnaryHandler(
+		TagAddTagItemProcedure,
 		svc.AddTagItem,
 		opts...,
 	))
-	mux.Handle("/v1.Tag/ListTagItems", connect_go.NewUnaryHandler(
-		"/v1.Tag/ListTagItems",
+	mux.Handle(TagListTagItemsProcedure, connect_go.NewUnaryHandler(
+		TagListTagItemsProcedure,
 		svc.ListTagItems,
 		opts...,
 	))
-	mux.Handle("/v1.Tag/RemoveTagItem", connect_go.NewUnaryHandler(
-		"/v1.Tag/RemoveTagItem",
+	mux.Handle(TagRemoveTagItemProcedure, connect_go.NewUnaryHandler(
+		TagRemoveTagItemProcedure,
 		svc.RemoveTagItem,
 		opts...,
 	))

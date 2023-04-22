@@ -145,6 +145,21 @@ func (ctl *FeedController) Fetch(c *gin.Context) {
 	c.JSON(200, v1.FetchResponse{})
 }
 
+func (ctl *FeedController) RemoveAllItems(c *gin.Context) {
+	var body v1.RemoveAllItemsRequest
+	if !binding.Validate(c, &body) {
+		return
+	}
+	// _id := body.Id
+
+	list := ctl.feeditem().List()
+	for _, v := range list {
+		ctl.feeditem().Delete(v.Id)
+	}
+	c.JSON(200, v1.RemoveAllItemsResponse{})
+}
+
+
 func (ctl *FeedController) Delete(c *gin.Context) {
 	var body v1.DeleteFeedRequest
 	if !binding.Validate(c, &body) {

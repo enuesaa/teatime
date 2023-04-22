@@ -38,6 +38,7 @@ func setupRouter() *gin.Engine {
 		feedRoute.POST("/GetAppearance", feedCtl.GetAppearance)
 		feedRoute.POST("/UpdateAppearance", feedCtl.UpdateAppearance)
 		feedRoute.POST("/Fetch", feedCtl.Fetch)
+		feedRoute.POST("/RemoveAllItems", feedCtl.RemoveAllItems)
 		feedRoute.POST("/DeleteFeed", feedCtl.Delete)
 
 		boardRoute := base.Group("/v1.Board")

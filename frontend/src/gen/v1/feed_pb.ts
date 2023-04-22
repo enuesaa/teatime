@@ -835,6 +835,74 @@ export class FetchResponse extends Message<FetchResponse> {
 }
 
 /**
+ * @generated from message v1.RemoveAllItemsRequest
+ */
+export class RemoveAllItemsRequest extends Message<RemoveAllItemsRequest> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  constructor(data?: PartialMessage<RemoveAllItemsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "v1.RemoveAllItemsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RemoveAllItemsRequest {
+    return new RemoveAllItemsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RemoveAllItemsRequest {
+    return new RemoveAllItemsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RemoveAllItemsRequest {
+    return new RemoveAllItemsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RemoveAllItemsRequest | PlainMessage<RemoveAllItemsRequest> | undefined, b: RemoveAllItemsRequest | PlainMessage<RemoveAllItemsRequest> | undefined): boolean {
+    return proto3.util.equals(RemoveAllItemsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message v1.RemoveAllItemsResponse
+ */
+export class RemoveAllItemsResponse extends Message<RemoveAllItemsResponse> {
+  constructor(data?: PartialMessage<RemoveAllItemsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "v1.RemoveAllItemsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RemoveAllItemsResponse {
+    return new RemoveAllItemsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RemoveAllItemsResponse {
+    return new RemoveAllItemsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RemoveAllItemsResponse {
+    return new RemoveAllItemsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: RemoveAllItemsResponse | PlainMessage<RemoveAllItemsResponse> | undefined, b: RemoveAllItemsResponse | PlainMessage<RemoveAllItemsResponse> | undefined): boolean {
+    return proto3.util.equals(RemoveAllItemsResponse, a, b);
+  }
+}
+
+/**
  * @generated from message v1.DeleteFeedRequest
  */
 export class DeleteFeedRequest extends Message<DeleteFeedRequest> {

@@ -25,6 +25,26 @@ const (
 	BookmarkName = "v1.Bookmark"
 )
 
+// These constants are the fully-qualified names of the RPCs defined in this package. They're
+// exposed at runtime as Spec.Procedure and as the final two segments of the HTTP route.
+//
+// Note that these are different from the fully-qualified method names used by
+// google.golang.org/protobuf/reflect/protoreflect. To convert from these constants to
+// reflection-formatted method names, remove the leading slash and convert the remaining slash to a
+// period.
+const (
+	// BookmarkAddBookmarkProcedure is the fully-qualified name of the Bookmark's AddBookmark RPC.
+	BookmarkAddBookmarkProcedure = "/v1.Bookmark/AddBookmark"
+	// BookmarkListBookmarksProcedure is the fully-qualified name of the Bookmark's ListBookmarks RPC.
+	BookmarkListBookmarksProcedure = "/v1.Bookmark/ListBookmarks"
+	// BookmarkGetBookmarkProcedure is the fully-qualified name of the Bookmark's GetBookmark RPC.
+	BookmarkGetBookmarkProcedure = "/v1.Bookmark/GetBookmark"
+	// BookmarkUpdateBookmarkProcedure is the fully-qualified name of the Bookmark's UpdateBookmark RPC.
+	BookmarkUpdateBookmarkProcedure = "/v1.Bookmark/UpdateBookmark"
+	// BookmarkDeleteBookmarkProcedure is the fully-qualified name of the Bookmark's DeleteBookmark RPC.
+	BookmarkDeleteBookmarkProcedure = "/v1.Bookmark/DeleteBookmark"
+)
+
 // BookmarkClient is a client for the v1.Bookmark service.
 type BookmarkClient interface {
 	AddBookmark(context.Context, *connect_go.Request[v1.AddBookmarkRequest]) (*connect_go.Response[v1.AddBookmarkResponse], error)
@@ -46,27 +66,27 @@ func NewBookmarkClient(httpClient connect_go.HTTPClient, baseURL string, opts ..
 	return &bookmarkClient{
 		addBookmark: connect_go.NewClient[v1.AddBookmarkRequest, v1.AddBookmarkResponse](
 			httpClient,
-			baseURL+"/v1.Bookmark/AddBookmark",
+			baseURL+BookmarkAddBookmarkProcedure,
 			opts...,
 		),
 		listBookmarks: connect_go.NewClient[v1.ListBookmarksRequest, v1.ListBookmarksResponse](
 			httpClient,
-			baseURL+"/v1.Bookmark/ListBookmarks",
+			baseURL+BookmarkListBookmarksProcedure,
 			opts...,
 		),
 		getBookmark: connect_go.NewClient[v1.GetBookmarkRequest, v1.GetBookmarkResponse](
 			httpClient,
-			baseURL+"/v1.Bookmark/GetBookmark",
+			baseURL+BookmarkGetBookmarkProcedure,
 			opts...,
 		),
 		updateBookmark: connect_go.NewClient[v1.UpdateBookmarkRequest, v1.UpdateBookmarkResponse](
 			httpClient,
-			baseURL+"/v1.Bookmark/UpdateBookmark",
+			baseURL+BookmarkUpdateBookmarkProcedure,
 			opts...,
 		),
 		deleteBookmark: connect_go.NewClient[v1.DeleteBookmarkRequest, v1.DeleteBookmarkResponse](
 			httpClient,
-			baseURL+"/v1.Bookmark/DeleteBookmark",
+			baseURL+BookmarkDeleteBookmarkProcedure,
 			opts...,
 		),
 	}
@@ -122,28 +142,28 @@ type BookmarkHandler interface {
 // and JSON codecs. They also support gzip compression.
 func NewBookmarkHandler(svc BookmarkHandler, opts ...connect_go.HandlerOption) (string, http.Handler) {
 	mux := http.NewServeMux()
-	mux.Handle("/v1.Bookmark/AddBookmark", connect_go.NewUnaryHandler(
-		"/v1.Bookmark/AddBookmark",
+	mux.Handle(BookmarkAddBookmarkProcedure, connect_go.NewUnaryHandler(
+		BookmarkAddBookmarkProcedure,
 		svc.AddBookmark,
 		opts...,
 	))
-	mux.Handle("/v1.Bookmark/ListBookmarks", connect_go.NewUnaryHandler(
-		"/v1.Bookmark/ListBookmarks",
+	mux.Handle(BookmarkListBookmarksProcedure, connect_go.NewUnaryHandler(
+		BookmarkListBookmarksProcedure,
 		svc.ListBookmarks,
 		opts...,
 	))
-	mux.Handle("/v1.Bookmark/GetBookmark", connect_go.NewUnaryHandler(
-		"/v1.Bookmark/GetBookmark",
+	mux.Handle(BookmarkGetBookmarkProcedure, connect_go.NewUnaryHandler(
+		BookmarkGetBookmarkProcedure,
 		svc.GetBookmark,
 		opts...,
 	))
-	mux.Handle("/v1.Bookmark/UpdateBookmark", connect_go.NewUnaryHandler(
-		"/v1.Bookmark/UpdateBookmark",
+	mux.Handle(BookmarkUpdateBookmarkProcedure, connect_go.NewUnaryHandler(
+		BookmarkUpdateBookmarkProcedure,
 		svc.UpdateBookmark,
 		opts...,
 	))
-	mux.Handle("/v1.Bookmark/DeleteBookmark", connect_go.NewUnaryHandler(
-		"/v1.Bookmark/DeleteBookmark",
+	mux.Handle(BookmarkDeleteBookmarkProcedure, connect_go.NewUnaryHandler(
+		BookmarkDeleteBookmarkProcedure,
 		svc.DeleteBookmark,
 		opts...,
 	))

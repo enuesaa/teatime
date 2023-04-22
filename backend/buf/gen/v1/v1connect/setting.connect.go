@@ -25,6 +25,20 @@ const (
 	SettingName = "v1.Setting"
 )
 
+// These constants are the fully-qualified names of the RPCs defined in this package. They're
+// exposed at runtime as Spec.Procedure and as the final two segments of the HTTP route.
+//
+// Note that these are different from the fully-qualified method names used by
+// google.golang.org/protobuf/reflect/protoreflect. To convert from these constants to
+// reflection-formatted method names, remove the leading slash and convert the remaining slash to a
+// period.
+const (
+	// SettingGetAppearanceProcedure is the fully-qualified name of the Setting's GetAppearance RPC.
+	SettingGetAppearanceProcedure = "/v1.Setting/GetAppearance"
+	// SettingPutAppearanceProcedure is the fully-qualified name of the Setting's PutAppearance RPC.
+	SettingPutAppearanceProcedure = "/v1.Setting/PutAppearance"
+)
+
 // SettingClient is a client for the v1.Setting service.
 type SettingClient interface {
 	GetAppearance(context.Context, *connect_go.Request[v1.SettingGetAppearanceRequest]) (*connect_go.Response[v1.SettingGetAppearanceResponse], error)
@@ -43,12 +57,12 @@ func NewSettingClient(httpClient connect_go.HTTPClient, baseURL string, opts ...
 	return &settingClient{
 		getAppearance: connect_go.NewClient[v1.SettingGetAppearanceRequest, v1.SettingGetAppearanceResponse](
 			httpClient,
-			baseURL+"/v1.Setting/GetAppearance",
+			baseURL+SettingGetAppearanceProcedure,
 			opts...,
 		),
 		putAppearance: connect_go.NewClient[v1.SettingPutAppearanceRequest, v1.SettingPutAppearanceResponse](
 			httpClient,
-			baseURL+"/v1.Setting/PutAppearance",
+			baseURL+SettingPutAppearanceProcedure,
 			opts...,
 		),
 	}
@@ -83,13 +97,13 @@ type SettingHandler interface {
 // and JSON codecs. They also support gzip compression.
 func NewSettingHandler(svc SettingHandler, opts ...connect_go.HandlerOption) (string, http.Handler) {
 	mux := http.NewServeMux()
-	mux.Handle("/v1.Setting/GetAppearance", connect_go.NewUnaryHandler(
-		"/v1.Setting/GetAppearance",
+	mux.Handle(SettingGetAppearanceProcedure, connect_go.NewUnaryHandler(
+		SettingGetAppearanceProcedure,
 		svc.GetAppearance,
 		opts...,
 	))
-	mux.Handle("/v1.Setting/PutAppearance", connect_go.NewUnaryHandler(
-		"/v1.Setting/PutAppearance",
+	mux.Handle(SettingPutAppearanceProcedure, connect_go.NewUnaryHandler(
+		SettingPutAppearanceProcedure,
 		svc.PutAppearance,
 		opts...,
 	))

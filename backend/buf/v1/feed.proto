@@ -91,6 +91,11 @@ message FetchRequest {
 }
 message FetchResponse {}
 
+message RemoveAllItemsRequest {
+  string id = 1 [(validate.rules).string.min_len = 1];
+}
+message RemoveAllItemsResponse {}
+
 message DeleteFeedRequest {
   string id = 1 [(validate.rules).string.min_len = 1];
 }
@@ -104,5 +109,6 @@ service Feed {
   rpc GetAppearance(GetAppearanceRequest) returns (GetAppearanceResponse) {}
   rpc UpdateAppearance(UpdateAppearanceRequest) returns (UpdateAppearanceResponse) {}
   rpc Fetch(FetchRequest) returns (FetchResponse) {}
+  rpc RemoveAllItems(RemoveAllItemsRequest) returns (RemoveAllItemsResponse) {}
   rpc DeleteFeed(DeleteFeedRequest) returns (DeleteFeedResponse) {}
 }

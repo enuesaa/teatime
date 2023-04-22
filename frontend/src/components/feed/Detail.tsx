@@ -1,5 +1,5 @@
-import { useDeleteFeedLazy, useGetFeedQuery, useFetchLazy } from '@/lib/feed'
-import { GetFeedRequest, DeleteFeedRequest, FetchRequest } from '@/gen/v1/feed_pb'
+import { useDeleteFeedLazy, useGetFeedQuery, useFetchLazy, useRemoveAllItemsLazy } from '@/lib/feed'
+import { GetFeedRequest, DeleteFeedRequest, FetchRequest, RemoveAllItemsRequest } from '@/gen/v1/feed_pb'
 import { MouseEventHandler } from 'react'
 import { useStyles } from '@/styles/use'
 import { PageTitle } from '@/components/common/PageTitle'
@@ -11,12 +11,10 @@ export const Detail = ({ id }: Props) => {
   const data = useGetFeedQuery({ id } as GetFeedRequest)
   const { invoke: invokeDeleteFeed } = useDeleteFeedLazy()
   const { invoke: invokeFetchFeed } = useFetchLazy()
+  const { invoke: invokeRemoveAllItems } = useRemoveAllItemsLazy()
 
   const styles = useStyles(theme => ({
-    list: theme().css({
-      listStyleType: 'none',
-      padding: '0',
-    }),
+    btn: theme({ surf: 'sub', around: 'x2', decorate: 'card', hover: 'shadow' }),
   }))
 
   const handleDeleteFeed: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -27,15 +25,17 @@ export const Detail = ({ id }: Props) => {
     e.preventDefault()
     invokeFetchFeed({ id } as FetchRequest)
   }
+  const handleRemoveAllItems: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault()
+    invokeRemoveAllItems({ id } as RemoveAllItemsRequest)
+  } 
 
   return (
     <section>
-      <PageTitle title={`Feed Detail ${data?.name}`} />
-      <button onClick={handleDeleteFeed}>delete</button>
-      <button onClick={handleFetchFeed}>fetch</button>
-      <ul css={styles.list}>
-        {/* <TimelineItem href='https://example.com/' title='aaa' /> */}
-      </ul>
+      <PageTitle title={`Feed ${data?.name}`} />
+      <button onClick={handleFetchFeed} css={styles.btn}>fetch</button>
+      <button onClick={handleRemoveAllItems} css={styles.btn}>removeAllItems</button>
+      <button onClick={handleDeleteFeed} css={styles.btn}>delete</button>
     </section>
   )
 }

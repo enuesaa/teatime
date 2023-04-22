@@ -45,3 +45,7 @@ func (srv *FeeditemService) List() []Feeditem {
 	fmt.Printf("%+v", feeditems)
 	return feeditems
 }
+
+func (srv *FeeditemService) Delete(id string) {
+	srv.RedisRepo.Delete(srv.getRedisId(id))
+}

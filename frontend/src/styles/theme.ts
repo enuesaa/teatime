@@ -47,11 +47,13 @@ export const baseTheme: Theme = {
       borderRadius: '5px',
     }
   },
-  // hover: {
-  //   darken: {
-  //     background: 'rgba(0,0,0,0.1)'
-  //   }
-  // }
+  hover: {
+    shadow: {
+      '&:hover': {
+        boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.7)',
+      },
+    }
+  },
   around: {
     x1: {
       padding: '3px',

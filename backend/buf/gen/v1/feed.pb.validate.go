@@ -1679,6 +1679,221 @@ var _ interface {
 	ErrorName() string
 } = FetchResponseValidationError{}
 
+// Validate checks the field values on RemoveAllItemsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RemoveAllItemsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RemoveAllItemsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RemoveAllItemsRequestMultiError, or nil if none found.
+func (m *RemoveAllItemsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RemoveAllItemsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetId()) < 1 {
+		err := RemoveAllItemsRequestValidationError{
+			field:  "Id",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return RemoveAllItemsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// RemoveAllItemsRequestMultiError is an error wrapping multiple validation
+// errors returned by RemoveAllItemsRequest.ValidateAll() if the designated
+// constraints aren't met.
+type RemoveAllItemsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RemoveAllItemsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RemoveAllItemsRequestMultiError) AllErrors() []error { return m }
+
+// RemoveAllItemsRequestValidationError is the validation error returned by
+// RemoveAllItemsRequest.Validate if the designated constraints aren't met.
+type RemoveAllItemsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RemoveAllItemsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RemoveAllItemsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RemoveAllItemsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RemoveAllItemsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RemoveAllItemsRequestValidationError) ErrorName() string {
+	return "RemoveAllItemsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RemoveAllItemsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRemoveAllItemsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RemoveAllItemsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RemoveAllItemsRequestValidationError{}
+
+// Validate checks the field values on RemoveAllItemsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RemoveAllItemsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RemoveAllItemsResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RemoveAllItemsResponseMultiError, or nil if none found.
+func (m *RemoveAllItemsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RemoveAllItemsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return RemoveAllItemsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// RemoveAllItemsResponseMultiError is an error wrapping multiple validation
+// errors returned by RemoveAllItemsResponse.ValidateAll() if the designated
+// constraints aren't met.
+type RemoveAllItemsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RemoveAllItemsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RemoveAllItemsResponseMultiError) AllErrors() []error { return m }
+
+// RemoveAllItemsResponseValidationError is the validation error returned by
+// RemoveAllItemsResponse.Validate if the designated constraints aren't met.
+type RemoveAllItemsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RemoveAllItemsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RemoveAllItemsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RemoveAllItemsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RemoveAllItemsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RemoveAllItemsResponseValidationError) ErrorName() string {
+	return "RemoveAllItemsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RemoveAllItemsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRemoveAllItemsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RemoveAllItemsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RemoveAllItemsResponseValidationError{}
+
 // Validate checks the field values on DeleteFeedRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.

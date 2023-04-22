@@ -1,6 +1,6 @@
 import { Feed } from '@/gen/v1/feed_connectweb'
 import { queriesInit } from './use'
-import { AddFeedRequest, AddFeedResponse, DeleteFeedRequest, DeleteFeedResponse, FetchRequest, FetchResponse, GetFeedRequest, GetFeedResponse, ListFeedsResponse, ListItemsRequest, ListItemsResponse} from '@/gen/v1/feed_pb'
+import { AddFeedRequest, AddFeedResponse, DeleteFeedRequest, DeleteFeedResponse, FetchRequest, FetchResponse, GetFeedRequest, GetFeedResponse, ListFeedsResponse, ListItemsRequest, ListItemsResponse, RemoveAllItemsRequest, RemoveAllItemsResponse} from '@/gen/v1/feed_pb'
 
 export const {
   useQuery: useListFeedsQuery,
@@ -31,3 +31,8 @@ export const {
   useQuery: useListItemsQuery,
   useLazy: useListItemsLazy,
 } = queriesInit<ListItemsRequest, ListItemsResponse>(Feed, async (client, arg) => await client.listItems(arg))
+
+export const {
+  useQuery: useRemoveAllItemsQuery,
+  useLazy: useRemoveAllItemsLazy,
+} = queriesInit<RemoveAllItemsRequest, RemoveAllItemsResponse>(Feed, async (client, arg) => await client.removeAllItems(arg))

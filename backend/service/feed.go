@@ -70,7 +70,3 @@ func (srv *FeedService) Update(id string, feed Feed) string {
 func (srv *FeedService) Delete(id string) {
 	srv.RedisRepo.Delete(srv.getRedisId(id))
 }
-
-func (src *FeedService) ListItems(id string) {
-	//
-}

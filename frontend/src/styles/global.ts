@@ -36,6 +36,7 @@ export const globalStyle = css`
     appearance: none;
     border: none;
     display: block;
+    cursor: pointer;
   }
 
   ul {
