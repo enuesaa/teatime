@@ -1,8 +1,26 @@
-import { TopDashboardItem } from '@/components/bookmark/TopDashboardItem'
 import { AiOutlineSwapRight } from 'react-icons/ai'
 import Link from 'next/link'
 import { useListBookmarksQuery } from '@/lib/bookmark'
 import { useStyles } from '@/styles/use'
+import { PageTitle } from '@/components/common/PageTitle'
+
+type ItemProps = {
+  title: string,
+  href: string,
+}
+export const Item = ({ title, href }: ItemProps) => {
+  const styles = useStyles(theme => ({
+    link: theme({ size:'x1', around: 'x2' }).css({
+      border: 'solid 1px rgba(255,255,255,0.2)',
+      borderRadius: '10px',
+    }),
+  }))
+  return (
+    <Link href={href} css={styles.link} target='_blank'>
+      {title}
+    </Link>
+  )
+}
 
 export const TopDashboard = () => {
   const list = useListBookmarksQuery({})
@@ -23,14 +41,13 @@ export const TopDashboard = () => {
 
   return (
     <section>
-      <h2 css={styles.h2}>
-        Bookmark
+      <PageTitle title='Bookmark'>
         <Link href='/bookmarks'><AiOutlineSwapRight /></Link>
-      </h2>
+      </PageTitle>
       <ul css={styles.list}>
         {
           list?.items.map((v,i) => {
-            return (<TopDashboardItem title={v?.name} href={v?.url ?? 'https://example.com/'} key={i} />)
+            return (<Item title={v?.name} href={v?.url ?? 'https://example.com/'} key={i} />)
           })
         }
       </ul>

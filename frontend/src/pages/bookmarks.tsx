@@ -1,6 +1,6 @@
 import { Header } from '@/components/common/Header'
 import { Main } from '@/components/common/Main'
-import { List } from '@/components/board/List'
+import { List } from '@/components/bookmark/List'
 import { Add } from '@/components/bookmark/Add'
 import { useRouter } from 'next/router'
 

@@ -2,7 +2,7 @@ import { useStyles } from '@/styles/use'
 import { useListBookmarksQuery } from '@/lib/bookmark'
 import Link from 'next/link'
 
-export const ConfigureBookmarks = () => {
+export const Configure = () => {
   const bookmarks = useListBookmarksQuery({})
   const styles = useStyles(theme => ({
     item: theme().css({

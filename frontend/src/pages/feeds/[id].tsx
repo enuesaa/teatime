@@ -1,6 +1,6 @@
 import { Header } from '@/components/common/Header'
 import { useRouter } from 'next/router'
-import { FeedDetail } from '@/components/feed/FeedDetail'
+import { Detail } from '@/components/feed/Detail'
 import { Main } from '@/components/common/Main'
 
 export default function Page() {
@@ -14,7 +14,7 @@ export default function Page() {
     <>
       <Header />
       <Main>
-        <FeedDetail id={id} />
+        <Detail id={id} />
       </Main>
     </>
   )

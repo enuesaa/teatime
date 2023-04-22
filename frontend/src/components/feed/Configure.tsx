@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { GiCoffeePot } from 'react-icons/gi'
 import { useListFeedsQuery } from '@/lib/feed'
 
-export const ConfigureFeeds = () => {
+export const Configure = () => {
   const feeds = useListFeedsQuery({})
 
   const styles = useStyles(theme => ({

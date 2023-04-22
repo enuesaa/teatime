@@ -6,7 +6,7 @@ import { DeleteBookmarkRequest, GetBookmarkRequest } from '@/gen/v1/bookmark_pb'
 type Props = {
   id: string,
 }
-export const BookmarkDetail = ({ id }: Props) => {
+export const Detail = ({ id }: Props) => {
   const data = useGetBookmarkQuery({ id } as GetBookmarkRequest)
   const { invoke: invokeDeleteBookmark } = useDeleteBookmarkLazy()
 

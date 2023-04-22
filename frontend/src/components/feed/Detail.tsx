@@ -6,7 +6,7 @@ import { useStyles } from '@/styles/use'
 type Props = {
   id: string,
 }
-export const FeedDetail = ({ id }: Props) => {
+export const Detail = ({ id }: Props) => {
   const data = useGetFeedQuery({ id } as GetFeedRequest)
   const { invoke: invokeDeleteFeed } = useDeleteFeedLazy()
   const { invoke: invokeFetchFeed } = useFetchLazy()

@@ -1,7 +1,26 @@
-import { TopDashboardItem } from '@/components/board/TopDashboardItem'
 import { AiOutlineSwapRight } from 'react-icons/ai'
 import Link from 'next/link'
 import { useStyles } from '@/styles/use'
+import { PageTitle } from '@/components/common/PageTitle'
+
+type ItemProps = {
+  title: string,
+  id: string,
+}
+export const Item = ({ title, id }: ItemProps) => {
+  const styles = useStyles(theme => ({
+    link: theme({ size:'x1', around: 'x2' }).css({
+      border: 'solid 1px rgba(255,255,255,0.2)',
+      borderRadius: '10px',
+    }),
+  }))
+
+  return (
+    <Link href={`/boards/${id}`} css={styles.link}>
+      {title}
+    </Link>
+  )
+}
 
 export const TopDashboard = () => {
   const styles = useStyles(theme => ({
@@ -20,12 +39,11 @@ export const TopDashboard = () => {
 
   return (
     <section>
-      <h2 css={styles.h2}>
-        Board
+      <PageTitle title='Boards'>
         <Link href='/boards'><AiOutlineSwapRight /></Link>
-      </h2>
+      </PageTitle>
       <ul css={styles.list}>
-        <TopDashboardItem title='aa' id='aa' />
+        <Item title='aa' id='aa' />
       </ul>
     </section>
   )

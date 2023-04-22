@@ -1,7 +1,7 @@
 import { PageTitle } from '@/components/common/PageTitle'
 import Link from 'next/link'
 import { FaPlus } from 'react-icons/fa'
-import { ConfigureBookmarks } from '@/components/bookmark/ConfigureBookmarks'
+import { Configure } from '@/components/bookmark/Configure'
 
 export const List = () => {
   return (
@@ -10,7 +10,7 @@ export const List = () => {
       <div>
         <Link href='/bookmarks?create'><FaPlus /></Link>
       </div>
-      <ConfigureBookmarks />
+      <Configure />
     </>
   )
 }
