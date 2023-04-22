@@ -60,20 +60,28 @@ export const baseTheme: Theme = {
   // }
   around: {
     x1: {
-      padding: '5px',
-      margin: '5px',
+      padding: '3px',
+      margin: '3px',
     },
     x1tb: {
-      padding: '5px 0',
-      margin: '5px 0',
+      padding: '3px 0',
+      margin: '3px 0',
     },
     x2: {
-      padding: '10px',
-      margin: '10px',
+      padding: '6px',
+      margin: '6px',
     },
     x2tb: {
-      padding: '10px 0',
-      margin: '10px 0',
+      padding: '6px 0',
+      margin: '6px 0',
+    },
+    x3: {
+      padding: '9px',
+      margin: '9px',
+    },
+    x3tb: {
+      padding: '9px 0',
+      margin: '9px 0',
     },
   },
 }

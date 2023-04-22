@@ -1,25 +1,18 @@
-import { useStyles } from '@/styles/use'
+import { PageTitle } from '@/components/common/PageTitle'
 import Link from 'next/link'
+import { FaPlus } from 'react-icons/fa'
+import { useStyles } from '@/styles/use'
 import { GiCoffeePot } from 'react-icons/gi'
 import { useListFeedsQuery } from '@/lib/feed'
 
-export const Configure = () => {
+const List = () => {
   const feeds = useListFeedsQuery({})
 
   const styles = useStyles(theme => ({
     list: theme().css({
-      listStyleType: 'none',
       'li': {
         padding: '10px',
-        border: 'solid 1px rgba(255,255,255,0.2)',
-        a: {
-          display: 'block',
-          width: '100%',
-          height: '100%',
-        },
-        'svg': {
-          margin: '0 5px',
-        }
+        border: 'solid 1px #fafafa',
       },
     }),
   }))
@@ -35,5 +28,16 @@ export const Configure = () => {
         ))}
       </li>
     </ul>
+  )
+}
+
+export const Configure = () => {
+  return (
+    <>
+      <PageTitle title='Feed'>
+        <Link href='/bookmarks?create'><FaPlus /></Link>
+      </PageTitle>
+      <List />
+    </>
   )
 }

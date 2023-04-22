@@ -15,6 +15,7 @@ export const Item = ({ title, href }: ItemProps) => {
       borderRadius: '10px',
     }),
   }))
+
   return (
     <Link href={href} css={styles.link} target='_blank'>
       {title}
@@ -22,17 +23,11 @@ export const Item = ({ title, href }: ItemProps) => {
   )
 }
 
-export const TopDashboard = () => {
+export const Dashboard = () => {
   const list = useListBookmarksQuery({})
 
   const styles = useStyles(theme => ({
-    h2: theme().css({
-      padding: '0 0 0 10px',
-      'a': {
-        margin: '10px',
-        display: 'inline-block',
-      },
-    }),
+    main: theme({ around: 'x1tb' }),
     list: theme().css({
       listStyleType: 'none',
       padding: '0',
@@ -40,7 +35,7 @@ export const TopDashboard = () => {
   }))
 
   return (
-    <section>
+    <section css={styles.main}>
       <PageTitle title='Bookmark'>
         <Link href='/bookmarks'><AiOutlineSwapRight /></Link>
       </PageTitle>

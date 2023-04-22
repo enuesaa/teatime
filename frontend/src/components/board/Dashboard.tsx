@@ -22,15 +22,9 @@ export const Item = ({ title, id }: ItemProps) => {
   )
 }
 
-export const TopDashboard = () => {
+export const Dashboard = () => {
   const styles = useStyles(theme => ({
-    h2: theme({size: 'x3'}).css({
-      padding: '0 0 0 10px',
-      'a': {
-        margin: '10px',
-        display: 'inline-block',
-      },
-    }),
+    main: theme({ around: 'x1tb' }),
     list: theme().css({
       listStyleType: 'none',
       padding: '0',
@@ -38,7 +32,7 @@ export const TopDashboard = () => {
   }))
 
   return (
-    <section>
+    <section css={styles.main}>
       <PageTitle title='Boards'>
         <Link href='/boards'><AiOutlineSwapRight /></Link>
       </PageTitle>

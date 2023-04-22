@@ -24,4 +24,9 @@ export const globalStyle = css`
   input {
     outline: none;
   }
+
+  ul {
+    list-style-type: none;
+    padding-inline-start: 0;
+  }
 `

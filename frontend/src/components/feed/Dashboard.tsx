@@ -29,9 +29,10 @@ export const Item = ({ title, href }: ItemProps) => {
   )
 }
 
-export const Timeline = () => {
+export const Dashboard = () => {
   const feeditem = useListItemsQuery({ id: 'a', page: 1 } as ListItemsRequest)
   const styles = useStyles(theme => ({
+    main: theme({ around: 'x1tb' }),
     h2: theme().css({
       padding: '0 0 0 10px',
       'a': {
@@ -46,7 +47,7 @@ export const Timeline = () => {
   }))
 
   return (
-    <section>
+    <section css={styles.main}>
       <PageTitle title='Feed'>
         <Link href='/feeds'><AiOutlineSwapRight /></Link>
       </PageTitle>

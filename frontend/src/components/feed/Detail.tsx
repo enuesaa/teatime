@@ -2,6 +2,7 @@ import { useDeleteFeedLazy, useGetFeedQuery, useFetchLazy } from '@/lib/feed'
 import { GetFeedRequest, DeleteFeedRequest, FetchRequest } from '@/gen/v1/feed_pb'
 import { MouseEventHandler } from 'react'
 import { useStyles } from '@/styles/use'
+import { PageTitle } from '@/components/common/PageTitle'
 
 type Props = {
   id: string,
@@ -12,9 +13,6 @@ export const Detail = ({ id }: Props) => {
   const { invoke: invokeFetchFeed } = useFetchLazy()
 
   const styles = useStyles(theme => ({
-    h2: theme().css({
-      padding: '0 0 0 10px',
-    }),
     list: theme().css({
       listStyleType: 'none',
       padding: '0',
@@ -32,9 +30,7 @@ export const Detail = ({ id }: Props) => {
 
   return (
     <section>
-      <h2 css={styles.h2}>
-        Feed Detail: {data?.name}
-      </h2>
+      <PageTitle title={`Feed Detail ${data?.name}`} />
       <button onClick={handleDeleteFeed}>delete</button>
       <button onClick={handleFetchFeed}>fetch</button>
       <ul css={styles.list}>

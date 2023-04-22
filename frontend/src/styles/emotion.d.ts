@@ -22,6 +22,8 @@ export type AroundDef = {
   x1tb: CSSObject
   x2: CSSObject
   x2tb: CSSObject
+  x3: CSSObject
+  x3tb: CSSObject
 }
 
 declare module '@emotion/react' {

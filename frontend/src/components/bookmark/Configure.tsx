@@ -1,8 +1,10 @@
+import { PageTitle } from '@/components/common/PageTitle'
+import Link from 'next/link'
+import { FaPlus } from 'react-icons/fa'
 import { useStyles } from '@/styles/use'
 import { useListBookmarksQuery } from '@/lib/bookmark'
-import Link from 'next/link'
 
-export const Configure = () => {
+const List = () => {
   const bookmarks = useListBookmarksQuery({})
   const styles = useStyles(theme => ({
     item: theme().css({
@@ -20,6 +22,17 @@ export const Configure = () => {
           {v?.name}
         </Link>
       ))}
+    </>
+  )
+}
+
+export const Configure = () => {
+  return (
+    <>
+      <PageTitle title='Feed'>
+        <Link href='/bookmarks?create'><FaPlus /></Link>
+      </PageTitle>
+      <List />
     </>
   )
 }
