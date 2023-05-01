@@ -9,6 +9,7 @@ import (
 )
 
 type BoardController struct {
+	// TODO validator をここに持たせる
 	BoardSrv *service.BoardService
 }
 
@@ -20,6 +21,12 @@ func (ctl *BoardController) board() *service.BoardService {
 	}
 	return ctl.BoardSrv
 }
+
+// func (ctl *BoardController) ListRefactor(c *gin.Context) {
+// 	var body v1.ListBoardsRequest
+// 	ctl.validator.bind(c, &body) // https://qiita.com/tobita0000/items/d2309cc3f0dd32006ead
+// 	ctl.presenter.list(200, 1, data)
+// }
 
 func (ctl *BoardController) List(c *gin.Context) {
 	var body v1.ListBoardsRequest
