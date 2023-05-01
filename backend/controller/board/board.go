@@ -9,7 +9,6 @@ import (
 )
 
 type BoardController struct {
-	// TODO validator をここに持たせる
 	BoardSrv *service.BoardService
 }
 
@@ -22,10 +21,35 @@ func (ctl *BoardController) board() *service.BoardService {
 	return ctl.BoardSrv
 }
 
-// func (ctl *BoardController) ListRefactor(c *gin.Context) {
-// 	var body v1.ListBoardsRequest
-// 	ctl.validator.bind(c, &body) // https://qiita.com/tobita0000/items/d2309cc3f0dd32006ead
-// 	ctl.presenter.list(200, 1, data)
+// func (ctl *BoardController) List(c *gin.Context) {
+// 	var req v1.ListBoardsRequest
+// 	var res v1.ListBoardsResponse
+// 	res = v1.ListBoardsResponse {}
+
+// 	ctl.Bind(c, &req)
+// 	ctl.Handle(func {
+// 		id := req.id
+// 		list := appcase.listBoards() 
+// 		// copier
+// 		return 
+// 	})
+
+// 	list := ctl.board().List()
+// 	items := make([]*v1.ListBoardsResponse_Item, 0)
+// 	for _, v := range list {
+// 		items = append(items, &v1.ListBoardsResponse_Item{
+// 			Id:   v.Id,
+// 			Name: v.Name,
+// 			Description: v.Description,
+// 			Start: v.Start,
+// 			End: v.End,
+// 		})
+// 	}
+
+// 	c.JSON(200, v1.ListBoardsResponse{
+// 		Page:  1,
+// 		Items: items,
+// 	})
 // }
 
 func (ctl *BoardController) List(c *gin.Context) {

@@ -23,6 +23,22 @@ func Validate(c *gin.Context, body WithValidator) bool {
 	return true
 }
 
+func BindValidate(c *gin.Context, body WithValidator) bool {
+	c.JSON(400, gin.H{"message": "invalid id"})
+	c.AbortWithStatus(400)
+	if err := c.ShouldBindJSON(&body); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		c.Abort()
+		return false
+	}
+	if err := body.Validate(); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		c.Abort()
+		return false
+	}
+	return true
+}
+
 
 func BindRequest[T any, PT interface { Validate() error; *T}](c *gin.Context) (PT, error) {
 	var body PT
