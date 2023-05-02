@@ -1,15 +1,19 @@
 package board
 
 import (
+	"fmt"
+
 	"github.com/enuesaa/teatime-app/backend/binding"
 	"github.com/enuesaa/teatime-app/backend/buf/gen/v1"
-	"github.com/enuesaa/teatime-app/backend/service"
 	"github.com/enuesaa/teatime-app/backend/repository"
+	"github.com/enuesaa/teatime-app/backend/service"
 	"github.com/gin-gonic/gin"
+	"github.com/mitchellh/mapstructure"
 )
 
 type BoardController struct {
 	BoardSrv *service.BoardService
+	data map[string]interface{}
 }
 
 func (ctl *BoardController) board() *service.BoardService {
@@ -21,76 +25,63 @@ func (ctl *BoardController) board() *service.BoardService {
 	return ctl.BoardSrv
 }
 
-// func (ctl *BoardController) List(c *gin.Context) {
-// 	var req v1.ListBoardsRequest
-// 	var res v1.ListBoardsResponse
-// 	res = v1.ListBoardsResponse {}
-
-// 	ctl.Bind(c, &req)
-// 	ctl.Handle(func {
-// 		id := req.id
-// 		list := appcase.listBoards() 
-// 		// copier
-// 		return 
-// 	})
-
-// 	list := ctl.board().List()
-// 	items := make([]*v1.ListBoardsResponse_Item, 0)
-// 	for _, v := range list {
-// 		items = append(items, &v1.ListBoardsResponse_Item{
-// 			Id:   v.Id,
-// 			Name: v.Name,
-// 			Description: v.Description,
-// 			Start: v.Start,
-// 			End: v.End,
-// 		})
-// 	}
-
-// 	c.JSON(200, v1.ListBoardsResponse{
-// 		Page:  1,
-// 		Items: items,
-// 	})
-// }
-
-func (ctl *BoardController) List(c *gin.Context) {
-	var body v1.ListBoardsRequest
-	if !binding.Validate(c, &body) {
+func (ctl *BoardController) Bind(c *gin.Context, req binding.WithValidator) {
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		c.Abort()
 		return
 	}
-
-	list := ctl.board().List()
-	items := make([]*v1.ListBoardsResponse_Item, 0)
-	for _, v := range list {
-		items = append(items, &v1.ListBoardsResponse_Item{
-			Id:   v.Id,
-			Name: v.Name,
-			Description: v.Description,
-			Start: v.Start,
-			End: v.End,
-		})
+	if err := req.Validate(); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		c.Abort()
 	}
+	ctl.data = make(map[string]interface{}, 0)
+}
 
-	c.JSON(200, v1.ListBoardsResponse{
-		Page:  1,
-		Items: items,
+type HandleFunc func() any
+func (ctl *BoardController) Handle(c *gin.Context, name string, fn HandleFunc) {
+	if (c.IsAborted()) {
+		return;
+	}
+	ctl.data[name] = fn()
+}
+
+func (ctl *BoardController) Render(c *gin.Context, response any) {
+	if (c.IsAborted()) {
+		return;
+	}
+	if val, ok := ctl.data["*"]; ok {
+		mapstructure.Decode(val, response)
+	} else {
+		mapstructure.Decode(ctl.data, response)
+	}
+	c.JSON(200, response)
+}
+
+
+func (ctl *BoardController) List(c *gin.Context) {
+	ctl.Bind(c, &v1.ListBoardsRequest{})
+	ctl.Handle(c, "Page", func() any {
+		return 1
 	})
+	ctl.Handle(c, "Items", func() any {
+		res := ctl.board().List()
+		for _, v := range res {
+			fmt.Printf("{%+v}", v)
+		}
+		return res
+	})
+	ctl.Render(c, &v1.ListBoardsResponse{})
 }
 
 func (ctl *BoardController) Get(c *gin.Context) {
-	var body v1.GetBoardRequest
-	if !binding.Validate(c, &body) {
-		return
-	}
-	id := body.Id
-
-	data := ctl.board().Get(id)
-	c.JSON(200, v1.GetBoardResponse{
-		Id:   id,
-		Name: data.Name,
-		Description: data.Description,
-		Start: data.Start,
-		End: data.End,
+	var req v1.GetBoardRequest
+	ctl.Bind(c, &req)
+	ctl.Handle(c, "*", func() any {
+		id := req.Id
+		return ctl.board().Get(id)
 	})
+	ctl.Render(c, &v1.GetBoardResponse{})
 }
 
 func (ctl *BoardController) Add(c *gin.Context) {
