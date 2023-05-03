@@ -1,62 +1,56 @@
 package board
 
 import (
-	"github.com/enuesaa/teatime-app/backend/binding"
 	"github.com/enuesaa/teatime-app/backend/buf/gen/v1"
 	"github.com/gin-gonic/gin"
+	"github.com/enuesaa/teatime-app/backend/handle"
 )
 
 func (ctl *BoardController) Checkin(c *gin.Context) {
-	var body v1.CheckinRequest
-	if !binding.Validate(c, &body) {
-		return
-	}
-	id := body.Id
-
-	ctl.board().Checkin(id)
-	c.JSON(200, v1.CheckinResponse{ Id: id })
+	var req v1.CheckinRequest
+	handler := handle.Bind(c, &req)
+	handler.Data("Id", func() any {
+		id := req.Id
+		ctl.board().Checkin(id)
+		return id
+	})
+	handler.Render(&v1.CheckinResponse{})
 }
 
 func (ctl *BoardController) ListTimeline(c *gin.Context) {
-	var body v1.ListTimelineRequest
-	if !binding.Validate(c, &body) {
-		return
-	}
-	id := body.Id
-	page := body.Page
-
-	checkins := ctl.board().ListCheckins(id)
-	items := make([]*v1.ListTimelineResponse_Item, 0)
-	for _, v := range checkins {
-		items = append(items, &v1.ListTimelineResponse_Item{
-			Time: v.Time,
-		})
-	}
-	c.JSON(200, v1.ListTimelineResponse{
-		Id: id,
-		Page: page,
-		Items: items,
+	var req v1.ListTimelineRequest
+	handler := handle.Bind(c, &req)
+	handler.Data("Id", func() any {
+		return req.Id
 	})
+	handler.Data("Page", func() any {
+		return req.Page
+	})
+	handler.Data("Items", func() any {
+		id := req.Id
+		return ctl.board().ListCheckins(id)
+	})
+	handler.Render(&v1.ListTimelineResponse{})
 }
 
 func (ctl *BoardController) Archive(c *gin.Context) {
-	var body v1.ArchiveBoardRequest
-	if !binding.Validate(c, &body) {
-		return
-	}
-	id := body.Id
-
-	ctl.board().Archive(id)
-	c.JSON(200, v1.ArchiveBoardResponse{ Id: id })
+	var req v1.ArchiveBoardRequest
+	handler := handle.Bind(c, &req)
+	handler.Data("Id", func() any {
+		id := req.Id
+		ctl.board().Archive(id)
+		return id
+	})
+	handler.Render(&v1.ArchiveBoardResponse{})
 }
 
 func (ctl *BoardController) UnArchive(c *gin.Context) {
-	var body v1.UnArchiveBoardRequest
-	if !binding.Validate(c, &body) {
-		return
-	}
-	id := body.Id
-
-	ctl.board().UnArchive(id)
-	c.JSON(200, v1.UnArchiveBoardResponse{ Id: id })
+	var req v1.UnArchiveBoardRequest
+	handler := handle.Bind(c, &req)
+	handler.Data("Id", func() any {
+		id := req.Id
+		ctl.board().UnArchive(id)
+		return id
+	})
+	handler.Render(&v1.UnArchiveBoardResponse{})
 }
