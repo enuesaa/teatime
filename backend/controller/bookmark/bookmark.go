@@ -21,6 +21,7 @@ func (ctl *BookmarkController) bookmark() *service.BookmarkService {
 	return ctl.BookmarkSrv
 }
 
+// 一個一個ハンドラーを分ける
 func (ctl *BookmarkController) List(c *gin.Context) {
 	var req v1.ListBookmarksRequest
 	handler := handle.Bind(c, &req)
