@@ -1,35 +1,26 @@
 {
-  "name": "teatime-app-front",
+  "name": "teatime-front",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
-    "@bufbuild/connect": "^0.8.6",
-    "@bufbuild/connect-web": "^0.8.6",
-    "@bufbuild/protobuf": "^1.2.0",
-    "@emotion/react": "^11.11.0",
-    "@next/font": "13.4.2",
-    "emotion-normalize": "^11.0.1",
+    "@radix-ui/themes": "^2.0.0",
     "next": "13.4.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.43.9",
-    "react-icons": "^4.8.0",
+    "react-hook-form": "^7.47.0",
+    "react-icons": "^4.11.0",
     "react-query": "^3.39.3"
   },
   "devDependencies": {
-    "@types/node": "^20.1.4",
-    "@types/react": "^18.2.6",
-    "@types/react-dom": "^18.2.4",
-    "eslint": "^8.40.0",
-    "eslint-config-next": "^13.4.2",
+    "@types/node": "^20.8.7",
+    "@types/react": "^18.2.31",
+    "@types/react-dom": "^18.2.14",
     "prettier": "^2.8.8",
-    "typescript": "^5.0.4"
+    "typescript": "^5.2.2"
   }
 }
