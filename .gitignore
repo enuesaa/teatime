@@ -10,3 +10,7 @@
 
 # redis
 /redis
+
+# go
+go.work
+go.work.sum
