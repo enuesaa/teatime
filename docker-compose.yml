@@ -45,14 +45,6 @@ services:
     command: yarn dev
     tty: true
 
-  nginx:
-    build: ./nginx
-    ports:
-      - 3000:3000
-    depends_on:
-      - backend
-      - frontend
-
 volumes:
   # https://zenn.dev/philomagi/scraps/d16d73d2f9d6f9
   node_modules:
