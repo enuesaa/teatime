@@ -15,3 +15,8 @@ and so on..
 ### Memo
 - プラグインシステムを作りたい
 - フロントエンド側でやろうとすると cors とか認証とか面倒そうなので go でやり取りする
+
+### Create go.work
+```bash
+go work init . ./plugins/teatime-plugin-pinit
+```
