@@ -1,5 +1,5 @@
-# teatime-app
-My hobby project.  
+# teatime
+My hobby app.  
 
 > **Note**
 > Work in progress..

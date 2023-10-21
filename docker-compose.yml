@@ -1,6 +1,23 @@
 version: '3.8'
 
 services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+    tty: true
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app
+      - node_modules:/app/node_modules
+    tty: true
+
   mongo:
     image: mongo
     environment:
@@ -21,35 +38,5 @@ services:
     links:
       - mongo
 
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-      target: develop
-    volumes:
-      - ./:/workspace
-    environment:
-      - REDIS_ADDR=teatime-app-redis-1:6379
-      - GIN_MODE=release
-    tty: true
-    depends_on:
-      - couch
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    volumes:
-      - ./frontend:/app
-      - node_modules:/app/node_modules
-    command: yarn dev
-    tty: true
-
 volumes:
-  # https://zenn.dev/philomagi/scraps/d16d73d2f9d6f9
   node_modules:
-    driver: local
-    driver_opts:
-      type: none
-      device: ./frontend/node_modules
-      o: bind
