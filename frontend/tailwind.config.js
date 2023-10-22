@@ -1,11 +1,13 @@
+import { radixThemePreset } from 'radix-themes-tw'
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
-    "./src/**/*.{ts,tsx}",
+    './src/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {},
   },
   plugins: [],
+  presets: [radixThemePreset],
 }
-
