@@ -2,6 +2,7 @@ import { AiOutlineSwapRight } from 'react-icons/ai'
 import Link from 'next/link'
 import { useStyles } from '@/styles/use'
 import { PageTitle } from '@/components/common/PageTitle'
+import { css } from '@emotion/react'
 
 type ItemProps = {
   title: string,
@@ -25,7 +26,7 @@ export const Dashboard = () => {
   }))
 
   return (
-    <section css={styles.main}>
+    <section css={css(styles.main)}>
       <PageTitle title='Boards'>
         <Link href='/boards'><AiOutlineSwapRight /></Link>
       </PageTitle>
