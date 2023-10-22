@@ -1,13 +1,12 @@
 import { useStyles } from '@/styles/use'
 import { useDeleteBookmarkLazy, useGetBookmarkQuery } from '@/lib/bookmark'
 import { MouseEventHandler } from 'react'
-import { DeleteBookmarkRequest, GetBookmarkRequest } from '@/gen/v1/bookmark_pb'
 
 type Props = {
   id: string,
 }
 export const Detail = ({ id }: Props) => {
-  const data = useGetBookmarkQuery({ id } as GetBookmarkRequest)
+  const data = useGetBookmarkQuery({ id })
   const { invoke: invokeDeleteBookmark } = useDeleteBookmarkLazy()
 
   const styles = useStyles(theme => ({
@@ -18,7 +17,7 @@ export const Detail = ({ id }: Props) => {
 
   const handleDeleteBookmark: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault()
-    invokeDeleteBookmark({ id } as DeleteBookmarkRequest)
+    invokeDeleteBookmark({ id })
   }
 
   return (

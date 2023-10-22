@@ -33,9 +33,9 @@ export const Dashboard = () => {
         <Link href='/bookmarks'><AiOutlineSwapRight /></Link>
       </PageTitle>
       <ul>
-        {list?.items.map((v,i) => (
+        {/* {list?.items.map((v,i) => (
           <Item title={v?.name} href={v?.url ?? 'https://example.com/'} key={i} />)
-        )}
+        )} */}
       </ul>
     </section>
   )

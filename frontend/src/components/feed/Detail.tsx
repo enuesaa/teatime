@@ -1,5 +1,4 @@
 import { useDeleteFeedLazy, useGetFeedQuery, useFetchLazy, useRemoveAllItemsLazy } from '@/lib/feed'
-import { GetFeedRequest, DeleteFeedRequest, FetchRequest, RemoveAllItemsRequest } from '@/gen/v1/feed_pb'
 import { MouseEventHandler } from 'react'
 import { useStyles } from '@/styles/use'
 import { PageTitle } from '@/components/common/PageTitle'
@@ -8,7 +7,7 @@ type Props = {
   id: string,
 }
 export const Detail = ({ id }: Props) => {
-  const data = useGetFeedQuery({ id } as GetFeedRequest)
+  const data = useGetFeedQuery({ id })
   const { invoke: invokeDeleteFeed } = useDeleteFeedLazy()
   const { invoke: invokeFetchFeed } = useFetchLazy()
   const { invoke: invokeRemoveAllItems } = useRemoveAllItemsLazy()
@@ -19,15 +18,15 @@ export const Detail = ({ id }: Props) => {
 
   const handleDeleteFeed: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault()
-    invokeDeleteFeed({ id } as DeleteFeedRequest)
+    invokeDeleteFeed({ id })
   }
   const handleFetchFeed: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault()
-    invokeFetchFeed({ id } as FetchRequest)
+    invokeFetchFeed({ id })
   }
   const handleRemoveAllItems: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault()
-    invokeRemoveAllItems({ id } as RemoveAllItemsRequest)
+    invokeRemoveAllItems({ id })
   } 
 
   return (

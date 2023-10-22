@@ -1,6 +1,7 @@
-import { Board } from '@/gen/v1/board_connectweb'
 import { queriesInit } from './use'
 import { AddBoardRequest, ListBoardsResponse, CheckinRequest, ArchiveBoardRequest, UnArchiveBoardRequest, ListTimelineRequest } from '@/gen/v1/board_pb'
+
+const Board = {}
 
 /**
  * @todo list board

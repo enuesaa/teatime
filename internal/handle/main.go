@@ -5,6 +5,7 @@ import (
 	"github.com/mitchellh/mapstructure"
 )
 
+//Deprecated
 type Handle struct {
 	c *gin.Context
 	data map[string]interface{}

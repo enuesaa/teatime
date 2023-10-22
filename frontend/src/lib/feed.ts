@@ -1,6 +1,7 @@
-import { Feed } from '@/gen/v1/feed_connectweb'
 import { queriesInit } from './use'
 import { AddFeedRequest, AddFeedResponse, DeleteFeedRequest, DeleteFeedResponse, FetchRequest, FetchResponse, GetFeedRequest, GetFeedResponse, ListAllItemsRequest, ListAllItemsResponse, ListFeedsResponse, ListItemsRequest, ListItemsResponse, RemoveAllItemsRequest, RemoveAllItemsResponse} from '@/gen/v1/feed_pb'
+
+const Feed = {}
 
 export const {
   useQuery: useListFeedsQuery,

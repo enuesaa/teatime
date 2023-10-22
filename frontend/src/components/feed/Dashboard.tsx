@@ -1,7 +1,6 @@
 import { AiOutlineSwapRight } from 'react-icons/ai'
 import Link from 'next/link'
 import { useListAllItemsQuery } from '@/lib/feed'
-import { ListAllItemsRequest } from '@/gen/v1/feed_pb'
 import { useStyles } from '@/styles/use'
 import { PageTitle } from '@/components/common/PageTitle'
 
@@ -30,7 +29,7 @@ export const Item = ({ title, href }: ItemProps) => {
 }
 
 export const Dashboard = () => {
-  const feeditem = useListAllItemsQuery({ page: 1 } as ListAllItemsRequest)
+  const feeditem = useListAllItemsQuery({ page: 1 })
   const styles = useStyles(theme => ({
     main: theme({ around: 'x1tb' }),
     h2: theme().css({
@@ -48,9 +47,9 @@ export const Dashboard = () => {
         <Link href='/feeds'><AiOutlineSwapRight /></Link>
       </PageTitle>
       <ul>
-        {feeditem?.items.map((v,i) => (
+        {/* {feeditem?.items.map((v,i) => (
           <Item key={i} href={v.url} title={v.name} />
-        ))}
+        ))} */}
       </ul>
     </section>
   )

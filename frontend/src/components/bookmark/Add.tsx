@@ -1,7 +1,6 @@
 import { PageTitle } from '@/components/common/PageTitle'
 import { useStyles } from '@/styles/use'
 import { useAddBookmarkLazy } from '@/lib/bookmark'
-import { AddBookmarkRequest } from '@/gen/v1/bookmark_pb'
 import { useForm } from 'react-hook-form';
 import { TextInput } from '@/components/common/TextInput'
 
@@ -30,7 +29,7 @@ export const Add = () => {
   }))
   const { register, handleSubmit } = useForm<FormData>()
   const handleAddBookmark = handleSubmit((data) => {
-    invokeAddBookmark(data as AddBookmarkRequest)
+    invokeAddBookmark(data)
   })
 
   return (

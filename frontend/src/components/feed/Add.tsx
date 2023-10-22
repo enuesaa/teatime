@@ -1,6 +1,5 @@
 import { PageTitle } from '@/components/common/PageTitle'
 import { useAddFeedLazy } from '@/lib/feed'
-import { AddFeedRequest } from '@/gen/v1/feed_pb'
 import { useForm } from 'react-hook-form';
 import { TextInput } from '@/components/common/TextInput'
 import { useStyles } from '@/styles/use';
@@ -24,7 +23,7 @@ export const Add = () => {
 
   const { register, handleSubmit } = useForm<FormData>()
   const handleAddFeed = handleSubmit((data) => {
-    invokeAddFeed(data as AddFeedRequest)
+    invokeAddFeed(data)
   })
 
   return (
