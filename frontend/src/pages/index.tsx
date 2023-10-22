@@ -6,9 +6,7 @@ export default function TopPage() {
     <>
       <Header />
       <Main>
-        {/* <BoardDashboard />
-        <BookmarkDashboard />
-        <FeedDashboard /> */}
+        a
       </Main>
     </>
   )
