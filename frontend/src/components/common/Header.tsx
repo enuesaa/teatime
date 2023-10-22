@@ -2,11 +2,25 @@ import Link from 'next/link'
 import { BiCoffee } from 'react-icons/bi'
 import { FaSearch } from 'react-icons/fa'
 import { MdOutlineCoffeeMaker } from 'react-icons/md'
-import { Flex, Box, Container } from '@radix-ui/themes'
+import { Flex, Box, Container, TextField } from '@radix-ui/themes'
+import { css } from '@emotion/react'
 
 export const Header = () => {
+  const styles = {
+    main: css({
+      height: '50px',
+      lineHeight: '50px',
+      fontSize: '25px',
+      fontWeight: 'bold',
+    }),
+    search: css({
+      display: 'inline-block',
+      maxWidth: '200px',
+    })
+  }
+
   return (
-    <header style={{ height: '50px', lineHeight: '50px', fontSize: '25px', fontWeight: 'bold' }}>
+    <header css={styles.main}>
       <Container size='4'>
         <Flex>
           <Box grow='1'>
@@ -14,7 +28,7 @@ export const Header = () => {
               <BiCoffee style={{ verticalAlign: 'middle' }} />
               teatime
             </Link>
-            <input type='text' placeholder='search...' />
+            <TextField.Input placeholder='search...' css={styles.search} />
             <FaSearch style={{ verticalAlign: 'middle', margin: '0 10px' }} />
           </Box>
 

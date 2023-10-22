@@ -1,6 +1,5 @@
 import type { AppProps } from 'next/app'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import '../styles/globals.css'
 import '@radix-ui/themes/styles.css'
 import { Theme } from '@radix-ui/themes'
 
