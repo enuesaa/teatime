@@ -4,13 +4,6 @@
 # editor
 .vscode
 
-# backend
-/backend/tmp
-/backend/.env
-
-# redis
-/redis
-
 # go
 go.work
 go.work.sum

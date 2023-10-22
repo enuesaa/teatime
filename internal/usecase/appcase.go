@@ -1,6 +1,6 @@
 package usecase
 
-import "github.com/enuesaa/teatime-app/backend/repository"
+import "github.com/enuesaa/teatime/internal/repository"
 
 type Appcase struct {
 	RedisRepo repository.RedisRepositoryInterface

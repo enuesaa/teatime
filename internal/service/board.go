@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
-	"github.com/enuesaa/teatime-app/backend/repository"
+	"github.com/enuesaa/teatime/internal/repository"
 	"github.com/google/uuid"
 )
 

@@ -1,9 +1,9 @@
 package board
 
 import (
-	"github.com/enuesaa/teatime-app/backend/buf/gen/v1"
+	"github.com/enuesaa/teatime/internal/buf/gen/v1"
 	"github.com/gin-gonic/gin"
-	"github.com/enuesaa/teatime-app/backend/handle"
+	"github.com/enuesaa/teatime/internal/handle"
 )
 
 func (ctl *BoardController) Checkin(c *gin.Context) {

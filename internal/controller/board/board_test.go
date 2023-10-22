@@ -7,8 +7,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/enuesaa/teatime-app/backend/repository"
-	"github.com/enuesaa/teatime-app/backend/service"
+	"github.com/enuesaa/teatime/internal/repository"
+	"github.com/enuesaa/teatime/internal/service"
 	"github.com/stretchr/testify/assert"
 )
 

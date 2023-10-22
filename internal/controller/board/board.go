@@ -1,10 +1,10 @@
 package board
 
 import (
-	"github.com/enuesaa/teatime-app/backend/buf/gen/v1"
-	"github.com/enuesaa/teatime-app/backend/handle"
-	"github.com/enuesaa/teatime-app/backend/repository"
-	"github.com/enuesaa/teatime-app/backend/service"
+	"github.com/enuesaa/teatime/internal/buf/gen/v1"
+	"github.com/enuesaa/teatime/internal/handle"
+	"github.com/enuesaa/teatime/internal/repository"
+	"github.com/enuesaa/teatime/internal/service"
 	"github.com/gin-gonic/gin"
 )
 

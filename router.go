@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/enuesaa/teatime-app/backend/controller/board"
-	"github.com/enuesaa/teatime-app/backend/controller/bookmark"
-	"github.com/enuesaa/teatime-app/backend/controller/feed"
+	"github.com/enuesaa/teatime/internal/controller/board"
+	"github.com/enuesaa/teatime/internal/controller/bookmark"
+	"github.com/enuesaa/teatime/internal/controller/feed"
 	"github.com/gin-gonic/gin"
 )
 
