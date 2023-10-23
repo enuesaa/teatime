@@ -13,10 +13,25 @@ export const Header = () => {
       fontSize: '25px',
       fontWeight: 'bold',
     }),
-    search: css({
-      display: 'inline-block',
-      maxWidth: '200px',
-    })
+    heading: css({
+      color: 'white',
+      margin: '0 10px',
+      textDecoration: 'none',
+      'svg': {
+        verticalAlign: 'middle',
+        margin: '0 10px',
+      },
+    }),
+    setting: css({
+      display: 'block',
+      width: '100px',
+      color: 'white',
+      textDecoration: 'none',
+      'svg': {
+        verticalAlign: 'middle',
+        margin: '0 10px',
+      },
+    }),
   }
 
   return (
@@ -24,15 +39,13 @@ export const Header = () => {
       <Container size='4'>
         <Flex>
           <Box grow='1'>
-            <Link href={{ pathname: `/` }} style={{ color: 'white', margin: '0 10px', textDecoration: 'none' }}>
-              <BiCoffee style={{ verticalAlign: 'middle' }} />
+            <Link href='/' css={styles.heading}>
+              <BiCoffee />
               teatime
             </Link>
-            <TextField.Input placeholder='search...' css={styles.search} />
-            <FaSearch style={{ verticalAlign: 'middle', margin: '0 10px' }} />
           </Box>
 
-          <Link href='/setting' style={{ display: 'block', width: '100px', color: 'white', textDecoration: 'none' }}>
+          <Link href='/setting' css={styles.setting}>
             <MdOutlineCoffeeMaker />
           </Link>
         </Flex>
