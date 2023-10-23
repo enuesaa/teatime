@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import { BiCoffee } from 'react-icons/bi'
-import { FaSearch } from 'react-icons/fa'
 import { MdOutlineCoffeeMaker } from 'react-icons/md'
-import { Flex, Box, Container, TextField } from '@radix-ui/themes'
+import { Flex, Box, Container } from '@radix-ui/themes'
 import { css } from '@emotion/react'
 
 export const Header = () => {

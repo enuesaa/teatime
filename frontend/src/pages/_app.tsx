@@ -7,10 +7,10 @@ export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient()
 
   return (
-    <Theme appearance='dark'>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <Theme appearance='dark'>
         <Component {...pageProps} />
-      </QueryClientProvider>
-    </Theme>
+      </Theme>
+    </QueryClientProvider>
   )
 }
