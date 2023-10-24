@@ -1,4 +1,4 @@
-package board
+package controller
 
 // import (
 // 	"github.com/enuesaa/teatime/internal/handle"

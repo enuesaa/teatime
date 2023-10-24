@@ -1,4 +1,4 @@
-package feed
+package controller
 
 // import (
 // 	"github.com/enuesaa/teatime/internal/service"
