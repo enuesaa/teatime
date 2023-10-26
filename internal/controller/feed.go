@@ -53,7 +53,7 @@ package controller
 // 			c.JSON(400, gin.H{"error": "invalid url"})
 // 			return nil;
 // 		}
-	
+
 // 		id := ctl.feed().Create(service.Feed{
 // 			Name: req.Name,
 // 			Url:  req.Url,
@@ -122,7 +122,7 @@ package controller
 // 	// 	for _, v := range items {
 // 	// 		ctl.feeditem().Append(id, v.Name, v.Url)
 // 	// 	}
-// 	// 	return 
+// 	// 	return
 // 	// })
 // 	handler.Render(&v1.FetchResponse{})
 // }
@@ -139,7 +139,6 @@ package controller
 // 	})
 // 	handler.Render(&v1.RemoveAllItemsResponse{})
 // }
-
 
 // func (ctl *FeedController) Delete(c *gin.Context) {
 // 	var req v1.DeleteFeedRequest

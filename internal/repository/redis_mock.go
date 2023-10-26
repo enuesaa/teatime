@@ -2,13 +2,13 @@ package repository
 
 type RedisRepositoryMock struct {
 	records map[string]string
-	keys []string
+	keys    []string
 }
 
 func NewRedisRepositoryMock() *RedisRepositoryMock {
 	return &RedisRepositoryMock{
 		records: make(map[string]string),
-		keys: make([]string, 0),
+		keys:    make([]string, 0),
 	}
 }
 
@@ -32,4 +32,4 @@ func (repo *RedisRepositoryMock) JsonGet(key string) []byte {
 	return []byte(repo.records[key])
 }
 func (repo *RedisRepositoryMock) JsonSet(key string, value interface{}) {}
-func (repo *RedisRepositoryMock) JsonDel(key string) {}
+func (repo *RedisRepositoryMock) JsonDel(key string)                    {}

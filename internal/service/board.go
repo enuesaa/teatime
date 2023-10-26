@@ -3,9 +3,9 @@ package service
 import (
 	"encoding/json"
 	"fmt"
-	"time"
 	"github.com/enuesaa/teatime/internal/repository"
 	"github.com/google/uuid"
+	"time"
 )
 
 type Board struct {
@@ -19,18 +19,18 @@ type BoardCheckin struct {
 	Time string `json:"time"`
 }
 type BoardMeta struct {
-	Archived bool `json:"archived"`
+	Archived bool           `json:"archived"`
 	Checkins []BoardCheckin `json:"checkins"`
 }
 type BoardEntity struct {
-	Board       Board `json:"board"`
-	Meta   BoardMeta `json:"meta"`
+	Board Board     `json:"board"`
+	Meta  BoardMeta `json:"meta"`
 }
-
 
 type BoardService struct {
 	RedisRepo repository.RedisRepositoryInterface
 }
+
 func (srv *BoardService) getRedisId(id string) string {
 	return "board:" + id
 }
@@ -63,9 +63,9 @@ func (srv *BoardService) Create(board Board) string {
 	uuidObj, _ := uuid.NewUUID()
 	id := uuidObj.String()
 	board.Id = id
-	entity := BoardEntity {
+	entity := BoardEntity{
 		Board: board,
-		Meta: BoardMeta {
+		Meta: BoardMeta{
 			Archived: false,
 			Checkins: make([]BoardCheckin, 0),
 		},
@@ -95,7 +95,7 @@ func (srv *BoardService) Checkin(id string) {
 	if err := json.Unmarshal(data, &entity); err != nil {
 		fmt.Printf("%v", err)
 	}
-	entity.Meta.Checkins = append(entity.Meta.Checkins, BoardCheckin {
+	entity.Meta.Checkins = append(entity.Meta.Checkins, BoardCheckin{
 		Time: time.Now().String(),
 	})
 	srv.RedisRepo.JsonSet(srv.getRedisId(id), entity)

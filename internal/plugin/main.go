@@ -2,20 +2,22 @@ package plugin
 
 import (
 	"fmt"
-	"os/exec"
 	"net/rpc"
+	"os/exec"
 
 	"github.com/hashicorp/go-plugin"
 )
 
 type SomethingDataClient struct{ client *rpc.Client }
+
 func (g *SomethingDataClient) List() string {
 	var resp string
 	g.client.Call("Plugin.List", new(interface{}), &resp)
 	return resp
 }
 
-type SomethingDataPlugin struct {}
+type SomethingDataPlugin struct{}
+
 func (p *SomethingDataPlugin) Server(*plugin.MuxBroker) (interface{}, error) {
 	return nil, nil
 }

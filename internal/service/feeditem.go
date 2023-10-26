@@ -8,10 +8,10 @@ import (
 )
 
 type Feeditem struct {
-	Id   string `json:"id"`
+	Id     string `json:"id"`
 	FeedId string `json:"feedId"`
-	Name string `json:"name"`
-	Url  string `json:"url"`
+	Name   string `json:"name"`
+	Url    string `json:"url"`
 }
 
 type FeeditemService struct {

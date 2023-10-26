@@ -6,7 +6,7 @@ type Dashboard struct {
 }
 
 type Kv struct {
-	Key string
+	Key   string
 	Value string
 }
 type Kvs []Kv

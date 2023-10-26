@@ -3,13 +3,13 @@ package usecase
 import "github.com/enuesaa/teatime/internal/repository"
 
 type Appcase struct {
-	RedisRepo repository.RedisRepositoryInterface
+	RedisRepo   repository.RedisRepositoryInterface
 	RssfeedRepo repository.RssfeedRepositoryInterface
 }
 
 func NewAppcase() *Appcase {
 	return &Appcase{
-		RedisRepo: &repository.RedisRepository{},
+		RedisRepo:   &repository.RedisRepository{},
 		RssfeedRepo: &repository.RssfeedRepository{},
 	}
 }
@@ -29,4 +29,3 @@ func (app *Appcase) UpdateBoard() string {
 func (app *Appcase) DeleteBoard() string {
 	return "board:"
 }
-
