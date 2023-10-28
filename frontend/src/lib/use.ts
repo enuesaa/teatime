@@ -7,7 +7,6 @@ const queryInit = <A, R>(service: any, fn: CallFn<A>) => (arg: A) => {
     (async () => {
       setData({} as any)
     })()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return data

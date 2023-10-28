@@ -1,13 +1,13 @@
 import { Header } from '@/components/common/Header'
-import { Main } from '@/components/common/Main'
+import { Container } from '@radix-ui/themes'
 
 export default function TopPage() {
   return (
     <>
       <Header />
-      <Main>
-        a
-      </Main>
+      <Container size='4'>
+
+      </Container>
     </>
   )
 }
