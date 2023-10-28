@@ -8,6 +8,7 @@ type Kv struct {
 	StringValue string
 	IntValue int
 	BoolValue string
+	ListStringValue []string
 }
 type Kvs []Kv
 type Info struct {
@@ -15,17 +16,21 @@ type Info struct {
 	Description string
 }
 
-type Schema struct {
-	Name string
-	AllowedMethods []string // list, view, create, update, delete
+type PluginInterface interface {
+	Info() Info
+	Resources() []ResourceInterface
 }
 
-type PluginInterface interface {
-	Info() (*Info, error)
-	Schemas() ([]*Schema, error)
-	List(schema string) ([]*Kvs, error)
-	View(schema string, id string) (*Kvs, error)
-	Create(schema string, kvs Kvs) (string, error)
-	Update(schema string, id string, kvs Kvs) (string, error)
-	Delete(schema string, id string) error
+type Schema struct {
+	Name string
+}
+
+// terraform を参考にしている
+type ResourceInterface interface {
+	Schema() Schema
+	List() ([]*Kvs, error)
+	View(id string) (*Kvs, error)
+	Create(kvs Kvs) (string, error)
+	Update(id string, kvs Kvs) (string, error)
+	Delete(id string) error
 }
