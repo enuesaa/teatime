@@ -1,9 +1,13 @@
 package plugin
 
-type Dashboard struct {
+type FlexAtom struct {}
+type CardAtom struct {}
+
+type DashboardUi struct {
 	Name string
 	// something
 }
+type DetailUi struct {}
 
 type Kv struct {
 	Key   string
@@ -12,7 +16,8 @@ type Kv struct {
 type Kvs []Kv
 
 type PluginInterface interface {
-	Dashboard() (*Dashboard, error)
+	GetDashboardUi() (*DashboardUi, error)
+	GetDetailUi() (*DetailUi, error)
 	List() ([]*Kvs, error)
 	Detail(id string) (*Kvs, error)
 	Add(kvs Kvs) (string, error)
