@@ -12,11 +12,7 @@ import (
 
 func InvokePlugin(c *gin.Context) {
 	client := plugin.NewClient(&plugin.ClientConfig{
-		HandshakeConfig: plugin.HandshakeConfig{
-			ProtocolVersion:  1,
-			MagicCookieKey:   "hey",
-			MagicCookieValue: "hello",
-		},
+		HandshakeConfig: plug.NewHandshakeConfig(),
 		Plugins: map[string]plugin.Plugin{
 			"main": &plug.PluginConnector{},
 		},
