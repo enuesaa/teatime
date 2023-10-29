@@ -33,6 +33,7 @@ func (s *ConnectServer) Resources(args interface{}, resp *[]Resource) error {
 	return nil
 }
 
+// should implement ProviderInterface
 type ConnectClient struct {
 	client *rpc.Client
 }

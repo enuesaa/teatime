@@ -4,6 +4,7 @@ import (
 	"github.com/enuesaa/teatime/pkg/plug"
 )
 
+// should implement ProviderInterface
 type Handler struct {}
 func (s *Handler) Info() plug.Info {
 	return plug.Info{
