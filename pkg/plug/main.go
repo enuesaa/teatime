@@ -6,6 +6,14 @@ import (
 	"github.com/hashicorp/go-plugin"
 )
 
+type Resource struct {
+	Name string
+	Schem Schema
+}
+func (r *Resource) Schema() Schema {
+	return r.Schem
+}
+
 type PluginConnectorClient struct {
 	client *rpc.Client
 }
@@ -14,8 +22,8 @@ func (g *PluginConnectorClient) Info() Info {
 	g.client.Call("Plugin.Info", new(interface{}), &resp)
 	return resp
 }
-func (c *PluginConnectorClient) Resource() ResourceInterface {
-	var resp ResourceInterface
+func (c *PluginConnectorClient) Resource() Resource {
+	var resp Resource
 	c.client.Call("Plugin.Resource", new(interface{}), &resp)
 	return resp
 }
@@ -48,7 +56,7 @@ type Info struct {
 type PluginInterface interface {
 	Info() Info
 	// Resources() []ResourceInterface
-	Resource() ResourceInterface
+	Resource() Resource
 }
 // terraform を参考にしている
 type ResourceInterface interface {

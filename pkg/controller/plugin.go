@@ -43,7 +43,7 @@ func InvokePlugin(c *gin.Context) {
 	// fmt.Printf("%+v\n", info)
 
 	resource := raw.(plug.PluginInterface).Resource()
-	fmt.Printf("%+v\n", resource)
+	fmt.Printf("%+v\n", resource.Name)
 	schema := resource.Schema()
 	fmt.Println("c")
 	fmt.Printf("%+v\n", schema)

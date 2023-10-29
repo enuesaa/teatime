@@ -2,21 +2,21 @@ package main
 
 import (
 	"net/rpc"
-	"encoding/gob"
+	// "encoding/gob"
 
 	"github.com/hashicorp/go-plugin"
 	"github.com/enuesaa/teatime/pkg/plug"
 )
 
-type PinitResource struct {
-	A string
-}
-func (r *PinitResource) Schema() plug.Schema {
-	schema := plug.Schema {
-		Name: "hey",
-	}
-	return schema
-}
+// type PinitResource struct {
+// 	A string
+// }
+// func (r *PinitResource) Schema() plug.Schema {
+// 	schema := plug.Schema {
+// 		Name: "hey",
+// 	}
+// 	return schema
+// }
 
 type PluginConnectorServer struct {}
 func (g *PluginConnectorServer) Info(args interface{}, resp *plug.Info) error {
@@ -26,8 +26,13 @@ func (g *PluginConnectorServer) Info(args interface{}, resp *plug.Info) error {
 	}
 	return nil
 }
-func (g *PluginConnectorServer) Resource(args interface{}, resp *plug.ResourceInterface) error {
-	*resp = &PinitResource{ A: "aaa" }
+func (g *PluginConnectorServer) Resource(args interface{}, resp *plug.Resource) error {
+	*resp = plug.Resource{
+		Name: "aaaaa",
+		Schem: plug.Schema{
+			Name: "schemaname",
+		},
+	}
 	return nil
 }
 
@@ -40,7 +45,7 @@ func (PluginConnector) Client(b *plugin.MuxBroker, c *rpc.Client) (interface{}, 
 }
 
 func main() {
-	gob.Register(&PinitResource{})
+	// gob.Register(&PinitResource{})
 	plugin.Serve(&plugin.ServeConfig{
 		HandshakeConfig: plugin.HandshakeConfig{
 			ProtocolVersion:  1,
