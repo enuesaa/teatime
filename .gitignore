@@ -7,3 +7,5 @@
 # go
 go.work
 go.work.sum
+
+plugins/teatime-plugin-pinit/teatime-plugin-pinit

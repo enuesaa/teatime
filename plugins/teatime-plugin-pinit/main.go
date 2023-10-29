@@ -1,35 +1,38 @@
 package main
 
 import (
-	"fmt"
+	"net/rpc"
+
 	"github.com/hashicorp/go-plugin"
+	"github.com/enuesaa/teatime/pkg/plug"
 )
 
-type Hello struct {}
-func (g *Hello) List(args interface{}, resp *string) error {
-	*resp = "Hello"
+type PluginConnectorServer struct {}
+func (g *PluginConnectorServer) Info(args interface{}, resp *plug.Info) error {
+	*resp = plug.Info{
+		Name: "aa",
+		Description: "bb",
+	}
 	return nil
 }
 
-var handshakeConfig = plugin.HandshakeConfig{
-	ProtocolVersion:  1,
-	MagicCookieKey:   "hey",
-	MagicCookieValue: "hello",
+type PluginConnector struct{}
+func (p *PluginConnector) Server(*plugin.MuxBroker) (interface{}, error) {
+	return &PluginConnectorServer{}, nil
+}
+func (PluginConnector) Client(b *plugin.MuxBroker, c *rpc.Client) (interface{}, error) {
+	return nil, nil
 }
 
 func main() {
-	// おそらくデータのスキーマ定義をする
-	// プラグインではリクエスト/レスポンスをJSON形式(struct?)で渡すのみ。presenterはteatime本体の責務
-	fmt.Println("a")
-}
-
-func old() {
-	var pluginMap = map[string]plugin.Plugin{
-		"hello": &SomethingDataPlugin{},
-	}
-
 	plugin.Serve(&plugin.ServeConfig{
-		HandshakeConfig: handshakeConfig,
-		Plugins:         pluginMap,
+		HandshakeConfig: plugin.HandshakeConfig{
+			ProtocolVersion:  1,
+			MagicCookieKey:   "hey",
+			MagicCookieValue: "hello",
+		},
+		Plugins: map[string]plugin.Plugin{
+			"main": &PluginConnector{},
+		},
 	})
 }

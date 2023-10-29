@@ -1,4 +1,29 @@
-package plugin
+package plug
+
+import (
+	"net/rpc"
+
+	"github.com/hashicorp/go-plugin"
+)
+
+type PluginConnectorClient struct {
+	client *rpc.Client
+}
+
+func (g *PluginConnectorClient) Info() Info {
+	var resp Info
+	g.client.Call("Plugin.Info", new(interface{}), &resp)
+	return resp
+}
+
+type PluginConnector struct{}
+
+func (p *PluginConnector) Server(*plugin.MuxBroker) (interface{}, error) {
+	return nil, nil
+}
+func (PluginConnector) Client(b *plugin.MuxBroker, c *rpc.Client) (interface{}, error) {
+	return &PluginConnectorClient{client: c}, nil
+}
 
 // json schema がいいかも
 // 配列が入っていたとして ui でどう見せるかは要検討
@@ -18,7 +43,7 @@ type Info struct {
 
 type PluginInterface interface {
 	Info() Info
-	Resources() []ResourceInterface
+	// Resources() []ResourceInterface
 }
 
 type Schema struct {

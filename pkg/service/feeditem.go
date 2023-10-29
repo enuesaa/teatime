@@ -3,7 +3,7 @@ package service
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/enuesaa/teatime/internal/repository"
+	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/google/uuid"
 )
 

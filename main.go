@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/enuesaa/teatime/pkg/controller"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,6 +13,8 @@ func main() {
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Next()
 	})
+
+	app.GET("/", controller.InvokePlugin)
 
 	// bookmarkRoute := base.Group("/v1.Bookmark")
 	// bookmarkCtl := bookmark.BookmarkController{}

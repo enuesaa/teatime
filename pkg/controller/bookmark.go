@@ -1,10 +1,10 @@
 package controller
 
 // import (
-// 	"github.com/enuesaa/teatime/internal/service"
-// 	"github.com/enuesaa/teatime/internal/repository"
+// 	"github.com/enuesaa/teatime/pkg/service"
+// 	"github.com/enuesaa/teatime/pkg/repository"
 // 	"github.com/gin-gonic/gin"
-// 	"github.com/enuesaa/teatime/internal/handle"
+// 	"github.com/enuesaa/teatime/pkg/handle"
 // )
 
 // type BookmarkController struct {
