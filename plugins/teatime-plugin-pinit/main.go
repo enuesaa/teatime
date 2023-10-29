@@ -8,15 +8,20 @@ import (
 	"github.com/enuesaa/teatime/pkg/plug"
 )
 
-// type PinitResource struct {
-// 	A string
-// }
-// func (r *PinitResource) Schema() plug.Schema {
-// 	schema := plug.Schema {
-// 		Name: "hey",
-// 	}
-// 	return schema
-// }
+type PinitResource struct {
+	A string
+}
+func (r *PinitResource) Schema() plug.Schema {
+	schema := plug.Schema {
+		Name: "hey",
+	}
+	return schema
+}
+func NewPinitResource() plug.ResourceInterface {
+	return &PinitResource{
+		A: "a",
+	}
+}
 
 type PluginConnectorServer struct {}
 func (g *PluginConnectorServer) Info(args interface{}, resp *plug.Info) error {
@@ -26,13 +31,8 @@ func (g *PluginConnectorServer) Info(args interface{}, resp *plug.Info) error {
 	}
 	return nil
 }
-func (g *PluginConnectorServer) Resource(args interface{}, resp *plug.Resource) error {
-	*resp = plug.Resource{
-		Name: "aaaaa",
-		Schem: plug.Schema{
-			Name: "schemaname",
-		},
-	}
+func (g *PluginConnectorServer) Resource(args interface{}, resp *func() plug.ResourceInterface) error {
+	*resp = NewPinitResource
 	return nil
 }
 
