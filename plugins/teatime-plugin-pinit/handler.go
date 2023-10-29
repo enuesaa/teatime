@@ -6,7 +6,7 @@ import (
 
 type Handler struct {}
 func (s *Handler) Info() string {
-	return "aa"
+	return "aakmkll"
 }
 
 // func (s *Handler) Resources(args interface{}, resp *[]plug.Resource) error {

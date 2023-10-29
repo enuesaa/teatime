@@ -11,7 +11,6 @@ type ProviderInterface interface {
 	// Resources() []plug.Resource
 }
 
-
 type Connector struct {
 	Impl ProviderInterface
 }
@@ -38,8 +37,8 @@ func (cc *ConnectClient) Info() string {
 	cc.client.Call("Plugin.Info", new(interface{}), &resp)
 	return resp
 }
-func (cc *ConnectClient) Resources() []Resource {
-	var resp []Resource
-	cc.client.Call("Plugin.Resources", new(interface{}), &resp)
-	return resp
-}
+// func (cc *ConnectClient) Resources() []Resource {
+// 	var resp []Resource
+// 	cc.client.Call("Plugin.Resources", new(interface{}), &resp)
+// 	return resp
+// }

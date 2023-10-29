@@ -30,7 +30,7 @@ func (srv *ProviderService) GetProvider() (plug.ProviderInterface, error) {
 		},
 		Cmd: exec.Command(srv.command),
 	})
-	defer client.Kill()
+	// defer client.Kill()
 
 	rpcc, err := client.Client()
 	if err != nil {
