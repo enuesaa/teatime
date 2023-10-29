@@ -14,10 +14,14 @@ func (g *PluginConnectorClient) Info() Info {
 	g.client.Call("Plugin.Info", new(interface{}), &resp)
 	return resp
 }
-func (c *PluginConnectorClient) Resource() func() ResourceInterface {
-	var resp func() ResourceInterface
+
+type ResourceWrapper struct {
+    Resource ResourceInterface
+}
+func (c *PluginConnectorClient) Resource() ResourceInterface {
+	var resp ResourceWrapper
 	c.client.Call("Plugin.Resource", new(interface{}), &resp)
-	return resp
+	return resp.Resource
 }
 
 
@@ -48,7 +52,7 @@ type Info struct {
 type PluginInterface interface {
 	Info() Info
 	// Resources() []ResourceInterface
-	Resource() func() ResourceInterface
+	Resource() ResourceInterface
 }
 // terraform を参考にしている
 type ResourceInterface interface {
