@@ -1,30 +1,40 @@
 package service
 
 import (
+	"fmt"
 	"os/exec"
 
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/hashicorp/go-plugin"
 )
 
-type PluginService struct {
-	identifier string
+type ProviderInterface interface {
+	Info() string
+	Resources() []plug.Resource
+}
+
+type ProviderService struct {
+	command string
 }
 
 // like "./plugins/teatime-plugin-pinit/teatime-plugin-pinit"
-func NewPluginService(identifier string) *PluginService {
-	return &PluginService{
-		identifier: identifier,
+func NewProviderService(command string) *ProviderService {
+	return &ProviderService{
+		command: command,
 	}
 }
 
-func (srv *PluginService) CreatePluginClient() (plug.ProviderInterface, error) {
+func (srv *ProviderService) GetProvider() (ProviderInterface, error) {
 	client := plugin.NewClient(&plugin.ClientConfig{
-		HandshakeConfig: plug.NewHandshakeConfig(),
+		HandshakeConfig: plugin.HandshakeConfig{
+			ProtocolVersion:  1,
+			MagicCookieKey:   "hey",
+			MagicCookieValue: "hello",
+		},
 		Plugins: map[string]plugin.Plugin{
 			"main": &plug.Connector{},
 		},
-		Cmd: exec.Command(srv.identifier),
+		Cmd: exec.Command(srv.command),
 	})
 	defer client.Kill()
 
@@ -38,17 +48,17 @@ func (srv *PluginService) CreatePluginClient() (plug.ProviderInterface, error) {
 		return nil, err
 	}
 
-	pluginClient := raw.(plug.ProviderInterface)
-	return pluginClient, nil
+	return raw.(ProviderInterface), nil
 }
 
-func (srv *PluginService) GetInfo() (*plug.Info, error) {
-	pluginClient, err := srv.CreatePluginClient()
+func (srv *ProviderService) GetInfo() (string, error) {
+	fmt.Printf("aaaaa\n")
+
+	provider, err := srv.GetProvider()
 	if err != nil {
-		return nil, err
+		return "", err
 	}
-	info := pluginClient.Info()
-	return &info, err
+	return provider.Info(), err
 
 	// list := raw.(plug.PluginInterface).Resources()
 	// for _, resource := range list {

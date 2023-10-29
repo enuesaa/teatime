@@ -14,7 +14,8 @@ func main() {
 		c.Next()
 	})
 
-	app.GET("/", controller.InvokePlugin)
+	app.GET("/providers", controller.ListProviders)
+	app.GET("/", controller.InvokeProvider)
 
 	// bookmarkRoute := base.Group("/v1.Bookmark")
 	// bookmarkCtl := bookmark.BookmarkController{}
