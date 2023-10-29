@@ -1,5 +1,9 @@
 package plug
 
+import (
+	"github.com/hashicorp/go-plugin"
+)
+
 // json schema がいいかも
 // 配列が入っていたとして ui でどう見せるかは要検討
 type Kv struct {
@@ -16,7 +20,7 @@ type Info struct {
 	Description string
 }
 
-type PluginInterface interface {
+type ProviderInterface interface {
 	Info() Info
 	Resources() []Resource
 }
@@ -32,3 +36,11 @@ func (r *Resource) Schema() Kv {
 // Create(kvs Kvs) (string, error)
 // Update(id string, kvs Kvs) (string, error)
 // Delete(id string) error
+
+func NewHandshakeConfig() plugin.HandshakeConfig {
+	return plugin.HandshakeConfig{
+		ProtocolVersion:  1,
+		MagicCookieKey:   "hey",
+		MagicCookieValue: "hello",
+	}
+}

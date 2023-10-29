@@ -6,39 +6,39 @@ import (
 	"github.com/hashicorp/go-plugin"
 )
 
-type PluginConnectServer struct {
+type Connector struct {
+	ServerImpl ConnectServer
+}
+func (pc *Connector) Server(*plugin.MuxBroker) (interface{}, error) {
+	return pc.ServerImpl, nil
+}
+func (pc *Connector) Client(b *plugin.MuxBroker, c *rpc.Client) (interface{}, error) {
+	return &ConnectClient{client: c}, nil
+}
+
+type ConnectServer struct {
 	InfoValue Info
 	ResourcesValue []Resource
 }
-func (s *PluginConnectServer) Info(args interface{}, resp *Info) error {
+func (s *ConnectServer) Info(args interface{}, resp *Info) error {
 	*resp = s.InfoValue
 	return nil
 }
-func (s *PluginConnectServer) Resources(args interface{}, resp *[]Resource) error {
+func (s *ConnectServer) Resources(args interface{}, resp *[]Resource) error {
 	*resp = s.ResourcesValue
 	return nil
 }
 
-type PluginConnectClient struct {
+type ConnectClient struct {
 	client *rpc.Client
 }
-func (g *PluginConnectClient) Info() Info {
+func (g *ConnectClient) Info() Info {
 	var resp Info
 	g.client.Call("Plugin.Info", new(interface{}), &resp)
 	return resp
 }
-func (c *PluginConnectClient) Resources() []Resource {
+func (c *ConnectClient) Resources() []Resource {
 	var resp []Resource
 	c.client.Call("Plugin.Resources", new(interface{}), &resp)
 	return resp
-}
-
-type PluginConnector struct {
-	ServerImpl PluginConnectServer
-}
-func (pc *PluginConnector) Server(*plugin.MuxBroker) (interface{}, error) {
-	return pc.ServerImpl, nil
-}
-func (pc *PluginConnector) Client(b *plugin.MuxBroker, c *rpc.Client) (interface{}, error) {
-	return &PluginConnectClient{client: c}, nil
 }
