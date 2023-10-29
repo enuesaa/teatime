@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"encoding/gob"
 	"fmt"
 	"os/exec"
 
@@ -12,9 +11,6 @@ import (
 )
 
 func InvokePlugin(c *gin.Context) {
-	fmt.Println("a")
-	gob.Register(&plug.ResourceWrapper{})
-
 	client := plugin.NewClient(&plugin.ClientConfig{
 		HandshakeConfig: plugin.HandshakeConfig{
 			ProtocolVersion:  1,
@@ -39,10 +35,6 @@ func InvokePlugin(c *gin.Context) {
 		fmt.Println(err.Error())
 		return
 	}
-
-	// info := raw.(plug.PluginInterface).Info()
-	// fmt.Println("a")
-	// fmt.Printf("%+v\n", info)
 
 	resource := raw.(plug.PluginInterface).Resource()
 	fmt.Printf("%+v\n", resource)

@@ -14,14 +14,10 @@ func (g *PluginConnectorClient) Info() Info {
 	g.client.Call("Plugin.Info", new(interface{}), &resp)
 	return resp
 }
-
-type ResourceWrapper struct {
-    Resource ResourceInterface
-}
-func (c *PluginConnectorClient) Resource() ResourceInterface {
-	var resp ResourceWrapper
+func (c *PluginConnectorClient) Resource() Resource {
+	var resp Resource
 	c.client.Call("Plugin.Resource", new(interface{}), &resp)
-	return resp.Resource
+	return resp
 }
 
 
@@ -52,18 +48,17 @@ type Info struct {
 type PluginInterface interface {
 	Info() Info
 	// Resources() []ResourceInterface
-	Resource() ResourceInterface
-}
-// terraform を参考にしている
-type ResourceInterface interface {
-	Schema() Schema
-	// List() ([]*Kvs, error)
-	// View(id string) (*Kvs, error)
-	// Create(kvs Kvs) (string, error)
-	// Update(id string, kvs Kvs) (string, error)
-	// Delete(id string) error
+	Resource() Resource
 }
 
-type Schema struct {
-	Name string
+type Resource struct {
+	SchemaName string
 }
+func (r *Resource) Schema() string {
+	return r.SchemaName
+}
+// List() ([]*Kvs, error)
+// View(id string) (*Kvs, error)
+// Create(kvs Kvs) (string, error)
+// Update(id string, kvs Kvs) (string, error)
+// Delete(id string) error
