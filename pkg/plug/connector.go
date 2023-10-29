@@ -6,19 +6,14 @@ import (
 	"github.com/hashicorp/go-plugin"
 )
 
-type ProviderInterface interface {
-	Info() Info
-	Resources() []Resource
-}
-
 type Connector struct {
 	Impl ProviderInterface
 }
-func (co *Connector) Server(*plugin.MuxBroker) (interface{}, error) {
+func (co *Connector) Server(b *plugin.MuxBroker) (interface{}, error) {
 	return &ConnectServer{ Impl: co.Impl }, nil
 }
 func (co *Connector) Client(b *plugin.MuxBroker, c *rpc.Client) (interface{}, error) {
-	return &ConnectClient{client: c}, nil
+	return &ConnectClient{ client: c }, nil
 }
 
 type ConnectServer struct {

@@ -13,12 +13,12 @@ func (s *Handler) Info() plug.Info {
 }
 
 func (s *Handler) Resources() []plug.Resource {
-	list := []plug.Resource{
-		{
-			SchemaName: plug.Kv{
-				StringValue: "aaa",
-			},
-		},
-	}
+	list := []plug.Resource{}
 	return list
 }
+
+// list
+// describe
+// create
+// update
+// delete
