@@ -51,6 +51,5 @@ func InvokeProvider(c *gin.Context) {
 		fmt.Println(err.Error())
 		return
 	}
-	fmt.Printf("aaa\n\n%+v", info)
 	fmt.Println(info)
 }

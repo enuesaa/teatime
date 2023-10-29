@@ -7,8 +7,8 @@ import (
 )
 
 type ProviderInterface interface {
-	Info() string
-	// Resources() []plug.Resource
+	Info() Info
+	Resources() []Resource
 }
 
 type Connector struct {
@@ -24,21 +24,25 @@ func (co *Connector) Client(b *plugin.MuxBroker, c *rpc.Client) (interface{}, er
 type ConnectServer struct {
 	Impl ProviderInterface
 }
-func (s *ConnectServer) Info(args interface{}, resp *string) error {
+func (s *ConnectServer) Info(args interface{}, resp *Info) error {
 	*resp = s.Impl.Info()
+	return nil
+}
+func (s *ConnectServer) Resources(args interface{}, resp *[]Resource) error {
+	*resp = s.Impl.Resources()
 	return nil
 }
 
 type ConnectClient struct {
 	client *rpc.Client
 }
-func (cc *ConnectClient) Info() string {
-	var resp string
+func (cc *ConnectClient) Info() Info {
+	var resp Info
 	cc.client.Call("Plugin.Info", new(interface{}), &resp)
 	return resp
 }
-// func (cc *ConnectClient) Resources() []Resource {
-// 	var resp []Resource
-// 	cc.client.Call("Plugin.Resources", new(interface{}), &resp)
-// 	return resp
-// }
+func (cc *ConnectClient) Resources() []Resource {
+	var resp []Resource
+	cc.client.Call("Plugin.Resources", new(interface{}), &resp)
+	return resp
+}

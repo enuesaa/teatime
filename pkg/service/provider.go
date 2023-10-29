@@ -45,16 +45,18 @@ func (srv *ProviderService) GetProvider() (plug.ProviderInterface, error) {
 	return raw.(plug.ProviderInterface), nil
 }
 
-func (srv *ProviderService) GetInfo() (string, error) {
+func (srv *ProviderService) GetInfo() (plug.Info, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
-		return "", err
+		return plug.Info{}, err
 	}
-	return provider.Info(), err
+	return provider.Info(), nil
+}
 
-	// list := raw.(plug.PluginInterface).Resources()
-	// for _, resource := range list {
-	// 	fmt.Printf("%+v\n", resource)
-	// 	fmt.Printf("%+v\n", resource.Schema().StringValue)
-	// }
+func (srv *ProviderService) GetResources() ([]plug.Resource, error) {
+	provider, err := srv.GetProvider()
+	if err != nil {
+		return nil, err
+	}
+	return provider.Resources(), nil
 }
