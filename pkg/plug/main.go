@@ -9,15 +9,19 @@ import (
 type PluginConnectorClient struct {
 	client *rpc.Client
 }
-
 func (g *PluginConnectorClient) Info() Info {
 	var resp Info
 	g.client.Call("Plugin.Info", new(interface{}), &resp)
 	return resp
 }
+func (c *PluginConnectorClient) Resource() ResourceInterface {
+	var resp ResourceInterface
+	c.client.Call("Plugin.Resource", new(interface{}), &resp)
+	return resp
+}
+
 
 type PluginConnector struct{}
-
 func (p *PluginConnector) Server(*plugin.MuxBroker) (interface{}, error) {
 	return nil, nil
 }
@@ -44,18 +48,18 @@ type Info struct {
 type PluginInterface interface {
 	Info() Info
 	// Resources() []ResourceInterface
+	Resource() ResourceInterface
+}
+// terraform を参考にしている
+type ResourceInterface interface {
+	Schema() Schema
+	// List() ([]*Kvs, error)
+	// View(id string) (*Kvs, error)
+	// Create(kvs Kvs) (string, error)
+	// Update(id string, kvs Kvs) (string, error)
+	// Delete(id string) error
 }
 
 type Schema struct {
 	Name string
-}
-
-// terraform を参考にしている
-type ResourceInterface interface {
-	Schema() Schema
-	List() ([]*Kvs, error)
-	View(id string) (*Kvs, error)
-	Create(kvs Kvs) (string, error)
-	Update(id string, kvs Kvs) (string, error)
-	Delete(id string) error
 }

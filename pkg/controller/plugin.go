@@ -38,6 +38,13 @@ func InvokePlugin(c *gin.Context) {
 		return
 	}
 
-	info := raw.(plug.PluginInterface).Info()
-	fmt.Println(info)
+	// info := raw.(plug.PluginInterface).Info()
+	// fmt.Println("a")
+	// fmt.Printf("%+v\n", info)
+
+	resource := raw.(plug.PluginInterface).Resource()
+	fmt.Printf("%+v\n", resource)
+	schema := resource.Schema()
+	fmt.Println("c")
+	fmt.Printf("%+v\n", schema)
 }
