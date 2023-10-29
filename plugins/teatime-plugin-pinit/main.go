@@ -1,12 +1,15 @@
 package main
 
 import (
-	"net/rpc"
-
+	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/hashicorp/go-plugin"
 )
 
 func main() {
+	connector := plug.Connector{
+		Impl: &Handler{},
+	}
+
 	plugin.Serve(&plugin.ServeConfig{
 		HandshakeConfig: plugin.HandshakeConfig{
 			ProtocolVersion:  1,
@@ -14,15 +17,7 @@ func main() {
 			MagicCookieValue: "hello",
 		},
 		Plugins: map[string]plugin.Plugin{
-			"main": &Connector{},
+			"main": &connector,
 		},
 	})
-}
-
-type Connector struct {}
-func (cc *Connector) Server(*plugin.MuxBroker) (interface{}, error) {
-	return &Handler{}, nil
-}
-func (cc *Connector) Client(b *plugin.MuxBroker, c *rpc.Client) (interface{}, error) {
-	return nil, nil
 }

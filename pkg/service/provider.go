@@ -1,17 +1,11 @@
 package service
 
 import (
-	"fmt"
 	"os/exec"
 
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/hashicorp/go-plugin"
 )
-
-type ProviderInterface interface {
-	Info() string
-	Resources() []plug.Resource
-}
 
 type ProviderService struct {
 	command string
@@ -24,7 +18,7 @@ func NewProviderService(command string) *ProviderService {
 	}
 }
 
-func (srv *ProviderService) GetProvider() (ProviderInterface, error) {
+func (srv *ProviderService) GetProvider() (plug.ProviderInterface, error) {
 	client := plugin.NewClient(&plugin.ClientConfig{
 		HandshakeConfig: plugin.HandshakeConfig{
 			ProtocolVersion:  1,
@@ -48,12 +42,10 @@ func (srv *ProviderService) GetProvider() (ProviderInterface, error) {
 		return nil, err
 	}
 
-	return raw.(ProviderInterface), nil
+	return raw.(plug.ProviderInterface), nil
 }
 
 func (srv *ProviderService) GetInfo() (string, error) {
-	fmt.Printf("aaaaa\n")
-
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return "", err
