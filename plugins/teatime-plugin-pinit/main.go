@@ -15,9 +15,13 @@ func (g *PluginConnectorServer) Info(args interface{}, resp *plug.Info) error {
 	}
 	return nil
 }
-func (g *PluginConnectorServer) Resource(args interface{}, resp *plug.Resource) error {
-	*resp = plug.Resource{
-		SchemaName: "a",
+func (g *PluginConnectorServer) Resources(args interface{}, resp *[]plug.Resource) error {
+	*resp = []plug.Resource{
+		{
+			SchemaName: plug.Kv{
+				StringValue: "aaa",
+			},
+		},
 	}
 	return nil
 }

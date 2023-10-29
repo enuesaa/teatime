@@ -14,9 +14,9 @@ func (g *PluginConnectorClient) Info() Info {
 	g.client.Call("Plugin.Info", new(interface{}), &resp)
 	return resp
 }
-func (c *PluginConnectorClient) Resource() Resource {
-	var resp Resource
-	c.client.Call("Plugin.Resource", new(interface{}), &resp)
+func (c *PluginConnectorClient) Resources() []Resource {
+	var resp []Resource
+	c.client.Call("Plugin.Resources", new(interface{}), &resp)
 	return resp
 }
 
@@ -47,14 +47,13 @@ type Info struct {
 
 type PluginInterface interface {
 	Info() Info
-	// Resources() []ResourceInterface
-	Resource() Resource
+	Resources() []Resource
 }
 
 type Resource struct {
-	SchemaName string
+	SchemaName Kv
 }
-func (r *Resource) Schema() string {
+func (r *Resource) Schema() Kv {
 	return r.SchemaName
 }
 // List() ([]*Kvs, error)

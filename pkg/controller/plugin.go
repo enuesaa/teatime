@@ -36,7 +36,9 @@ func InvokePlugin(c *gin.Context) {
 		return
 	}
 
-	resource := raw.(plug.PluginInterface).Resource()
-	fmt.Printf("%+v\n", resource)
-	fmt.Printf("%+v\n", resource.Schema())
+	list := raw.(plug.PluginInterface).Resources()
+	for _, resource := range list {
+		fmt.Printf("%+v\n", resource)
+		fmt.Printf("%+v\n", resource.Schema().StringValue)
+	}
 }
