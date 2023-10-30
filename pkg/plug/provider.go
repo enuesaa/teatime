@@ -13,6 +13,7 @@ type ProviderInterface interface {
 
 // rid stands for resource id like arn. example: `notes:<id>` or `notes:*` or `note:main`
 
+// ui を表現するのが現実的でないように思えてきた。iframe だとか別方法を検討する
 type UiCard struct {
 	Rid string // 
 	CanList bool 
