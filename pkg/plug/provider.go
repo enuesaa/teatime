@@ -4,8 +4,8 @@ type ProviderInterface interface {
 	Info() Info
 	// ListUiCards() []UiCard
 	Resources() []Resource
-	// List(rid string) ([]Resource, error)
-	// Describe(rid string) (Resource, error)
+	// List(rid string) []Resource
+	// Describe(rid string) Resource
 	// Create(resource Resource) error
 	// Update(resource Resource) error
 	// Delete(resource Resource) error
@@ -17,6 +17,7 @@ type UiCard struct {
 	Rid string // 
 	CanList bool 
 	CanCreate bool // ここが ok なら create form が表示されるみたいな
+	CanUpdate bool
 	CanDelete bool
 }
 
@@ -27,16 +28,15 @@ type Info struct {
 
 type Resource struct {
 	Name string
-	Items []Kv
+	Values map[string]Value
 }
 
-type Kv struct {
-	Key   string
+type Value struct {
 	Type string // string or markdown, int, bool
 	StringValue string
 	MarkdownValue string
 	IntValue int
-	BoolValue string
-	// links
+	BoolValue string // checkbox
+	LinkValue string // like `tags:<id>`
 	Readonly bool
 }
