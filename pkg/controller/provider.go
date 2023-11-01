@@ -2,6 +2,8 @@ package controller
 
 import (
 	"fmt"
+	"net/http"
+
 	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/gin-gonic/gin"
 )
@@ -29,22 +31,7 @@ func ListProviders(c *gin.Context) {
 	c.JSON(200, res)
 }
 
-type InvokeProviderReq struct {
-	Command string `json:"command"`
-}
 func InvokeProvider(c *gin.Context) {
-	// var req InvokeProviderReq
-	// if err := c.ShouldBindJSON(&req); err != nil {
-	// 	c.JSON(400, gin.H{"error": err.Error()})
-	// 	c.Abort()
-	// 	return
-	// }
-	// if err := body.Validate(); err != nil {
-	// 	c.JSON(400, gin.H{"erraaor": err.Error()})
-	// 	c.Abort()
-	// 	return Handle{c: c, data: make(map[string]interface{}, 0)}
-	// }
-
 	providerSrv := service.NewProviderService("./plugins/teatime-plugin-pinit/teatime-plugin-pinit")
 	list, err := providerSrv.ListUiCards()
 	if err != nil {
@@ -52,4 +39,34 @@ func InvokeProvider(c *gin.Context) {
 		return
 	}
 	fmt.Println(list)
+}
+
+type ListUiCardsResponseItem struct {
+	Layout string `json:"layout"`
+	Rid string `json:"rid"`
+}
+type ListUiCardsResponse struct {
+	Items []ListUiCardsResponseItem `json:"items"`
+}
+func ListUiCards(c *gin.Context) {
+	providerSrv := service.NewProviderService("./plugins/teatime-plugin-pinit/teatime-plugin-pinit")
+	list, err := providerSrv.ListUiCards()
+	if err != nil {
+		fmt.Println(err.Error())
+		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
+		c.Abort()
+		return
+	}
+
+	res := ListUiCardsResponse{
+		Items: make([]ListUiCardsResponseItem, 0),
+	}
+	for _, uicard := range list {
+		res.Items = append(res.Items, ListUiCardsResponseItem{
+			Layout: uicard.Layout,
+			Rid: uicard.Rid,
+		})
+	}
+
+	c.JSON(http.StatusOK, &res)
 }

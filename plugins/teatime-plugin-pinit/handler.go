@@ -14,7 +14,8 @@ func (s *Handler) Info() plug.Info {
 func (s *Handler) ListUiCards() []plug.UiCard {
 	list := make([]plug.UiCard, 0)
 	list = append(list, plug.UiCard{
-
+		Layout: "main",
+		Rid: "",
 	})
 
 	return list

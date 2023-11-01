@@ -13,11 +13,12 @@ type ProviderInterface interface {
 // rid stands for resource id like arn. example: `notes:<id>` or `notes:*` or `note:main`
 type UiCard struct {
 	Layout string
+	// main layout config
 	Rid string // 
-	CanList bool 
-	CanCreate bool // ここが ok なら create form が表示されるみたいな
-	CanUpdate bool
-	CanDelete bool
+	// CanList bool 
+	// CanCreate bool // ここが ok なら create form が表示されるみたいな
+	// CanUpdate bool
+	// CanDelete bool
 }
 
 type Info struct {
@@ -32,10 +33,10 @@ type Resource struct {
 
 type Value struct {
 	Type string // string or markdown, int, bool
-	StringValue string
-	MarkdownValue string
-	IntValue int
-	BoolValue string // checkbox
-	LinkValue string // like `tags:<id>`
+	StrVal string
+	MarkdownVal string
+	IntVal int
+	BoolVal string // checkbox
+	// LinkVal string // like `tags:<id>`
 	Readonly bool
 }

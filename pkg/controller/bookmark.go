@@ -57,6 +57,17 @@ package controller
 // }
 
 // func (ctl *BookmarkController) Update(c *gin.Context) {
+// var req InvokeProviderReq
+// if err := c.ShouldBindJSON(&req); err != nil {
+// 	c.JSON(400, gin.H{"error": err.Error()})
+// 	c.Abort()
+// 	return
+// }
+// if err := body.Validate(); err != nil {
+// 	c.JSON(400, gin.H{"erraaor": err.Error()})
+// 	c.Abort()
+// 	return Handle{c: c, data: make(map[string]interface{}, 0)}
+// }
 // 	var req v1.UpdateBookmarkRequest
 // 	handler := handle.Bind(c, &req)
 // 	handler.Data("Id", func() any {

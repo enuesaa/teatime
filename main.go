@@ -16,6 +16,7 @@ func main() {
 
 	app.GET("/providers", controller.ListProviders)
 	app.GET("/", controller.InvokeProvider)
+	app.GET("/cards", controller.ListUiCards)
 
 	// bookmarkRoute := base.Group("/v1.Bookmark")
 	// bookmarkCtl := bookmark.BookmarkController{}
