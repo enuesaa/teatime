@@ -46,10 +46,10 @@ func InvokeProvider(c *gin.Context) {
 	// }
 
 	providerSrv := service.NewProviderService("./plugins/teatime-plugin-pinit/teatime-plugin-pinit")
-	info, err := providerSrv.GetInfo()
+	list, err := providerSrv.ListUiCards()
 	if err != nil {
 		fmt.Println(err.Error())
 		return
 	}
-	fmt.Println(info)
+	fmt.Println(list)
 }

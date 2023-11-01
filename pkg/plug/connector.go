@@ -23,8 +23,16 @@ func (s *ConnectServer) Info(args interface{}, resp *Info) error {
 	*resp = s.Impl.Info()
 	return nil
 }
-func (s *ConnectServer) Resources(args interface{}, resp *[]Resource) error {
-	*resp = s.Impl.Resources()
+func (s *ConnectServer) ListUiCards(args interface{}, resp *[]UiCard) error {
+	*resp = s.Impl.ListUiCards()
+	return nil
+}
+func (s *ConnectServer) List(args interface{}, resp *[]Resource) error {
+	*resp = s.Impl.List("")
+	return nil
+}
+func (s *ConnectServer) Describe(args interface{}, resp *Resource) error {
+	*resp = s.Impl.Describe("")
 	return nil
 }
 
@@ -37,8 +45,18 @@ func (cc *ConnectClient) Info() Info {
 	cc.client.Call("Plugin.Info", new(interface{}), &resp)
 	return resp
 }
-func (cc *ConnectClient) Resources() []Resource {
+func (cc *ConnectClient) ListUiCards() []UiCard {
+	var resp []UiCard
+	cc.client.Call("Plugin.ListUiCards", new(interface{}), &resp)
+	return resp
+}
+func (cc *ConnectClient) List(rid string) []Resource {
 	var resp []Resource
-	cc.client.Call("Plugin.Resources", new(interface{}), &resp)
+	cc.client.Call("Plugin.ListUiCards", new(interface{}), &resp)
+	return resp
+}
+func (cc *ConnectClient) Describe(rid string) Resource {
+	var resp Resource
+	cc.client.Call("Plugin.ListUiCards", new(interface{}), &resp)
 	return resp
 }

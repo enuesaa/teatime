@@ -53,10 +53,24 @@ func (srv *ProviderService) GetInfo() (plug.Info, error) {
 	return provider.Info(), nil
 }
 
-func (srv *ProviderService) GetResources() ([]plug.Resource, error) {
+func (srv *ProviderService) ListUiCards() ([]plug.UiCard, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
-		return nil, err
+		return make([]plug.UiCard, 0), err
 	}
-	return provider.Resources(), nil
+	return provider.ListUiCards(), nil
+}
+func (srv *ProviderService) List() ([]plug.Resource, error) {
+	provider, err := srv.GetProvider()
+	if err != nil {
+		return make([]plug.Resource, 0), err
+	}
+	return provider.List(""), nil
+}
+func (srv *ProviderService) Describe() (plug.Resource, error) {
+	provider, err := srv.GetProvider()
+	if err != nil {
+		return plug.Resource{}, err
+	}
+	return provider.Describe(""), nil
 }
