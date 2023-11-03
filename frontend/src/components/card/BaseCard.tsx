@@ -30,9 +30,7 @@ export const BaseCard = ({ children }: Props) => {
     <Dialog.Root>
       <Dialog.Trigger>
         <Card size='4' css={styles.main}>
-          <Inset clip='padding-box'>
-            {children}
-          </Inset>
+          {children}
         </Card>
       </Dialog.Trigger>
       <Dialog.Content css={styles.dialog}>

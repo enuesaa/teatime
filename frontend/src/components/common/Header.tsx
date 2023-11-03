@@ -1,6 +1,6 @@
 import { BiCoffee } from 'react-icons/bi'
 import { MdOutlineCoffeeMaker } from 'react-icons/md'
-import { Flex, Box, Container } from '@radix-ui/themes'
+import { Flex, Box, Container, Separator } from '@radix-ui/themes'
 import { css } from '@emotion/react'
 
 export const Header = () => {
@@ -48,6 +48,7 @@ export const Header = () => {
           </a>
         </Flex>
       </Container>
+      <Separator size='4' />
     </header>
   )
 }
