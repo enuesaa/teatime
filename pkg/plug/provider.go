@@ -2,10 +2,15 @@ package plug
 
 type ProviderInterface interface {
 	Info() Info
+	// ui
+	ListCards() []Card
 	DescribeCard(rid string) Card
 	DescribePanel(rid string) Panel
 
-	DescribeSchema(rid string) Resource
+	// schema
+	DescribeSchema(rid string) Schema
+
+	// resource
 	List(rid string) []Resource
 	Describe(rid string) Resource
 	Create(resource Resource) error
@@ -16,7 +21,6 @@ type ProviderInterface interface {
 type Info struct {
 	Name string
 	Description string
-	CardRids []string
 }
 
 type TextCardConfig struct {
@@ -49,6 +53,13 @@ type Panel struct {
 	Query string // like `pinit:resource:notes:?name=`
 }
 
+type Schema struct {
+	Name string
+	Values map[string]SchemaValue
+}
+type SchemaValue struct {
+	Type string // string or markdown, int, bool
+}
 
 type Resource struct {
 	Name string
@@ -56,7 +67,6 @@ type Resource struct {
 }
 
 type Value struct {
-	Type string // string or markdown, int, bool
 	StrVal string
 	MarkdownVal string
 	IntVal int
