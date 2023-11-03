@@ -1,76 +1,70 @@
 package plug
 
+// rn stands for resource name like aws's arn.
+// format: `rn:<provider-name>:<category>:<resource-type>:<name>`
+// example:
+// - `rn:pinit:ui:card:<name>`
+// - `rn:pinit:ui:panel:<name>`
 type ProviderInterface interface {
+	// info
 	Info() Info
+
 	// ui
-	ListCards() []Card
-	DescribeCard(rid string) Card
-	DescribePanel(rid string) Panel
+	ListCardNames() []string
+	DescribeCard(name string) Card
+	ListPanelNames(cardName string) []string
+	DescribePanel(name string) Panel
 
-	// schema
-	DescribeSchema(rid string) Schema
-
-	// resource
-	List(rid string) []Resource
-	Describe(rid string) Resource
-	Create(resource Resource) error
-	Update(resource Resource) error
-	Delete(resource Resource) error
+	// data
+	Register(model string, name string) error
+	Get(model string, name string) Record
+	Set(model string, name string, record Record) error
+	Del(model string, name string) error
 }
 
+// info
 type Info struct {
 	Name string
 	Description string
 }
 
+// ui
+type Card struct {
+	Layout string // textCard
+	TextCard TextCardConfig
+}
 type TextCardConfig struct {
-	HeadingText string
+	Heading string
 	Center bool
 }
-
-// rid stands for resource id like arn. example: `notes:<id>` or `notes:*` or `note:main`
-// `<provider-name>:<resource-type>:<resource-name>:<id>`
-// `pinit:ui:card:main`
-type Card struct {
-	Layout string
-	TextCardConfig TextCardConfig
-	PanelRids []string
-}
-
-type TablePanelConfig struct {
-	Heading []string	
-	Values [][]TablePanelValue
-}
-type TablePanelValue struct {
-	Value Value
-	Readonly bool
-	Rid string
-}
-
 type Panel struct {
-	Layout string
-	TablePanelConfig TablePanelConfig
-	Query string // like `pinit:resource:notes:?name=`
+	Layout string // tablePanel
+	TablePanel TablePanelConfig
+}
+type TablePanelConfig struct {
+	Title string
+	Description string
+	Head []string	
+	Records []TablePanelRecord // パスを格納しているだけ
+}
+type TablePanelRecord struct {
+	Model string // like `notes`
+	Name string // like `main`
+	Values []TablePanelRecordValue
+}
+type TablePanelRecordValue struct {
+	Readonly bool
+	Key string
 }
 
-type Schema struct {
-	Name string
-	Values map[string]SchemaValue
-}
-type SchemaValue struct {
-	Type string // string or markdown, int, bool
-}
-
-type Resource struct {
+// data
+type Record struct {
 	Name string
 	Values map[string]Value
 }
-
 type Value struct {
+	Type string // str, int or bool
 	StrVal string
-	MarkdownVal string
 	IntVal int
-	BoolVal string // checkbox
-	// LinkVal string // like `tags:<id>`
-	Readonly bool
+	BoolVal string
 }
