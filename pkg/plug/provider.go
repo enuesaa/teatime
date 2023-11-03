@@ -10,9 +10,7 @@ type ProviderInterface interface {
 	Info() Info
 
 	// ui
-	ListCardNames() []string
 	DescribeCard(name string) Card
-	ListPanelNames(cardName string) []string
 	DescribePanel(name string) Panel
 
 	// data
@@ -26,10 +24,13 @@ type ProviderInterface interface {
 type Info struct {
 	Name string
 	Description string
+	Cards []string
+	PanelMap map[string]string // per card name 
 }
 
 // ui
 type Card struct {
+	Enable bool
 	Layout string // textCard
 	TextCard TextCardConfig
 }
@@ -38,6 +39,7 @@ type TextCardConfig struct {
 	Center bool
 }
 type Panel struct {
+	Enable bool
 	Layout string // tablePanel
 	TablePanel TablePanelConfig
 }
@@ -59,6 +61,7 @@ type TablePanelRecordValue struct {
 
 // data
 type Record struct {
+	Enable bool
 	Name string
 	Values map[string]Value
 }
