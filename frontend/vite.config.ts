@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'node:path'
 
 export default defineConfig({
-  root: './web',
+  root: './src',
   build: {
     outDir: '../build',
     rollupOptions: {
@@ -18,7 +18,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@/': path.join(__dirname, './web/')
+      '@/': path.join(__dirname, './src/')
     }
   },
 })

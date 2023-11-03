@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { BiCoffee } from 'react-icons/bi'
 import { MdOutlineCoffeeMaker } from 'react-icons/md'
 import { Flex, Box, Container } from '@radix-ui/themes'
@@ -38,15 +37,15 @@ export const Header = () => {
       <Container size='4'>
         <Flex>
           <Box grow='1'>
-            <Link href='/' css={styles.heading}>
+            <a href='/' css={styles.heading}>
               <BiCoffee />
               teatime
-            </Link>
+            </a>
           </Box>
 
-          <Link href='/setting' css={styles.setting}>
+          <a href='/setting' css={styles.setting}>
             <MdOutlineCoffeeMaker />
-          </Link>
+          </a>
         </Flex>
       </Container>
     </header>

@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "vite dev --port 3001",
+    "build": "vite build",
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {

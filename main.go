@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/enuesaa/teatime/pkg/controller"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,6 +14,10 @@ func main() {
 		c.Writer.Header().Set("Content-Type", "application/json")
 		c.Next()
 	})
+	app.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:3001"},
+		AllowMethods:     []string{"*"},
+	}))
 
 	app.GET("/providers", controller.ListProviders)
 	app.GET("/", controller.InvokeProvider)

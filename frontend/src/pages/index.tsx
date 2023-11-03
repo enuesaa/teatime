@@ -1,26 +1,20 @@
 import { Header } from '@/components/common/Header'
 import { Container } from '@radix-ui/themes'
-import { useQuery } from 'react-query'
-
-type Cards = {
-  Items: any
-}
-
-const fetchCards = async (): Promise<Cards> => {
-  const res = await fetch('/cards')
-  const body = await res.json()
-  return body as Cards
-}
+import { useFetchCards } from '@/lib/api';
 
 export default function TopPage() {
-  const { data, error, isLoading } = useQuery('posts', fetchCards);
-  console.log(data)
+  const { data, error, isLoading } = useFetchCards()
+  if (isLoading) {
+    return (<>a</>)
+  }
 
   return (
     <>
       <Header />
       <Container size='4'>
-
+        {data?.items.map(v => (
+          <>{v.layout}{v.rid}</>
+        ))}
       </Container>
     </>
   )

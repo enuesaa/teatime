@@ -10,7 +10,7 @@ export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Theme appearance='dark'>
-        <BrowserRouter basename="/app">
+        <BrowserRouter>
           <Routes>
             <Route path='/' element={<TopPage />} />
           </Routes>
