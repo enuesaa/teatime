@@ -23,16 +23,28 @@ func (s *ConnectServer) Info(args interface{}, resp *Info) error {
 	*resp = s.Impl.Info()
 	return nil
 }
-func (s *ConnectServer) ListUiCards(args interface{}, resp *[]UiCard) error {
-	*resp = s.Impl.ListUiCards()
+func (s *ConnectServer) DescribeCard(args interface{}, resp *Card) error {
+	*resp = s.Impl.DescribeCard("") // name
 	return nil
 }
-func (s *ConnectServer) List(args interface{}, resp *[]Resource) error {
-	*resp = s.Impl.List("")
+func (s *ConnectServer) DescribePanel(args interface{}, resp *Panel) error {
+	*resp = s.Impl.DescribePanel("") // name
 	return nil
 }
-func (s *ConnectServer) Describe(args interface{}, resp *Resource) error {
-	*resp = s.Impl.Describe("")
+func (s *ConnectServer) Register(args interface{}, resp *error) error {
+	*resp = s.Impl.Register("", "") // model, name
+	return nil
+}
+func (s *ConnectServer) Get(args interface{}, resp *Record) error {
+	*resp = s.Impl.Get("", "") // model, name
+	return nil
+}
+func (s *ConnectServer) Set(args interface{}, resp *error) error {
+	*resp = s.Impl.Set("", "", Record{}) // model, name
+	return nil
+}
+func (s *ConnectServer) Del(args interface{}, resp *error) error {
+	*resp = s.Impl.Del("", "") // model, name
 	return nil
 }
 
@@ -45,18 +57,34 @@ func (cc *ConnectClient) Info() Info {
 	cc.client.Call("Plugin.Info", new(interface{}), &resp)
 	return resp
 }
-func (cc *ConnectClient) ListUiCards() []UiCard {
-	var resp []UiCard
-	cc.client.Call("Plugin.ListUiCards", new(interface{}), &resp)
+func (cc *ConnectClient) DescribeCard() Card {
+	var resp Card
+	cc.client.Call("Plugin.DescribeCard", new(interface{}), &resp)
 	return resp
 }
-func (cc *ConnectClient) List(rid string) []Resource {
-	var resp []Resource
-	cc.client.Call("Plugin.ListUiCards", new(interface{}), &resp)
+func (cc *ConnectClient) DescribePanel() Panel {
+	var resp Panel
+	cc.client.Call("Plugin.DescribePanel", new(interface{}), &resp)
 	return resp
 }
-func (cc *ConnectClient) Describe(rid string) Resource {
-	var resp Resource
-	cc.client.Call("Plugin.ListUiCards", new(interface{}), &resp)
+func (cc *ConnectClient) Register() error {
+	var resp error
+	cc.client.Call("Plugin.Register", new(interface{}), &resp)
+	return resp
+}
+func (cc *ConnectClient) Get() Record {
+	var resp Record
+	// model, name
+	cc.client.Call("Plugin.Get", new(interface{}), &resp)
+	return resp
+}
+func (cc *ConnectClient) Set() error {
+	var resp error
+	cc.client.Call("Plugin.Set", new(interface{}), &resp)
+	return resp
+}
+func (cc *ConnectClient) Del() error {
+	var resp error
+	cc.client.Call("Plugin.Del", new(interface{}), &resp)
 	return resp
 }

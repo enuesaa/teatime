@@ -64,7 +64,7 @@ func ListUiCards(c *gin.Context) {
 	for _, uicard := range list {
 		res.Items = append(res.Items, ListUiCardsResponseItem{
 			Layout: uicard.Layout,
-			Rid: uicard.Rid,
+			Rid: "",
 		})
 	}
 

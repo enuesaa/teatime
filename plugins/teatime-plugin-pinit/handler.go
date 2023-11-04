@@ -11,25 +11,22 @@ func (s *Handler) Info() plug.Info {
 		Name: "aaa",
 	}
 }
-func (s *Handler) ListUiCards() []plug.UiCard {
-	list := make([]plug.UiCard, 0)
-	list = append(list, plug.UiCard{
-		Layout: "main",
-		Rid: "",
-	})
 
-	return list
+func (h *Handler) DescribeCard(name string) plug.Card {
+	return plug.Card{}
 }
-
-func (s *Handler) List(rid string) []plug.Resource {
-	list := make([]plug.Resource, 0)
-	list = append(list, plug.Resource{
-
-	})
-
-	return list
+func (h *Handler) DescribePanel(name string) plug.Panel {
+	return plug.Panel{}
 }
-
-func (s *Handler) Describe(rid string) plug.Resource {
-	return plug.Resource{}
+func (h *Handler) Register(model string, name string) error {
+	return nil
+}
+func (h *Handler) Get(model string, name string) plug.Record {
+	return plug.Record{}
+}
+func (h *Handler) Set(model string, name string, record plug.Record) error {
+	return nil
+}
+func (h *Handler) Del(model string, name string) error {
+	return nil
 }
