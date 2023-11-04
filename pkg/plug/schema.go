@@ -28,6 +28,7 @@ type TablePanelConfig struct {
 	Description string `json:"description"`
 	Head        []string `json:"head"`
 	Records     []TablePanelRecord `json:"records"` // パスを格納しているだけ
+	Creation    TablePanelCreation `json:"creation"`
 }
 type TablePanelRecord struct {
 	Model  string `json:"model"` // like `notes`
@@ -37,6 +38,10 @@ type TablePanelRecord struct {
 type TablePanelRecordValue struct {
 	Readonly bool `json:"readonly"`
 	Key      string `json:"key"`
+}
+type TablePanelCreation struct {
+	Enable bool `json:"enable"`
+	ModelName string `json:"modelName"`
 }
 
 // data

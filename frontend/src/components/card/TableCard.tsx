@@ -6,6 +6,10 @@ export const TableCard = () => {
   const {data, isLoading} = useGetProviderPanel('pinit', 'main')
   console.log(data)
 
+  // tablePanel.records をみて api を呼ぶ
+  // tablePanel.records[].values[].readonly が false なら編集画面が出てきてデータを更新できる
+  // tablePanel.creation.enable が true なら create button と name の入力フォームがありデータを作成できる 
+
   return (
     <BaseCard>
       <Inset clip='padding-box'>
