@@ -25,6 +25,7 @@ func main() {
 	app.GET("/providers/:name/panels/:panelName", controller.DescribePanel)
 	app.GET("/providers/:name/models/:model/records/:recordName", controller.GetRecord)
 	app.POST("/providers/:name/models/:model/records/:recordName", controller.RegisterRecord)
+	app.PUT("/providers/:name/models/:model/records/:recordName", controller.SetRecord)
 	app.DELETE("/providers/:name/models/:model/records/:recordName", controller.DelRecord)
 
 	app.Run(":3000")

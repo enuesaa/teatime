@@ -117,13 +117,29 @@ func GetRecord(c *gin.Context) {
 	c.JSON(200, res)
 }
 
-// func (srv *ProviderService) Set(model string, name string, record plug.Record) error {
-// 	provider, err := srv.GetProvider()
-// 	if err != nil {
-// 		return err
-// 	}
-// 	return provider.Set(plug.SetArg{Model: model, Name: name, Record: record})
-// }
+func SetRecord(c *gin.Context) {
+	var record plug.Record
+	if err := c.ShouldBindJSON(&record); err != nil {
+		AbortOnError(c, err)
+		return
+	}
+	name := c.Param("name")
+	providerSrv := service.NewProviderService(name)
+
+	model := c.Param("model")
+	recordName := c.Param("recordName")
+
+	err := providerSrv.Set(model, recordName, record)
+	if err != nil {
+		AbortOnError(c, err)
+		return
+	}
+
+	res := ApiResponse[struct{}] {
+		Data: struct{}{},
+	}
+	c.JSON(200, res)
+}
 
 func DelRecord(c *gin.Context) {
 	name := c.Param("name")
