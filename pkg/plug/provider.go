@@ -18,18 +18,18 @@ type DescribePanelArg struct {
 }
 type RegisterArg struct {
 	Model string
-	Name string
+	Name  string
 }
 type GetArg struct {
 	Model string
-	Name string
+	Name  string
 }
 type SetArg struct {
-	Model string
-	Name string
+	Model  string
+	Name   string
 	Record Record
 }
 type DelArg struct {
 	Model string
-	Name string
+	Name  string
 }

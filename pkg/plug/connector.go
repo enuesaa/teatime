@@ -9,16 +9,18 @@ import (
 type Connector struct {
 	Impl ProviderInterface
 }
+
 func (co *Connector) Server(b *plugin.MuxBroker) (interface{}, error) {
-	return &ConnectServer{ Impl: co.Impl }, nil
+	return &ConnectServer{Impl: co.Impl}, nil
 }
 func (co *Connector) Client(b *plugin.MuxBroker, c *rpc.Client) (interface{}, error) {
-	return &ConnectClient{ client: c }, nil
+	return &ConnectClient{client: c}, nil
 }
 
 type ConnectServer struct {
 	Impl ProviderInterface
 }
+
 func (s *ConnectServer) Info(arg interface{}, resp *Info) error {
 	*resp = s.Impl.Info()
 	return nil
@@ -52,6 +54,7 @@ func (s *ConnectServer) Del(arg DelArg, resp *error) error {
 type ConnectClient struct {
 	client *rpc.Client
 }
+
 func (cc *ConnectClient) Info() Info {
 	var resp Info
 	cc.client.Call("Plugin.Info", new(interface{}), &resp)

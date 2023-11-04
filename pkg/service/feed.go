@@ -14,7 +14,7 @@ type Feed struct {
 }
 
 type FeedService struct {
-	RedisRepo   repository.RedisRepositoryInterface
+	RedisRepo repository.RedisRepositoryInterface
 	// RssfeedRepo repository.RssfeedRepositoryInterface
 }
 

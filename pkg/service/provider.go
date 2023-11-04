@@ -5,19 +5,26 @@ import (
 	"github.com/hashicorp/go-plugin"
 )
 
-type ProviderService struct {
-	command string
+var ProviderCommandMap = map[string]string {
+	"pinit": "./plugins/teatime-plugin-pinit/teatime-plugin-pinit",
 }
 
-// like "./plugins/teatime-plugin-pinit/teatime-plugin-pinit"
-func NewProviderService(command string) *ProviderService {
+type ProviderService struct {
+	Name string
+}
+
+func NewProviderService(name string) *ProviderService {
 	return &ProviderService{
-		command: command,
+		Name: name,
 	}
 }
 
+func (srv *ProviderService) GetCommand() string {
+	return ProviderCommandMap[srv.Name]
+}
+
 func (srv *ProviderService) GetProvider() (plug.ProviderInterface, error) {
-	client := plugin.NewClient(plug.NewClientConfig(plug.Connector{}, srv.command))
+	client := plugin.NewClient(plug.NewClientConfig(plug.Connector{}, srv.GetCommand()))
 	// defer client.Kill()
 
 	rpcc, err := client.Client()
@@ -48,5 +55,3 @@ func (srv *ProviderService) DescribeCard(name string) (plug.Card, error) {
 	}
 	return provider.DescribeCard(plug.DescribeCardArg{Name: name}), nil
 }
-
-
