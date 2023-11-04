@@ -2,52 +2,52 @@ package plug
 
 // info
 type Info struct {
-	Name        string
-	Description string
-	Cards       []string
-	PanelMap    map[string]string // per card name
+	Name        string `json:"info"`
+	Description string `json:"description"`
+	Cards       []string `json:"cards"`
+	PanelMap    map[string]string `json:"panelMap"` // per card name
 }
 
 // ui
 type Card struct {
-	Enable   bool
-	Layout   string // textCard
-	TextCard TextCardConfig
+	Enable   bool `json:"enable"`
+	Layout   string `json:"layout"` // textCard
+	TextCard TextCardConfig `json:"textCard"`
 }
 type TextCardConfig struct {
-	Heading string
-	Center  bool
+	Heading string `json:"heading"`
+	Center  bool `json:"center"`
 }
 type Panel struct {
-	Enable     bool
-	Layout     string // tablePanel
-	TablePanel TablePanelConfig
+	Enable     bool `json:"enable"`
+	Layout     string `json:"layout"` // tablePanel
+	TablePanel TablePanelConfig `json:"tablePanel"`
 }
 type TablePanelConfig struct {
-	Title       string
-	Description string
-	Head        []string
-	Records     []TablePanelRecord // パスを格納しているだけ
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Head        []string `json:"head"`
+	Records     []TablePanelRecord `json:"records"` // パスを格納しているだけ
 }
 type TablePanelRecord struct {
-	Model  string // like `notes`
-	Name   string // like `main`
-	Values []TablePanelRecordValue
+	Model  string `json:"model"` // like `notes`
+	Name   string `json:"name"` // like `main`
+	Values []TablePanelRecordValue `json:"values"`
 }
 type TablePanelRecordValue struct {
-	Readonly bool
-	Key      string
+	Readonly bool `json:"readonly"`
+	Key      string `json:"key"`
 }
 
 // data
 type Record struct {
-	Enable bool
-	Name   string
-	Values map[string]Value
+	Enable bool `json:"enable"`
+	Name   string `json:"name"`
+	Values map[string]Value `json:"values"`
 }
 type Value struct {
-	Type    string // str, int or bool
-	StrVal  string
-	IntVal  int
-	BoolVal string
+	Type    string `json:"type"` // str, int or bool
+	StrVal  string `json:"strVal"`
+	IntVal  int `json:"intVal"`
+	BoolVal string `json:"boolVal"`
 }

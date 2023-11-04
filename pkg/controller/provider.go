@@ -7,6 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type ApiResponse[T any] struct {
+	Data T `json:"data"`
+}
+
 type ListProviderResponseItem struct {
 	Name string `json:"name"`
 }
@@ -26,12 +30,6 @@ func ListProviders(c *gin.Context) {
 	c.JSON(200, res)
 }
 
-type DescribeProviderResponse struct {
-	Name        string   `json:"name"`
-	Description string   `json:"description"`
-	Cards       []string `json:"cards"`
-	PanelMap    map[string]string
-}
 func DescribeProvider(c *gin.Context) {
 	name := c.Param("name")
 	providerSrv := service.NewProviderService(name)
@@ -41,20 +39,12 @@ func DescribeProvider(c *gin.Context) {
 		return
 	}
 
-	res := DescribeProviderResponse{
-		Name:        info.Name,
-		Description: info.Description,
-		Cards:       info.Cards,
-		PanelMap:    info.PanelMap,
+	res := ApiResponse[plug.Info] {
+		Data: info,
 	}
 	c.JSON(200, res)
 }
 
-type DescribeCardResponse struct {
-	Enable   bool                `json:"enable"`
-	Layout   string              `json:"layout"`
-	TextCard plug.TextCardConfig `json:"textCardConfig"`
-}
 func DescribeCard(c *gin.Context) {
 	name := c.Param("name")
 	providerSrv := service.NewProviderService(name)
@@ -66,19 +56,12 @@ func DescribeCard(c *gin.Context) {
 		return
 	}
 
-	res := DescribeCardResponse{
-		Enable:   card.Enable,
-		Layout:   card.Layout,
-		TextCard: card.TextCard,
+	res := ApiResponse[plug.Card] {
+		Data: card,
 	}
 	c.JSON(200, res)
 }
 
-type DescribePanelResponse struct {
-	Enable     bool                  `json:"enable"`
-	Layout     string                `json:"layout"`
-	TablePanel plug.TablePanelConfig `json:"tablePanelConfig"`
-}
 func DescribePanel(c *gin.Context) {
 	name := c.Param("name")
 	providerSrv := service.NewProviderService(name)
@@ -90,29 +73,49 @@ func DescribePanel(c *gin.Context) {
 		return
 	}
 
-	res := DescribePanelResponse{
-		Enable:     panel.Enable,
-		Layout:     panel.Layout,
-		TablePanel: panel.TablePanel,
+	res := ApiResponse[plug.Panel] {
+		Data: panel,
 	}
 	c.JSON(200, res)
 }
 
-// func (srv *ProviderService) Register(model string, name string) error {
-// 	provider, err := srv.GetProvider()
-// 	if err != nil {
-// 		return err
-// 	}
-// 	return provider.Register(plug.RegisterArg{Model: model, Name: name})
-// }
+func RegisterRecord(c *gin.Context) {
+	name := c.Param("name")
+	providerSrv := service.NewProviderService(name)
 
-// func (srv *ProviderService) Get(model string, name string) (plug.Record, error) {
-// 	provider, err := srv.GetProvider()
-// 	if err != nil {
-// 		return plug.Record{}, err
-// 	}
-// 	return provider.Get(plug.GetArg{Model: model, Name: name}), nil
-// }
+	model := c.Param("model")
+	recordName := c.Param("recordName")
+
+	err := providerSrv.Register(model, recordName)
+	if err != nil {
+		AbortOnError(c, err)
+		return
+	}
+
+	res := ApiResponse[struct{}] {
+		Data: struct{}{},
+	}
+	c.JSON(200, res)
+}
+
+func GetRecord(c *gin.Context) {
+	name := c.Param("name")
+	providerSrv := service.NewProviderService(name)
+
+	model := c.Param("model")
+	recordName := c.Param("recordName")
+
+	record, err := providerSrv.Get(model, recordName)
+	if err != nil {
+		AbortOnError(c, err)
+		return
+	}
+
+	res := ApiResponse[plug.Record] {
+		Data: record,
+	}
+	c.JSON(200, res)
+}
 
 // func (srv *ProviderService) Set(model string, name string, record plug.Record) error {
 // 	provider, err := srv.GetProvider()
@@ -122,11 +125,21 @@ func DescribePanel(c *gin.Context) {
 // 	return provider.Set(plug.SetArg{Model: model, Name: name, Record: record})
 // }
 
-// func (srv *ProviderService) Del(model string, name string) error {
-// 	provider, err := srv.GetProvider()
-// 	if err != nil {
-// 		return err
-// 	}
-// 	return provider.Del(plug.DelArg{Model: model, Name: name})
-// }
+func DelRecord(c *gin.Context) {
+	name := c.Param("name")
+	providerSrv := service.NewProviderService(name)
 
+	model := c.Param("model")
+	recordName := c.Param("recordName")
+
+	err := providerSrv.Del(model, recordName)
+	if err != nil {
+		AbortOnError(c, err)
+		return
+	}
+
+	res := ApiResponse[struct{}] {
+		Data: struct{}{},
+	}
+	c.JSON(200, res)
+}
