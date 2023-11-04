@@ -24,27 +24,27 @@ func (s *ConnectServer) Info(args interface{}, resp *Info) error {
 	return nil
 }
 func (s *ConnectServer) DescribeCard(args map[string]string, resp *Card) error {
-	*resp = s.Impl.DescribeCard(args["name"]) // name
+	*resp = s.Impl.DescribeCard(args["name"])
 	return nil
 }
-func (s *ConnectServer) DescribePanel(args interface{}, resp *Panel) error {
-	*resp = s.Impl.DescribePanel("") // name
+func (s *ConnectServer) DescribePanel(args map[string]string, resp *Panel) error {
+	*resp = s.Impl.DescribePanel(args["name"])
 	return nil
 }
-func (s *ConnectServer) Register(args interface{}, resp *error) error {
-	*resp = s.Impl.Register("", "") // model, name
+func (s *ConnectServer) Register(args map[string]string, resp *error) error {
+	*resp = s.Impl.Register(args["model"], args["name"])
 	return nil
 }
-func (s *ConnectServer) Get(args interface{}, resp *Record) error {
-	*resp = s.Impl.Get("", "") // model, name
+func (s *ConnectServer) Get(args map[string]string, resp *Record) error {
+	*resp = s.Impl.Get(args["model"], args["name"])
 	return nil
 }
-func (s *ConnectServer) Set(args interface{}, resp *error) error {
-	*resp = s.Impl.Set("", "", Record{}) // model, name
+func (s *ConnectServer) Set(args map[string]interface{}, resp *error) error {
+	*resp = s.Impl.Set(args["model"].(string), args["name"].(string), args["record"].(Record))
 	return nil
 }
-func (s *ConnectServer) Del(args interface{}, resp *error) error {
-	*resp = s.Impl.Del("", "") // model, name
+func (s *ConnectServer) Del(args map[string]string, resp *error) error {
+	*resp = s.Impl.Del(args["model"], args["name"])
 	return nil
 }
 
@@ -64,27 +64,26 @@ func (cc *ConnectClient) DescribeCard(name string) Card {
 }
 func (cc *ConnectClient) DescribePanel(name string) Panel {
 	var resp Panel
-	cc.client.Call("Plugin.DescribePanel", new(interface{}), &resp)
+	cc.client.Call("Plugin.DescribePanel", map[string]string{"name": name}, &resp)
 	return resp
 }
 func (cc *ConnectClient) Register(model string, name string) error {
 	var resp error
-	cc.client.Call("Plugin.Register", new(interface{}), &resp)
+	cc.client.Call("Plugin.Register", map[string]string{"model": model, "name": name}, &resp)
 	return resp
 }
 func (cc *ConnectClient) Get(model string, name string) Record {
 	var resp Record
-	// model, name
-	cc.client.Call("Plugin.Get", new(interface{}), &resp)
+	cc.client.Call("Plugin.Get", map[string]string{"model": model, "name": name}, &resp)
 	return resp
 }
 func (cc *ConnectClient) Set(model string, name string, record Record) error {
 	var resp error
-	cc.client.Call("Plugin.Set", new(interface{}), &resp)
+	cc.client.Call("Plugin.Set", map[string]interface{}{"model": model, "name": name, "record": record}, &resp)
 	return resp
 }
 func (cc *ConnectClient) Del(model string, name string) error {
 	var resp error
-	cc.client.Call("Plugin.Del", new(interface{}), &resp)
+	cc.client.Call("Plugin.Del", map[string]string{"model": model, "name": name}, &resp)
 	return resp
 }
