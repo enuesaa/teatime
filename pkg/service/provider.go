@@ -1,8 +1,6 @@
 package service
 
 import (
-	"os/exec"
-
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/hashicorp/go-plugin"
 )
@@ -19,17 +17,7 @@ func NewProviderService(command string) *ProviderService {
 }
 
 func (srv *ProviderService) GetProvider() (plug.ProviderInterface, error) {
-	client := plugin.NewClient(&plugin.ClientConfig{
-		HandshakeConfig: plugin.HandshakeConfig{
-			ProtocolVersion:  1,
-			MagicCookieKey:   "hey",
-			MagicCookieValue: "hello",
-		},
-		Plugins: map[string]plugin.Plugin{
-			"main": &plug.Connector{},
-		},
-		Cmd: exec.Command(srv.command),
-	})
+	client := plugin.NewClient(plug.NewClientConfig(plug.Connector{}, srv.command))
 	// defer client.Kill()
 
 	rpcc, err := client.Client()
@@ -58,7 +46,7 @@ func (srv *ProviderService) DescribeCard(name string) (plug.Card, error) {
 	if err != nil {
 		return plug.Card{}, err
 	}
-	return provider.DescribeCard(name), nil
+	return provider.DescribeCard(plug.DescribeCardArg{Name: name}), nil
 }
 
 

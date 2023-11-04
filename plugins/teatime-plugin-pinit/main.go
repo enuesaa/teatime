@@ -9,15 +9,5 @@ func main() {
 	connector := plug.Connector{
 		Impl: &Handler{},
 	}
-
-	plugin.Serve(&plugin.ServeConfig{
-		HandshakeConfig: plugin.HandshakeConfig{
-			ProtocolVersion:  1,
-			MagicCookieKey:   "hey",
-			MagicCookieValue: "hello",
-		},
-		Plugins: map[string]plugin.Plugin{
-			"main": &connector,
-		},
-	})
+	plugin.Serve(plug.NewServeConfig(connector))
 }

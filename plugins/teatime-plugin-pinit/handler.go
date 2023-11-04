@@ -19,8 +19,8 @@ func (s *Handler) Info() plug.Info {
 	}
 }
 
-func (h *Handler) DescribeCard(name string) plug.Card {
-	if name == "main" {
+func (h *Handler) DescribeCard(arg plug.DescribeCardArg) plug.Card {
+	if arg.Name == "main" {
 		return plug.Card{
 			Enable: true,
 			Layout: "textCard",
@@ -32,18 +32,18 @@ func (h *Handler) DescribeCard(name string) plug.Card {
 	}
 	return plug.Card{Enable: false}
 }
-func (h *Handler) DescribePanel(name string) plug.Panel {
+func (h *Handler) DescribePanel(arg plug.DescribePanelArg) plug.Panel {
 	return plug.Panel{}
 }
-func (h *Handler) Register(model string, name string) error {
+func (h *Handler) Register(arg plug.RegisterArg) error {
 	return nil
 }
-func (h *Handler) Get(model string, name string) plug.Record {
+func (h *Handler) Get(arg plug.GetArg) plug.Record {
 	return plug.Record{}
 }
-func (h *Handler) Set(model string, name string, record plug.Record) error {
+func (h *Handler) Set(arg plug.SetArg) error {
 	return nil
 }
-func (h *Handler) Del(model string, name string) error {
+func (h *Handler) Del(arg plug.DelArg) error {
 	return nil
 }
