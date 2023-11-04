@@ -73,3 +73,60 @@ func DescribeCard(c *gin.Context) {
 	}
 	c.JSON(200, res)
 }
+
+type DescribePanelResponse struct {
+	Enable     bool                  `json:"enable"`
+	Layout     string                `json:"layout"`
+	TablePanel plug.TablePanelConfig `json:"tablePanelConfig"`
+}
+func DescribePanel(c *gin.Context) {
+	name := c.Param("name")
+	providerSrv := service.NewProviderService(name)
+
+	panelName := c.Param("panelName")
+	panel, err := providerSrv.DescribePanel(panelName)
+	if err != nil {
+		AbortOnError(c, err)
+		return
+	}
+
+	res := DescribePanelResponse{
+		Enable:     panel.Enable,
+		Layout:     panel.Layout,
+		TablePanel: panel.TablePanel,
+	}
+	c.JSON(200, res)
+}
+
+// func (srv *ProviderService) Register(model string, name string) error {
+// 	provider, err := srv.GetProvider()
+// 	if err != nil {
+// 		return err
+// 	}
+// 	return provider.Register(plug.RegisterArg{Model: model, Name: name})
+// }
+
+// func (srv *ProviderService) Get(model string, name string) (plug.Record, error) {
+// 	provider, err := srv.GetProvider()
+// 	if err != nil {
+// 		return plug.Record{}, err
+// 	}
+// 	return provider.Get(plug.GetArg{Model: model, Name: name}), nil
+// }
+
+// func (srv *ProviderService) Set(model string, name string, record plug.Record) error {
+// 	provider, err := srv.GetProvider()
+// 	if err != nil {
+// 		return err
+// 	}
+// 	return provider.Set(plug.SetArg{Model: model, Name: name, Record: record})
+// }
+
+// func (srv *ProviderService) Del(model string, name string) error {
+// 	provider, err := srv.GetProvider()
+// 	if err != nil {
+// 		return err
+// 	}
+// 	return provider.Del(plug.DelArg{Model: model, Name: name})
+// }
+

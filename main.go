@@ -22,8 +22,7 @@ func main() {
 	app.GET("/providers", controller.ListProviders)
 	app.GET("/providers/:name", controller.DescribeProvider)
 	app.GET("/providers/:name/cards/:cardName", controller.DescribeCard)
-	// app.GET("/", controller.InvokeProvider)
-	// app.GET("/cards", controller.ListCards)
+	app.GET("/providers/:name/panels/:panelName", controller.DescribePanel)
 
 	app.Run(":3000")
 }

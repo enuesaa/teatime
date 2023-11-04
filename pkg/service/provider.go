@@ -55,3 +55,43 @@ func (srv *ProviderService) DescribeCard(name string) (plug.Card, error) {
 	}
 	return provider.DescribeCard(plug.DescribeCardArg{Name: name}), nil
 }
+
+func (srv *ProviderService) DescribePanel(name string) (plug.Panel, error) {
+	provider, err := srv.GetProvider()
+	if err != nil {
+		return plug.Panel{}, err
+	}
+	return provider.DescribePanel(plug.DescribePanelArg{Name: name}), nil
+}
+
+func (srv *ProviderService) Register(model string, name string) error {
+	provider, err := srv.GetProvider()
+	if err != nil {
+		return err
+	}
+	return provider.Register(plug.RegisterArg{Model: model, Name: name})
+}
+
+func (srv *ProviderService) Get(model string, name string) (plug.Record, error) {
+	provider, err := srv.GetProvider()
+	if err != nil {
+		return plug.Record{}, err
+	}
+	return provider.Get(plug.GetArg{Model: model, Name: name}), nil
+}
+
+func (srv *ProviderService) Set(model string, name string, record plug.Record) error {
+	provider, err := srv.GetProvider()
+	if err != nil {
+		return err
+	}
+	return provider.Set(plug.SetArg{Model: model, Name: name, Record: record})
+}
+
+func (srv *ProviderService) Del(model string, name string) error {
+	provider, err := srv.GetProvider()
+	if err != nil {
+		return err
+	}
+	return provider.Del(plug.DelArg{Model: model, Name: name})
+}
