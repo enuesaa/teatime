@@ -49,5 +49,5 @@ type Value struct {
 	Type    string `json:"type"` // str, int or bool
 	StrVal  string `json:"strVal"`
 	IntVal  int `json:"intVal"`
-	BoolVal string `json:"boolVal"`
+	BoolVal string `json:"values"`
 }

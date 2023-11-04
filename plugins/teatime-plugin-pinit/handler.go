@@ -33,7 +33,27 @@ func (h *Handler) DescribeCard(arg plug.DescribeCardArg) plug.Card {
 	return plug.Card{Enable: false}
 }
 func (h *Handler) DescribePanel(arg plug.DescribePanelArg) plug.Panel {
-	return plug.Panel{}
+	return plug.Panel{
+		Enable: true,
+		Layout: "main",
+		TablePanel: plug.TablePanelConfig{
+			Title: "title",
+			Description: "sample table panel",
+			Head: []string{"a", "b", "c"},
+			Records: []plug.TablePanelRecord{
+				{
+					Model: "memos",
+					Name: "first-memo",
+					Values: []plug.TablePanelRecordValue {
+						{
+							Readonly: false,
+							Key: "name",
+						},
+					},
+				},
+			},
+		},
+	}
 }
 func (h *Handler) Register(arg plug.RegisterArg) error {
 	return nil
