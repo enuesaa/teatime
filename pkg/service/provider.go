@@ -52,8 +52,13 @@ func (srv *ProviderService) GetInfo() (plug.Info, error) {
 	}
 	return provider.Info(), nil
 }
-//Depreacted
-func (srv *ProviderService) ListUiCards() ([]plug.Card, error) {
-	return make([]plug.Card, 0), nil
+
+func (srv *ProviderService) DescribeCard(name string) (plug.Card, error) {
+	provider, err := srv.GetProvider()
+	if err != nil {
+		return plug.Card{}, err
+	}
+	return provider.DescribeCard(name), nil
 }
+
 

@@ -20,7 +20,17 @@ func (s *Handler) Info() plug.Info {
 }
 
 func (h *Handler) DescribeCard(name string) plug.Card {
-	return plug.Card{}
+	if name == "main" {
+		return plug.Card{
+			Enable: true,
+			Layout: "textCard",
+			TextCard: plug.TextCardConfig{
+				Heading: "pinit status",
+				Center: true,
+			},
+		}
+	}
+	return plug.Card{Enable: false}
 }
 func (h *Handler) DescribePanel(name string) plug.Panel {
 	return plug.Panel{}

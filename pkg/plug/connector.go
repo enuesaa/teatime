@@ -23,8 +23,8 @@ func (s *ConnectServer) Info(args interface{}, resp *Info) error {
 	*resp = s.Impl.Info()
 	return nil
 }
-func (s *ConnectServer) DescribeCard(args interface{}, resp *Card) error {
-	*resp = s.Impl.DescribeCard("") // name
+func (s *ConnectServer) DescribeCard(args map[string]string, resp *Card) error {
+	*resp = s.Impl.DescribeCard(args["name"]) // name
 	return nil
 }
 func (s *ConnectServer) DescribePanel(args interface{}, resp *Panel) error {
@@ -59,7 +59,7 @@ func (cc *ConnectClient) Info() Info {
 }
 func (cc *ConnectClient) DescribeCard(name string) Card {
 	var resp Card
-	cc.client.Call("Plugin.DescribeCard", new(interface{}), &resp)
+	cc.client.Call("Plugin.DescribeCard", map[string]string{"name": name}, &resp)
 	return resp
 }
 func (cc *ConnectClient) DescribePanel(name string) Panel {

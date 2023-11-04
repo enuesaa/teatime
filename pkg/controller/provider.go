@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/gin-gonic/gin"
 )
@@ -55,6 +56,34 @@ func DescribeProvider(c *gin.Context) {
 		Description: info.Description,
 		Cards: info.Cards,
 		PanelMap: info.PanelMap,
+	}
+	c.JSON(200, res)
+}
+
+type DescribeCardResponse struct {
+	Enable bool `json:"enable"`
+	Layout string `json:"layout"`
+	TextCard plug.TextCardConfig `json:"textCardConfig"`
+}
+func DescribeCard(c *gin.Context) {
+	name := c.Param("name")
+
+	command := fmt.Sprintf("./plugins/teatime-plugin-pinit/teatime-plugin-%s", name)
+	providerSrv := service.NewProviderService(command)
+
+	cardName := c.Param("cardName")
+	card, err := providerSrv.DescribeCard(cardName)
+	if err != nil {
+		fmt.Println(err.Error())
+		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
+		c.Abort()
+		return
+	}
+
+	res := DescribeCardResponse{
+		Enable: card.Enable,
+		Layout: card.Layout,
+		TextCard: card.TextCard,
 	}
 	c.JSON(200, res)
 }
