@@ -57,33 +57,33 @@ func (cc *ConnectClient) Info() Info {
 	cc.client.Call("Plugin.Info", new(interface{}), &resp)
 	return resp
 }
-func (cc *ConnectClient) DescribeCard() Card {
+func (cc *ConnectClient) DescribeCard(name string) Card {
 	var resp Card
 	cc.client.Call("Plugin.DescribeCard", new(interface{}), &resp)
 	return resp
 }
-func (cc *ConnectClient) DescribePanel() Panel {
+func (cc *ConnectClient) DescribePanel(name string) Panel {
 	var resp Panel
 	cc.client.Call("Plugin.DescribePanel", new(interface{}), &resp)
 	return resp
 }
-func (cc *ConnectClient) Register() error {
+func (cc *ConnectClient) Register(model string, name string) error {
 	var resp error
 	cc.client.Call("Plugin.Register", new(interface{}), &resp)
 	return resp
 }
-func (cc *ConnectClient) Get() Record {
+func (cc *ConnectClient) Get(model string, name string) Record {
 	var resp Record
 	// model, name
 	cc.client.Call("Plugin.Get", new(interface{}), &resp)
 	return resp
 }
-func (cc *ConnectClient) Set() error {
+func (cc *ConnectClient) Set(model string, name string, record Record) error {
 	var resp error
 	cc.client.Call("Plugin.Set", new(interface{}), &resp)
 	return resp
 }
-func (cc *ConnectClient) Del() error {
+func (cc *ConnectClient) Del(model string, name string) error {
 	var resp error
 	cc.client.Call("Plugin.Del", new(interface{}), &resp)
 	return resp

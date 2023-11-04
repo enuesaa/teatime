@@ -20,16 +20,9 @@ func main() {
 	}))
 
 	app.GET("/providers", controller.ListProviders)
-	app.GET("/", controller.InvokeProvider)
-	app.GET("/cards", controller.ListUiCards)
-
-	// bookmarkRoute := base.Group("/v1.Bookmark")
-	// bookmarkCtl := bookmark.BookmarkController{}
-	// bookmarkRoute.POST("/ListBookmarks", bookmarkCtl.List)
-	// bookmarkRoute.POST("/GetBookmark", bookmarkCtl.Get)
-	// bookmarkRoute.POST("/AddBookmark", bookmarkCtl.Add)
-	// bookmarkRoute.POST("/UpdateBookmark", bookmarkCtl.Update)
-	// bookmarkRoute.POST("/DeleteBookmark", bookmarkCtl.Delete)
+	app.GET("/providers/:name", controller.DescribeProvider)
+	// app.GET("/", controller.InvokeProvider)
+	// app.GET("/cards", controller.ListCards)
 
 	app.Run(":3000")
 }

@@ -9,6 +9,13 @@ type Handler struct {}
 func (s *Handler) Info() plug.Info {
 	return plug.Info{
 		Name: "aaa",
+		Description: "pinit provider",
+		Cards: []string{
+			"main",
+		},
+		PanelMap: map[string]string{
+			"main": "main",
+		},
 	}
 }
 
