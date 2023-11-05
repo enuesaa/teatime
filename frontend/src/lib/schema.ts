@@ -36,7 +36,7 @@ type TablePanelRecord = {
   values: TablePanelRecordValue[];
 }
 
-type TablePanelRecordValue = {
+export type TablePanelRecordValue = {
   readonly: boolean
   key: string
 }
