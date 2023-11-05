@@ -6,11 +6,8 @@ import (
 )
 
 func main() {
-	logger := plug.NewServeLogger()
-	logger.Info("bbb")
-
 	connector := plug.Connector{
-		Impl: &Handler{},
+		Impl: NewHander(),
 	}
 	plugin.Serve(plug.NewServeConfig(connector))
 }

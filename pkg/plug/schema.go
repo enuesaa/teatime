@@ -5,7 +5,7 @@ type Info struct {
 	Name        string `json:"info"`
 	Description string `json:"description"`
 	Cards       []string `json:"cards"`
-	PanelMap    map[string]string `json:"panelMap"` // per card name
+	PanelMap    map[string][]string `json:"panelMap"` // per card name
 }
 
 // ui

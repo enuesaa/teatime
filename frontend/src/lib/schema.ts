@@ -1,36 +1,36 @@
 
-type InfoSchema = {
+export type InfoSchema = {
   name: string
   description: string
   cards: string[]
   panelMap: Record<string, string>
 }
 
-type CardSchema = {
+export type CardSchema = {
   enable: boolean
   layout: string
   textCard: TextCardConfig
 }
 
-type TextCardConfig = {
+export type TextCardConfig = {
   heading: string
   center: boolean
 }
 
-type PanelSchema = {
+export type PanelSchema = {
   enable: boolean
   layout: string
   tablePanel: TablePanelConfig
 }
 
-type TablePanelConfig = {
+export type TablePanelConfig = {
   title: string
   description: string
   head: string[]
   records: TablePanelRecord[]
 }
 
-type TablePanelRecord = {
+export type TablePanelRecord = {
   model: string
   name: string
   values: TablePanelRecordValue[];
@@ -41,13 +41,13 @@ export type TablePanelRecordValue = {
   key: string
 }
 
-type RecordSchema = {
+export type RecordSchema = {
   enable: boolean
   name: string
   values: Record<string, RecordValue>
 }
 
-type RecordValue = {
+export type RecordValue = {
   type: string
   strVal: string
   intVal: number

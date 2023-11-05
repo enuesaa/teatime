@@ -1,4 +1,5 @@
 import { useQuery, useMutation } from 'react-query'
+import { CardSchema, InfoSchema, PanelSchema, RecordSchema } from './schema'
 
 export const useGetProviderInfo = (name: string) => useQuery('getProviderInfo', async (): Promise<InfoSchema> => {
   const res = await fetch(`http://localhost:3000/providers/${name}`)
