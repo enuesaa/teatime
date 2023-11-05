@@ -17,6 +17,7 @@ type Card struct {
 type TextCardConfig struct {
 	Heading string `json:"heading"`
 	Center  bool `json:"center"`
+	Text    string `json:"text"`
 }
 type Panel struct {
 	Enable     bool `json:"enable"`

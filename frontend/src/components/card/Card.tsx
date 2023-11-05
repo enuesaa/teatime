@@ -1,5 +1,5 @@
-import { useGetProviderCard } from '@/lib/api';
-import { MainCard } from './MainCard'
+import { useGetProviderCard } from '@/lib/api'
+import { TextCard } from './TextCard'
 import { DisabledCard } from './DisabledCard'
 
 type Props = {
@@ -7,16 +7,14 @@ type Props = {
 }
 export const Card = ({ name }: Props) => {
   const {data, isLoading} = useGetProviderCard('pinit', name)
-  console.log(data)
 
   if (isLoading || data?.enable === false) {
     return (<DisabledCard />)
   }
 
   if (data?.layout === 'textCard') {
-    return (<MainCard name={name} data={data} />)
+    return (<TextCard name={name} data={data} />)
   }
 
   return (<DisabledCard />)
 }
-

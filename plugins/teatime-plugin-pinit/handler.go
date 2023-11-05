@@ -34,6 +34,7 @@ func (h *Handler) DescribeCard(arg plug.DescribeCardArg) plug.Card {
 			TextCard: plug.TextCardConfig{
 				Heading: "pinit status",
 				Center: true,
+				Text: "status ok",
 			},
 		}
 	}

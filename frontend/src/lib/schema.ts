@@ -15,6 +15,7 @@ export type CardSchema = {
 export type TextCardConfig = {
   heading: string
   center: boolean
+  text: string
 }
 
 export type PanelSchema = {
