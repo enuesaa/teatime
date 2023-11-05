@@ -7,6 +7,12 @@ import (
 	"github.com/hashicorp/go-plugin"
 )
 
+func NewServeLogger() hclog.Logger {
+	return hclog.New(&hclog.LoggerOptions{
+		JSONFormat: true,
+	})
+}
+
 func NewServeConfig(connector Connector) *plugin.ServeConfig {
 	return &plugin.ServeConfig{
 		HandshakeConfig: plugin.HandshakeConfig{
@@ -26,6 +32,7 @@ func NewClientConfig(connector Connector, command string) *plugin.ClientConfig {
 		DisableTime: true,
 		Level: hclog.Info,
 	})
+
 	return &plugin.ClientConfig{
 		HandshakeConfig: plugin.HandshakeConfig{
 			ProtocolVersion:  1,

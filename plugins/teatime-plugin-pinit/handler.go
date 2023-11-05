@@ -7,6 +7,8 @@ import (
 // should implement ProviderInterface
 type Handler struct {}
 func (s *Handler) Info() plug.Info {
+	plug.NewServeLogger().Info("aaa")
+
 	return plug.Info{
 		Name: "aaa",
 		Description: "pinit provider",
