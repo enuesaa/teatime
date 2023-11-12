@@ -24,13 +24,13 @@ export const ListProviders = () => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {providers !== undefined && providers.items.map(p => (
-            <Table.Row key={p.name}>
+          {providers !== undefined && providers?.items?.map(p => (
+            <Table.Row key={p.id}>
               <Table.RowHeaderCell>{p.name}</Table.RowHeaderCell>
               <Table.Cell>{p.command}</Table.Cell>
-              <Table.Cell><PluginInfo name={p.name} /></Table.Cell>
-              <Table.Cell><EditPluginModal id={p.name} /></Table.Cell>
-              <Table.Cell><DeletePluginModal id={p.name} /></Table.Cell>
+              <Table.Cell><PluginInfo id={p.id} /></Table.Cell>
+              <Table.Cell><EditPluginModal id={p.id} /></Table.Cell>
+              <Table.Cell><DeletePluginModal id={p.id} /></Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>

@@ -3,10 +3,10 @@ import { css } from '@emotion/react'
 import { Code } from '@radix-ui/themes'
 
 type Props = {
-  name: string
+  id: string
 }
-export const PluginInfo = ({ name }: Props) => {
-  const {data: info} = useGetProviderInfo(name)
+export const PluginInfo = ({ id }: Props) => {
+  const {data: info} = useGetProviderInfo(id)
 
   const styles = {
     main: css({

@@ -26,7 +26,7 @@ type ProviderManageService struct {}
 
 func (srv *ProviderManageService) List() []Record[ProviderConf] {
 	redis := repository.RedisRepository{}
-	keys := redis.Keys("provider:")
+	keys := redis.Keys("provider:*")
 	list := make([]Record[ProviderConf], 0)
 	for _, key := range keys {
 		record, err := srv.Describe(key)

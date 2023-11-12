@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from 'react-query'
+import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { ApiBase, ApiListBase, CardSchema, InfoSchema, PanelSchema, ProviderSchema, RecordSchema } from './schema'
 
 export const useListProviders = () => useQuery('listProviders', async (): Promise<ApiListBase<ProviderSchema>> => {
@@ -7,37 +7,49 @@ export const useListProviders = () => useQuery('listProviders', async (): Promis
   return body as ApiListBase<ProviderSchema>
 })
 
-export const useAddProvider = () => useMutation(
-  async (reqbody: ProviderSchema) => {
-    const res = await fetch(`http://localhost:3000/providers`, {
-      method: 'POST',
-      body: JSON.stringify(reqbody),
-    })
-    const body = await res.json()
-    console.log(body)
-  },
-)
+export const useAddProvider = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (reqbody: ProviderSchema) => {
+      const res = await fetch(`http://localhost:3000/providers`, {
+        method: 'POST',
+        body: JSON.stringify(reqbody),
+      })
+      const body = await res.json()
+      console.log(body)
+    },
+    onSuccess: () => queryClient.invalidateQueries('listProviders')
+  })
+}
 
-export const useUpdateProvider = (id: string) => useMutation(
-  async (reqbody: ProviderSchema) => {
-    const res = await fetch(`http://localhost:3000/providers/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(reqbody),
-    })
-    const body = await res.json()
-    console.log(body)
-  },
-)
+export const useUpdateProvider = (id: string) => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (reqbody: ProviderSchema) => {
+      const res = await fetch(`http://localhost:3000/providers/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(reqbody),
+      })
+      const body = await res.json()
+      console.log(body)
+    },
+    onSuccess: () => queryClient.invalidateQueries('listProviders')
+  })
+}
 
-export const useDeleteProvider = (id: string) => useMutation(
-  async (): Promise<void> => {
-    const res = await fetch(`http://localhost:3000/providers/${id}`, {
-      method: 'DELETE',
-    })
-    const body = await res.json()
-    console.log(body)
-  },
-)
+export const useDeleteProvider = (id: string) => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (): Promise<void> => {
+      const res = await fetch(`http://localhost:3000/providers/${id}`, {
+        method: 'DELETE',
+      })
+      const body = await res.json()
+      console.log(body)
+    },
+    onSuccess: () => queryClient.invalidateQueries('listProviders')
+  })
+}
 
 export const useGetProviderInfo = (name: string) => useQuery('getProviderInfo', async (): Promise<ApiBase<InfoSchema>> => {
   const res = await fetch(`http://localhost:3000/providers/${name}`)

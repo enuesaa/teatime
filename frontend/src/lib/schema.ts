@@ -7,6 +7,7 @@ export type ApiBase<T> = {
 }
 
 export type ProviderSchema = {
+  id: string
   name: string
   command: string
 }

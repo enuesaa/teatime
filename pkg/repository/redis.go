@@ -88,7 +88,7 @@ func (repo *RedisRepository) JsonSet(key string, value interface{}) error {
 	if err != nil {
 		return err
 	}
-	return redis.Nil
+	return nil
 }
 
 func (repo *RedisRepository) JsonDel(key string) error {
@@ -96,5 +96,5 @@ func (repo *RedisRepository) JsonDel(key string) error {
 	if err != nil {
 		return err
 	}
-	return redis.Nil
+	return nil
 }
