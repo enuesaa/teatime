@@ -6,7 +6,6 @@ import (
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/gin-gonic/gin"
-	"golang.org/x/exp/maps"
 )
 
 type ProviderSchema struct {
@@ -26,9 +25,16 @@ func ListProviders(c *gin.Context) {
 	res := ListProviderResponse{
 		Items: make([]ProviderSchema, 0),
 	}
-	for _, name := range maps.Keys(service.ProviderCommandMap) {
+	// for _, name := range maps.Keys(service.ProviderCommandMap) {
+	// 	res.Items = append(res.Items, ProviderSchema{
+	// 		Name: name,
+	// 	})
+	// }
+	for _, conf := range list {
 		res.Items = append(res.Items, ProviderSchema{
-			Name: name,
+			Id: conf.Id,
+			Name: conf.Data.Name,
+			Command: conf.Data.Command,
 		})
 	}
 	c.JSON(200, res)

@@ -5,7 +5,7 @@ import { TableCard } from '@/components/card/TableCard'
 import { MemoCard } from '@/components/card/MemoCard'
 
 export default function TopPage() {
-  const { data, error, isLoading } = useGetProviderInfo('pinit')
+  // const { data, error, isLoading } = useGetProviderInfo('pinit')
 
   return (
     <>

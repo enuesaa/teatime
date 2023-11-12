@@ -44,6 +44,7 @@ func (srv *ProviderManageService) Create(conf ProviderConf) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	fmt.Println(id)
 	if err := redis.JsonSet(id, conf); err != nil {
 		return "", err
 	}
