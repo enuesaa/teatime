@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/go-redis/redis/v8"
 	"github.com/nitishm/go-rejson/v4"
-	"os"
 )
 
 type RedisRepositoryInterface interface {
@@ -15,15 +14,16 @@ type RedisRepositoryInterface interface {
 	Delete(key string)
 	JsonMget(ids []string) [][]byte
 	JsonGet(key string) []byte
-	JsonSet(key string, value interface{})
-	JsonDel(key string)
+	JsonSet(key string, value interface{}) error
+	JsonDel(key string) error
 }
 
 type RedisRepository struct{}
 
 func (repo *RedisRepository) client() *redis.Client {
 	client := redis.NewClient(&redis.Options{
-		Addr:     os.Getenv("REDIS_ADDR"),
+		// Addr:     os.Getenv("REDIS_ADDR"),
+		Addr:     "localhost:6379",
 		Password: "",
 		DB:       0,
 	})
@@ -75,21 +75,26 @@ func (repo *RedisRepository) JsonMget(ids []string) [][]byte {
 	return make([][]byte, 0)
 }
 
-func (repo *RedisRepository) JsonGet(key string) []byte {
-	data, _ := repo.jsonHandler().JSONGet(key, ".")
-	return data.([]byte)
+func (repo *RedisRepository) JsonGet(key string) ([]byte, error) {
+	data, err := repo.jsonHandler().JSONGet(key, ".")
+	if err != nil {
+		return make([]byte, 0), err
+	}
+	return data.([]byte), nil
 }
 
-func (repo *RedisRepository) JsonSet(key string, value interface{}) {
+func (repo *RedisRepository) JsonSet(key string, value interface{}) error {
 	_, err := repo.jsonHandler().JSONSet(key, ".", value)
 	if err != nil {
-		fmt.Printf("%+v", err)
+		return err
 	}
+	return redis.Nil
 }
 
-func (repo *RedisRepository) JsonDel(key string) {
+func (repo *RedisRepository) JsonDel(key string) error {
 	_, err := repo.jsonHandler().JSONDel(key, "$")
 	if err != nil {
-		fmt.Printf("%+v", err)
+		return err
 	}
+	return redis.Nil
 }

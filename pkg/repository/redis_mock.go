@@ -31,5 +31,9 @@ func (repo *RedisRepositoryMock) JsonMget(ids []string) [][]byte {
 func (repo *RedisRepositoryMock) JsonGet(key string) []byte {
 	return []byte(repo.records[key])
 }
-func (repo *RedisRepositoryMock) JsonSet(key string, value interface{}) {}
-func (repo *RedisRepositoryMock) JsonDel(key string)                    {}
+func (repo *RedisRepositoryMock) JsonSet(key string, value interface{}) error {
+	return nil
+}
+func (repo *RedisRepositoryMock) JsonDel(key string) error {
+	return nil
+}
