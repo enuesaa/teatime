@@ -9,20 +9,25 @@ import (
 	"golang.org/x/exp/maps"
 )
 
-type ListProviderResponseItem struct {
+type ProviderSchema struct {
+	Id string `json:"id"`
 	Name string `json:"name"`
 	Command string `json:"command"`
 }
 type ListProviderResponse struct {
-	Items []ListProviderResponseItem `json:"items"`
+	Items []ProviderSchema `json:"items"`
 }
 
 func ListProviders(c *gin.Context) {
+	manageSrv := service.NewProviderManageService()
+	list := manageSrv.List()
+	fmt.Println(list)
+
 	res := ListProviderResponse{
-		Items: make([]ListProviderResponseItem, 0),
+		Items: make([]ProviderSchema, 0),
 	}
 	for _, name := range maps.Keys(service.ProviderCommandMap) {
-		res.Items = append(res.Items, ListProviderResponseItem{
+		res.Items = append(res.Items, ProviderSchema{
 			Name: name,
 		})
 	}
@@ -30,16 +35,20 @@ func ListProviders(c *gin.Context) {
 }
 
 func DescribeProvider(c *gin.Context) {
-	name := c.Param("id")
-	providerSrv := service.NewProviderService(name)
-	info, err := providerSrv.GetInfo()
+	id := c.Param("id")
+	manageSrv := service.NewProviderManageService()
+	record, err := manageSrv.Describe(id)
 	if err != nil {
 		AbortOnError(c, err)
 		return
 	}
 
-	res := ApiResponse[plug.Info] {
-		Data: info,
+	res := ApiResponse[ProviderSchema] {
+		Data: ProviderSchema{
+			Id: record.Id,
+			Name: record.Data.Name,
+			Command: record.Data.Command,
+		},
 	}
 	c.JSON(200, res)
 }
@@ -54,9 +63,19 @@ func AddProvider(c *gin.Context) {
 		AbortOnError(c, err)
 		return
 	}
+	manageSrv := service.NewProviderManageService()
+	id, err := manageSrv.Create(service.ProviderConf{
+		Name: reqbody.Name,
+		Command: reqbody.Command,
+	})
+	if err != nil {
+		AbortOnError(c, err)
+		return
+	}
+
 	res := ApiResponse[IdSchema] {
 		Data: IdSchema {
-			Id: "aa",
+			Id: id,
 		},
 	}
 	c.JSON(200, res)
@@ -64,15 +83,24 @@ func AddProvider(c *gin.Context) {
 
 func UpdateProvider(c *gin.Context) {
 	id := c.Param("id")
-	fmt.Println(id)
 	var reqbody AddProviderRequest
 	if err := Validate(c, &reqbody); err != nil {
 		AbortOnError(c, err)
 		return
 	}
+	manageSrv := service.NewProviderManageService()
+	_, err := manageSrv.Update(id, service.ProviderConf{
+		Name: reqbody.Name,
+		Command: reqbody.Command,
+	})
+	if err != nil {
+		AbortOnError(c, err)
+		return
+	}
+
 	res := ApiResponse[IdSchema] {
 		Data: IdSchema {
-			Id: "aa",
+			Id: id,
 		},
 	}
 	c.JSON(200, res)
@@ -81,6 +109,12 @@ func UpdateProvider(c *gin.Context) {
 func DeleteProvider(c *gin.Context) {
 	id := c.Param("id")
 	fmt.Println(id)
+
+	manageSrv := service.NewProviderManageService()
+	if err := manageSrv.Delete(id); err != nil {
+		AbortOnError(c, err)
+		return
+	}
 
 	res := ApiResponse[EmptySchema] {}
 	c.JSON(200, res)
