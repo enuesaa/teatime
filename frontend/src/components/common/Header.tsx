@@ -10,6 +10,7 @@ export const Header = () => {
       lineHeight: '50px',
       fontSize: '25px',
       fontWeight: 'bold',
+      marginBottom: '10px',
     }),
     heading: css({
       color: 'white',
