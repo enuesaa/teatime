@@ -14,7 +14,7 @@ export const AddPluginModal = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <IconButton radius='full' css={styles.trigger}><BiPlus /></IconButton>
+        <IconButton color='purple' radius='full' css={styles.trigger}><BiPlus /></IconButton>
       </Dialog.Trigger>
 
       <Dialog.Content>

@@ -10,7 +10,7 @@ export default function TopPage() {
   return (
     <>
       <Header />
-      {!isLoading && data?.cards.map(v => (<Card name={v} key={v} />))}
+      {/* {!isLoading && data?.cards.map(v => (<Card name={v} key={v} />))} */}
       <TableCard />
       <MemoCard />
     </>

@@ -2,6 +2,9 @@
 export type ApiListBase<T> = {
   items: T[]
 }
+export type ApiBase<T> = {
+  data: T
+}
 
 export type ProviderSchema = {
   name: string
