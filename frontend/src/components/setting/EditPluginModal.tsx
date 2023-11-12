@@ -1,34 +1,32 @@
 import { css } from '@emotion/react'
-import { Dialog, Button, Flex, Text, TextField, IconButton } from '@radix-ui/themes'
-import { BiPlus } from 'react-icons/bi'
+import { Dialog, Button, Flex, Text, TextField } from '@radix-ui/themes'
 
-export const AddPluginModal = () => {
+export const EditPluginModal = () => {
   const styles = {
     trigger: css({
-      margin: '0 10px',
       cursor: 'pointer',
-      fontSize: '20px',
+      height: '26px',
     })
   }
 
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <IconButton radius='full' css={styles.trigger}><BiPlus /></IconButton>
+        <Button radius='full' color='gray' css={styles.trigger}>edit</Button>
       </Dialog.Trigger>
 
       <Dialog.Content>
-        <Dialog.Title>Add Plugin</Dialog.Title>
+        <Dialog.Title>Edit Plugin</Dialog.Title>
         <Dialog.Description mb='4'></Dialog.Description>
 
         <Flex direction='column' gap='3'>
           <label>
             <Text as='div' size='2' mb='1' weight='bold'>Name</Text>
-            <TextField.Input />
+            <TextField.Input defaultValue='name' />
           </label>
           <label>
             <Text as='div' size='2' mb='1' weight='bold'>Command</Text>
-            <TextField.Input />
+            <TextField.Input defaultValue='command' />
           </label>
         </Flex>
 
@@ -37,7 +35,7 @@ export const AddPluginModal = () => {
             <Button variant='soft' color='gray'>Cancel</Button>
           </Dialog.Close>
           <Dialog.Close>
-            <Button>Save</Button>
+            <Button>Update</Button>
           </Dialog.Close>
         </Flex>
 

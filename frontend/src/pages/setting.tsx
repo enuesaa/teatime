@@ -1,6 +1,8 @@
 import { Header } from '@/components/common/Header'
 import { Container, Heading, Text, Table } from '@radix-ui/themes'
 import { AddPluginModal } from '@/components/setting/AddPluginModal'
+import { EditPluginModal } from '@/components/setting/EditPluginModal'
+import { DeletePluginModal } from '@/components/setting/DeletePluginModal'
 
 export default function SettingPage() {
 
@@ -20,6 +22,8 @@ export default function SettingPage() {
               <Table.ColumnHeaderCell width='10%'>Name</Table.ColumnHeaderCell>
               <Table.ColumnHeaderCell width='20%'>Command</Table.ColumnHeaderCell>
               <Table.ColumnHeaderCell>Info</Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell width='5%'></Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell width='5%'></Table.ColumnHeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -27,6 +31,16 @@ export default function SettingPage() {
               <Table.RowHeaderCell>pinit</Table.RowHeaderCell>
               <Table.Cell>./plugins/teatime-plugin-pinit</Table.Cell>
               <Table.Cell>aa</Table.Cell>
+              <Table.Cell><EditPluginModal /></Table.Cell>
+              <Table.Cell><DeletePluginModal /></Table.Cell>
+            </Table.Row>
+
+            <Table.Row>
+              <Table.RowHeaderCell>pinit</Table.RowHeaderCell>
+              <Table.Cell>./plugins/teatime-plugin-pinit</Table.Cell>
+              <Table.Cell>aa</Table.Cell>
+              <Table.Cell><EditPluginModal /></Table.Cell>
+              <Table.Cell><DeletePluginModal /></Table.Cell>
             </Table.Row>
           </Table.Body>
         </Table.Root>
