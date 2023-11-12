@@ -1,4 +1,13 @@
 
+export type ApiListBase<T> = {
+  items: T[]
+}
+
+export type ProviderSchema = {
+  name: string
+  command: string
+}
+
 export type InfoSchema = {
   name: string
   description: string

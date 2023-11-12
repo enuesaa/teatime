@@ -13,6 +13,7 @@ type ApiResponse[T any] struct {
 
 type ListProviderResponseItem struct {
 	Name string `json:"name"`
+	Command string `json:"command"`
 }
 type ListProviderResponse struct {
 	Items []ListProviderResponseItem `json:"items"`

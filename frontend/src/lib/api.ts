@@ -1,5 +1,11 @@
 import { useQuery, useMutation } from 'react-query'
-import { CardSchema, InfoSchema, PanelSchema, RecordSchema } from './schema'
+import { ApiListBase, CardSchema, InfoSchema, PanelSchema, ProviderSchema, RecordSchema } from './schema'
+
+export const useListProviders = () => useQuery('listProviders', async (): Promise<ApiListBase<ProviderSchema>> => {
+  const res = await fetch(`http://localhost:3000/providers`)
+  const body = await res.json()
+  return body as ApiListBase<ProviderSchema>
+})
 
 export const useGetProviderInfo = (name: string) => useQuery('getProviderInfo', async (): Promise<InfoSchema> => {
   const res = await fetch(`http://localhost:3000/providers/${name}`)
