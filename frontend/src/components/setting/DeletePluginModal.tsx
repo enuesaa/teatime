@@ -1,7 +1,18 @@
+import { useDeleteProvider } from '@/lib/api'
 import { css } from '@emotion/react'
 import { Button, Flex, AlertDialog } from '@radix-ui/themes'
+import { MouseEventHandler } from 'react'
 
-export const DeletePluginModal = () => {
+type Props = {
+  id: string
+}
+export const DeletePluginModal = ({ id }: Props) => {
+  const { mutateAsync: deleteProvider } =  useDeleteProvider(id)
+  const handleDelete: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    e.preventDefault()
+    await deleteProvider()
+  }
+
   const styles = {
     trigger: css({
       cursor: 'pointer',
@@ -25,7 +36,7 @@ export const DeletePluginModal = () => {
             <Button variant='soft' color='gray'>Cancel</Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button variant='solid' color='red'>Delete</Button>
+            <Button variant='solid' color='red' onClick={handleDelete}>Delete</Button>
           </AlertDialog.Action>
         </Flex>
       </AlertDialog.Content>

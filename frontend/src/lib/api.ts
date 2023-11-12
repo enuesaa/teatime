@@ -18,6 +18,27 @@ export const useAddProvider = () => useMutation(
   },
 )
 
+export const useUpdateProvider = (id: string) => useMutation(
+  async (reqbody: ProviderSchema) => {
+    const res = await fetch(`http://localhost:3000/providers/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(reqbody),
+    })
+    const body = await res.json()
+    console.log(body)
+  },
+)
+
+export const useDeleteProvider = (id: string) => useMutation(
+  async (): Promise<void> => {
+    const res = await fetch(`http://localhost:3000/providers/${id}`, {
+      method: 'DELETE',
+    })
+    const body = await res.json()
+    console.log(body)
+  },
+)
+
 export const useGetProviderInfo = (name: string) => useQuery('getProviderInfo', async (): Promise<ApiBase<InfoSchema>> => {
   const res = await fetch(`http://localhost:3000/providers/${name}`)
   const body = await res.json()

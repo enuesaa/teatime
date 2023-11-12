@@ -1,10 +1,12 @@
 package controller
 
 import (
-	"golang.org/x/exp/maps"
+	"fmt"
+
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/exp/maps"
 )
 
 type ListProviderResponseItem struct {
@@ -52,6 +54,34 @@ func AddProvider(c *gin.Context) {
 		AbortOnError(c, err)
 		return
 	}
+	res := ApiResponse[IdSchema] {
+		Data: IdSchema {
+			Id: "aa",
+		},
+	}
+	c.JSON(200, res)
+}
+
+func UpdateProvider(c *gin.Context) {
+	id := c.Param("id")
+	fmt.Println(id)
+	var reqbody AddProviderRequest
+	if err := Validate(c, &reqbody); err != nil {
+		AbortOnError(c, err)
+		return
+	}
+	res := ApiResponse[IdSchema] {
+		Data: IdSchema {
+			Id: "aa",
+		},
+	}
+	c.JSON(200, res)
+}
+
+func DeleteProvider(c *gin.Context) {
+	id := c.Param("id")
+	fmt.Println(id)
+
 	res := ApiResponse[EmptySchema] {}
 	c.JSON(200, res)
 }

@@ -11,6 +11,9 @@ type ApiResponse[T any] struct {
 	Data T `json:"data"`
 }
 type EmptySchema struct {}
+type IdSchema struct {
+	Id string `json:"id"`
+}
 
 func AbortOnError(c *gin.Context, err error) {
 	c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
