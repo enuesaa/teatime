@@ -4,16 +4,16 @@ import { AddPluginModal } from '@/components/setting/AddPluginModal'
 import { EditPluginModal } from '@/components/setting/EditPluginModal'
 import { DeletePluginModal } from '@/components/setting/DeletePluginModal'
 
-export default function SettingPage() {
+export default function Page() {
 
   return (
     <>
       <Header />
-      <Container size='4'>
-        <Heading as='h2' size='8'>Setting</Heading>
+      <Container size='4' mt='4'>
+        <Heading as='h2' size='8'>Settings</Heading>
         <Text as='p' size='4' mt='2' mb='6' color='gray'>teatime settings</Text>
 
-        <Heading as='h3'>Plugin <AddPluginModal /></Heading>
+        <Heading as='h3'>Plugins <AddPluginModal /></Heading>
         <Text as='p' size='4' mt='2' mb='6' color='gray'></Text>
 
         <Table.Root variant='surface'>

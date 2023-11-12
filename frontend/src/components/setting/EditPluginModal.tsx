@@ -5,7 +5,7 @@ export const EditPluginModal = () => {
   const styles = {
     trigger: css({
       cursor: 'pointer',
-      height: '26px',
+      height: '28px',
     })
   }
 

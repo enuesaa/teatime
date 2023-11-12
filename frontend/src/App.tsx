@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import '@radix-ui/themes/styles.css'
 import { Theme } from '@radix-ui/themes'
 import TopPage from './pages/index'
-import SettingPage from './pages/setting'
+import SettingsPage from './pages/settings'
 
 export const App = () => {
   const queryClient = new QueryClient()
@@ -14,7 +14,7 @@ export const App = () => {
         <BrowserRouter>
           <Routes>
           <Route path='/' element={<TopPage />} />
-          <Route path='/setting' element={<SettingPage />} />
+          <Route path='/settings' element={<SettingsPage />} />
           </Routes>
         </BrowserRouter>
       </Theme>

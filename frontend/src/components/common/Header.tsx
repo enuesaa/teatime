@@ -1,34 +1,29 @@
 import { BiCoffee } from 'react-icons/bi'
 import { MdOutlineCoffeeMaker } from 'react-icons/md'
-import { Flex, Box, Container, Separator } from '@radix-ui/themes'
+import { Flex, Box, Container, Separator, Link } from '@radix-ui/themes'
 import { css } from '@emotion/react'
 
 export const Header = () => {
   const styles = {
     main: css({
-      height: '50px',
-      lineHeight: '50px',
       fontSize: '25px',
       fontWeight: 'bold',
-      marginBottom: '10px',
+      'a': {
+        textDecoration: 'none',
+      },
     }),
     heading: css({
       color: 'white',
       margin: '0 10px',
-      textDecoration: 'none',
       'svg': {
         verticalAlign: 'middle',
         margin: '0 10px',
       },
     }),
     setting: css({
-      display: 'block',
-      width: '100px',
       color: 'white',
-      textDecoration: 'none',
       'svg': {
         verticalAlign: 'middle',
-        margin: '0 10px',
       },
     }),
   }
@@ -38,18 +33,12 @@ export const Header = () => {
       <Container size='4'>
         <Flex>
           <Box grow='1'>
-            <a href='/' css={styles.heading}>
-              <BiCoffee />
-              teatime
-            </a>
+            <Link href='/' css={styles.heading}><BiCoffee />teatime</Link>
           </Box>
-
-          <a href='/setting' css={styles.setting}>
-            <MdOutlineCoffeeMaker />
-          </a>
+          <Link href='/settings' css={styles.setting}><MdOutlineCoffeeMaker /></Link>
         </Flex>
       </Container>
-      <Separator size='4' />
+      <Separator size='4' mt='2' />
     </header>
   )
 }
