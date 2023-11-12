@@ -20,6 +20,7 @@ func main() {
 	}))
 
 	app.GET("/providers", controller.ListProviders)
+	app.POST("/providers", controller.AddProvider)
 	app.GET("/providers/:name", controller.DescribeProvider)
 	app.GET("/providers/:name/cards/:cardName", controller.DescribeCard)
 	app.GET("/providers/:name/panels/:panelName", controller.DescribePanel)

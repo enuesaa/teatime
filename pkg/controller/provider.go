@@ -46,6 +46,11 @@ func DescribeProvider(c *gin.Context) {
 	c.JSON(200, res)
 }
 
+func AddProvider(c *gin.Context) {
+	res := ApiResponse[plug.Info] {}
+	c.JSON(200, res)
+}
+
 func DescribeCard(c *gin.Context) {
 	name := c.Param("name")
 	providerSrv := service.NewProviderService(name)
@@ -76,87 +81,6 @@ func DescribePanel(c *gin.Context) {
 
 	res := ApiResponse[plug.Panel] {
 		Data: panel,
-	}
-	c.JSON(200, res)
-}
-
-func RegisterRecord(c *gin.Context) {
-	name := c.Param("name")
-	providerSrv := service.NewProviderService(name)
-
-	model := c.Param("model")
-	recordName := c.Param("recordName")
-
-	err := providerSrv.Register(model, recordName)
-	if err != nil {
-		AbortOnError(c, err)
-		return
-	}
-
-	res := ApiResponse[struct{}] {
-		Data: struct{}{},
-	}
-	c.JSON(200, res)
-}
-
-func GetRecord(c *gin.Context) {
-	name := c.Param("name")
-	providerSrv := service.NewProviderService(name)
-
-	model := c.Param("model")
-	recordName := c.Param("recordName")
-
-	record, err := providerSrv.Get(model, recordName)
-	if err != nil {
-		AbortOnError(c, err)
-		return
-	}
-
-	res := ApiResponse[plug.Record] {
-		Data: record,
-	}
-	c.JSON(200, res)
-}
-
-func SetRecord(c *gin.Context) {
-	var record plug.Record
-	if err := c.ShouldBindJSON(&record); err != nil {
-		AbortOnError(c, err)
-		return
-	}
-	name := c.Param("name")
-	providerSrv := service.NewProviderService(name)
-
-	model := c.Param("model")
-	recordName := c.Param("recordName")
-
-	err := providerSrv.Set(model, recordName, record)
-	if err != nil {
-		AbortOnError(c, err)
-		return
-	}
-
-	res := ApiResponse[struct{}] {
-		Data: struct{}{},
-	}
-	c.JSON(200, res)
-}
-
-func DelRecord(c *gin.Context) {
-	name := c.Param("name")
-	providerSrv := service.NewProviderService(name)
-
-	model := c.Param("model")
-	recordName := c.Param("recordName")
-
-	err := providerSrv.Del(model, recordName)
-	if err != nil {
-		AbortOnError(c, err)
-		return
-	}
-
-	res := ApiResponse[struct{}] {
-		Data: struct{}{},
 	}
 	c.JSON(200, res)
 }
