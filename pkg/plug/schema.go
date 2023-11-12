@@ -2,7 +2,8 @@ package plug
 
 // info
 type Info struct {
-	Name        string `json:"info"`
+	Name        string `json:"name"`
+	Command     string `json:"command"`
 	Description string `json:"description"`
 	Cards       []string `json:"cards"`
 	PanelMap    map[string][]string `json:"panelMap"` // per card name

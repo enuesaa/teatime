@@ -1,4 +1,4 @@
-import { useUpdateProvider } from '@/lib/api'
+import { useGetProviderInfo, useUpdateProvider } from '@/lib/api'
 import { ProviderSchema } from '@/lib/schema'
 import { css } from '@emotion/react'
 import { Dialog, Button, Flex, Text, TextField } from '@radix-ui/themes'
@@ -8,6 +8,7 @@ type Props = {
   id: string
 }
 export const EditPluginModal = ({ id }: Props) => {
+  const {data: info} = useGetProviderInfo(id)
   const { mutateAsync: updateProvider } =  useUpdateProvider(id)
   const { register, handleSubmit } = useForm<ProviderSchema>()
 
@@ -32,11 +33,11 @@ export const EditPluginModal = ({ id }: Props) => {
           <Flex direction='column' gap='3'>
             <label>
               <Text as='div' size='2' mb='1' weight='bold'>Name</Text>
-              <TextField.Input defaultValue='name' {...register('name')} />
+              <TextField.Input defaultValue={info?.data.name} {...register('name')} />
             </label>
             <label>
               <Text as='div' size='2' mb='1' weight='bold'>Command</Text>
-              <TextField.Input defaultValue='command' {...register('command')} />
+              <TextField.Input defaultValue={info?.data.command} {...register('command')} />
             </label>
           </Flex>
 

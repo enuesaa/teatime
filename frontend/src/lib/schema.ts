@@ -13,6 +13,7 @@ export type ProviderSchema = {
 
 export type InfoSchema = {
   name: string
+  command: string
   description: string
   cards: string[]
   panelMap: Record<string, string>

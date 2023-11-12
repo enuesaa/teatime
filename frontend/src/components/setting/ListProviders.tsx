@@ -29,8 +29,8 @@ export const ListProviders = () => {
               <Table.RowHeaderCell>{p.name}</Table.RowHeaderCell>
               <Table.Cell>{p.command}</Table.Cell>
               <Table.Cell><PluginInfo name={p.name} /></Table.Cell>
-              <Table.Cell><EditPluginModal /></Table.Cell>
-              <Table.Cell><DeletePluginModal /></Table.Cell>
+              <Table.Cell><EditPluginModal id={p.name} /></Table.Cell>
+              <Table.Cell><DeletePluginModal id={p.name} /></Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>

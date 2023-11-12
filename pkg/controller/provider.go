@@ -30,7 +30,7 @@ func ListProviders(c *gin.Context) {
 }
 
 func DescribeProvider(c *gin.Context) {
-	name := c.Param("name")
+	name := c.Param("id")
 	providerSrv := service.NewProviderService(name)
 	info, err := providerSrv.GetInfo()
 	if err != nil {
@@ -87,7 +87,7 @@ func DeleteProvider(c *gin.Context) {
 }
 
 func DescribeCard(c *gin.Context) {
-	name := c.Param("name")
+	name := c.Param("id")
 	providerSrv := service.NewProviderService(name)
 
 	cardName := c.Param("cardName")
@@ -104,7 +104,7 @@ func DescribeCard(c *gin.Context) {
 }
 
 func DescribePanel(c *gin.Context) {
-	name := c.Param("name")
+	name := c.Param("id")
 	providerSrv := service.NewProviderService(name)
 
 	panelName := c.Param("panelName")

@@ -24,12 +24,12 @@ func main() {
 	app.GET("/providers/:id", controller.DescribeProvider)
 	app.PUT("/providers/:id", controller.UpdateProvider)
 	app.DELETE("/providers/:id", controller.DeleteProvider)
-	app.GET("/providers/:name/cards/:cardName", controller.DescribeCard)
-	app.GET("/providers/:name/panels/:panelName", controller.DescribePanel)
-	app.GET("/providers/:name/models/:model/records/:recordName", controller.GetRecord)
-	app.POST("/providers/:name/models/:model/records/:recordName", controller.RegisterRecord)
-	app.PUT("/providers/:name/models/:model/records/:recordName", controller.SetRecord)
-	app.DELETE("/providers/:name/models/:model/records/:recordName", controller.DelRecord)
+	app.GET("/providers/:id/cards/:cardName", controller.DescribeCard)
+	app.GET("/providers/:id/panels/:panelName", controller.DescribePanel)
+	app.GET("/providers/:id/models/:model/records/:recordName", controller.GetRecord)
+	app.POST("/providers/:id/models/:model/records/:recordName", controller.RegisterRecord)
+	app.PUT("/providers/:id/models/:model/records/:recordName", controller.SetRecord)
+	app.DELETE("/providers/:id/models/:model/records/:recordName", controller.DelRecord)
 
 	app.Run(":3000")
 }
