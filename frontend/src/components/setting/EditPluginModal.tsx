@@ -33,7 +33,7 @@ export const EditPluginModal = ({ id }: Props) => {
           <Flex direction='column' gap='3'>
             <label>
               <Text as='div' size='2' mb='1' weight='bold'>Name</Text>
-              <TextField.Input defaultValue={info?.data?.name} {...register('name')} />
+              <TextField.Input defaultValue={info?.data?.name} data-1p-ignore {...register('name')} />
             </label>
             <label>
               <Text as='div' size='2' mb='1' weight='bold'>Command</Text>

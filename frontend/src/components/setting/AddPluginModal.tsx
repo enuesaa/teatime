@@ -7,7 +7,7 @@ import { ProviderSchema } from '@/lib/schema'
 
 export const AddPluginModal = () => {
   const { mutate: addProvider } = useAddProvider()
-  const { register, handleSubmit } = useForm<ProviderSchema>()
+  const { register, handleSubmit, reset } = useForm<ProviderSchema>()
 
   const styles = {
     trigger: css({
@@ -27,11 +27,11 @@ export const AddPluginModal = () => {
         <Dialog.Title>Add Plugin</Dialog.Title>
         <Dialog.Description mb='4'></Dialog.Description>
 
-        <form onSubmit={handleSubmit(data => addProvider(data))}>
+        <form onSubmit={handleSubmit(data => {addProvider(data); reset()})}>
           <Flex direction='column' gap='3'>
             <label>
               <Text as='div' size='2' mb='1' weight='bold'>Name</Text>
-              <TextField.Input {...register('name')} />
+              <TextField.Input data-1p-ignore {...register('name')} />
             </label>
             <label>
               <Text as='div' size='2' mb='1' weight='bold'>Command</Text>
