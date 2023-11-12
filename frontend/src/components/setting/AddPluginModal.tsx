@@ -20,7 +20,7 @@ export const AddPluginModal = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <IconButton color='purple' radius='full' css={styles.trigger}><BiPlus /></IconButton>
+        <IconButton radius='full' css={styles.trigger}><BiPlus /></IconButton>
       </Dialog.Trigger>
 
       <Dialog.Content>
