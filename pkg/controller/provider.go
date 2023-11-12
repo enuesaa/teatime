@@ -5,13 +5,7 @@ import (
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/gin-gonic/gin"
-
-	"github.com/go-playground/validator/v10"
 )
-
-type ApiResponse[T any] struct {
-	Data T `json:"data"`
-}
 
 type ListProviderResponseItem struct {
 	Name string `json:"name"`
@@ -54,16 +48,11 @@ type AddProviderRequest struct {
 }
 func AddProvider(c *gin.Context) {
 	var reqbody AddProviderRequest
-	if err := c.ShouldBindJSON(&reqbody); err != nil {
+	if err := Validate(c, &reqbody); err != nil {
 		AbortOnError(c, err)
 		return
 	}
-	v := validator.New()
-	if err := v.Struct(reqbody); err != nil {
-		AbortOnError(c, err)
-		return
-	}
-	res := ApiResponse[struct {}] {}
+	res := ApiResponse[EmptySchema] {}
 	c.JSON(200, res)
 }
 
