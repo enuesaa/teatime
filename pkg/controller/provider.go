@@ -5,6 +5,8 @@ import (
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/gin-gonic/gin"
+
+	"github.com/go-playground/validator/v10"
 )
 
 type ApiResponse[T any] struct {
@@ -46,8 +48,22 @@ func DescribeProvider(c *gin.Context) {
 	c.JSON(200, res)
 }
 
+type AddProviderRequest struct {
+	Name string `json:"name" validate:"required"`
+	Command string `json:"command" validate:"required"`
+}
 func AddProvider(c *gin.Context) {
-	res := ApiResponse[plug.Info] {}
+	var reqbody AddProviderRequest
+	if err := c.ShouldBindJSON(&reqbody); err != nil {
+		AbortOnError(c, err)
+		return
+	}
+	v := validator.New()
+	if err := v.Struct(reqbody); err != nil {
+		AbortOnError(c, err)
+		return
+	}
+	res := ApiResponse[struct {}] {}
 	c.JSON(200, res)
 }
 

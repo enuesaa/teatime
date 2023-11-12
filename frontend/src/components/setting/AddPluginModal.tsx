@@ -2,16 +2,12 @@ import { useAddProvider } from '@/lib/api'
 import { css } from '@emotion/react'
 import { Dialog, Button, Flex, Text, TextField, IconButton } from '@radix-ui/themes'
 import { BiPlus } from 'react-icons/bi'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { ProviderSchema } from '@/lib/schema'
 
 export const AddPluginModal = () => {
-  const addProvider = useAddProvider()
+  const { mutate: addProvider } = useAddProvider()
   const { register, handleSubmit } = useForm<ProviderSchema>()
-
-  const onSubmit: SubmitHandler<ProviderSchema> = async (data) => {
-    await addProvider.mutateAsync(data)
-  }
 
   const styles = {
     trigger: css({
@@ -31,7 +27,7 @@ export const AddPluginModal = () => {
         <Dialog.Title>Add Plugin</Dialog.Title>
         <Dialog.Description mb='4'></Dialog.Description>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(data => addProvider(data))}>
           <Flex direction='column' gap='3'>
             <label>
               <Text as='div' size='2' mb='1' weight='bold'>Name</Text>
