@@ -5,7 +5,7 @@ import path from 'node:path'
 export default defineConfig({
   root: './src',
   build: {
-    outDir: '../build',
+    outDir: './dist',
     rollupOptions: {
       output: {
         entryFileNames: '[name].js',
