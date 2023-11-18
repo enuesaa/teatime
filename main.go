@@ -1,14 +1,21 @@
 package main
 
 import (
+	"log"
+
 	"github.com/enuesaa/teatime/pkg/controller"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
-	app := gin.Default()
+	if err := godotenv.Load(".env"); err != nil {
+		log.Fatal("failed to load env file")
+	}
 
+	app := gin.Default()
+	app.SetTrustedProxies([]string{})
 	app.Use(func(c *gin.Context) {
 		// https://stackoverflow.com/questions/41109065/golang-gin-gonic-content-type-not-setting-to-application-json-with-c-json
 		c.Writer.Header().Set("Content-Type", "application/json")
