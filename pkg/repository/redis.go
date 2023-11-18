@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"os"
 	"fmt"
 	"github.com/go-redis/redis/v8"
 	"github.com/nitishm/go-rejson/v4"
@@ -22,8 +23,7 @@ type RedisRepository struct{}
 
 func (repo *RedisRepository) client() *redis.Client {
 	client := redis.NewClient(&redis.Options{
-		// Addr:     os.Getenv("REDIS_ADDR"),
-		Addr:     "localhost:6379",
+		Addr:     os.Getenv("REDIS_ADDR"),
 		Password: "",
 		DB:       0,
 	})
