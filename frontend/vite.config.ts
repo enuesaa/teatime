@@ -4,6 +4,11 @@ import path from 'node:path'
 
 export default defineConfig({
   root: './',
+  envDir: '../',
+  esbuild: {
+    target: 'esnext',
+    format: 'esm',
+  },
   build: {
     outDir: './dist',
     rollupOptions: {
