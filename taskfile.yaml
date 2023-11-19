@@ -10,7 +10,12 @@ tasks:
     cmds:
       - pnpm dev
   
+  run-walkin:
+    cmds:
+      - walkin up --port 3002 --proxy "path=/*,url=http://localhost:3001/" --proxy "path=/api/*,url=http://localhost:3000"
+  
   run:
     deps:
       - run-go
       - run-frontend
+      # - run-walkin
