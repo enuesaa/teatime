@@ -1,0 +1,16 @@
+version: '3'
+
+tasks:
+  run-go:
+    cmds:
+      - go run .
+
+  run-frontend:
+    dir: ./frontend
+    cmds:
+      - pnpm dev
+  
+  run:
+    deps:
+      - run-go
+      - run-frontend
