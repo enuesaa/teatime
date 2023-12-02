@@ -1,21 +1,15 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: '3'
 
 tasks:
-  run-go:
+  dev:
+    watch: true
     cmds:
-      - go run .
-
-  run-frontend:
-    dir: ./frontend
-    cmds:
-      - pnpm dev
-  
-  run-walkin:
-    cmds:
-      - walkin up --port 3002 --proxy "path=/*,url=http://localhost:3001/" --proxy "path=/api/*,url=http://localhost:3000"
-  
-  run:
-    deps:
-      - run-go
-      - run-frontend
-      # - run-walkin
+      - cmd: kill $(lsof -t -i:3000)
+        ignore_error: true
+      - cd frontend && pnpm build 
+      - go run . up
+    sources:
+      - ./frontend/src/**/*
+    generates:
+      - ./frontend/dist/**/*
