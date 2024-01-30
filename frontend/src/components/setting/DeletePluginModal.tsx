@@ -1,5 +1,4 @@
 import { useDeleteProvider } from '@/lib/api'
-import { css } from '@emotion/react'
 import { Button, Flex, AlertDialog } from '@radix-ui/themes'
 import { MouseEventHandler } from 'react'
 
@@ -13,17 +12,10 @@ export const DeletePluginModal = ({ id }: Props) => {
     await deleteProvider()
   }
 
-  const styles = {
-    trigger: css({
-      cursor: 'pointer',
-      height: '28px',
-    })
-  }
-
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button color='red' radius='full' css={styles.trigger}>delete</Button>
+        <Button color='red' radius='full' style={{ height: '28px' }}>delete</Button>
       </AlertDialog.Trigger>
       <AlertDialog.Content>
         <AlertDialog.Title>Delete Plugin</AlertDialog.Title>

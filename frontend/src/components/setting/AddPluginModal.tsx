@@ -1,5 +1,4 @@
 import { useAddProvider } from '@/lib/api'
-import { css } from '@emotion/react'
 import { Dialog, Button, Flex, Text, TextField, IconButton } from '@radix-ui/themes'
 import { BiPlus } from 'react-icons/bi'
 import { useForm } from 'react-hook-form'
@@ -9,18 +8,10 @@ export const AddPluginModal = () => {
   const { mutate: addProvider } = useAddProvider()
   const { register, handleSubmit, reset } = useForm<ProviderSchema>()
 
-  const styles = {
-    trigger: css({
-      margin: '0 10px',
-      cursor: 'pointer',
-      fontSize: '20px',
-    })
-  }
-
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <IconButton radius='full' css={styles.trigger}><BiPlus /></IconButton>
+        <IconButton radius='full'  style={{ margin: '0 10px', fontSize: '20px' }}><BiPlus /></IconButton>
       </Dialog.Trigger>
 
       <Dialog.Content>

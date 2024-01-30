@@ -4,6 +4,7 @@ import '@radix-ui/themes/styles.css'
 import { Theme } from '@radix-ui/themes'
 import TopPage from './pages/index'
 import SettingsPage from './pages/settings'
+import '@/styles/app.css'
 
 export const App = () => {
   const queryClient = new QueryClient()

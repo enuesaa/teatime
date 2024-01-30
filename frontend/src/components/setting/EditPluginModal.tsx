@@ -1,6 +1,5 @@
 import { useGetProviderInfo, useUpdateProvider } from '@/lib/api'
 import { ProviderSchema } from '@/lib/schema'
-import { css } from '@emotion/react'
 import { Dialog, Button, Flex, Text, TextField } from '@radix-ui/themes'
 import { useForm } from 'react-hook-form'
 
@@ -12,17 +11,10 @@ export const EditPluginModal = ({ id }: Props) => {
   const { mutateAsync: updateProvider } =  useUpdateProvider(id)
   const { register, handleSubmit } = useForm<ProviderSchema>()
 
-  const styles = {
-    trigger: css({
-      cursor: 'pointer',
-      height: '28px',
-    })
-  }
-
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button radius='full' color='gray' css={styles.trigger}>edit</Button>
+        <Button radius='full' color='gray' style={{ height: '28px' }}>edit</Button>
       </Dialog.Trigger>
 
       <Dialog.Content>

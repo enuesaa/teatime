@@ -1,23 +1,13 @@
 import { Text, Strong, Badge, Inset } from '@radix-ui/themes'
 import { BaseCard } from './BaseCard'
 import { CardSchema } from '@/lib/schema';
-import { css } from '@emotion/react';
+import styles from './TextCard.css'
 
 type Props = {
   name: string;
   data: CardSchema;
 }
 export const TextCard = ({ name, data }: Props) => {
-  const styles = {
-    text: css({
-      textAlign: data.textCard.center ? 'center' : 'left',
-      height: '70%',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    })
-  }
-
   return (
     <BaseCard>
       <Inset clip='padding-box' side='top' pb='current'>

@@ -1,5 +1,4 @@
 import { useGetProviderInfo } from '@/lib/api'
-import { css } from '@emotion/react'
 import { Code } from '@radix-ui/themes'
 
 type Props = {
@@ -8,18 +7,11 @@ type Props = {
 export const PluginInfo = ({ id }: Props) => {
   const {data: info} = useGetProviderInfo(id)
 
-  const styles = {
-    main: css({
-      display: 'block',
-      padding: '10px',
-    }),
-  }
-
   return (
     <>
       {info !== undefined && (
         <pre>
-          <Code color='gray' css={styles.main}>
+          <Code color='gray' style={{display: 'block', padding: '10px'}}>
             {JSON.stringify(info?.data, null, '  ')}
           </Code>
         </pre>
