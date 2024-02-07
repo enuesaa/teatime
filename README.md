@@ -1,5 +1,5 @@
 # teatime
-My hobby app.  
+My Daily Dashboard. But WIP
 
 > **Note**
 > Work in progress..
