@@ -8,7 +8,7 @@ and so on..
 
 ### Create go.work
 ```bash
-go work init . ./plugins/teatime-plugin-calendar
+go work init . ./plugins/teatime-plugin-coredata
 ```
 
 ### Development Plan

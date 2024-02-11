@@ -12,9 +12,9 @@ func (s *Handler) Info() plug.Info {
 		Cards: []string{
 			"main",
 		},
-		PanelMap: map[string]string{
-			"main": "main",
-		},
+		// PanelMap: map[string]string{
+		// 	"main": "main",
+		// },
 	}
 }
 
