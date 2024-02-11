@@ -6,7 +6,7 @@ import (
 )
 
 var ProviderCommandMap = map[string]string {
-	"pinit": "./plugins/teatime-plugin-pinit/teatime-plugin-pinit",
+	"coredata": "./plugins/teatime-plugin-coredata/teatime-plugin-coredata",
 }
 
 type ProviderService struct {

@@ -1,4 +1,4 @@
-package repository
+package main
 
 type RedisRepositoryMock struct {
 	records map[string]string

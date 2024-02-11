@@ -1,4 +1,4 @@
-package repository
+package main
 
 import (
 	"context"
@@ -32,7 +32,7 @@ func (repo *RedisRepository) client() *redis.Client {
 
 func (repo *RedisRepository) jsonHandler() *rejson.Handler {
 	rh := rejson.NewReJSONHandler()
-	rh.SetGoRedisClient(repo.client())
+	// rh.SetGoRedisClient(repo.client())
 	return rh
 }
 

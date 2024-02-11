@@ -1,10 +1,10 @@
-package service
+package main
 
 import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/enuesaa/teatime/pkg/repository"
+	// "github.com/enuesaa/teatime/pkg/repository"
 	"github.com/google/uuid"
 )
 
@@ -25,7 +25,7 @@ func NewProviderManageService() *ProviderManageService {
 type ProviderManageService struct {}
 
 func (srv *ProviderManageService) List() []Record[ProviderConf] {
-	redis := repository.RedisRepository{}
+	redis := RedisRepository{}
 	keys := redis.Keys("provider:*")
 	list := make([]Record[ProviderConf], 0)
 	for _, key := range keys {
@@ -39,7 +39,7 @@ func (srv *ProviderManageService) List() []Record[ProviderConf] {
 }
 
 func (srv *ProviderManageService) Create(conf ProviderConf) (string, error) {
-	redis := repository.RedisRepository{}
+	redis := RedisRepository{}
 	id, err := srv.GenId()
 	if err != nil {
 		return "", err
@@ -52,7 +52,7 @@ func (srv *ProviderManageService) Create(conf ProviderConf) (string, error) {
 }
 
 func (srv *ProviderManageService) Describe(id string) (Record[ProviderConf], error) {
-	redis := repository.RedisRepository{}
+	redis := RedisRepository{}
 	data, err := redis.JsonGet(id)
 	if err != nil {
 		return *new(Record[ProviderConf]), err
@@ -69,7 +69,7 @@ func (srv *ProviderManageService) Describe(id string) (Record[ProviderConf], err
 }
 
 func (srv *ProviderManageService) Update(id string, conf ProviderConf) (string, error) {
-	redis := repository.RedisRepository{}
+	redis := RedisRepository{}
 	if err := redis.JsonSet(id, conf); err != nil {
 		return "", err
 	}
@@ -77,7 +77,7 @@ func (srv *ProviderManageService) Update(id string, conf ProviderConf) (string, 
 }
 
 func (srv *ProviderManageService) Delete(id string) error {
-	redis := repository.RedisRepository{}
+	redis := RedisRepository{}
 	if err := redis.JsonDel(id); err != nil {
 		return err
 	}
