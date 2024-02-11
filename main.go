@@ -3,12 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
+	"net/http"
 
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
 	"github.com/enuesaa/teatime/pkg/controller"
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
+	"github.com/labstack/echo/v4"
 )
 
 func main() {
@@ -25,20 +25,11 @@ func main() {
 	for _, ctr := range containers {
 		fmt.Printf("%s %s (status: %s)\n", ctr.ID, ctr.Image, ctr.Status)
 	}
-	return
 
-	app := gin.Default()
-	app.SetTrustedProxies([]string{})
-	app.Use(func(c *gin.Context) {
-		// https://stackoverflow.com/questions/41109065/golang-gin-gonic-content-type-not-setting-to-application-json-with-c-json
-		c.Writer.Header().Set("Content-Type", "application/json")
-		c.Next()
+	app := echo.New()
+	app.GET("/", func(c echo.Context) error {
+		return c.String(http.StatusOK, "Hello, World!")
 	})
-	app.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"http://localhost:3001"},
-		AllowMethods: []string{"*"},
-	}))
-
 	app.GET("/providers", controller.ListProviders)
 	app.POST("/providers", controller.AddProvider)
 	app.GET("/providers/:id", controller.DescribeProvider)
@@ -51,5 +42,5 @@ func main() {
 	app.PUT("/providers/:id/models/:model/records/:recordName", controller.SetRecord)
 	app.DELETE("/providers/:id/models/:model/records/:recordName", controller.DelRecord)
 
-	app.Run(":3000")
+	app.Logger.Fatal(app.Start(":3000"))
 }
