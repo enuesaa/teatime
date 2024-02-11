@@ -5,7 +5,7 @@ import (
 
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/service"
-	"github.com/gin-gonic/gin"
+	"github.com/labstack/echo/v4"
 )
 
 type ProviderSchema struct {
@@ -17,7 +17,7 @@ type ListProviderResponse struct {
 	Items []ProviderSchema `json:"items"`
 }
 
-func ListProviders(c *gin.Context) {
+func ListProviders(c echo.Context) error {
 	manageSrv := service.NewProviderManageService()
 	list := manageSrv.List()
 	fmt.Println(list)
@@ -37,16 +37,15 @@ func ListProviders(c *gin.Context) {
 			Command: conf.Data.Command,
 		})
 	}
-	c.JSON(200, res)
+	return c.JSON(200, res)
 }
 
-func DescribeProvider(c *gin.Context) {
+func DescribeProvider(c echo.Context) error {
 	id := c.Param("id")
 	manageSrv := service.NewProviderManageService()
 	record, err := manageSrv.Describe(id)
 	if err != nil {
-		AbortOnError(c, err)
-		return
+		return err
 	}
 
 	res := ApiResponse[ProviderSchema] {
@@ -56,18 +55,17 @@ func DescribeProvider(c *gin.Context) {
 			Command: record.Data.Command,
 		},
 	}
-	c.JSON(200, res)
+	return c.JSON(200, res)
 }
 
 type AddProviderRequest struct {
 	Name string `json:"name" validate:"required"`
 	Command string `json:"command" validate:"required"`
 }
-func AddProvider(c *gin.Context) {
+func AddProvider(c echo.Context) error {
 	var reqbody AddProviderRequest
 	if err := Validate(c, &reqbody); err != nil {
-		AbortOnError(c, err)
-		return
+		return err
 	}
 	manageSrv := service.NewProviderManageService()
 	id, err := manageSrv.Create(service.ProviderConf{
@@ -75,8 +73,7 @@ func AddProvider(c *gin.Context) {
 		Command: reqbody.Command,
 	})
 	if err != nil {
-		AbortOnError(c, err)
-		return
+		return err
 	}
 
 	res := ApiResponse[IdSchema] {
@@ -84,15 +81,14 @@ func AddProvider(c *gin.Context) {
 			Id: id,
 		},
 	}
-	c.JSON(200, res)
+	return c.JSON(200, res)
 }
 
-func UpdateProvider(c *gin.Context) {
+func UpdateProvider(c echo.Context) error {
 	id := c.Param("id")
 	var reqbody AddProviderRequest
 	if err := Validate(c, &reqbody); err != nil {
-		AbortOnError(c, err)
-		return
+		return err
 	}
 	manageSrv := service.NewProviderManageService()
 	_, err := manageSrv.Update(id, service.ProviderConf{
@@ -100,8 +96,7 @@ func UpdateProvider(c *gin.Context) {
 		Command: reqbody.Command,
 	})
 	if err != nil {
-		AbortOnError(c, err)
-		return
+		return err
 	}
 
 	res := ApiResponse[IdSchema] {
@@ -109,53 +104,50 @@ func UpdateProvider(c *gin.Context) {
 			Id: id,
 		},
 	}
-	c.JSON(200, res)
+	return c.JSON(200, res)
 }
 
-func DeleteProvider(c *gin.Context) {
+func DeleteProvider(c echo.Context) error {
 	id := c.Param("id")
 	fmt.Println(id)
 
 	manageSrv := service.NewProviderManageService()
 	if err := manageSrv.Delete(id); err != nil {
-		AbortOnError(c, err)
-		return
+		return err
 	}
 
 	res := ApiResponse[EmptySchema] {}
-	c.JSON(200, res)
+	return c.JSON(200, res)
 }
 
-func DescribeCard(c *gin.Context) {
+func DescribeCard(c echo.Context) error {
 	name := c.Param("id")
 	providerSrv := service.NewProviderService(name)
 
 	cardName := c.Param("cardName")
 	card, err := providerSrv.DescribeCard(cardName)
 	if err != nil {
-		AbortOnError(c, err)
-		return
+		return err
 	}
 
 	res := ApiResponse[plug.Card] {
 		Data: card,
 	}
-	c.JSON(200, res)
+	return c.JSON(200, res)
 }
 
-func DescribePanel(c *gin.Context) {
+func DescribePanel(c echo.Context) error {
 	name := c.Param("id")
 	providerSrv := service.NewProviderService(name)
 
 	panelName := c.Param("panelName")
 	panel, err := providerSrv.DescribePanel(panelName)
 	if err != nil {
-		AbortOnError(c, err)
-		return
+		return err
 	}
 
 	res := ApiResponse[plug.Panel] {
 		Data: panel,
 	}
-	c.JSON(200, res)
+	return c.JSON(200, res)
 }

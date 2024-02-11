@@ -1,10 +1,8 @@
 package controller
 
 import (
-	"net/http"
-
-	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"github.com/labstack/echo/v4"
 )
 
 type ApiResponse[T any] struct {
@@ -15,13 +13,8 @@ type IdSchema struct {
 	Id string `json:"id"`
 }
 
-func AbortOnError(c *gin.Context, err error) {
-	c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
-	c.Abort()
-}
-
-func Validate(c *gin.Context, reqbody interface{}) error {
-	if err := c.ShouldBindJSON(&reqbody); err != nil {
+func Validate(c echo.Context, reqbody interface{}) error {
+	if err := c.Bind(&reqbody); err != nil {
 		return err
 	}
 

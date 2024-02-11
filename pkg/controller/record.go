@@ -3,10 +3,10 @@ package controller
 import (
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/service"
-	"github.com/gin-gonic/gin"
+	"github.com/labstack/echo/v4"
 )
 
-func RegisterRecord(c *gin.Context) {
+func RegisterRecord(c echo.Context) error {
 	name := c.Param("name")
 	providerSrv := service.NewProviderService(name)
 
@@ -15,17 +15,16 @@ func RegisterRecord(c *gin.Context) {
 
 	err := providerSrv.Register(model, recordName)
 	if err != nil {
-		AbortOnError(c, err)
-		return
+		return err
 	}
 
 	res := ApiResponse[struct{}] {
 		Data: struct{}{},
 	}
-	c.JSON(200, res)
+	return c.JSON(200, res)
 }
 
-func GetRecord(c *gin.Context) {
+func GetRecord(c echo.Context) error {
 	name := c.Param("name")
 	providerSrv := service.NewProviderService(name)
 
@@ -34,21 +33,19 @@ func GetRecord(c *gin.Context) {
 
 	record, err := providerSrv.Get(model, recordName)
 	if err != nil {
-		AbortOnError(c, err)
-		return
+		return err
 	}
 
 	res := ApiResponse[plug.Record] {
 		Data: record,
 	}
-	c.JSON(200, res)
+	return c.JSON(200, res)
 }
 
-func SetRecord(c *gin.Context) {
+func SetRecord(c echo.Context) error {
 	var record plug.Record
-	if err := c.ShouldBindJSON(&record); err != nil {
-		AbortOnError(c, err)
-		return
+	if err := c.Bind(&record); err != nil {
+		return err
 	}
 	name := c.Param("name")
 	providerSrv := service.NewProviderService(name)
@@ -58,17 +55,16 @@ func SetRecord(c *gin.Context) {
 
 	err := providerSrv.Set(model, recordName, record)
 	if err != nil {
-		AbortOnError(c, err)
-		return
+		return err
 	}
 
 	res := ApiResponse[struct{}] {
 		Data: struct{}{},
 	}
-	c.JSON(200, res)
+	return c.JSON(200, res)
 }
 
-func DelRecord(c *gin.Context) {
+func DelRecord(c echo.Context) error {
 	name := c.Param("name")
 	providerSrv := service.NewProviderService(name)
 
@@ -77,12 +73,11 @@ func DelRecord(c *gin.Context) {
 
 	err := providerSrv.Del(model, recordName)
 	if err != nil {
-		AbortOnError(c, err)
-		return
+		return err
 	}
 
 	res := ApiResponse[struct{}] {
 		Data: struct{}{},
 	}
-	c.JSON(200, res)
+	return c.JSON(200, res)
 }

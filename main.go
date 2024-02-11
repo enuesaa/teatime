@@ -1,7 +1,7 @@
 package main
 
 import (
-	"net/http"
+	"log"
 
 	"github.com/enuesaa/teatime/pkg/controller"
 	"github.com/labstack/echo/v4"
@@ -9,9 +9,6 @@ import (
 
 func main() {
 	app := echo.New()
-	app.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, World!")
-	})
 	app.GET("/providers", controller.ListProviders)
 	app.POST("/providers", controller.AddProvider)
 	app.GET("/providers/:id", controller.DescribeProvider)
@@ -24,5 +21,7 @@ func main() {
 	app.PUT("/providers/:id/models/:model/records/:recordName", controller.SetRecord)
 	app.DELETE("/providers/:id/models/:model/records/:recordName", controller.DelRecord)
 
-	app.Logger.Fatal(app.Start(":3000"))
+	if err := app.Start(":3000"); err != nil {
+		log.Fatalf("Error: %s", err.Error())
+	}
 }
