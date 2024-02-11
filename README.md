@@ -1,5 +1,2 @@
 # teatime
-My Daily Dashboard. But WIP
-
-> **Note**
-> Work in progress..
+My Daily Dashboard. But work in progress..

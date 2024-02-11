@@ -8,5 +8,3 @@
 go.work
 go.work.sum
 .env
-
-plugins/teatime-plugin-pinit/teatime-plugin-pinit

@@ -1,18 +1,31 @@
 package main
 
 import (
-	"log"
+	"context"
+	"fmt"
 
+	"github.com/docker/docker/api/types/container"
+	"github.com/docker/docker/client"
 	"github.com/enuesaa/teatime/pkg/controller"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	if err := godotenv.Load(".env"); err != nil {
-		log.Fatal("failed to load env file")
+	apiClient, err := client.NewClientWithOpts(client.FromEnv)
+	if err != nil {
+		panic(err)
 	}
+	defer apiClient.Close()
+
+	containers, err := apiClient.ContainerList(context.Background(), container.ListOptions{All: true})
+	if err != nil {
+		panic(err)
+	}
+	for _, ctr := range containers {
+		fmt.Printf("%s %s (status: %s)\n", ctr.ID, ctr.Image, ctr.Status)
+	}
+	return
 
 	app := gin.Default()
 	app.SetTrustedProxies([]string{})

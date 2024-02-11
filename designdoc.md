@@ -1,6 +1,4 @@
 # designdoc
-My Daily Dashboard.
-
 ### Features
 - simple calender
 - bookmark
@@ -10,7 +8,7 @@ and so on..
 
 ### Create go.work
 ```bash
-go work init . ./plugins/teatime-plugin-pinit
+go work init . ./plugins/teatime-plugin-calendar
 ```
 
 ### Development Plan
