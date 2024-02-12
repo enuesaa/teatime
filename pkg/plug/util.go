@@ -46,9 +46,3 @@ func NewClientConfig(connector Connector, command string) *plugin.ClientConfig {
 		Cmd: exec.Command(command),
 	}
 }
-
-// rn stands for resource name like aws's arn.
-// format: `rn:<provider-name>:<category>:<resource-type>:<name>`
-// example:
-// - `rn:pinit:ui:card:<name>`
-// - `rn:pinit:ui:panel:<name>`

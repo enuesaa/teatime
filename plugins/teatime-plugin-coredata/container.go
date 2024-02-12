@@ -24,3 +24,26 @@ func ListContainers() error {
 	}
 	return nil
 }
+
+func StartContainer() error {
+	apiClient, err := client.NewClientWithOpts(client.FromEnv)
+	if err != nil {
+		return err
+	}
+	defer apiClient.Close()
+
+	_, err = apiClient.ContainerCreate(context.Background(),
+		&container.Config{
+			Image: "redis",
+		},
+		nil,
+		nil,
+		nil,
+		"teatime-redis",
+	)
+	if err != nil {
+		return err
+	}
+
+	return apiClient.ContainerStart(context.Background(), "teatime-redis", container.StartOptions{})
+}

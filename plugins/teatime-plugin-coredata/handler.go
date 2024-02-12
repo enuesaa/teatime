@@ -7,7 +7,7 @@ import (
 type Handler struct {}
 
 func (h *Handler) Init() error {
-	return ListContainers()
+	return StartContainer()
 }
 
 func (s *Handler) Info() plug.Info {
