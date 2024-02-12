@@ -5,18 +5,20 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type ApiResponse[T any] struct {
+type ListResponse[T any] struct {
 	Items []T `json:"items"`
-	Data T `json:"data"`
 }
-
-func NewListResponse[T any]() ApiResponse[T] {
-	return ApiResponse[T] {
+func NewListResponse[T any]() ListResponse[T] {
+	return ListResponse[T] {
 		Items: make([]T, 0),
 	}
 }
-func NewDescribeResponse[T any]() ApiResponse[T] {
-	return ApiResponse[T] {
+
+type DescribeResponse[T any] struct {
+	Data T `json:"data"`
+}
+func NewDescribeResponse[T any]() DescribeResponse[T] {
+	return DescribeResponse[T] {
 		Data: *new(T),
 	}
 }

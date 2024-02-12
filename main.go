@@ -18,11 +18,8 @@ func main() {
 	api := app.Group("/api")
 	api.GET("/providers", controller.ListProviders)
 	api.GET("/providers/:name", controller.DescribeProvider)
-	api.POST("/providers", controller.AddProvider)
-	api.PUT("/providers/:name", controller.UpdateProvider)
-	api.DELETE("/providers/:name", controller.DeleteProvider)
-	
-	// api.GET("/providers/:name/config", controller.DescribeCard)
+	api.GET("/providers/:name/config", controller.DescribeProviderConfig)
+
 	// api.GET("/providers/:name/rows", controller.DescribeCard)
 	// api.GET("/providers/:name/rows/:id", controller.DescribeCard)
 	// api.POST("/providers/:name/rows", controller.DescribeCard)
