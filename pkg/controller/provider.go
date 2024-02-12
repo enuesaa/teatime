@@ -15,6 +15,6 @@ func ListProviders(c echo.Context) error {
 }
 
 func DescribeProvider(c echo.Context) error {
-	res := NewDescribeResponse[ProviderSchema]()
+	res := NewDescribeResponse[ProviderSchema](ProviderSchema{})
 	return c.JSON(200, res)
 }

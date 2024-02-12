@@ -15,7 +15,7 @@ func ListProviderRows(c echo.Context) error {
 }
 
 func DescribeProviderRow(c echo.Context) error {
-	res := NewDescribeResponse[ProviderRowSchema]()
+	res := NewDescribeResponse[ProviderRowSchema](ProviderRowSchema{})
 	return c.JSON(200, res)
 }
 

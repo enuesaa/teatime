@@ -1,35 +1,38 @@
 package plug
 
+import (
+	"net/rpc"
+
+	"github.com/hashicorp/go-plugin"
+)
+
 type ProviderInterface interface {
 	Info() Info
-	DescribeCard(arg DescribeCardArg) Card
-	DescribePanel(arg DescribePanelArg) Panel
-	Register(arg RegisterArg) error
-	Get(arg GetArg) Record
+	List(arg ListArg) []string
+	Get(arg GetArg) Row
 	Set(arg SetArg) error
 	Del(arg DelArg) error
 }
 
-type DescribeCardArg struct {
-	Name string
-}
-type DescribePanelArg struct {
-	Name string
-}
-type RegisterArg struct {
-	Model string
-	Name  string
-}
+type ListArg struct {}
 type GetArg struct {
-	Model string
-	Name  string
+	Id  string
 }
 type SetArg struct {
-	Model  string
-	Name   string
-	Record Record
+	Id  string
+	Row Row
 }
 type DelArg struct {
-	Model string
-	Name  string
+	Id string
+}
+
+type Connector struct {
+	Impl ProviderInterface
+}
+
+func (co *Connector) Server(b *plugin.MuxBroker) (interface{}, error) {
+	return &ConnectServer{Impl: co.Impl}, nil
+}
+func (co *Connector) Client(b *plugin.MuxBroker, c *rpc.Client) (interface{}, error) {
+	return &ConnectClient{client: c}, nil
 }

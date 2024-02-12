@@ -8,6 +8,6 @@ type ProviderConfigSchema struct {
 	Schema interface{} `json:"schema"` // TODO
 }
 func DescribeProviderConfig(c echo.Context) error {
-	res := NewDescribeResponse[ProviderConfigSchema]()
+	res := NewDescribeResponse[ProviderConfigSchema](ProviderConfigSchema{})
 	return c.JSON(200, res)
 }
