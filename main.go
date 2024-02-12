@@ -20,11 +20,11 @@ func main() {
 	api.GET("/providers/:name", controller.DescribeProvider)
 	api.GET("/providers/:name/config", controller.DescribeProviderConfig)
 
-	// api.GET("/providers/:name/rows", controller.DescribeCard)
-	// api.GET("/providers/:name/rows/:id", controller.DescribeCard)
-	// api.POST("/providers/:name/rows", controller.DescribeCard)
-	// api.PUT("/providers/:name/rows/:id", controller.DescribeCard)
-	// api.DELETE("/providers/:name/rows/:id", controller.DescribeCard)
+	api.GET("/providers/:name/rows", controller.ListProviderRows)
+	api.GET("/providers/:name/rows/:id", controller.DescribeProviderRow)
+	api.POST("/providers/:name/rows", controller.CreateProviderRow)
+	api.PUT("/providers/:name/rows/:id", controller.UpdateProviderRow)
+	api.DELETE("/providers/:name/rows/:id", controller.DeleteProviderRow)
 
 	if err := app.Start(":3000"); err != nil {
 		log.Fatalf("Error: %s", err.Error())
