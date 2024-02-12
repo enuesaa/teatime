@@ -2,6 +2,7 @@ package service
 
 import (
 	"github.com/enuesaa/teatime/pkg/plug"
+	"github.com/google/uuid"
 	"github.com/hashicorp/go-plugin"
 )
 
@@ -46,4 +47,40 @@ func (srv *ProviderService) GetInfo() (plug.Info, error) {
 		return plug.Info{}, err
 	}
 	return provider.Info(), nil
+}
+
+func (srv *ProviderService) ListRows() ([]string, error) {
+	provider, err := srv.GetProvider()
+	if err != nil {
+		return make([]string, 0), err
+	}
+	return provider.List(), nil
+}
+
+func (srv *ProviderService) GetRow(id string) (plug.Row, error) {
+	provider, err := srv.GetProvider()
+	if err != nil {
+		return plug.Row{}, err
+	}
+	return provider.Get(id), nil
+}
+
+func (srv *ProviderService) CreateRow(values plug.Values) error {
+	provider, err := srv.GetProvider()
+	if err != nil {
+		return err
+	}
+	row := plug.Row {
+		Id: uuid.NewString(),
+		Values: values,
+	}
+	return provider.Set(row)
+}
+
+func (srv *ProviderService) DeleteRow(id string) error {
+	provider, err := srv.GetProvider()
+	if err != nil {
+		return err
+	}
+	return provider.Del(id)
 }

@@ -14,23 +14,23 @@ func (cc *ConnectClient) Info() Info {
 	cc.client.Call("Plugin.Info", new(interface{}), &resp)
 	return resp
 }
-func (cc *ConnectClient) List(arg ListArg) []string {
+func (cc *ConnectClient) List() []string {
 	var resp []string
-	cc.client.Call("Plugin.Get", arg, &resp)
+	cc.client.Call("Plugin.Get", new(interface{}), &resp)
 	return resp
 }
-func (cc *ConnectClient) Get(arg GetArg) Row {
+func (cc *ConnectClient) Get(id string) Row {
 	var resp Row
-	cc.client.Call("Plugin.Get", arg, &resp)
+	cc.client.Call("Plugin.Get", id, &resp)
 	return resp
 }
-func (cc *ConnectClient) Set(arg SetArg) error {
+func (cc *ConnectClient) Set(row Row) error {
 	var resp error
-	cc.client.Call("Plugin.Set", arg, &resp)
+	cc.client.Call("Plugin.Set", row, &resp)
 	return resp
 }
-func (cc *ConnectClient) Del(arg DelArg) error {
+func (cc *ConnectClient) Del(id string) error {
 	var resp error
-	cc.client.Call("Plugin.Del", arg, &resp)
+	cc.client.Call("Plugin.Del", id, &resp)
 	return resp
 }

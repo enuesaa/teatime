@@ -8,22 +8,10 @@ import (
 
 type ProviderInterface interface {
 	Info() Info
-	List(arg ListArg) []string
-	Get(arg GetArg) Row
-	Set(arg SetArg) error
-	Del(arg DelArg) error
-}
-
-type ListArg struct {}
-type GetArg struct {
-	Id  string
-}
-type SetArg struct {
-	Id  string
-	Row Row
-}
-type DelArg struct {
-	Id string
+	List() []string
+	Get(id string) Row
+	Set(row Row) error
+	Del(id string) error
 }
 
 type Connector struct {

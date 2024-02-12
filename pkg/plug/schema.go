@@ -9,8 +9,9 @@ type Info struct {
 // data
 type Row struct {
 	Id     string `json:"id"`
-	Values map[string]Value `json:"values"`
+	Values Values `json:"values"`
 }
+type Values map[string]Value
 type Value struct {
 	Type    string `json:"type"` // str, int or bool
 	StrVal  string `json:"strVal"`

@@ -4,6 +4,7 @@ go 1.21.0
 
 require (
 	github.com/go-playground/validator/v10 v10.14.0
+	github.com/google/uuid v1.3.0
 	github.com/hashicorp/go-hclog v1.5.0
 	github.com/hashicorp/go-plugin v1.5.2
 	github.com/labstack/echo/v4 v4.11.4

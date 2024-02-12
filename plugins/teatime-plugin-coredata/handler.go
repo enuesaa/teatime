@@ -12,15 +12,15 @@ func (s *Handler) Info() plug.Info {
 	}
 }
 
-func (h *Handler) List(arg plug.ListArg) []string {
+func (h *Handler) List() []string {
 	return make([]string, 0)
 }
-func (h *Handler) Get(arg plug.GetArg) plug.Row {
+func (h *Handler) Get(id string) plug.Row {
 	return plug.Row{}
 }
-func (h *Handler) Set(arg plug.SetArg) error {
+func (h *Handler) Set(row plug.Row) error {
 	return nil
 }
-func (h *Handler) Del(arg plug.DelArg) error {
+func (h *Handler) Del(id string) error {
 	return nil
 }
