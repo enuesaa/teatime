@@ -6,8 +6,21 @@ import (
 )
 
 type ApiResponse[T any] struct {
+	Items []T `json:"items"`
 	Data T `json:"data"`
 }
+
+func NewListResponse[T any]() ApiResponse[T] {
+	return ApiResponse[T] {
+		Items: make([]T, 0),
+	}
+}
+func NewDescribeResponse[T any]() ApiResponse[T] {
+	return ApiResponse[T] {
+		Data: *new(T),
+	}
+}
+
 type EmptySchema struct {}
 type IdSchema struct {
 	Id string `json:"id"`

@@ -18,43 +18,12 @@ type ListProviderResponse struct {
 }
 
 func ListProviders(c echo.Context) error {
-	// manageSrv := service.NewProviderManageService()
-	// list := manageSrv.List()
-	// fmt.Println(list)
-
-	res := ListProviderResponse{
-		Items: make([]ProviderSchema, 0),
-	}
-	// for _, name := range maps.Keys(service.ProviderCommandMap) {
-	// 	res.Items = append(res.Items, ProviderSchema{
-	// 		Name: name,
-	// 	})
-	// }
-	// for _, conf := range list {
-	// 	res.Items = append(res.Items, ProviderSchema{
-	// 		Id: conf.Id,
-	// 		Name: conf.Data.Name,
-	// 		Command: conf.Data.Command,
-	// 	})
-	// }
+	res := NewListResponse[ProviderSchema]()
 	return c.JSON(200, res)
 }
 
 func DescribeProvider(c echo.Context) error {
-	// id := c.Param("id")
-	// manageSrv := service.NewProviderManageService()
-	// record, err := manageSrv.Describe(id)
-	// if err != nil {
-	// 	return err
-	// }
-
-	res := ApiResponse[ProviderSchema] {
-		Data: ProviderSchema{
-			// Id: record.Id,
-			// Name: record.Data.Name,
-			// Command: record.Data.Command,
-		},
-	}
+	res := NewDescribeResponse[ProviderSchema]()
 	return c.JSON(200, res)
 }
 
@@ -67,15 +36,6 @@ func AddProvider(c echo.Context) error {
 	if err := Validate(c, &reqbody); err != nil {
 		return err
 	}
-	// manageSrv := service.NewProviderManageService()
-	// id, err := manageSrv.Create(service.ProviderConf{
-	// 	Name: reqbody.Name,
-	// 	Command: reqbody.Command,
-	// })
-	// if err != nil {
-	// 	return err
-	// }
-
 	res := ApiResponse[IdSchema] {
 		Data: IdSchema {
 			// Id: id,
@@ -90,14 +50,6 @@ func UpdateProvider(c echo.Context) error {
 	if err := Validate(c, &reqbody); err != nil {
 		return err
 	}
-	// manageSrv := service.NewProviderManageService()
-	// _, err := manageSrv.Update(id, service.ProviderConf{
-	// 	Name: reqbody.Name,
-	// 	Command: reqbody.Command,
-	// })
-	// if err != nil {
-	// 	return err
-	// }
 
 	res := ApiResponse[IdSchema] {
 		Data: IdSchema {
@@ -110,11 +62,6 @@ func UpdateProvider(c echo.Context) error {
 func DeleteProvider(c echo.Context) error {
 	id := c.Param("id")
 	fmt.Println(id)
-
-	// manageSrv := service.NewProviderManageService()
-	// if err := manageSrv.Delete(id); err != nil {
-	// 	return err
-	// }
 
 	res := ApiResponse[EmptySchema] {}
 	return c.JSON(200, res)
