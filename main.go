@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/enuesaa/teatime/pkg/controller"
@@ -12,11 +11,9 @@ import (
 
 func main() {
 	provider := service.NewProviderService("coredata")
-	info, err := provider.GetInfo()
-	if err != nil {
+	if err := provider.Init(); err != nil {
 		log.Fatalf("Error: %s", err.Error())
 	}
-	fmt.Printf("%+v\n", info)
 
 	app := echo.New()
 	app.Use(middleware.RecoverWithConfig(middleware.DefaultRecoverConfig))

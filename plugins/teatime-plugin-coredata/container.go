@@ -8,18 +8,19 @@ import (
 	"github.com/docker/docker/client"
 )
 
-func ListContainers() {
+func ListContainers() error {
 	apiClient, err := client.NewClientWithOpts(client.FromEnv)
 	if err != nil {
-		panic(err)
+		return err
 	}
 	defer apiClient.Close()
 
 	containers, err := apiClient.ContainerList(context.Background(), container.ListOptions{All: true})
 	if err != nil {
-		panic(err)
+		return err
 	}
 	for _, ctr := range containers {
 		fmt.Printf("%s %s (status: %s)\n", ctr.ID, ctr.Image, ctr.Status)
 	}
+	return nil
 }

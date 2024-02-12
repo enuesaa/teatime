@@ -9,6 +9,11 @@ type ConnectClient struct {
 	client *rpc.Client
 }
 
+func (cc *ConnectClient) Init() error {
+	var resp error
+	cc.client.Call("Plugin.Init", new(interface{}), &resp)
+	return resp
+}
 func (cc *ConnectClient) Info() Info {
 	var resp Info
 	cc.client.Call("Plugin.Info", new(interface{}), &resp)

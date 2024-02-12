@@ -4,6 +4,10 @@ type ConnectServer struct {
 	Impl ProviderInterface
 }
 
+func (s *ConnectServer) Init(arg interface{}, resp *error) error {
+	*resp = s.Impl.Init()
+	return nil
+}
 func (s *ConnectServer) Info(arg interface{}, resp *Info) error {
 	*resp = s.Impl.Info()
 	return nil

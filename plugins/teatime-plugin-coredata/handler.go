@@ -5,6 +5,11 @@ import (
 )
 
 type Handler struct {}
+
+func (h *Handler) Init() error {
+	return ListContainers()
+}
+
 func (s *Handler) Info() plug.Info {
 	return plug.Info{
 		Name: "coredata",

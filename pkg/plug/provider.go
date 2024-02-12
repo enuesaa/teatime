@@ -7,6 +7,7 @@ import (
 )
 
 type ProviderInterface interface {
+	Init() error
 	Info() Info
 	List() []string
 	Get(id string) Row

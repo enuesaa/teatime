@@ -41,6 +41,14 @@ func (srv *ProviderService) GetProvider() (plug.ProviderInterface, error) {
 	return raw.(plug.ProviderInterface), nil
 }
 
+func (srv *ProviderService) Init() error {
+	provider, err := srv.GetProvider()
+	if err != nil {
+		return err
+	}
+	return provider.Init()
+}
+
 func (srv *ProviderService) GetInfo() (plug.Info, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
