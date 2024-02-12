@@ -1,14 +1,23 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/enuesaa/teatime/pkg/controller"
+	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
+	provider := service.NewProviderService("coredata")
+	info, err := provider.GetInfo()
+	if err != nil {
+		log.Fatalf("Error: %s", err.Error())
+	}
+	fmt.Printf("%+v\n", info)
+
 	app := echo.New()
 	app.Use(middleware.RecoverWithConfig(middleware.DefaultRecoverConfig))
 	app.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
