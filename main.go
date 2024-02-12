@@ -5,10 +5,16 @@ import (
 
 	"github.com/enuesaa/teatime/pkg/controller"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
 	app := echo.New()
+	app.Use(middleware.RecoverWithConfig(middleware.DefaultRecoverConfig))
+	app.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
+		Format: "method=${method}, uri=${uri}, status=${status}\n",
+	}))
+
 	app.GET("/providers", controller.ListProviders)
 	app.POST("/providers", controller.AddProvider)
 	app.GET("/providers/:id", controller.DescribeProvider)
