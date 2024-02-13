@@ -1,4 +1,3 @@
-
 export type ApiListBase<T> = {
   items: T[]
 }
