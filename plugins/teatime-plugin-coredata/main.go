@@ -15,15 +15,23 @@ func main() {
 type Handler struct {}
 
 func (h *Handler) Init() error {
-	is, err := CheckRedisExists()
+	containerSrv := ContainerService{}
+	client, err := containerSrv.NewClient()
+	if err != nil {
+		return err
+	}
+	defer client.Close()
+
+	is, err := containerSrv.IsExist(client)
 	if err != nil {
 		return err
 	}
 	if !is {
-		return StartContainer()
+		return containerSrv.Start(client)
 	}
 	return nil
 }
+
 func (s *Handler) Info() plug.Info {
 	return plug.Info{
 		Name: "coredata",

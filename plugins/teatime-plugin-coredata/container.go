@@ -7,33 +7,32 @@ import (
 	"github.com/docker/docker/client"
 )
 
-var containerId = "teatime-redis"
+type ContainerService struct {}
 
-func CheckRedisExists() (bool, error) {
-	client, err := client.NewClientWithOpts(client.FromEnv)
-	if err != nil {
-		return false, err
-	}
-	defer client.Close()
+func (c *ContainerService) Name() string {
+	return "teatime-redis"
+}
 
-	if _, err := client.ContainerInspect(context.Background(), containerId); err != nil {
+func (c *ContainerService) NewClient() (*client.Client, error) {
+	return client.NewClientWithOpts(client.FromEnv)
+}
+
+func (c *ContainerService) IsExist(clint *client.Client) (bool, error) {
+	if _, err := clint.ContainerInspect(context.Background(), c.Name()); err != nil {
 		// consider err as container not exists.
 		return false, nil
 	}
 	return true, nil
 }
 
-func StartContainer() error {
-	client, err := client.NewClientWithOpts(client.FromEnv)
-	if err != nil {
-		return err
+func (c *ContainerService) Start(clint *client.Client) error {
+	config := container.Config{
+		Image: "redis",
 	}
-	defer client.Close()
-
-	_, err = client.ContainerCreate(context.Background(), &container.Config{ Image: "redis" }, nil, nil, nil, containerId)
+	_, err := clint.ContainerCreate(context.Background(), &config, nil, nil, nil, c.Name())
 	if err != nil {
 		return err
 	}
 
-	return client.ContainerStart(context.Background(), containerId, container.StartOptions{})
+	return clint.ContainerStart(context.Background(), c.Name(), container.StartOptions{})
 }

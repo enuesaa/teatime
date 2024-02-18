@@ -25,7 +25,6 @@ func main() {
 	}))
 
 	api := app.Group("/api")
-	api.POST("/init", controller.Init)
 	api.GET("/providers", controller.ListProviders)
 	api.GET("/providers/:name", controller.DescribeProvider)
 	api.GET("/providers/:name/config", controller.DescribeProviderConfig)
