@@ -2,12 +2,14 @@ package main
 
 import (
 	"context"
-	"os"
 	"fmt"
-	"github.com/go-redis/redis/v8"
-	"github.com/nitishm/go-rejson/v4"
+	"os"
+
 	"github.com/docker/docker/api/types/container"
 	docker "github.com/docker/docker/client"
+	"github.com/docker/go-connections/nat"
+	"github.com/go-redis/redis/v8"
+	"github.com/labstack/gommon/log"
 )
 
 func NewRedis() Redis {
@@ -39,19 +41,35 @@ func (r *Redis) Run() error {
 
 func (c *Redis) isStarted(client *docker.Client) (bool, error) {
 	ctx := context.Background()
-	if _, err := client.ContainerInspect(ctx, c.ContainerName); err != nil {
+	a, err := client.ContainerInspect(ctx, c.ContainerName)
+	if err != nil {
 		// consider err as container not exists.
 		return false, nil
 	}
+	log.Info(a)
 	return true, nil
 }
 
 func (c *Redis) start(client *docker.Client) error {
 	ctx := context.Background()
+	// see https://stackoverflow.com/questions/41789083/
 	config := container.Config{
 		Image: "redis",
+		ExposedPorts: nat.PortSet{
+			"6379/tcp": struct{}{},
+		},
 	}
-	_, err := client.ContainerCreate(ctx, &config, nil, nil, nil, c.ContainerName)
+	hostConfig := container.HostConfig{
+		PortBindings: nat.PortMap{
+			"6379/tcp": []nat.PortBinding{
+				{
+					HostIP: "0.0.0.0",
+					HostPort: "6379",
+				},
+			},
+		},
+	}	
+	_, err := client.ContainerCreate(ctx, &config, &hostConfig, nil, nil, c.ContainerName)
 	if err != nil {
 		return err
 	}
@@ -65,12 +83,6 @@ func (repo *Redis) client() *redis.Client {
 		DB:       0,
 	})
 	return client
-}
-
-func (repo *Redis) jsonHandler() *rejson.Handler {
-	rh := rejson.NewReJSONHandler()
-	// rh.SetGoRedisClient(repo.client())
-	return rh
 }
 
 func (repo *Redis) Keys(pattern string) []string {
@@ -98,40 +110,4 @@ func (repo *Redis) Delete(key string) {
 	if err != nil {
 		fmt.Printf("%-v", err)
 	}
-}
-
-func (repo *Redis) JsonMget(ids []string) [][]byte {
-	data, _ := repo.jsonHandler().JSONMGet(".", ids...)
-	if list, ok := data.([]interface{}); ok {
-		listbytes := make([][]byte, 0)
-		for _, v := range list {
-			listbytes = append(listbytes, v.([]byte))
-		}
-		return listbytes
-	}
-	return make([][]byte, 0)
-}
-
-func (repo *Redis) JsonGet(key string) ([]byte, error) {
-	data, err := repo.jsonHandler().JSONGet(key, ".")
-	if err != nil {
-		return make([]byte, 0), err
-	}
-	return data.([]byte), nil
-}
-
-func (repo *Redis) JsonSet(key string, value interface{}) error {
-	_, err := repo.jsonHandler().JSONSet(key, ".", value)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func (repo *Redis) JsonDel(key string) error {
-	_, err := repo.jsonHandler().JSONDel(key, "$")
-	if err != nil {
-		return err
-	}
-	return nil
 }
