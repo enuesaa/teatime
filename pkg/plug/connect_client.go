@@ -21,7 +21,7 @@ func (cc *ConnectClient) Info() Info {
 }
 func (cc *ConnectClient) List() []string {
 	var resp []string
-	cc.client.Call("Plugin.Get", new(interface{}), &resp)
+	cc.client.Call("Plugin.List", new(interface{}), &resp)
 	return resp
 }
 func (cc *ConnectClient) Get(id string) Row {

@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"os"
 
 	"github.com/docker/docker/api/types/container"
 	docker "github.com/docker/docker/client"
@@ -68,7 +67,7 @@ func (c *Redis) start(client *docker.Client) error {
 				},
 			},
 		},
-	}	
+	}
 	_, err := client.ContainerCreate(ctx, &config, &hostConfig, nil, nil, c.ContainerName)
 	if err != nil {
 		return err
@@ -78,7 +77,7 @@ func (c *Redis) start(client *docker.Client) error {
 
 func (repo *Redis) client() *redis.Client {
 	client := redis.NewClient(&redis.Options{
-		Addr:     os.Getenv("REDIS_ADDR"), //
+		Addr:     "localhost:6379",
 		Password: "",
 		DB:       0,
 	})
@@ -86,12 +85,14 @@ func (repo *Redis) client() *redis.Client {
 }
 
 func (repo *Redis) Keys(pattern string) []string {
-	vals, _ := repo.client().Keys(context.Background(), pattern).Result()
+	ctx := context.Background()
+	vals, _ := repo.client().Keys(ctx, pattern).Result()
 	return vals
 }
 
 func (repo *Redis) Get(key string) string {
-	val, err := repo.client().Get(context.Background(), key).Result()
+	ctx := context.Background()
+	val, err := repo.client().Get(ctx, key).Result()
 	if err != nil {
 		val = ""
 	}
@@ -99,14 +100,16 @@ func (repo *Redis) Get(key string) string {
 }
 
 func (repo *Redis) Set(key string, value string) {
-	err := repo.client().Set(context.Background(), key, value, 0).Err()
+	ctx := context.Background()
+	err := repo.client().Set(ctx, key, value, 0).Err()
 	if err != nil {
 		fmt.Printf("%-v", err)
 	}
 }
 
 func (repo *Redis) Delete(key string) {
-	err := repo.client().Del(context.Background(), key).Err()
+	ctx := context.Background()
+	err := repo.client().Del(ctx, key).Err()
 	if err != nil {
 		fmt.Printf("%-v", err)
 	}

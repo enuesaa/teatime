@@ -25,15 +25,20 @@ func (s *Handler) Info() plug.Info {
 		Description: "coredata provider",
 	}
 }
+
 func (h *Handler) List() []string {
-	return make([]string, 0)
+	redis := NewRedis()
+	return redis.Keys("*")
 }
+
 func (h *Handler) Get(id string) plug.Row {
 	return plug.Row{}
 }
+
 func (h *Handler) Set(row plug.Row) error {
 	return nil
 }
+
 func (h *Handler) Del(id string) error {
 	return nil
 }
