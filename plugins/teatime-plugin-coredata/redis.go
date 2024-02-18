@@ -8,17 +8,6 @@ import (
 	"github.com/nitishm/go-rejson/v4"
 )
 
-type RedisRepositoryInterface interface {
-	Keys(pattern string) []string
-	// Get(key string) string
-	// Set(key string, value string)
-	Delete(key string)
-	JsonMget(ids []string) [][]byte
-	JsonGet(key string) []byte
-	JsonSet(key string, value interface{}) error
-	JsonDel(key string) error
-}
-
 type RedisRepository struct{}
 
 func (repo *RedisRepository) client() *redis.Client {

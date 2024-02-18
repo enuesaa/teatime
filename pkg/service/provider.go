@@ -1,18 +1,12 @@
 package service
 
 import (
+	"fmt"
+
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/google/uuid"
 	"github.com/hashicorp/go-plugin"
 )
-
-var ProviderCommandMap = map[string]string {
-	"coredata": "teatime-plugin-coredata",
-}
-
-type ProviderService struct {
-	Name string
-}
 
 func NewProviderService(name string) *ProviderService {
 	return &ProviderService{
@@ -20,8 +14,12 @@ func NewProviderService(name string) *ProviderService {
 	}
 }
 
+type ProviderService struct {
+	Name string
+}
+
 func (srv *ProviderService) GetCommand() string {
-	return ProviderCommandMap[srv.Name]
+	return fmt.Sprintf("teatime-plugin-%s", srv.Name)
 }
 
 func (srv *ProviderService) GetProvider() (plug.ProviderInterface, error) {

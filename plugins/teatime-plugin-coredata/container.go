@@ -2,48 +2,38 @@ package main
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
 )
 
-func ListContainers() error {
-	apiClient, err := client.NewClientWithOpts(client.FromEnv)
-	if err != nil {
-		return err
-	}
-	defer apiClient.Close()
+var containerId = "teatime-redis"
 
-	containers, err := apiClient.ContainerList(context.Background(), container.ListOptions{All: true})
+func CheckRedisExists() (bool, error) {
+	client, err := client.NewClientWithOpts(client.FromEnv)
 	if err != nil {
-		return err
+		return false, err
 	}
-	for _, ctr := range containers {
-		fmt.Printf("%s %s (status: %s)\n", ctr.ID, ctr.Image, ctr.Status)
+	defer client.Close()
+
+	if _, err := client.ContainerInspect(context.Background(), containerId); err != nil {
+		// consider err as container not exists.
+		return false, nil
 	}
-	return nil
+	return true, nil
 }
 
 func StartContainer() error {
-	apiClient, err := client.NewClientWithOpts(client.FromEnv)
+	client, err := client.NewClientWithOpts(client.FromEnv)
 	if err != nil {
 		return err
 	}
-	defer apiClient.Close()
+	defer client.Close()
 
-	_, err = apiClient.ContainerCreate(context.Background(),
-		&container.Config{
-			Image: "redis",
-		},
-		nil,
-		nil,
-		nil,
-		"teatime-redis",
-	)
+	_, err = client.ContainerCreate(context.Background(), &container.Config{ Image: "redis" }, nil, nil, nil, containerId)
 	if err != nil {
 		return err
 	}
 
-	return apiClient.ContainerStart(context.Background(), "teatime-redis", container.StartOptions{})
+	return client.ContainerStart(context.Background(), containerId, container.StartOptions{})
 }

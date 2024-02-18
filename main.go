@@ -1,14 +1,22 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/enuesaa/teatime/pkg/controller"
+	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
+	provider := service.NewProviderService("coredata")
+	if err := provider.Init(); err != nil {
+		// this is correct. do not stop here to show error message on web console.
+		fmt.Printf("Error: %s\n", err.Error())
+	}
+
 	app := echo.New()
 
 	app.Use(middleware.RecoverWithConfig(middleware.DefaultRecoverConfig))
