@@ -23,7 +23,7 @@ func (srv *ProviderService) GetCommand() string {
 }
 
 func (srv *ProviderService) GetProvider() (plug.ProviderInterface, error) {
-	client := plugin.NewClient(plug.NewClientConfig(plug.Connector{}, srv.GetCommand()))
+	client := plugin.NewClient(plug.NewClientConfig(srv.GetCommand()))
 	// defer client.Kill()
 
 	rpcc, err := client.Client()

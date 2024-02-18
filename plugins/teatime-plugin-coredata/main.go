@@ -6,10 +6,7 @@ import (
 )
 
 func main() {
-	connector := plug.Connector{
-		Impl: &Handler{},
-	}
-	plugin.Serve(plug.NewServeConfig(connector))
+	plugin.Serve(plug.NewServeConfig(&Handler{}))
 }
 
 type Handler struct {}
@@ -24,28 +21,20 @@ func (s *Handler) Info() plug.Result[plug.Info] {
 		Name: "coredata",
 		Description: "coredata provider",
 	}
-	return plug.Result[plug.Info]{
-		Data: info,
-	}
+	return plug.NewResult[plug.Info](info)
 }
 
 func (h *Handler) List() plug.Result[[]string] {
 	redis := NewRedis()
 	list, err := redis.Keys("*")
 	if err != nil {
-		return plug.Result[[]string]{
-			Data: make([]string, 0),
-		}
+		return plug.NewErrResult[[]string](err)
 	}
-	return plug.Result[[]string]{
-		Data: list,
-	}
+	return plug.NewResult[[]string](list)
 }
 
 func (h *Handler) Get(id string) plug.Result[plug.Row] {
-	return plug.Result[plug.Row]{
-		Data: plug.Row{},
-	}
+	return plug.NewResult[plug.Row](plug.Row{})
 }
 
 func (h *Handler) Set(row plug.Row) error {

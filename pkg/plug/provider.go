@@ -10,6 +10,18 @@ type Result[T any] struct {
 	Data T
 	Err error
 }
+func NewResult[T any](data T) Result[T] {
+	return Result[T]{
+		Data: data,
+		Err: nil,
+	}
+}
+func NewErrResult[T any](err error) Result[T] {
+	return Result[T]{
+		Data: *new(T),
+		Err: err,
+	}
+}
 
 type ProviderInterface interface {
 	Init() error

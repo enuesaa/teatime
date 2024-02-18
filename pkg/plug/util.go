@@ -13,7 +13,7 @@ func NewServeLogger() hclog.Logger {
 	})
 }
 
-func NewServeConfig(connector Connector) *plugin.ServeConfig {
+func NewServeConfig(impl ProviderInterface) *plugin.ServeConfig {
 	return &plugin.ServeConfig{
 		HandshakeConfig: plugin.HandshakeConfig{
 			ProtocolVersion:  1,
@@ -21,12 +21,14 @@ func NewServeConfig(connector Connector) *plugin.ServeConfig {
 			MagicCookieValue: "hello",
 		},
 		Plugins: map[string]plugin.Plugin{
-			"main": &connector,
+			"main": &Connector{
+				Impl: impl,
+			},
 		},
 	}
 }
 
-func NewClientConfig(connector Connector, command string) *plugin.ClientConfig {
+func NewClientConfig(command string) *plugin.ClientConfig {
 	logger := hclog.New(&hclog.LoggerOptions{
 		Name:  "teatime",
 		DisableTime: true,
@@ -40,7 +42,7 @@ func NewClientConfig(connector Connector, command string) *plugin.ClientConfig {
 			MagicCookieValue: "hello",
 		},
 		Plugins: map[string]plugin.Plugin{
-			"main": &connector,
+			"main": &Connector{},
 		},
 		Logger: logger,
 		Cmd: exec.Command(command),
