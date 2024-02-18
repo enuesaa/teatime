@@ -6,11 +6,16 @@ import (
 	"github.com/hashicorp/go-plugin"
 )
 
+type Result[T any] struct {
+	Data T
+	Err error
+}
+
 type ProviderInterface interface {
 	Init() error
-	Info() Info
-	List() []string
-	Get(id string) Row
+	Info() Result[Info]
+	List() Result[[]string]
+	Get(id string) Result[Row]
 	Set(row Row) error
 	Del(id string) error
 }

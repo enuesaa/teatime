@@ -8,15 +8,15 @@ func (s *ConnectServer) Init(arg interface{}, resp *error) error {
 	*resp = s.Impl.Init()
 	return nil
 }
-func (s *ConnectServer) Info(arg interface{}, resp *Info) error {
+func (s *ConnectServer) Info(arg interface{}, resp *Result[Info]) error {
 	*resp = s.Impl.Info()
 	return nil
 }
-func (s *ConnectServer) List(arg interface{}, resp *[]string) error {
+func (s *ConnectServer) List(arg interface{}, resp *Result[[]string]) error {
 	*resp = s.Impl.List()
 	return nil
 }
-func (s *ConnectServer) Get(id string, resp *Row) error {
+func (s *ConnectServer) Get(id string, resp *Result[Row]) error {
 	*resp = s.Impl.Get(id)
 	return nil
 }

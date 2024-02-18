@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/docker/docker/api/types/container"
 	docker "github.com/docker/docker/client"
@@ -84,33 +83,24 @@ func (repo *Redis) client() *redis.Client {
 	return client
 }
 
-func (repo *Redis) Keys(pattern string) []string {
+func (repo *Redis) Keys(pattern string) ([]string, error) {
 	ctx := context.Background()
-	vals, _ := repo.client().Keys(ctx, pattern).Result()
-	return vals
+	return repo.client().Keys(ctx, pattern).Result()
 }
 
-func (repo *Redis) Get(key string) string {
+func (repo *Redis) Get(key string) (string, error) {
 	ctx := context.Background()
-	val, err := repo.client().Get(ctx, key).Result()
-	if err != nil {
-		val = ""
-	}
-	return val
+	return repo.client().Get(ctx, key).Result()
 }
 
-func (repo *Redis) Set(key string, value string) {
+func (repo *Redis) Set(key string, value string) error {
 	ctx := context.Background()
-	err := repo.client().Set(ctx, key, value, 0).Err()
-	if err != nil {
-		fmt.Printf("%-v", err)
-	}
+	status := repo.client().Set(ctx, key, value, 0)
+	return status.Err()
 }
 
-func (repo *Redis) Delete(key string) {
+func (repo *Redis) Delete(key string) error {
 	ctx := context.Background()
-	err := repo.client().Del(ctx, key).Err()
-	if err != nil {
-		fmt.Printf("%-v", err)
-	}
+	status := repo.client().Del(ctx, key)
+	return status.Err()
 }

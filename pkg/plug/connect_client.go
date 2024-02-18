@@ -14,20 +14,20 @@ func (cc *ConnectClient) Init() error {
 	cc.client.Call("Plugin.Init", new(interface{}), &resp)
 	return resp
 }
-func (cc *ConnectClient) Info() Info {
-	var resp Info
+func (cc *ConnectClient) Info() (Info, error) {
+	var resp Result[Info]
 	cc.client.Call("Plugin.Info", new(interface{}), &resp)
-	return resp
+	return resp.Data, resp.Err
 }
-func (cc *ConnectClient) List() []string {
-	var resp []string
+func (cc *ConnectClient) List() ([]string, error) {
+	var resp Result[[]string]
 	cc.client.Call("Plugin.List", new(interface{}), &resp)
-	return resp
+	return resp.Data, resp.Err
 }
-func (cc *ConnectClient) Get(id string) Row {
-	var resp Row
+func (cc *ConnectClient) Get(id string) (Row, error) {
+	var resp Result[Row]
 	cc.client.Call("Plugin.Get", id, &resp)
-	return resp
+	return resp.Data, resp.Err
 }
 func (cc *ConnectClient) Set(row Row) error {
 	var resp error

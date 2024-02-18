@@ -52,7 +52,8 @@ func (srv *ProviderService) GetInfo() (plug.Info, error) {
 	if err != nil {
 		return plug.Info{}, err
 	}
-	return provider.Info(), nil
+	result := provider.Info()
+	return result.Data, result.Err
 }
 
 func (srv *ProviderService) ListRows() ([]string, error) {
@@ -60,7 +61,8 @@ func (srv *ProviderService) ListRows() ([]string, error) {
 	if err != nil {
 		return make([]string, 0), err
 	}
-	return provider.List(), nil
+	result := provider.List()
+	return result.Data, result.Err
 }
 
 func (srv *ProviderService) GetRow(id string) (plug.Row, error) {
@@ -68,7 +70,8 @@ func (srv *ProviderService) GetRow(id string) (plug.Row, error) {
 	if err != nil {
 		return plug.Row{}, err
 	}
-	return provider.Get(id), nil
+	result := provider.Get(id)
+	return result.Data, result.Err
 }
 
 func (srv *ProviderService) CreateRow(values plug.Values) error {

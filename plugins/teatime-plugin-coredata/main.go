@@ -19,20 +19,33 @@ func (h *Handler) Init() error {
 	return redis.Run()
 }
 
-func (s *Handler) Info() plug.Info {
-	return plug.Info{
+func (s *Handler) Info() plug.Result[plug.Info] {
+	info := plug.Info{
 		Name: "coredata",
 		Description: "coredata provider",
 	}
+	return plug.Result[plug.Info]{
+		Data: info,
+	}
 }
 
-func (h *Handler) List() []string {
+func (h *Handler) List() plug.Result[[]string] {
 	redis := NewRedis()
-	return redis.Keys("*")
+	list, err := redis.Keys("*")
+	if err != nil {
+		return plug.Result[[]string]{
+			Data: make([]string, 0),
+		}
+	}
+	return plug.Result[[]string]{
+		Data: list,
+	}
 }
 
-func (h *Handler) Get(id string) plug.Row {
-	return plug.Row{}
+func (h *Handler) Get(id string) plug.Result[plug.Row] {
+	return plug.Result[plug.Row]{
+		Data: plug.Row{},
+	}
 }
 
 func (h *Handler) Set(row plug.Row) error {
