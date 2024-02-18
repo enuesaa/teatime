@@ -4,24 +4,20 @@ import (
 	"log"
 
 	"github.com/enuesaa/teatime/pkg/controller"
-	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
-	provider := service.NewProviderService("coredata")
-	if err := provider.Init(); err != nil {
-		log.Fatalf("Error: %s", err.Error())
-	}
-
 	app := echo.New()
+
 	app.Use(middleware.RecoverWithConfig(middleware.DefaultRecoverConfig))
 	app.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Format: "method=${method}, uri=${uri}, status=${status}\n",
 	}))
 
 	api := app.Group("/api")
+	api.POST("/init", controller.Init)
 	api.GET("/providers", controller.ListProviders)
 	api.GET("/providers/:name", controller.DescribeProvider)
 	api.GET("/providers/:name/config", controller.DescribeProviderConfig)

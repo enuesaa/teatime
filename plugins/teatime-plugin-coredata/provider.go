@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 
-	// "github.com/enuesaa/teatime/pkg/repository"
 	"github.com/google/uuid"
 )
 
@@ -18,13 +17,9 @@ type ProviderConf struct {
 	Command string `json:"command"`
 }
 
-func NewProviderManageService() *ProviderManageService {
-	return &ProviderManageService{}
-}
+type ProviderService struct {}
 
-type ProviderManageService struct {}
-
-func (srv *ProviderManageService) List() []Record[ProviderConf] {
+func (srv *ProviderService) List() []Record[ProviderConf] {
 	redis := RedisRepository{}
 	keys := redis.Keys("provider:*")
 	list := make([]Record[ProviderConf], 0)
@@ -38,7 +33,7 @@ func (srv *ProviderManageService) List() []Record[ProviderConf] {
 	return list
 }
 
-func (srv *ProviderManageService) Create(conf ProviderConf) (string, error) {
+func (srv *ProviderService) Create(conf ProviderConf) (string, error) {
 	redis := RedisRepository{}
 	id, err := srv.GenId()
 	if err != nil {
@@ -51,7 +46,7 @@ func (srv *ProviderManageService) Create(conf ProviderConf) (string, error) {
 	return id, nil
 }
 
-func (srv *ProviderManageService) Describe(id string) (Record[ProviderConf], error) {
+func (srv *ProviderService) Describe(id string) (Record[ProviderConf], error) {
 	redis := RedisRepository{}
 	data, err := redis.JsonGet(id)
 	if err != nil {
@@ -68,7 +63,7 @@ func (srv *ProviderManageService) Describe(id string) (Record[ProviderConf], err
 	return record, nil
 }
 
-func (srv *ProviderManageService) Update(id string, conf ProviderConf) (string, error) {
+func (srv *ProviderService) Update(id string, conf ProviderConf) (string, error) {
 	redis := RedisRepository{}
 	if err := redis.JsonSet(id, conf); err != nil {
 		return "", err
@@ -76,7 +71,7 @@ func (srv *ProviderManageService) Update(id string, conf ProviderConf) (string, 
 	return id, nil
 }
 
-func (srv *ProviderManageService) Delete(id string) error {
+func (srv *ProviderService) Delete(id string) error {
 	redis := RedisRepository{}
 	if err := redis.JsonDel(id); err != nil {
 		return err
@@ -84,7 +79,7 @@ func (srv *ProviderManageService) Delete(id string) error {
 	return nil
 }
 
-func (srv *ProviderManageService) GenId() (string, error) {
+func (srv *ProviderService) GenId() (string, error) {
 	uid, err := uuid.NewUUID()
 	if err != nil {
 		return "", err
