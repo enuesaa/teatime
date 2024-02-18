@@ -11,36 +11,37 @@ func main() {
 
 type Handler struct {}
 
-func (h *Handler) Init() error {
+func (h *Handler) Init(arg interface{}, resp *error) {
 	redis := NewRedis()
-	return redis.Run()
+	*resp = redis.Run()
 }
 
-func (s *Handler) Info() plug.Result[plug.Info] {
+func (s *Handler) Info(arg interface{}, resp *plug.Result[plug.Info]) {
 	info := plug.Info{
 		Name: "coredata",
 		Description: "coredata provider",
 	}
-	return plug.NewResult[plug.Info](info)
+	*resp = plug.NewResult[plug.Info](info)
 }
 
-func (h *Handler) List() plug.Result[[]string] {
+func (h *Handler) List(arg interface{}, resp *plug.Result[[]string]) {
 	redis := NewRedis()
 	list, err := redis.Keys("*")
 	if err != nil {
-		return plug.NewErrResult[[]string](err)
+		*resp = plug.NewErrResult[[]string](err)
+		return
 	}
-	return plug.NewResult[[]string](list)
+	*resp = plug.NewResult[[]string](list)
 }
 
-func (h *Handler) Get(id string) plug.Result[plug.Row] {
-	return plug.NewResult[plug.Row](plug.Row{})
+func (h *Handler) Get(id string, resp *plug.Result[plug.Row]) {
+	*resp = plug.NewResult[plug.Row](plug.Row{})
 }
 
-func (h *Handler) Set(row plug.Row) error {
-	return nil
+func (h *Handler) Set(row plug.Row, resp *error) {
+	*resp = nil
 }
 
-func (h *Handler) Del(id string) error {
-	return nil
+func (h *Handler) Del(id string, resp *error) {
+	*resp = nil
 }

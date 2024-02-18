@@ -24,20 +24,19 @@ func NewErrResult[T any](err error) Result[T] {
 }
 
 type ProviderInterface interface {
-	Init() error
-	Info() Result[Info]
-	List() Result[[]string]
-	Get(id string) Result[Row]
-	Set(row Row) error
-	Del(id string) error
+	Init(args interface{}, resp *error)
+	Info(args interface{}, resp *Result[Info])
+	List(args interface{}, resp *Result[[]string])
+	Get(id string, resp *Result[Row])
+	Set(row Row, resp *error)
+	Del(id string, resp *error)
 }
 
 type Connector struct {
 	Impl ProviderInterface
 }
-
 func (co *Connector) Server(b *plugin.MuxBroker) (interface{}, error) {
-	return &ConnectServer{Impl: co.Impl}, nil
+	return co.Impl, nil
 }
 func (co *Connector) Client(b *plugin.MuxBroker, c *rpc.Client) (interface{}, error) {
 	return &ConnectClient{client: c}, nil
