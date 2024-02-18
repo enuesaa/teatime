@@ -20,7 +20,7 @@ type ProviderConf struct {
 type ProviderService struct {}
 
 func (srv *ProviderService) List() []Record[ProviderConf] {
-	redis := RedisRepository{}
+	redis := NewRedis()
 	keys := redis.Keys("provider:*")
 	list := make([]Record[ProviderConf], 0)
 	for _, key := range keys {
@@ -34,7 +34,7 @@ func (srv *ProviderService) List() []Record[ProviderConf] {
 }
 
 func (srv *ProviderService) Create(conf ProviderConf) (string, error) {
-	redis := RedisRepository{}
+	redis := NewRedis()
 	id, err := srv.GenId()
 	if err != nil {
 		return "", err
@@ -47,7 +47,7 @@ func (srv *ProviderService) Create(conf ProviderConf) (string, error) {
 }
 
 func (srv *ProviderService) Describe(id string) (Record[ProviderConf], error) {
-	redis := RedisRepository{}
+	redis := NewRedis()
 	data, err := redis.JsonGet(id)
 	if err != nil {
 		return *new(Record[ProviderConf]), err
@@ -64,7 +64,7 @@ func (srv *ProviderService) Describe(id string) (Record[ProviderConf], error) {
 }
 
 func (srv *ProviderService) Update(id string, conf ProviderConf) (string, error) {
-	redis := RedisRepository{}
+	redis := NewRedis()
 	if err := redis.JsonSet(id, conf); err != nil {
 		return "", err
 	}
@@ -72,7 +72,7 @@ func (srv *ProviderService) Update(id string, conf ProviderConf) (string, error)
 }
 
 func (srv *ProviderService) Delete(id string) error {
-	redis := RedisRepository{}
+	redis := NewRedis()
 	if err := redis.JsonDel(id); err != nil {
 		return err
 	}

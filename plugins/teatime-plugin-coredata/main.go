@@ -15,21 +15,8 @@ func main() {
 type Handler struct {}
 
 func (h *Handler) Init() error {
-	containerSrv := ContainerService{}
-	client, err := containerSrv.NewClient()
-	if err != nil {
-		return err
-	}
-	defer client.Close()
-
-	is, err := containerSrv.IsExist(client)
-	if err != nil {
-		return err
-	}
-	if !is {
-		return containerSrv.Start(client)
-	}
-	return nil
+	redis := NewRedis()
+	return redis.Run()
 }
 
 func (s *Handler) Info() plug.Info {
