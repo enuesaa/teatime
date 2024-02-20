@@ -8,64 +8,63 @@ import (
 )
 
 func main() {
-	plug.Serve(&Handler{})
+	handler := Handler{
+		redis: NewRedis(),
+	}
+	plug.Serve(&handler)
 }
 
-type Handler struct {}
+type Handler struct {
+	redis Redis
+}
 
 func (h *Handler) Init() error {
-	redis := NewRedis()
-	return redis.Run()
+	return h.redis.Run()
 }
 
-func (s *Handler) Info() plug.Result[plug.Info] {
+func (s *Handler) Info() plug.InfoResult {
 	info := plug.Info{
 		Name: "coredata",
 		Description: "coredata provider",
 	}
-	return plug.NewResult[plug.Info](info)
+	return plug.NewInfoResult(info)
 }
 
-func (h *Handler) List() plug.Result[[]string] {
-	redis := NewRedis()
-	list, err := redis.Keys("*")
+func (h *Handler) List() plug.ListResult {
+	list, err := h.redis.Keys("*")
 	if err != nil {
-		return plug.NewErrResult[[]string](err)
+		return plug.NewListErrResult(err)
 	}
-	return plug.NewResult[[]string](list)
+	return plug.NewListResult(list)
 }
 
-func (h *Handler) Get(id string) plug.Result[plug.Row] {
-	redis := NewRedis()
-	pattern := fmt.Sprintf("%s:", id)
-	keys, err := redis.Keys(pattern)
+func (h *Handler) Get(id string) plug.GetResult {
+	keys, err := h.redis.Keys(h.fmtPattern(id))
 	if err != nil {
-		return plug.NewErrResult[plug.Row](err)
+		return plug.NewGetErrResult(err)
 	}
 	row := plug.Row{
 		Id: id,
 		Values: make(plug.Values, 0),
 	}
 	for _, key := range keys {
-		val, err := redis.Get(key)
+		val, err := h.redis.Get(key)
 		if err != nil {
-			return plug.NewErrResult[plug.Row](err)
+			return plug.NewGetErrResult(err)
 		}
-		name := strings.TrimPrefix(key, fmt.Sprintf("%s:", id))
+		_, name := h.splitKey(key)
 		row.Values[name] = val
 	}
 
-	return plug.NewResult[plug.Row](row)
+	return plug.NewGetResult(row)
 }
 
 func (h *Handler) Set(row plug.Row) error {
 	if err := h.Del(row.Id); err != nil {
 		return err
 	}
-	redis := NewRedis()
 	for name, value := range row.Values {
-		key := fmt.Sprintf("%s:%s", row.Id, name)
-		if err := redis.Set(key, value); err != nil {
+		if err := h.redis.Set(h.fmtKey(row.Id, name), value); err != nil {
 			return err
 		}
 	}
@@ -73,16 +72,30 @@ func (h *Handler) Set(row plug.Row) error {
 }
 
 func (h *Handler) Del(id string) error {
-	redis := NewRedis()
-	pattern := fmt.Sprintf("%s:", id)
-	keys, err := redis.Keys(pattern)
+	keys, err := h.redis.Keys(h.fmtPattern(id))
 	if err != nil {
 		return err
 	}
 	for _, key := range keys {
-		if err := redis.Delete(key); err != nil {
+		if err := h.redis.Delete(key); err != nil {
 			return err
 		}
 	}
 	return nil
+}
+
+func (h *Handler) fmtKey(id string, name string) string {
+	return fmt.Sprintf("%s:%s", id, name)
+}
+
+func (h *Handler) fmtPattern(id string) string {
+	return fmt.Sprintf("%s:*", id)
+}
+
+func (h *Handler) splitKey(key string) (string, string) {
+	splitted := strings.Split(key, ":")
+	if len(splitted) == 2 {
+		return splitted[0], splitted[1]
+	}
+	return "", ""
 }

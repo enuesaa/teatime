@@ -2,9 +2,9 @@ package plug
 
 type ProviderInterface interface {
 	Init() error
-	Info() Result[Info]
-	List() Result[[]string]
-	Get(id string) Result[Row]
+	Info() InfoResult
+	List() ListResult
+	Get(id string) GetResult
 	Set(row Row) error
 	Del(id string) error
 }
@@ -23,15 +23,45 @@ type Result[T any] struct {
 	Data T
 	Err error
 }
-func NewResult[T any](data T) Result[T] {
-	return Result[T]{
+
+type InfoResult = Result[Info]
+func NewInfoResult(data Info) InfoResult {
+	return InfoResult{
 		Data: data,
 		Err: nil,
 	}
 }
-func NewErrResult[T any](err error) Result[T] {
-	return Result[T]{
-		Data: *new(T),
+func NewInfoErrResult(err error) InfoResult {
+	return InfoResult{
+		Data: Info{},
+		Err: err,
+	}
+}
+
+type ListResult = Result[[]string]
+func NewListResult(data []string) ListResult {
+	return ListResult{
+		Data: data,
+		Err: nil,
+	}
+}
+func NewListErrResult(err error) ListResult {
+	return ListResult{
+		Data: make([]string, 0),
+		Err: err,
+	}
+}
+
+type GetResult = Result[Row]
+func NewGetResult(data Row) GetResult {
+	return GetResult{
+		Data: data,
+		Err: nil,
+	}
+}
+func NewGetErrResult(err error) GetResult {
+	return GetResult{
+		Data: Row{},
 		Err: err,
 	}
 }
