@@ -1,17 +1,16 @@
 package controller
 
 import (
-	"fmt"
-
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/labstack/echo/v4"
 )
 
 var validationRules = map[string]interface{}{
-	"name": "required",
+	"name":        "required",
 	"description": "required",
 }
+
 func ListRows(c echo.Context) error {
 	res := NewListResponse[IdSchema]()
 
@@ -30,7 +29,7 @@ func ListRows(c echo.Context) error {
 }
 
 func DescribeRow(c echo.Context) error {
-    id := c.Param("id")
+	id := c.Param("id")
 
 	providerSrv := service.NewProviderService("coredata")
 	row, err := providerSrv.GetRow(id)
@@ -43,7 +42,7 @@ func DescribeRow(c echo.Context) error {
 
 func CreateRow(c echo.Context) error {
 	var values plug.Values
-	if err := ValidateMap(c, &values, validationRules); err != nil {
+	if err := Validate(c, &values, validationRules); err != nil {
 		return err
 	}
 	providerSrv := service.NewProviderService("coredata")
@@ -55,10 +54,10 @@ func CreateRow(c echo.Context) error {
 }
 
 func UpdateRow(c echo.Context) error {
-    id := c.Param("id")
+	id := c.Param("id")
 
 	var values plug.Values
-	if err := ValidateMap(c, &values, validationRules); err != nil {
+	if err := Validate(c, &values, validationRules); err != nil {
 		return err
 	}
 	providerSrv := service.NewProviderService("coredata")

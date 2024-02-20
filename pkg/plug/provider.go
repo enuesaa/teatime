@@ -21,47 +21,50 @@ type Values map[string]string
 
 type Result[T any] struct {
 	Data T
-	Err error
+	Err  error
 }
 
 type InfoResult = Result[Info]
+
 func NewInfoResult(data Info) InfoResult {
 	return InfoResult{
 		Data: data,
-		Err: nil,
+		Err:  nil,
 	}
 }
 func NewInfoErrResult(err error) InfoResult {
 	return InfoResult{
 		Data: Info{},
-		Err: err,
+		Err:  err,
 	}
 }
 
 type ListResult = Result[[]string]
+
 func NewListResult(data []string) ListResult {
 	return ListResult{
 		Data: data,
-		Err: nil,
+		Err:  nil,
 	}
 }
 func NewListErrResult(err error) ListResult {
 	return ListResult{
 		Data: make([]string, 0),
-		Err: err,
+		Err:  err,
 	}
 }
 
 type GetResult = Result[Row]
+
 func NewGetResult(data Row) GetResult {
 	return GetResult{
 		Data: data,
-		Err: nil,
+		Err:  nil,
 	}
 }
 func NewGetErrResult(err error) GetResult {
 	return GetResult{
 		Data: Row{},
-		Err: err,
+		Err:  err,
 	}
 }

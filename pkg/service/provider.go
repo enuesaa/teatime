@@ -63,8 +63,8 @@ func (srv *ProviderService) CreateRow(values plug.Values) (string, error) {
 		return "", err
 	}
 	id := uuid.NewString()
-	row := plug.Row {
-		Id: id,
+	row := plug.Row{
+		Id:     id,
 		Values: values,
 	}
 	if err := provider.Set(row); err != nil {
@@ -78,8 +78,8 @@ func (srv *ProviderService) UpdateRow(id string, values plug.Values) (string, er
 	if err != nil {
 		return id, err
 	}
-	row := plug.Row {
-		Id: id,
+	row := plug.Row{
+		Id:     id,
 		Values: values,
 	}
 	if err := provider.Set(row); err != nil {

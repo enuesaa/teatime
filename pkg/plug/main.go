@@ -25,9 +25,9 @@ func Serve(impl ProviderInterface) {
 
 func NewClient(command string) *plugin.Client {
 	logger := hclog.New(&hclog.LoggerOptions{
-		Name:  "teatime",
+		Name:        "teatime",
 		DisableTime: true,
-		Level: hclog.Info,
+		Level:       hclog.Info,
 	})
 	config := plugin.ClientConfig{
 		HandshakeConfig: plugin.HandshakeConfig{
@@ -39,9 +39,9 @@ func NewClient(command string) *plugin.Client {
 			"main": &Connector{},
 		},
 		Logger: logger,
-		Cmd: exec.Command(command),
+		Cmd:    exec.Command(command),
 	}
-	
+
 	return plugin.NewClient(&config)
 }
 
