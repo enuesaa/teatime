@@ -69,6 +69,13 @@ func (srv *ProviderService) CreateRow(values plug.Values) error {
 	return provider.Set(row)
 }
 
+func (srv *ProviderService) UpdateRow(id string, values plug.Values) error {
+	if err := srv.DeleteRow(id); err != nil {
+		return err
+	}
+	return srv.CreateRow(values)
+}
+
 func (srv *ProviderService) DeleteRow(id string) error {
 	provider, err := srv.GetProvider()
 	if err != nil {
