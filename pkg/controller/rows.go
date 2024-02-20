@@ -7,8 +7,8 @@ import (
 )
 
 type Note struct {
-	Name string
-	Description string
+	Name string `json:"name" validate:"required"`
+	Description string `json:"description" validate:"required"`
 }
 func ListRows(c echo.Context) error {
 	res := NewListResponse[IdSchema]()
@@ -53,11 +53,11 @@ func CreateRow(c echo.Context) error {
 		"description": note.Description,
 	}
 	providerSrv := service.NewProviderService("coredata")
-	if err := providerSrv.CreateRow(values); err != nil {
+	id, err := providerSrv.CreateRow(values)
+	if err != nil {
 		return err
 	}
-
-	return c.JSON(200, NewIdSchema("a"))
+	return c.JSON(200, NewIdSchema(id))
 }
 
 func UpdateRow(c echo.Context) error {
@@ -72,10 +72,11 @@ func UpdateRow(c echo.Context) error {
 		"description": note.Description,
 	}
 	providerSrv := service.NewProviderService("coredata")
-	if err := providerSrv.UpdateRow(id, values); err != nil {
+	_, err := providerSrv.UpdateRow(id, values)
+	if err != nil {
 		return err
 	}
-	return c.JSON(200, NewIdSchema("a"))
+	return c.JSON(200, NewIdSchema(id))
 }
 
 func DeleteRow(c echo.Context) error {

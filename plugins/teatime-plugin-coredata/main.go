@@ -31,9 +31,14 @@ func (s *Handler) Info() plug.InfoResult {
 }
 
 func (h *Handler) List() plug.ListResult {
-	list, err := h.redis.Keys("*")
+	keys, err := h.redis.Keys("*:id")
 	if err != nil {
 		return plug.NewListErrResult(err)
+	}
+	list := make([]string, 0)
+	for _, key := range keys {
+		id, _ := h.splitKey(key)
+		list = append(list, id)
 	}
 	return plug.NewListResult(list)
 }
@@ -53,6 +58,9 @@ func (h *Handler) Get(id string) plug.GetResult {
 			return plug.NewGetErrResult(err)
 		}
 		_, name := h.splitKey(key)
+		if name == "id" {
+			continue
+		}
 		row.Values[name] = val
 	}
 
@@ -61,6 +69,9 @@ func (h *Handler) Get(id string) plug.GetResult {
 
 func (h *Handler) Set(row plug.Row) error {
 	if err := h.Del(row.Id); err != nil {
+		return err
+	}
+	if err := h.redis.Set(h.fmtKey(row.Id, "id"), ""); err != nil {
 		return err
 	}
 	for name, value := range row.Values {

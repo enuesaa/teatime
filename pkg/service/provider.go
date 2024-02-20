@@ -57,23 +57,35 @@ func (srv *ProviderService) GetRow(id string) (plug.Row, error) {
 	return result.Data, result.Err
 }
 
-func (srv *ProviderService) CreateRow(values plug.Values) error {
+func (srv *ProviderService) CreateRow(values plug.Values) (string, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
-		return err
+		return "", err
 	}
+	id := uuid.NewString()
 	row := plug.Row {
-		Id: uuid.NewString(),
+		Id: id,
 		Values: values,
 	}
-	return provider.Set(row)
+	if err := provider.Set(row); err != nil {
+		return "", err
+	}
+	return id, nil
 }
 
-func (srv *ProviderService) UpdateRow(id string, values plug.Values) error {
-	if err := srv.DeleteRow(id); err != nil {
-		return err
+func (srv *ProviderService) UpdateRow(id string, values plug.Values) (string, error) {
+	provider, err := srv.GetProvider()
+	if err != nil {
+		return id, err
 	}
-	return srv.CreateRow(values)
+	row := plug.Row {
+		Id: id,
+		Values: values,
+	}
+	if err := provider.Set(row); err != nil {
+		return "", err
+	}
+	return id, nil
 }
 
 func (srv *ProviderService) DeleteRow(id string) error {
