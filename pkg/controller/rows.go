@@ -40,13 +40,9 @@ func DescribeRow(c echo.Context) error {
 }
 
 func CreateRow(c echo.Context) error {
-	var data map[string]interface{}
-	if err := ValidateMap(c, &data, validationRules); err != nil {
-		return err
-	}
-	values := plug.Values{}
-	for name, val := range data {
-		values[name] = val.(string)
+	var values plug.Values
+	if err := ValidateMap(c, &values, validationRules); err != nil {
+		return c.JSON(422, err)
 	}
 	providerSrv := service.NewProviderService("coredata")
 	id, err := providerSrv.CreateRow(values)
@@ -59,13 +55,9 @@ func CreateRow(c echo.Context) error {
 func UpdateRow(c echo.Context) error {
     id := c.Param("id")
 
-	var data map[string]interface{}
-	if err := ValidateMap(c, &data, validationRules); err != nil {
-		return err
-	}
-	values := plug.Values{}
-	for name, val := range data {
-		values[name] = val.(string)
+	var values plug.Values
+	if err := ValidateMap(c, &values, validationRules); err != nil {
+		return c.JSON(422, err)
 	}
 	providerSrv := service.NewProviderService("coredata")
 	_, err := providerSrv.UpdateRow(id, values)

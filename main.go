@@ -7,7 +7,6 @@ import (
 	"github.com/enuesaa/teatime/pkg/controller"
 	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
@@ -18,8 +17,6 @@ func main() {
 	}
 
 	app := echo.New()
-
-	app.Use(middleware.RecoverWithConfig(middleware.DefaultRecoverConfig))
 
 	api := app.Group("/api")
 	api.GET("/rows", controller.ListRows)
