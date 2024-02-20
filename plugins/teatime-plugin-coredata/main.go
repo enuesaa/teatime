@@ -4,16 +4,10 @@ import (
 	"fmt"
 
 	"github.com/enuesaa/teatime/pkg/plug"
-	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/go-plugin"
 )
 
-var logger = hclog.New(&hclog.LoggerOptions{
-	JSONFormat: true,
-})
-
 func main() {
-	plugin.Serve(plug.NewServeConfig(&Handler{}))
+	plug.Serve(&Handler{})
 }
 
 type Handler struct {}

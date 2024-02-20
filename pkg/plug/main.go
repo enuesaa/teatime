@@ -7,14 +7,8 @@ import (
 	"github.com/hashicorp/go-plugin"
 )
 
-func NewServeLogger() hclog.Logger {
-	return hclog.New(&hclog.LoggerOptions{
-		JSONFormat: true,
-	})
-}
-
-func NewServeConfig(impl ProviderInterface) *plugin.ServeConfig {
-	return &plugin.ServeConfig{
+func Serve(impl ProviderInterface) {
+	config := plugin.ServeConfig{
 		HandshakeConfig: plugin.HandshakeConfig{
 			ProtocolVersion:  1,
 			MagicCookieKey:   "hey",
@@ -26,16 +20,16 @@ func NewServeConfig(impl ProviderInterface) *plugin.ServeConfig {
 			},
 		},
 	}
+	plugin.Serve(&config)
 }
 
-func NewClientConfig(command string) *plugin.ClientConfig {
+func Client(command string) *plugin.Client {
 	logger := hclog.New(&hclog.LoggerOptions{
 		Name:  "teatime",
 		DisableTime: true,
 		Level: hclog.Info,
 	})
-
-	return &plugin.ClientConfig{
+	config := plugin.ClientConfig{
 		HandshakeConfig: plugin.HandshakeConfig{
 			ProtocolVersion:  1,
 			MagicCookieKey:   "hey",
@@ -47,4 +41,6 @@ func NewClientConfig(command string) *plugin.ClientConfig {
 		Logger: logger,
 		Cmd: exec.Command(command),
 	}
+	
+	return plugin.NewClient(&config)
 }

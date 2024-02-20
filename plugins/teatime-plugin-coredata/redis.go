@@ -6,6 +6,7 @@ import (
 	"github.com/docker/docker/api/types/container"
 	docker "github.com/docker/docker/client"
 	"github.com/docker/go-connections/nat"
+	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/go-redis/redis/v8"
 	"github.com/labstack/gommon/log"
 )
@@ -84,8 +85,7 @@ func (repo *Redis) client() *redis.Client {
 }
 
 func (repo *Redis) Keys(pattern string) ([]string, error) {
-	logger.Info("pattern")
-	logger.Info(pattern)
+	plug.Log("pattern %s", pattern)
 
 	ctx := context.Background()
 	return repo.client().Keys(ctx, pattern).Result()

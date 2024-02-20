@@ -5,7 +5,6 @@ import (
 
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/google/uuid"
-	"github.com/hashicorp/go-plugin"
 )
 
 func NewProviderService(name string) *ProviderService {
@@ -23,7 +22,7 @@ func (srv *ProviderService) GetCommand() string {
 }
 
 func (srv *ProviderService) GetProvider() (plug.ProviderInterface, error) {
-	client := plugin.NewClient(plug.NewClientConfig(srv.GetCommand()))
+	client := plug.Client(srv.GetCommand())
 	// defer client.Kill()
 
 	rpcc, err := client.Client()
