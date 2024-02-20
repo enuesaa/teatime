@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"fmt"
+
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/labstack/echo/v4"
@@ -42,7 +44,7 @@ func DescribeRow(c echo.Context) error {
 func CreateRow(c echo.Context) error {
 	var values plug.Values
 	if err := ValidateMap(c, &values, validationRules); err != nil {
-		return c.JSON(422, err)
+		return err
 	}
 	providerSrv := service.NewProviderService("coredata")
 	id, err := providerSrv.CreateRow(values)
@@ -57,7 +59,7 @@ func UpdateRow(c echo.Context) error {
 
 	var values plug.Values
 	if err := ValidateMap(c, &values, validationRules); err != nil {
-		return c.JSON(422, err)
+		return err
 	}
 	providerSrv := service.NewProviderService("coredata")
 	_, err := providerSrv.UpdateRow(id, values)

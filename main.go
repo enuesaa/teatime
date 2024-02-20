@@ -17,6 +17,7 @@ func main() {
 	}
 
 	app := echo.New()
+	app.Use(controller.HandleError)
 
 	api := app.Group("/api")
 	api.GET("/rows", controller.ListRows)

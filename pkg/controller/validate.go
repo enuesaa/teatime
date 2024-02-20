@@ -21,15 +21,10 @@ func Validate(c echo.Context, reqbody interface{}) error {
 	return nil
 }
 
-type ValidationErrors struct {
+type AppValidationError struct {
 	error
-	Errors []ValidationError `json:"errors"`
+	Errors []AppErrItem `json:"errors"`
 }
-type ValidationError struct {
-	Path string `json:"path"`
-	Message string `json:"message"`
-}
-
 func ValidateMap(c echo.Context, reqbody *plug.Values, rules map[string]interface{}) error {
 	if err := c.Bind(&reqbody); err != nil {
 		return err
@@ -41,12 +36,12 @@ func ValidateMap(c echo.Context, reqbody *plug.Values, rules map[string]interfac
 	}
 	v := validator.New()
 	if errs := v.ValidateMap(validateData, rules); len(errs) > 0 {
-		vaerrs := ValidationErrors{
-			Errors: make([]ValidationError, 0),
+		vaerrs := AppValidationError{
+			Errors: make([]AppErrItem, 0),
 		}
 		for path, errdetail := range errs {
 			err := errdetail.(validator.ValidationErrors)[0]
-			vaerrs.Errors = append(vaerrs.Errors, ValidationError{
+			vaerrs.Errors = append(vaerrs.Errors, AppErrItem{
 				Path: path,
 				Message: fmt.Sprintf("something wrong with %s", err.Tag()),
 			})
