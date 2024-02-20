@@ -6,9 +6,9 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type Note struct {
-	Name string `json:"name" validate:"required"`
-	Description string `json:"description" validate:"required"`
+var validationRules = map[string]interface{}{
+	"name": "required",
+	"description": "required",
 }
 func ListRows(c echo.Context) error {
 	res := NewListResponse[IdSchema]()
@@ -35,22 +35,18 @@ func DescribeRow(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	note := Note {
-		Name: row.Values["name"],
-		Description: row.Values["description"],
-	}
-	res := NewDescribeResponse[Note](note)
+	res := NewDescribeResponse[map[string]string](row.Values)
 	return c.JSON(200, res)
 }
 
 func CreateRow(c echo.Context) error {
-	var note Note
-	if err := Validate(c, &note); err != nil {
+	var data map[string]interface{}
+	if err := ValidateMap(c, &data, validationRules); err != nil {
 		return err
 	}
-	values := plug.Values{
-		"name": note.Name,
-		"description": note.Description,
+	values := plug.Values{}
+	for name, val := range data {
+		values[name] = val.(string)
 	}
 	providerSrv := service.NewProviderService("coredata")
 	id, err := providerSrv.CreateRow(values)
@@ -63,13 +59,13 @@ func CreateRow(c echo.Context) error {
 func UpdateRow(c echo.Context) error {
     id := c.Param("id")
 
-	var note Note
-	if err := Validate(c, &note); err != nil {
+	var data map[string]interface{}
+	if err := ValidateMap(c, &data, validationRules); err != nil {
 		return err
 	}
-	values := plug.Values{
-		"name": note.Name,
-		"description": note.Description,
+	values := plug.Values{}
+	for name, val := range data {
+		values[name] = val.(string)
 	}
 	providerSrv := service.NewProviderService("coredata")
 	_, err := providerSrv.UpdateRow(id, values)
