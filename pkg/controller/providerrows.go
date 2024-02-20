@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"github.com/enuesaa/teatime/pkg/plug"
+	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/labstack/echo/v4"
 )
 
@@ -20,6 +22,11 @@ func DescribeProviderRow(c echo.Context) error {
 }
 
 func CreateProviderRow(c echo.Context) error {
+	providerSrv := service.NewProviderService("coredata")
+	providerSrv.CreateRow(plug.Values{
+		"a": "b",
+		"c": "d",
+	})
 	return c.JSON(200, NewIdSchema("a"))
 }
 
