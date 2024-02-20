@@ -20,9 +20,6 @@ func main() {
 	app := echo.New()
 
 	app.Use(middleware.RecoverWithConfig(middleware.DefaultRecoverConfig))
-	app.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
-		Format: "method=${method}, uri=${uri}, status=${status}\n",
-	}))
 
 	api := app.Group("/api")
 	api.GET("/providers", controller.ListProviders)

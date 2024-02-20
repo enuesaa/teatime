@@ -84,6 +84,9 @@ func (repo *Redis) client() *redis.Client {
 }
 
 func (repo *Redis) Keys(pattern string) ([]string, error) {
+	logger.Info("pattern")
+	logger.Info(pattern)
+
 	ctx := context.Background()
 	return repo.client().Keys(ctx, pattern).Result()
 }

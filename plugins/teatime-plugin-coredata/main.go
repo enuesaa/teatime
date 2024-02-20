@@ -1,9 +1,16 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/enuesaa/teatime/pkg/plug"
+	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/go-plugin"
 )
+
+var logger = hclog.New(&hclog.LoggerOptions{
+	JSONFormat: true,
+})
 
 func main() {
 	plugin.Serve(plug.NewServeConfig(&Handler{}))
@@ -25,6 +32,7 @@ func (s *Handler) Info() plug.Result[plug.Info] {
 }
 
 func (h *Handler) List() plug.Result[[]string] {
+	fmt.Println("aaa")
 	redis := NewRedis()
 	list, err := redis.Keys("*")
 	if err != nil {
