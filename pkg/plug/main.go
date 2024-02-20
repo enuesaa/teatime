@@ -23,7 +23,7 @@ func Serve(impl ProviderInterface) {
 	plugin.Serve(&config)
 }
 
-func Client(command string) *plugin.Client {
+func NewClient(command string) *plugin.Client {
 	logger := hclog.New(&hclog.LoggerOptions{
 		Name:  "teatime",
 		DisableTime: true,
@@ -43,4 +43,21 @@ func Client(command string) *plugin.Client {
 	}
 	
 	return plugin.NewClient(&config)
+}
+
+func Run(command string) (ProviderInterface, error) {
+	client := NewClient(command)
+	// defer client.Kill()
+
+	rpcc, err := client.Client()
+	if err != nil {
+		return nil, err
+	}
+
+	raw, err := rpcc.Dispense("main")
+	if err != nil {
+		return nil, err
+	}
+
+	return raw.(ProviderInterface), nil
 }

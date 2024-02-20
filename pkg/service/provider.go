@@ -17,25 +17,9 @@ type ProviderService struct {
 	Name string
 }
 
-func (srv *ProviderService) GetCommand() string {
-	return fmt.Sprintf("teatime-plugin-%s", srv.Name)
-}
-
 func (srv *ProviderService) GetProvider() (plug.ProviderInterface, error) {
-	client := plug.Client(srv.GetCommand())
-	// defer client.Kill()
-
-	rpcc, err := client.Client()
-	if err != nil {
-		return nil, err
-	}
-
-	raw, err := rpcc.Dispense("main")
-	if err != nil {
-		return nil, err
-	}
-
-	return raw.(plug.ProviderInterface), nil
+	command := fmt.Sprintf("teatime-plugin-%s", srv.Name)
+	return plug.Run(command)
 }
 
 func (srv *ProviderService) Init() error {
