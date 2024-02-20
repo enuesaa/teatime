@@ -17,6 +17,7 @@ func main() {
 	}
 
 	app := echo.New()
+	app.Use(controller.HandleData)
 	app.Use(controller.HandleError)
 
 	api := app.Group("/api")

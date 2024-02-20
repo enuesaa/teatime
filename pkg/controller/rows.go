@@ -12,7 +12,7 @@ var validationRules = map[string]interface{}{
 }
 
 func ListRows(c echo.Context) error {
-	res := NewListResponse[IdSchema]()
+	list := make([]IdSchema, 0)
 
 	providerSrv := service.NewProviderService("coredata")
 	ids, err := providerSrv.ListRows()
@@ -20,12 +20,12 @@ func ListRows(c echo.Context) error {
 		return err
 	}
 	for _, id := range ids {
-		res.Items = append(res.Items, IdSchema{
+		list = append(list, IdSchema{
 			Id: id,
 		})
 	}
 
-	return c.JSON(200, res)
+	return WithData(c, list)
 }
 
 func DescribeRow(c echo.Context) error {
@@ -36,8 +36,8 @@ func DescribeRow(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	res := NewDescribeResponse[map[string]string](row.Values)
-	return c.JSON(200, res)
+
+	return WithData(c, row.Values)
 }
 
 func CreateRow(c echo.Context) error {
@@ -50,7 +50,7 @@ func CreateRow(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	return c.JSON(200, NewIdSchema(id))
+	return WithData(c, NewIdSchema(id))
 }
 
 func UpdateRow(c echo.Context) error {
@@ -65,7 +65,7 @@ func UpdateRow(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	return c.JSON(200, NewIdSchema(id))
+	return WithData(c, NewIdSchema(id))
 }
 
 func DeleteRow(c echo.Context) error {
@@ -76,5 +76,5 @@ func DeleteRow(c echo.Context) error {
 		return err
 	}
 
-	return c.JSON(200, NewEmptySchema())
+	return WithData(c, NewEmptySchema())
 }
