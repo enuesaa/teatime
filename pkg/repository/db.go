@@ -1,7 +1,13 @@
 package repository
 
 import (
+	"context"
+	"database/sql"
 	"fmt"
+
+	"github.com/enuesaa/teatime/pkg/db/tutorial"
+	pkgdb "github.com/enuesaa/teatime/pkg/db"
+	_ "modernc.org/sqlite"
 )
 
 type DbRepositoryInterface interface {
@@ -11,23 +17,33 @@ type DbRepositoryInterface interface {
 
 type DbRepository struct {}
 
-func (repo *DbRepository) dsn() (string, error) {
-	dbPath := "./a.db"
+func (repo *DbRepository) dsn() string {
+	dbPath := "test.db"
 	dsn := fmt.Sprintf("file:%s?_fk=1", dbPath)
 
-	return dsn, nil
+	return dsn
 }
 
 func (repo *DbRepository) Open() error {
-	_, err := repo.dsn()
+	ctx := context.Background()
+
+	db, err := sql.Open("sqlite", repo.dsn())
 	if err != nil {
 		return err
 	}
-	// client, err := ent.Open(dialect.SQLite, dsn)
-	// if err != nil {
-	// 	return err
-	// }
-	// repo.client = client
+	// create tables
+	if _, err := db.ExecContext(ctx, pkgdb.Ddl); err != nil {
+		return err
+	}
+	queries := tutorial.New(db)
+	author, err := queries.CreateAuthor(ctx, tutorial.CreateAuthorParams{
+		Name: "aa",
+	})
+	if err != nil {
+		return err
+	}
+	fmt.Println(author)
+
 	return nil
 }
 
