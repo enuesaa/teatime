@@ -13,12 +13,10 @@ import (
 )
 
 func main() {
-	db := repository.DbRepository{}
-	if err := db.Open(); err != nil {
+	repos := repository.New()
+	if err := repos.DB.Open(); err != nil {
 		log.Fatalf(err.Error())
 	}
-
-
 	return
 
 	provider := service.NewProviderService("coredata")
