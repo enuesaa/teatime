@@ -4,16 +4,21 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	_ "embed"
 
-	"github.com/enuesaa/teatime/pkg/db/tutorial"
-	pkgdb "github.com/enuesaa/teatime/pkg/db"
+	"github.com/enuesaa/teatime/pkg/repository/dbq"
 	_ "modernc.org/sqlite"
 )
+
+//go:generate sqlc generate --file db.yaml
 
 type DbRepositoryInterface interface {
 	Open() error
 	Close() error
 }
+
+//go:embed dbschema.sql
+var ddl string
 
 type DbRepository struct {}
 
@@ -32,11 +37,11 @@ func (repo *DbRepository) Open() error {
 		return err
 	}
 	// create tables
-	if _, err := db.ExecContext(ctx, pkgdb.Ddl); err != nil {
+	if _, err := db.ExecContext(ctx, ddl); err != nil {
 		return err
 	}
-	queries := tutorial.New(db)
-	author, err := queries.CreateAuthor(ctx, tutorial.CreateAuthorParams{
+	queries := dbq.New(db)
+	author, err := queries.CreateAuthor(ctx, dbq.CreateAuthorParams{
 		Name: "aa",
 	})
 	if err != nil {
