@@ -7,6 +7,25 @@ type ProviderInterface interface {
 	Get(id string) GetResult
 	Set(row Row) error
 	Del(id string) error
+
+	// ListCards() []string
+	// GetCard(name string) Card
+
+	// ListActions() []Action
+	// Trigger(name string) // this may accept input data in the future.
+}
+
+type Card struct {
+	Name string `json:"name"`
+	Title string `json:"title"`
+	Description string `json:"description"`
+	Type string `json:"type"` // text
+	Text string `json:"text"`
+}
+
+type Action struct {
+	Name string `json:"name"`
+	On []string `json:"on"` // manual, created, updated
 }
 
 type Info struct {
