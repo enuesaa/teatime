@@ -8,11 +8,7 @@ type ProviderInterface interface {
 	Set(row Row) error
 	Del(id string) error
 
-	// ListCards() []string
 	// GetCard(name string) Card
-
-	// ListActions() []Action
-	// Trigger(name string) // this may accept input data in the future.
 }
 
 type Card struct {
@@ -31,6 +27,9 @@ type Action struct {
 type Info struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
+	// schemas
+	// cards
+	Cards []string `json:"cards"`
 }
 type Row struct {
 	Id     string `json:"id"`
