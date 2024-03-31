@@ -25,7 +25,11 @@ func (s *Handler) Info() plug.InfoResult {
 
 func (h *Handler) List() plug.ListResult {
 	repos := repository.New()
-	queries, err := repos.DB.Open()
+	if err := repos.DB.Open(); err != nil {
+		return plug.NewListErrResult(err)
+	}
+	queries, err := repos.DB.Query()
+	repos.DB.Close()
 	if err != nil {
 		return plug.NewListErrResult(err)
 	}

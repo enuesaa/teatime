@@ -3,65 +3,70 @@ package repository
 import (
 	"context"
 	"database/sql"
-	"fmt"
 	_ "embed"
+	"fmt"
+
+	_ "modernc.org/sqlite"
 
 	"github.com/enuesaa/teatime/pkg/repository/dbq"
-	_ "modernc.org/sqlite"
 )
 
 //go:generate sqlc generate --file db.yaml
 
 type DbRepositoryInterface interface {
-	Open() (*dbq.Queries, error)
+	Open() error
 	Close() error
+	Migrate() error
+	Query() (*dbq.Queries, error)
 }
 
 //go:embed dbschema.sql
-var ddl string
+var dbMigrateQuery string
 
-type DbRepository struct {}
-
-func (repo *DbRepository) dsn() string {
-	dbPath := "test.db"
-	dsn := fmt.Sprintf("file:%s?_fk=1", dbPath)
-
-	return dsn
+type DbRepository struct {
+	db *sql.DB
 }
 
-func (repo *DbRepository) Open() (*dbq.Queries, error) {
-	ctx := context.Background()
-
-	db, err := sql.Open("sqlite", repo.dsn())
+func (repo *DbRepository) Open() error {
+	db, err := sql.Open("sqlite", "file:test.db?_fk=1")
 	if err != nil {
-		return nil, err
+		return err
 	}
-	// create tables
-	if _, err := db.ExecContext(ctx, ddl); err != nil {
-		return nil, err
-	}
-	queries := dbq.New(db)
-	return queries, nil
-	// kv, err := queries.CreateKv(ctx, dbq.CreateKvParams{
-	// 	Teapod: "links",
-	// 	Path: "a",
-	// 	Value: sql.NullString{
-	// 		String: "b",
-	// 		Valid: true,
-	// 	},
-	// })
-	// if err != nil {
-	// 	return err
-	// }
-	// fmt.Println(kv)
-
-	// return nil
+	repo.db = db
+	return nil
 }
 
 func (repo *DbRepository) Close() error {
-	// if repo.client == nil {
-	// 	return nil
-	// }
-	// return repo.client.Close()
+	if repo.db == nil {
+		return nil
+	}
+	if err := repo.db.Close(); err != nil {
+		return err
+	}
+	repo.db = nil
 	return nil
+}
+
+func (repo *DbRepository) checkOpened() error {
+	if repo.db == nil {
+		return fmt.Errorf("db is not opened.")
+	}
+	return nil
+}
+
+func (repo *DbRepository) Migrate() error {
+	if err := repo.checkOpened(); err != nil {
+		return err
+	}
+	// create table
+	ctx := context.Background()
+	_, err := repo.db.ExecContext(ctx, dbMigrateQuery)
+	return err
+}
+
+func (repo *DbRepository) Query() (*dbq.Queries, error) {
+	if err := repo.checkOpened(); err != nil {
+		return nil, err
+	}
+	return dbq.New(repo.db), nil
 }
