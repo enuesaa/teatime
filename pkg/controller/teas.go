@@ -32,12 +32,11 @@ func GetTea(c echo.Context) error {
 	rid := c.Param("rid")
 
 	providerSrv := service.NewProviderService("links")
-	row, err := providerSrv.GetTea(rid)
+	tea, err := providerSrv.GetTea(rid)
 	if err != nil {
 		return err
 	}
-
-	return WithData(c, row.Value)
+	return WithData(c, tea.Value)
 }
 
 func CreateTea(c echo.Context) error {

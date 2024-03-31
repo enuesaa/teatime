@@ -67,7 +67,11 @@ func (p *Provider) DBGetTea(rid string) (Tea, error) {
 	if err != nil {
 		return Tea{}, err
 	}
-	return Tea{Rid: dbtea.Rid}, nil
+	var value Value
+	if err := json.Unmarshal([]byte(dbtea.Value.(string)), &value); err != nil {
+		return Tea{}, err
+	}
+	return Tea{Rid: dbtea.Rid, Value: value}, nil
 }
 
 func (p *Provider) DBCreateTea(rid string, value Value) error {

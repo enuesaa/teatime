@@ -35,15 +35,11 @@ func (p *Provider) List() plug.ListResult {
 }
 
 func (p *Provider) Get(rid string) plug.GetResult {
-	_, err := p.DBGetTea(rid)
+	tea, err := p.DBGetTea(rid)
 	if err != nil {
 		return p.NewGetErr(err)
 	}
-	row := plug.Tea{
-		Rid: rid,
-		Value: make(plug.Value, 0),
-	}
-	return p.NewGetResult(row)
+	return p.NewGetResult(tea)
 }
 
 func (p *Provider) Set(tea plug.Tea) plug.SetResult {
@@ -54,6 +50,9 @@ func (p *Provider) Set(tea plug.Tea) plug.SetResult {
 }
 
 func (p *Provider) Del(rid string) plug.DelResult {
+	if err := p.DBDeleteTea(rid); err != nil {
+		return p.NewDelErr(err)
+	}
 	return p.NewDelResult()
 }
 

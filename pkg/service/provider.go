@@ -65,14 +65,17 @@ func (srv *ProviderService) CreateTea(value plug.Value) (string, error) {
 	return rid, nil
 }
 
-func (srv *ProviderService) UpdateTea(rid string, values plug.Value) (string, error) {
+func (srv *ProviderService) UpdateTea(rid string, value plug.Value) (string, error) {
+	if err := srv.DeleteTea(rid); err != nil {
+		return "", err
+	}
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return rid, err
 	}
 	tea := plug.Tea{
 		Rid:   rid,
-		Value: values,
+		Value: value,
 	}
 	if result := provider.Set(tea); result.HasErr {
 		return "", result.Err()
