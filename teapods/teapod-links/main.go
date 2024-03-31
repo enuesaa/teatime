@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/enuesaa/teatime/pkg/plug"
 )
 
@@ -47,6 +49,7 @@ func (p *Provider) Get(rid string) plug.GetResult {
 }
 
 func (p *Provider) Set(tea plug.Tea) error {
+	return fmt.Errorf("heyheyhey")
 	return p.DBCreateTea(tea.Rid, tea.Value)
 }
 

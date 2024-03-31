@@ -10,5 +10,5 @@ go.work.sum
 .env
 
 # app
-test.db
+*.db
 teapods/teapod-links/teapod-links

@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/google/uuid"
@@ -18,7 +19,7 @@ type ProviderService struct {
 }
 
 func (srv *ProviderService) GetProvider() (plug.ProviderInterface, error) {
-	command := fmt.Sprintf("./teapods/teapod-%s/teapod-%s", srv.Name, srv.Name)
+	command := fmt.Sprintf("teapod-%s", srv.Name)
 	return plug.Run(command)
 }
 
@@ -55,11 +56,12 @@ func (srv *ProviderService) CreateTea(value plug.Value) (string, error) {
 		return "", err
 	}
 	rid := fmt.Sprintf("%s:%s", srv.Name, uuid.NewString())
-	row := plug.Tea{
+	tea := plug.Tea{
 		Rid:   rid,
 		Value: value,
 	}
-	if err := provider.Set(row); err != nil {
+	if err := provider.Set(tea); err != nil {
+		log.Fatalf(err.Error())
 		return "", err
 	}
 	return rid, nil

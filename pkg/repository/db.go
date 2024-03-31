@@ -28,7 +28,7 @@ type DbRepository struct {
 }
 
 func (repo *DbRepository) Open() error {
-	db, err := sql.Open("sqlite", "file:test.db?_fk=1")
+	db, err := sql.Open("sqlite", "file:teatime.db?_fk=1")
 	if err != nil {
 		return err
 	}
@@ -55,13 +55,17 @@ func (repo *DbRepository) checkOpened() error {
 }
 
 func (repo *DbRepository) Migrate() error {
-	if err := repo.checkOpened(); err != nil {
+	db, err := sql.Open("sqlite", "file:teatime.db?_fk=1")
+	if err != nil {
 		return err
 	}
-	// create table
 	ctx := context.Background()
-	_, err := repo.db.ExecContext(ctx, dbMigrateQuery)
-	return err
+	if _, err := db.ExecContext(ctx, "SELECT * FROM teas"); err != nil {
+		if _, err := db.ExecContext(ctx, dbMigrateQuery); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (repo *DbRepository) Query() (*dbq.Queries, error) {

@@ -5,11 +5,18 @@ import (
 
 	"github.com/enuesaa/teatime/frontend"
 	"github.com/enuesaa/teatime/pkg/controller"
+	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
+	repos := repository.New()
+	// migrate if table does not exist.
+	if err := repos.DB.Migrate(); err != nil {
+		log.Fatalf("Error: %s", err.Error())
+	}
+
 	app := echo.New()
 	app.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Format: "method=${method}, uri=${uri}, status=${status}\n",
