@@ -23,6 +23,8 @@ func main() {
 	api.POST("/rows", controller.CreateRow)
 	api.PUT("/rows/:id", controller.UpdateRow)
 	api.DELETE("/rows/:id", controller.DeleteRow)
+	api.GET("/cards", controller.ListCards)
+	api.GET("/cards/:id", controller.GetCard)
 
 	app.Any("/*", frontend.Serve)
 
