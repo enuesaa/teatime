@@ -2,6 +2,8 @@ package plug
 
 import (
 	"net/rpc"
+
+	"github.com/enuesaa/teatime/pkg/repository"
 )
 
 // should implement ProviderInterface
@@ -9,6 +11,12 @@ type ConnectClient struct {
 	client *rpc.Client
 }
 
+func (cc *ConnectClient) ProvideBefore(teapod string, repos repository.Repos) error {
+	return nil
+}
+func (cc *ConnectClient) ProvideAfter() error {
+	return nil
+}
 func (cc *ConnectClient) Info() InfoResult {
 	var resp InfoResult
 	cc.client.Call("Plugin.Info", new(interface{}), &resp)

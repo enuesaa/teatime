@@ -10,7 +10,7 @@ func main() {
 }
 
 type Provider struct {
-	*plug.Provider
+	plug.Provider
 }
 
 func (p *Provider) Info() plug.InfoResult {

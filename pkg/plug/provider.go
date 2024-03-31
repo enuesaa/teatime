@@ -28,7 +28,7 @@ type Provider struct {
 func (p *Provider) ProvideBefore(teapod string, repos repository.Repos) error {
 	p.teapod = teapod
 	p.repos = repos
-	return nil
+	return p.repos.DB.Open()
 }
 
 func (p *Provider) ProvideAfter() error {
