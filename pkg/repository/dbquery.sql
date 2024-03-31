@@ -1,25 +1,24 @@
--- name: GetAuthor :one
-SELECT * FROM authors
+-- name: ListKvsOfTeapod :many
+SELECT * FROM kvs
+WHERE teapod = ?;
+
+-- name: GetKv :one
+SELECT * FROM kvs
 WHERE id = ? LIMIT 1;
 
--- name: ListAuthors :many
-SELECT * FROM authors
-ORDER BY name;
-
--- name: CreateAuthor :one
-INSERT INTO authors (
-  name, bio
+-- name: CreateKv :one
+INSERT INTO kvs (
+  teapod, path, value
 ) VALUES (
-  ?, ?
+  ?, ?, ?
 )
 RETURNING *;
 
--- name: UpdateAuthor :exec
-UPDATE authors
-set name = ?,
-bio = ?
-WHERE id = ?;
+-- name: UpdateKv :exec
+UPDATE kvs
+set value = ?
+WHERE id = ? and path = ?;
 
--- name: DeleteAuthor :exec
-DELETE FROM authors
+-- name: DeleteKv :exec
+DELETE FROM kvs
 WHERE id = ?;

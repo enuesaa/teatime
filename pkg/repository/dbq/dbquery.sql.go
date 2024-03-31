@@ -10,64 +10,80 @@ import (
 	"database/sql"
 )
 
-const createAuthor = `-- name: CreateAuthor :one
-INSERT INTO authors (
-  name, bio
+const createKv = `-- name: CreateKv :one
+INSERT INTO kvs (
+  teapod, path, value
 ) VALUES (
-  ?, ?
+  ?, ?, ?
 )
-RETURNING id, name, bio
+RETURNING id, teapod, path, value
 `
 
-type CreateAuthorParams struct {
-	Name string
-	Bio  sql.NullString
+type CreateKvParams struct {
+	Teapod string
+	Path   string
+	Value  sql.NullString
 }
 
-func (q *Queries) CreateAuthor(ctx context.Context, arg CreateAuthorParams) (Author, error) {
-	row := q.db.QueryRowContext(ctx, createAuthor, arg.Name, arg.Bio)
-	var i Author
-	err := row.Scan(&i.ID, &i.Name, &i.Bio)
+func (q *Queries) CreateKv(ctx context.Context, arg CreateKvParams) (Kv, error) {
+	row := q.db.QueryRowContext(ctx, createKv, arg.Teapod, arg.Path, arg.Value)
+	var i Kv
+	err := row.Scan(
+		&i.ID,
+		&i.Teapod,
+		&i.Path,
+		&i.Value,
+	)
 	return i, err
 }
 
-const deleteAuthor = `-- name: DeleteAuthor :exec
-DELETE FROM authors
+const deleteKv = `-- name: DeleteKv :exec
+DELETE FROM kvs
 WHERE id = ?
 `
 
-func (q *Queries) DeleteAuthor(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, deleteAuthor, id)
+func (q *Queries) DeleteKv(ctx context.Context, id int64) error {
+	_, err := q.db.ExecContext(ctx, deleteKv, id)
 	return err
 }
 
-const getAuthor = `-- name: GetAuthor :one
-SELECT id, name, bio FROM authors
+const getKv = `-- name: GetKv :one
+SELECT id, teapod, path, value FROM kvs
 WHERE id = ? LIMIT 1
 `
 
-func (q *Queries) GetAuthor(ctx context.Context, id int64) (Author, error) {
-	row := q.db.QueryRowContext(ctx, getAuthor, id)
-	var i Author
-	err := row.Scan(&i.ID, &i.Name, &i.Bio)
+func (q *Queries) GetKv(ctx context.Context, id int64) (Kv, error) {
+	row := q.db.QueryRowContext(ctx, getKv, id)
+	var i Kv
+	err := row.Scan(
+		&i.ID,
+		&i.Teapod,
+		&i.Path,
+		&i.Value,
+	)
 	return i, err
 }
 
-const listAuthors = `-- name: ListAuthors :many
-SELECT id, name, bio FROM authors
-ORDER BY name
+const listKvsOfTeapod = `-- name: ListKvsOfTeapod :many
+SELECT id, teapod, path, value FROM kvs
+WHERE teapod = ?
 `
 
-func (q *Queries) ListAuthors(ctx context.Context) ([]Author, error) {
-	rows, err := q.db.QueryContext(ctx, listAuthors)
+func (q *Queries) ListKvsOfTeapod(ctx context.Context, teapod string) ([]Kv, error) {
+	rows, err := q.db.QueryContext(ctx, listKvsOfTeapod, teapod)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Author
+	var items []Kv
 	for rows.Next() {
-		var i Author
-		if err := rows.Scan(&i.ID, &i.Name, &i.Bio); err != nil {
+		var i Kv
+		if err := rows.Scan(
+			&i.ID,
+			&i.Teapod,
+			&i.Path,
+			&i.Value,
+		); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
@@ -81,20 +97,19 @@ func (q *Queries) ListAuthors(ctx context.Context) ([]Author, error) {
 	return items, nil
 }
 
-const updateAuthor = `-- name: UpdateAuthor :exec
-UPDATE authors
-set name = ?,
-bio = ?
-WHERE id = ?
+const updateKv = `-- name: UpdateKv :exec
+UPDATE kvs
+set value = ?
+WHERE id = ? and path = ?
 `
 
-type UpdateAuthorParams struct {
-	Name string
-	Bio  sql.NullString
-	ID   int64
+type UpdateKvParams struct {
+	Value sql.NullString
+	ID    int64
+	Path  string
 }
 
-func (q *Queries) UpdateAuthor(ctx context.Context, arg UpdateAuthorParams) error {
-	_, err := q.db.ExecContext(ctx, updateAuthor, arg.Name, arg.Bio, arg.ID)
+func (q *Queries) UpdateKv(ctx context.Context, arg UpdateKvParams) error {
+	_, err := q.db.ExecContext(ctx, updateKv, arg.Value, arg.ID, arg.Path)
 	return err
 }

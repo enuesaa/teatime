@@ -41,13 +41,18 @@ func (repo *DbRepository) Open() error {
 		return err
 	}
 	queries := dbq.New(db)
-	author, err := queries.CreateAuthor(ctx, dbq.CreateAuthorParams{
-		Name: "aa",
+	kv, err := queries.CreateKv(ctx, dbq.CreateKvParams{
+		Teapod: "links",
+		Path: "a",
+		Value: sql.NullString{
+			String: "b",
+			Valid: true,
+		},
 	})
 	if err != nil {
 		return err
 	}
-	fmt.Println(author)
+	fmt.Println(kv)
 
 	return nil
 }
