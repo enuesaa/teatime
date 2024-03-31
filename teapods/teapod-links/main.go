@@ -12,14 +12,6 @@ func main() {
 
 type Handler struct {}
 
-func (h *Handler) Init() error {
-	repos := repository.New()
-	if err := repos.DB.Open(); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (s *Handler) Info() plug.InfoResult {
 	info := plug.Info{
 		Name: "teapod-links",
@@ -29,6 +21,11 @@ func (s *Handler) Info() plug.InfoResult {
 }
 
 func (h *Handler) List() plug.ListResult {
+	repos := repository.New()
+	if err := repos.DB.Open(); err != nil {
+		return plug.NewListErrResult(err)
+	}
+
 	list := make([]string, 0)
 	return plug.NewListResult(list)
 }
@@ -47,4 +44,8 @@ func (h *Handler) Set(row plug.Row) error {
 
 func (h *Handler) Del(id string) error {
 	return nil
+}
+
+func (h *Handler) GetCard(name string) plug.GetCardResult {
+	return plug.NewGetCardErrResult(nil)
 }

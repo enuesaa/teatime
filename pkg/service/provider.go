@@ -22,14 +22,6 @@ func (srv *ProviderService) GetProvider() (plug.ProviderInterface, error) {
 	return plug.Run(command)
 }
 
-func (srv *ProviderService) Init() error {
-	provider, err := srv.GetProvider()
-	if err != nil {
-		return err
-	}
-	return provider.Init()
-}
-
 func (srv *ProviderService) GetInfo() (plug.Info, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
@@ -94,4 +86,13 @@ func (srv *ProviderService) DeleteRow(id string) error {
 		return err
 	}
 	return provider.Del(id)
+}
+
+func (srv *ProviderService) GetCard(name string) (plug.Card, error) {
+	provider, err := srv.GetProvider()
+	if err != nil {
+		return plug.Card{}, err
+	}
+	result := provider.GetCard(name)
+	return result.Data, result.Err
 }

@@ -1,15 +1,25 @@
 package plug
 
 type ProviderInterface interface {
-	Init() error
 	Info() InfoResult
 	List() ListResult
 	Get(id string) GetResult
 	Set(row Row) error
 	Del(id string) error
-
-	// GetCard(name string) Card
+	GetCard(name string) GetCardResult
 }
+
+type Info struct {
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Schemas []string `json:"schemas"`
+	Cards []string `json:"cards"`
+}
+type Row struct {
+	Id     string `json:"id"`
+	Values Values `json:"values"`
+}
+type Values map[string]string
 
 type Card struct {
 	Name string `json:"name"`
@@ -19,23 +29,6 @@ type Card struct {
 	Text string `json:"text"`
 }
 
-type Action struct {
-	Name string `json:"name"`
-	On []string `json:"on"` // manual, created, updated
-}
-
-type Info struct {
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	// schemas
-	// cards
-	Cards []string `json:"cards"`
-}
-type Row struct {
-	Id     string `json:"id"`
-	Values Values `json:"values"`
-}
-type Values map[string]string
 
 type Result[T any] struct {
 	Data T
@@ -43,7 +36,6 @@ type Result[T any] struct {
 }
 
 type InfoResult = Result[Info]
-
 func NewInfoResult(data Info) InfoResult {
 	return InfoResult{
 		Data: data,
@@ -58,7 +50,6 @@ func NewInfoErrResult(err error) InfoResult {
 }
 
 type ListResult = Result[[]string]
-
 func NewListResult(data []string) ListResult {
 	return ListResult{
 		Data: data,
@@ -73,7 +64,6 @@ func NewListErrResult(err error) ListResult {
 }
 
 type GetResult = Result[Row]
-
 func NewGetResult(data Row) GetResult {
 	return GetResult{
 		Data: data,
@@ -83,6 +73,20 @@ func NewGetResult(data Row) GetResult {
 func NewGetErrResult(err error) GetResult {
 	return GetResult{
 		Data: Row{},
+		Err:  err,
+	}
+}
+
+type GetCardResult = Result[Card]
+func NewGetCardResult(card Card) GetCardResult {
+	return GetCardResult{
+		Data: card,
+		Err:  nil,
+	}
+}
+func NewGetCardErrResult(err error) GetCardResult {
+	return GetCardResult{
+		Data: Card{},
 		Err:  err,
 	}
 }
