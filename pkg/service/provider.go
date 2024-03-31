@@ -28,7 +28,7 @@ func (srv *ProviderService) GetInfo() (plug.Info, error) {
 		return plug.Info{}, err
 	}
 	result := provider.Info()
-	return result.Data, result.Err
+	return result.Data, result.Err()
 }
 
 func (srv *ProviderService) ListTeas() ([]string, error) {
@@ -37,7 +37,7 @@ func (srv *ProviderService) ListTeas() ([]string, error) {
 		return make([]string, 0), err
 	}
 	result := provider.List()
-	return result.Data, result.Err
+	return result.Data, result.Err()
 }
 
 func (srv *ProviderService) GetTea(rid string) (plug.Tea, error) {
@@ -46,7 +46,7 @@ func (srv *ProviderService) GetTea(rid string) (plug.Tea, error) {
 		return plug.Tea{}, err
 	}
 	result := provider.Get(rid)
-	return result.Data, result.Err
+	return result.Data, result.Err()
 }
 
 func (srv *ProviderService) CreateTea(value plug.Value) (string, error) {
@@ -59,8 +59,8 @@ func (srv *ProviderService) CreateTea(value plug.Value) (string, error) {
 		Rid:   rid,
 		Value: value,
 	}
-	if err := provider.Set(tea); err.Message != "" {
-		return "", fmt.Errorf(err.Message)
+	if result := provider.Set(tea); result.HasErr {
+		return "", result.Err()
 	}
 	return rid, nil
 }
@@ -74,8 +74,8 @@ func (srv *ProviderService) UpdateTea(rid string, values plug.Value) (string, er
 		Rid:   rid,
 		Value: values,
 	}
-	if err := provider.Set(tea); err.Message != "" {
-		return "", fmt.Errorf(err.Message)
+	if result := provider.Set(tea); result.HasErr {
+		return "", result.Err()
 	}
 	return rid, nil
 }
@@ -85,7 +85,8 @@ func (srv *ProviderService) DeleteTea(rid string) error {
 	if err != nil {
 		return err
 	}
-	return provider.Del(rid)
+	result := provider.Del(rid)
+	return result.Err()
 }
 
 func (srv *ProviderService) GetCard(name string) (plug.Card, error) {
@@ -94,5 +95,5 @@ func (srv *ProviderService) GetCard(name string) (plug.Card, error) {
 		return plug.Card{}, err
 	}
 	result := provider.GetCard(name)
-	return result.Data, result.Err
+	return result.Data, result.Err()
 }

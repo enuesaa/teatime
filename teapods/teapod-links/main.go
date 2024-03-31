@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/enuesaa/teatime/pkg/plug"
 )
 
@@ -48,15 +46,15 @@ func (p *Provider) Get(rid string) plug.GetResult {
 	return p.NewGetResult(row)
 }
 
-func (p *Provider) Set(tea plug.Tea) plug.PlugErr {
+func (p *Provider) Set(tea plug.Tea) plug.SetResult {
 	if err := p.DBCreateTea(tea.Rid, tea.Value); err != nil {
 		return p.NewSetErr(err)
 	}
-	return p.NewSetErr(fmt.Errorf(""))
+	return p.NewSetResult()
 }
 
-func (p *Provider) Del(rid string) error {
-	return nil
+func (p *Provider) Del(rid string) plug.DelResult {
+	return p.NewDelResult()
 }
 
 func (p *Provider) GetCard(name string) plug.GetCardResult {

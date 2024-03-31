@@ -1,5 +1,7 @@
 package plug
 
+import "fmt"
+
 type Info struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
@@ -19,16 +21,21 @@ type Card struct {
 	Text string `json:"text"`
 }
 
+// see: https://github.com/hashicorp/go-plugin/blob/8d2aaa458971cba97c3bfec1b0380322e024b514/error.go#L11
 type Result[T any] struct {
 	Data T
-	Err  error
+	HasErr bool
+	ErrMsg string
+}
+func (r *Result[T]) Err() error {
+	if r.HasErr {
+		return fmt.Errorf(r.ErrMsg)
+	}
+	return nil
 }
 type InfoResult = Result[Info]
 type ListResult = Result[[]string]
 type GetResult = Result[Tea]
 type GetCardResult = Result[Card]
-
-// https://github.com/hashicorp/go-plugin/blob/8d2aaa458971cba97c3bfec1b0380322e024b514/error.go#L11
-type PlugErr struct {
-	Message string
-}
+type SetResult = Result[bool]
+type DelResult = Result[bool]

@@ -16,11 +16,11 @@ func (s *ConnectServer) Get(rid string, resp *GetResult) error {
 	*resp = s.Impl.Get(rid)
 	return nil
 }
-func (s *ConnectServer) Set(tea Tea, resp *PlugErr) error {
+func (s *ConnectServer) Set(tea Tea, resp *SetResult) error {
 	*resp = s.Impl.Set(tea)
 	return nil
 }
-func (s *ConnectServer) Del(rid string, resp *error) error {
+func (s *ConnectServer) Del(rid string, resp *DelResult) error {
 	*resp = s.Impl.Del(rid)
 	return nil
 }

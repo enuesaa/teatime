@@ -15,8 +15,8 @@ type ProviderInterface interface {
 	Info() InfoResult
 	List() ListResult
 	Get(rid string) GetResult
-	Set(tea Tea) PlugErr
-	Del(rid string) error
+	Set(tea Tea) SetResult
+	Del(rid string) DelResult
 	GetCard(name string) GetCardResult
 }
 
@@ -105,57 +105,77 @@ func (p *Provider) DBDeleteTea(rid string) error {
 func (p *Provider) NewInfoResult(data Info) InfoResult {
 	return InfoResult{
 		Data: data,
-		Err:  nil,
+		HasErr: false,
 	}
 }
 func (p *Provider) NewInfoErr(err error) InfoResult {
 	return InfoResult{
-		Data: Info{},
-		Err:  err,
+		HasErr: true,
+		ErrMsg: err.Error(),
 	}
 }
 
 func (p *Provider) NewListResult(data []string) ListResult {
 	return ListResult{
 		Data: data,
-		Err:  nil,
+		HasErr: false,
 	}
 }
 func (p *Provider) NewListErr(err error) ListResult {
 	return ListResult{
-		Data: make([]string, 0),
-		Err:  err,
+		HasErr: true,
+		ErrMsg: err.Error(),
 	}
 }
 
 func (p *Provider) NewGetResult(data Tea) GetResult {
 	return GetResult{
 		Data: data,
-		Err:  nil,
+		HasErr: false,
 	}
 }
 func (p *Provider) NewGetErr(err error) GetResult {
 	return GetResult{
-		Data: Tea{},
-		Err:  err,
+		HasErr: true,
+		ErrMsg: err.Error(),
 	}
 }
 
 func (p *Provider) NewGetCardResult(card Card) GetCardResult {
 	return GetCardResult{
 		Data: card,
-		Err:  nil,
+		HasErr: false,
 	}
 }
 func (p *Provider) NewGetCardErr(err error) GetCardResult {
 	return GetCardResult{
-		Data: Card{},
-		Err:  err,
+		HasErr: true,
+		ErrMsg: err.Error(),
 	}
 }
 
-func (p *Provider) NewSetErr(err error) PlugErr {
-	return PlugErr{
-		Message: err.Error(),
+func (p *Provider) NewSetResult() SetResult {
+	return SetResult{
+		Data: true,
+		HasErr: false,
+	}
+}
+func (p *Provider) NewSetErr(err error) SetResult {
+	return SetResult{
+		HasErr: true,
+		ErrMsg: err.Error(),
+	}
+}
+
+func (p *Provider) NewDelResult() DelResult {
+	return SetResult{
+		Data: true,
+		HasErr: false,
+	}
+}
+func (p *Provider) NewDelErr(err error) DelResult {
+	return SetResult{
+		HasErr: true,
+		ErrMsg: err.Error(),
 	}
 }

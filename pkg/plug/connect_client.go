@@ -32,13 +32,13 @@ func (cc *ConnectClient) Get(rid string) GetResult {
 	cc.client.Call("Plugin.Get", rid, &resp)
 	return resp
 }
-func (cc *ConnectClient) Set(tea Tea) PlugErr {
-	var resp PlugErr
+func (cc *ConnectClient) Set(tea Tea) SetResult {
+	var resp SetResult
 	cc.client.Call("Plugin.Set", tea, &resp)
 	return resp
 }
-func (cc *ConnectClient) Del(rid string) error {
-	var resp error
+func (cc *ConnectClient) Del(rid string) DelResult {
+	var resp DelResult
 	cc.client.Call("Plugin.Del", rid, &resp)
 	return resp
 }
