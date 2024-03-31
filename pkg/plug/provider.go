@@ -2,6 +2,7 @@ package plug
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/enuesaa/teatime/pkg/repository/dbq"
@@ -34,51 +35,58 @@ func (p *Provider) ProvideAfter() error {
 	return p.repos.DB.Close()
 }
 
-func (p *Provider) DBListTeas() ([]dbq.Tea, error) {
+func (p *Provider) DBListTeas() ([]Tea, error) {
 	query, err := p.repos.DB.Query()
 	if err != nil {
-		return make([]dbq.Tea, 0), err
+		return make([]Tea, 0), err
 	}
-	return query.ListTeas(context.Background(), p.teapod)
+	dbteas, err := query.ListTeas(context.Background(), p.teapod)
+	if err != nil {
+		return make([]Tea, 0), err
+	}
+	list := make([]Tea, 0)
+	for _, dbtea := range dbteas {
+		list = append(list, Tea{
+			Rid: dbtea.Rid,
+			// Value: dbtea.Value,
+		})
+	}
+	return list, nil
 }
 
-func (p *Provider) DBGetTea(rid string) (dbq.Tea, error) {
+func (p *Provider) DBGetTea(rid string) (Tea, error) {
 	query, err := p.repos.DB.Query()
 	if err != nil {
-		return dbq.Tea{}, err
+		return Tea{}, err
 	}
 	param := dbq.GetTeaParams{
 		Teapod: p.teapod,
 		Rid: rid,
 	}
-	return query.GetTea(context.Background(), param)
+	dbtea, err := query.GetTea(context.Background(), param)
+	if err != nil {
+		return Tea{}, err
+	}
+	return Tea{Rid: dbtea.Rid}, nil
 }
 
-func (p *Provider) DBCreateTea(name string, value string) error {
+func (p *Provider) DBCreateTea(rid string, value Value) error {
 	query, err := p.repos.DB.Query()
+	if err != nil {
+		return err
+	}
+	valuebytes, err := json.Marshal(value)
 	if err != nil {
 		return err
 	}
 	param := dbq.CreateTeaParams{
 		Teapod: p.teapod,
 		Collection: "",
-		Value: "{}",
+		Rid: rid,
+		Value: string(valuebytes),
 	}
 	_, err = query.CreateTea(context.Background(), param)
 	return err
-}
-
-func (p *Provider) DBUpdateTea(rid string, value string) error {
-	query, err := p.repos.DB.Query()
-	if err != nil {
-		return err
-	}
-	param := dbq.UpdateTeaParams{
-		Teapod: p.teapod,
-		Rid: rid,
-		Value: "{}",
-	}
-	return query.UpdateTea(context.Background(), param)
 }
 
 func (p *Provider) DBDeleteTea(rid string) error {

@@ -18,7 +18,7 @@ type ProviderService struct {
 }
 
 func (srv *ProviderService) GetProvider() (plug.ProviderInterface, error) {
-	command := fmt.Sprintf("teapod-%s", srv.Name)
+	command := fmt.Sprintf("./teapods/teapod-%s/teapod-%s", srv.Name, srv.Name)
 	return plug.Run(command)
 }
 
@@ -31,7 +31,7 @@ func (srv *ProviderService) GetInfo() (plug.Info, error) {
 	return result.Data, result.Err
 }
 
-func (srv *ProviderService) ListRows() ([]string, error) {
+func (srv *ProviderService) ListTeas() ([]string, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return make([]string, 0), err
@@ -40,52 +40,52 @@ func (srv *ProviderService) ListRows() ([]string, error) {
 	return result.Data, result.Err
 }
 
-func (srv *ProviderService) GetRow(id string) (plug.Tea, error) {
+func (srv *ProviderService) GetTea(rid string) (plug.Tea, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return plug.Tea{}, err
 	}
-	result := provider.Get(id)
+	result := provider.Get(rid)
 	return result.Data, result.Err
 }
 
-func (srv *ProviderService) CreateRow(values plug.Value) (string, error) {
+func (srv *ProviderService) CreateTea(value plug.Value) (string, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return "", err
 	}
-	id := uuid.NewString()
+	rid := fmt.Sprintf("%s:%s", srv.Name, uuid.NewString())
 	row := plug.Tea{
-		Rid:   id,
-		Value: values,
+		Rid:   rid,
+		Value: value,
 	}
 	if err := provider.Set(row); err != nil {
 		return "", err
 	}
-	return id, nil
+	return rid, nil
 }
 
-func (srv *ProviderService) UpdateRow(id string, values plug.Value) (string, error) {
+func (srv *ProviderService) UpdateTea(rid string, values plug.Value) (string, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
-		return id, err
+		return rid, err
 	}
-	row := plug.Tea{
-		Rid:   id,
+	tea := plug.Tea{
+		Rid:   rid,
 		Value: values,
 	}
-	if err := provider.Set(row); err != nil {
+	if err := provider.Set(tea); err != nil {
 		return "", err
 	}
-	return id, nil
+	return rid, nil
 }
 
-func (srv *ProviderService) DeleteRow(id string) error {
+func (srv *ProviderService) DeleteTea(rid string) error {
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return err
 	}
-	return provider.Del(id)
+	return provider.Del(rid)
 }
 
 func (srv *ProviderService) GetCard(name string) (plug.Card, error) {

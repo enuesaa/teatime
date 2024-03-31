@@ -11,9 +11,9 @@ import (
 
 const createTea = `-- name: CreateTea :one
 INSERT INTO teas (
-  teapod, collection, value
+  teapod, collection, rid, value
 ) VALUES (
-  ?, ?, ?
+  ?, ?, ?, ?
 )
 RETURNING id, teapod, collection, rid, value, created, updated
 `
@@ -21,11 +21,17 @@ RETURNING id, teapod, collection, rid, value, created, updated
 type CreateTeaParams struct {
 	Teapod     string
 	Collection string
+	Rid        string
 	Value      interface{}
 }
 
 func (q *Queries) CreateTea(ctx context.Context, arg CreateTeaParams) (Tea, error) {
-	row := q.db.QueryRowContext(ctx, createTea, arg.Teapod, arg.Collection, arg.Value)
+	row := q.db.QueryRowContext(ctx, createTea,
+		arg.Teapod,
+		arg.Collection,
+		arg.Rid,
+		arg.Value,
+	)
 	var i Tea
 	err := row.Scan(
 		&i.ID,
@@ -113,21 +119,4 @@ func (q *Queries) ListTeas(ctx context.Context, teapod string) ([]Tea, error) {
 		return nil, err
 	}
 	return items, nil
-}
-
-const updateTea = `-- name: UpdateTea :exec
-UPDATE teas
-set value = ?
-WHERE teapod = ? and rid = ?
-`
-
-type UpdateTeaParams struct {
-	Value  interface{}
-	Teapod string
-	Rid    string
-}
-
-func (q *Queries) UpdateTea(ctx context.Context, arg UpdateTeaParams) error {
-	_, err := q.db.ExecContext(ctx, updateTea, arg.Value, arg.Teapod, arg.Rid)
-	return err
 }

@@ -46,12 +46,8 @@ func (p *Provider) Get(rid string) plug.GetResult {
 	return p.NewGetResult(row)
 }
 
-func (p *Provider) Set(row plug.Tea) error {
-	err := p.DBCreateTea("id", "")
-	if err != nil {
-		return err
-	}
-	return nil
+func (p *Provider) Set(tea plug.Tea) error {
+	return p.DBCreateTea(tea.Rid, tea.Value)
 }
 
 func (p *Provider) Del(rid string) error {
