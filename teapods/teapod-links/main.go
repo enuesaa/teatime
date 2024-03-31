@@ -3,8 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/enuesaa/teatime/pkg/plug"
+	"github.com/enuesaa/teatime/pkg/repository/dbq"
 )
 
 func main() {
@@ -26,17 +28,27 @@ func (p *Provider) Info() plug.InfoResult {
 
 func (p *Provider) List() plug.ListResult {
 	ctx := context.Background()
-	kvs, err := p.Query.ListTeas(ctx, "links")
+	teas, err := p.Query.ListTeas(ctx, "links")
 	if err != nil {
 		return plug.NewListErrResult(err)
 	}
-	fmt.Println(kvs)
 
 	list := make([]string, 0)
+	for _, tea := range teas {
+		list = append(list, strings.TrimPrefix(tea.Resource, "links"))
+	}
 	return plug.NewListResult(list)
 }
 
-func (h *Provider) Get(id string) plug.GetResult {
+func (p *Provider) Get(id string) plug.GetResult {
+	ctx := context.Background()
+	_, err := p.Query.GetTea(ctx, dbq.GetTeaParams{
+		Teapod: "links",
+		Resource: fmt.Sprintf("links:%s", id),
+	})
+	if err != nil {
+		return plug.NewGetErrResult(err)
+	}
 	row := plug.Row{
 		Id: id,
 		Values: make(plug.Values, 0),
