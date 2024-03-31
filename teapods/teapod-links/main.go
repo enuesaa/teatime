@@ -48,9 +48,11 @@ func (p *Provider) Get(rid string) plug.GetResult {
 	return p.NewGetResult(row)
 }
 
-func (p *Provider) Set(tea plug.Tea) error {
-	return fmt.Errorf("heyheyhey")
-	return p.DBCreateTea(tea.Rid, tea.Value)
+func (p *Provider) Set(tea plug.Tea) plug.PlugErr {
+	if err := p.DBCreateTea(tea.Rid, tea.Value); err != nil {
+		return p.NewSetErr(err)
+	}
+	return p.NewSetErr(fmt.Errorf(""))
 }
 
 func (p *Provider) Del(rid string) error {

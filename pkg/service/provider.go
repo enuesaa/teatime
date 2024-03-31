@@ -2,7 +2,6 @@ package service
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/google/uuid"
@@ -60,9 +59,8 @@ func (srv *ProviderService) CreateTea(value plug.Value) (string, error) {
 		Rid:   rid,
 		Value: value,
 	}
-	if err := provider.Set(tea); err != nil {
-		log.Fatalf(err.Error())
-		return "", err
+	if err := provider.Set(tea); err.Message != "" {
+		return "", fmt.Errorf(err.Message)
 	}
 	return rid, nil
 }
@@ -76,8 +74,8 @@ func (srv *ProviderService) UpdateTea(rid string, values plug.Value) (string, er
 		Rid:   rid,
 		Value: values,
 	}
-	if err := provider.Set(tea); err != nil {
-		return "", err
+	if err := provider.Set(tea); err.Message != "" {
+		return "", fmt.Errorf(err.Message)
 	}
 	return rid, nil
 }

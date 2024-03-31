@@ -15,7 +15,7 @@ type ProviderInterface interface {
 	Info() InfoResult
 	List() ListResult
 	Get(rid string) GetResult
-	Set(tea Tea) error
+	Set(tea Tea) PlugErr
 	Del(rid string) error
 	GetCard(name string) GetCardResult
 }
@@ -151,5 +151,11 @@ func (p *Provider) NewGetCardErr(err error) GetCardResult {
 	return GetCardResult{
 		Data: Card{},
 		Err:  err,
+	}
+}
+
+func (p *Provider) NewSetErr(err error) PlugErr {
+	return PlugErr{
+		Message: err.Error(),
 	}
 }

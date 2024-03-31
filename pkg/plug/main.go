@@ -4,7 +4,7 @@ import (
 	"os/exec"
 
 	"github.com/enuesaa/teatime/pkg/repository"
-	// "github.com/hashicorp/go-hclog"
+	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/go-plugin"
 )
 
@@ -34,11 +34,11 @@ func Serve(impl ProviderInterface, teapod string) {
 }
 
 func NewClient(command string) *plugin.Client {
-	// logger := hclog.New(&hclog.LoggerOptions{
-	// 	Name:        "teatime",
-	// 	DisableTime: true,
-	// 	Level:       hclog.Info,
-	// })
+	logger := hclog.New(&hclog.LoggerOptions{
+		Name:        "teatime",
+		DisableTime: true,
+		Level:       hclog.Info,
+	})
 	config := plugin.ClientConfig{
 		HandshakeConfig: plugin.HandshakeConfig{
 			ProtocolVersion:  1,
@@ -48,7 +48,7 @@ func NewClient(command string) *plugin.Client {
 		Plugins: map[string]plugin.Plugin{
 			"main": &Connector{},
 		},
-		// Logger: logger,
+		Logger: logger,
 		Cmd:    exec.Command(command),
 	}
 

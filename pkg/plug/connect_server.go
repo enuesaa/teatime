@@ -16,7 +16,7 @@ func (s *ConnectServer) Get(rid string, resp *GetResult) error {
 	*resp = s.Impl.Get(rid)
 	return nil
 }
-func (s *ConnectServer) Set(tea Tea, resp *error) error {
+func (s *ConnectServer) Set(tea Tea, resp *PlugErr) error {
 	*resp = s.Impl.Set(tea)
 	return nil
 }
