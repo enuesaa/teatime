@@ -19,19 +19,19 @@ func (cc *ConnectClient) List() ListResult {
 	cc.client.Call("Plugin.List", new(interface{}), &resp)
 	return resp
 }
-func (cc *ConnectClient) Get(id string) GetResult {
+func (cc *ConnectClient) Get(rid string) GetResult {
 	var resp GetResult
-	cc.client.Call("Plugin.Get", id, &resp)
+	cc.client.Call("Plugin.Get", rid, &resp)
 	return resp
 }
-func (cc *ConnectClient) Set(row Row) error {
+func (cc *ConnectClient) Set(tea Tea) error {
 	var resp error
-	cc.client.Call("Plugin.Set", row, &resp)
+	cc.client.Call("Plugin.Set", tea, &resp)
 	return resp
 }
-func (cc *ConnectClient) Del(id string) error {
+func (cc *ConnectClient) Del(rid string) error {
 	var resp error
-	cc.client.Call("Plugin.Del", id, &resp)
+	cc.client.Call("Plugin.Del", rid, &resp)
 	return resp
 }
 func (cc *ConnectClient) GetCard(name string) GetCardResult {

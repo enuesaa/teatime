@@ -40,24 +40,24 @@ func (srv *ProviderService) ListRows() ([]string, error) {
 	return result.Data, result.Err
 }
 
-func (srv *ProviderService) GetRow(id string) (plug.Row, error) {
+func (srv *ProviderService) GetRow(id string) (plug.Tea, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
-		return plug.Row{}, err
+		return plug.Tea{}, err
 	}
 	result := provider.Get(id)
 	return result.Data, result.Err
 }
 
-func (srv *ProviderService) CreateRow(values plug.Values) (string, error) {
+func (srv *ProviderService) CreateRow(values plug.Value) (string, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return "", err
 	}
 	id := uuid.NewString()
-	row := plug.Row{
-		Id:     id,
-		Values: values,
+	row := plug.Tea{
+		Rid:   id,
+		Value: values,
 	}
 	if err := provider.Set(row); err != nil {
 		return "", err
@@ -65,14 +65,14 @@ func (srv *ProviderService) CreateRow(values plug.Values) (string, error) {
 	return id, nil
 }
 
-func (srv *ProviderService) UpdateRow(id string, values plug.Values) (string, error) {
+func (srv *ProviderService) UpdateRow(id string, values plug.Value) (string, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return id, err
 	}
-	row := plug.Row{
-		Id:     id,
-		Values: values,
+	row := plug.Tea{
+		Rid:   id,
+		Value: values,
 	}
 	if err := provider.Set(row); err != nil {
 		return "", err

@@ -19,12 +19,12 @@ func main() {
 	api.Use(controller.HandleData)
 	api.Use(controller.HandleError)
 	api.GET("/rows", controller.ListRows)
-	api.GET("/rows/:id", controller.DescribeRow)
+	api.GET("/rows/:name", controller.DescribeRow)
 	api.POST("/rows", controller.CreateRow)
-	api.PUT("/rows/:id", controller.UpdateRow)
-	api.DELETE("/rows/:id", controller.DeleteRow)
+	api.PUT("/rows/:name", controller.UpdateRow)
+	api.DELETE("/rows/:name", controller.DeleteRow)
 	api.GET("/cards", controller.ListCards)
-	api.GET("/cards/:id", controller.GetCard)
+	api.GET("/cards/:name", controller.GetCard)
 
 	app.Any("/*", frontend.Serve)
 

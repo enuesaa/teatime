@@ -12,16 +12,16 @@ func (s *ConnectServer) List(arg interface{}, resp *ListResult) error {
 	*resp = s.Impl.List()
 	return nil
 }
-func (s *ConnectServer) Get(id string, resp *GetResult) error {
-	*resp = s.Impl.Get(id)
+func (s *ConnectServer) Get(rid string, resp *GetResult) error {
+	*resp = s.Impl.Get(rid)
 	return nil
 }
-func (s *ConnectServer) Set(row Row, resp *error) error {
-	*resp = s.Impl.Set(row)
+func (s *ConnectServer) Set(tea Tea, resp *error) error {
+	*resp = s.Impl.Set(tea)
 	return nil
 }
-func (s *ConnectServer) Del(id string, resp *error) error {
-	*resp = s.Impl.Del(id)
+func (s *ConnectServer) Del(rid string, resp *error) error {
+	*resp = s.Impl.Del(rid)
 	return nil
 }
 func (s *ConnectServer) GetCard(name string, resp *GetCardResult) error {

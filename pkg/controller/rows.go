@@ -29,23 +29,23 @@ func ListRows(c echo.Context) error {
 }
 
 func DescribeRow(c echo.Context) error {
-	id := c.Param("id")
+	name := c.Param("name")
 
-	providerSrv := service.NewProviderService("coredata")
-	row, err := providerSrv.GetRow(id)
+	providerSrv := service.NewProviderService("links")
+	row, err := providerSrv.GetRow(name)
 	if err != nil {
 		return err
 	}
 
-	return WithData(c, row.Values)
+	return WithData(c, row.Value)
 }
 
 func CreateRow(c echo.Context) error {
-	var values plug.Values
+	var values plug.Value
 	if err := Validate(c, &values, validationRules); err != nil {
 		return err
 	}
-	providerSrv := service.NewProviderService("coredata")
+	providerSrv := service.NewProviderService("links")
 	id, err := providerSrv.CreateRow(values)
 	if err != nil {
 		return err
@@ -56,11 +56,11 @@ func CreateRow(c echo.Context) error {
 func UpdateRow(c echo.Context) error {
 	id := c.Param("id")
 
-	var values plug.Values
+	var values plug.Value
 	if err := Validate(c, &values, validationRules); err != nil {
 		return err
 	}
-	providerSrv := service.NewProviderService("coredata")
+	providerSrv := service.NewProviderService("links")
 	_, err := providerSrv.UpdateRow(id, values)
 	if err != nil {
 		return err

@@ -4,7 +4,7 @@ WHERE teapod = ?;
 
 -- name: GetTea :one
 SELECT * FROM teas
-WHERE teapod = ? and resource = ? LIMIT 1;
+WHERE teapod = ? and rid = ? LIMIT 1;
 
 -- name: CreateTea :one
 INSERT INTO teas (
@@ -17,8 +17,8 @@ RETURNING *;
 -- name: UpdateTea :exec
 UPDATE teas
 set value = ?
-WHERE teapod = ? and resource = ?;
+WHERE teapod = ? and rid = ?;
 
 -- name: DeleteTea :exec
 DELETE FROM teas
-WHERE teapod = ? and resource = ?;
+WHERE teapod = ? and rid = ?;

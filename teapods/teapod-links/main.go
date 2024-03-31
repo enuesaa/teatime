@@ -1,17 +1,12 @@
 package main
 
 import (
-	"context"
-	"fmt"
-	"strings"
-
 	"github.com/enuesaa/teatime/pkg/plug"
-	"github.com/enuesaa/teatime/pkg/repository/dbq"
 )
 
 func main() {
 	provider := Provider{}
-	plug.Serve(&provider)
+	plug.Serve(&provider, "links")
 }
 
 type Provider struct {
@@ -23,47 +18,46 @@ func (p *Provider) Info() plug.InfoResult {
 		Name: "teapod-links",
 		Description: "links teapod",
 	}
-	return plug.NewInfoResult(info)
+	return p.NewInfoResult(info)
 }
 
 func (p *Provider) List() plug.ListResult {
-	ctx := context.Background()
-	teas, err := p.Query.ListTeas(ctx, "links")
+	teas, err := p.DBListTeas()
 	if err != nil {
-		return plug.NewListErrResult(err)
+		return p.NewListErr(err)
 	}
 
 	list := make([]string, 0)
 	for _, tea := range teas {
-		list = append(list, strings.TrimPrefix(tea.Resource, "links"))
+		list = append(list, tea.Rid)
 	}
-	return plug.NewListResult(list)
+	return p.NewListResult(list)
 }
 
-func (p *Provider) Get(id string) plug.GetResult {
-	ctx := context.Background()
-	_, err := p.Query.GetTea(ctx, dbq.GetTeaParams{
-		Teapod: "links",
-		Resource: fmt.Sprintf("links:%s", id),
-	})
+func (p *Provider) Get(rid string) plug.GetResult {
+	_, err := p.DBGetTea(rid)
 	if err != nil {
-		return plug.NewGetErrResult(err)
+		return p.NewGetErr(err)
 	}
-	row := plug.Row{
-		Id: id,
-		Values: make(plug.Values, 0),
+	row := plug.Tea{
+		Rid: rid,
+		Value: make(plug.Value, 0),
 	}
-	return plug.NewGetResult(row)
+	return p.NewGetResult(row)
 }
 
-func (h *Provider) Set(row plug.Row) error {
+func (p *Provider) Set(row plug.Tea) error {
+	err := p.DBCreateTea("id", "")
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
-func (h *Provider) Del(id string) error {
+func (p *Provider) Del(rid string) error {
 	return nil
 }
 
-func (h *Provider) GetCard(name string) plug.GetCardResult {
-	return plug.NewGetCardErrResult(nil)
+func (p *Provider) GetCard(name string) plug.GetCardResult {
+	return p.NewGetCardErr(nil)
 }

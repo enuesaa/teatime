@@ -1,115 +1,145 @@
 package plug
 
 import (
+	"context"
+
 	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/enuesaa/teatime/pkg/repository/dbq"
 )
 
 type ProviderInterface interface {
-	ProvideBefore() error
+	ProvideBefore(teapod string, repos repository.Repos) error
 	ProvideAfter() error
 
 	Info() InfoResult
 	List() ListResult
-	Get(id string) GetResult
-	Set(row Row) error
-	Del(id string) error
+	Get(rid string) GetResult
+	Set(tea Tea) error
+	Del(rid string) error
 	GetCard(name string) GetCardResult
 }
 
 type Provider struct {
-	Query *dbq.Queries
+	teapod string
 	repos repository.Repos
 }
-func (p *Provider) ProvideBefore() error {
-	p.repos = repository.New()
-	query, err := p.repos.DB.Query()
-	if err != nil {
-		return err
-	}
-	p.Query = query
+
+func (p *Provider) ProvideBefore(teapod string, repos repository.Repos) error {
+	p.teapod = teapod
+	p.repos = repos
 	return nil
 }
+
 func (p *Provider) ProvideAfter() error {
 	return p.repos.DB.Close()
 }
 
-type Info struct {
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	Schemas []string `json:"schemas"`
-	Cards []string `json:"cards"`
-}
-type Row struct {
-	Id     string `json:"id"`
-	Values Values `json:"values"`
-}
-type Values map[string]string
-
-type Card struct {
-	Name string `json:"name"`
-	Title string `json:"title"`
-	Description string `json:"description"`
-	Type string `json:"type"` // text
-	Text string `json:"text"`
+func (p *Provider) DBListTeas() ([]dbq.Tea, error) {
+	query, err := p.repos.DB.Query()
+	if err != nil {
+		return make([]dbq.Tea, 0), err
+	}
+	return query.ListTeas(context.Background(), p.teapod)
 }
 
-
-type Result[T any] struct {
-	Data T
-	Err  error
+func (p *Provider) DBGetTea(rid string) (dbq.Tea, error) {
+	query, err := p.repos.DB.Query()
+	if err != nil {
+		return dbq.Tea{}, err
+	}
+	param := dbq.GetTeaParams{
+		Teapod: p.teapod,
+		Rid: rid,
+	}
+	return query.GetTea(context.Background(), param)
 }
 
-type InfoResult = Result[Info]
-func NewInfoResult(data Info) InfoResult {
+func (p *Provider) DBCreateTea(name string, value string) error {
+	query, err := p.repos.DB.Query()
+	if err != nil {
+		return err
+	}
+	param := dbq.CreateTeaParams{
+		Teapod: p.teapod,
+		Collection: "",
+		Value: "{}",
+	}
+	_, err = query.CreateTea(context.Background(), param)
+	return err
+}
+
+func (p *Provider) DBUpdateTea(rid string, value string) error {
+	query, err := p.repos.DB.Query()
+	if err != nil {
+		return err
+	}
+	param := dbq.UpdateTeaParams{
+		Teapod: p.teapod,
+		Rid: rid,
+		Value: "{}",
+	}
+	return query.UpdateTea(context.Background(), param)
+}
+
+func (p *Provider) DBDeleteTea(rid string) error {
+	query, err := p.repos.DB.Query()
+	if err != nil {
+		return err
+	}
+	param := dbq.DeleteTeaParams{
+		Teapod: p.teapod,
+		Rid: rid,
+	}
+	return query.DeleteTea(context.Background(), param)
+}
+
+// schemas
+func (p *Provider) NewInfoResult(data Info) InfoResult {
 	return InfoResult{
 		Data: data,
 		Err:  nil,
 	}
 }
-func NewInfoErrResult(err error) InfoResult {
+func (p *Provider) NewInfoErr(err error) InfoResult {
 	return InfoResult{
 		Data: Info{},
 		Err:  err,
 	}
 }
 
-type ListResult = Result[[]string]
-func NewListResult(data []string) ListResult {
+func (p *Provider) NewListResult(data []string) ListResult {
 	return ListResult{
 		Data: data,
 		Err:  nil,
 	}
 }
-func NewListErrResult(err error) ListResult {
+func (p *Provider) NewListErr(err error) ListResult {
 	return ListResult{
 		Data: make([]string, 0),
 		Err:  err,
 	}
 }
 
-type GetResult = Result[Row]
-func NewGetResult(data Row) GetResult {
+func (p *Provider) NewGetResult(data Tea) GetResult {
 	return GetResult{
 		Data: data,
 		Err:  nil,
 	}
 }
-func NewGetErrResult(err error) GetResult {
+func (p *Provider) NewGetErr(err error) GetResult {
 	return GetResult{
-		Data: Row{},
+		Data: Tea{},
 		Err:  err,
 	}
 }
 
-type GetCardResult = Result[Card]
-func NewGetCardResult(card Card) GetCardResult {
+func (p *Provider) NewGetCardResult(card Card) GetCardResult {
 	return GetCardResult{
 		Data: card,
 		Err:  nil,
 	}
 }
-func NewGetCardErrResult(err error) GetCardResult {
+func (p *Provider) NewGetCardErr(err error) GetCardResult {
 	return GetCardResult{
 		Data: Card{},
 		Err:  err,

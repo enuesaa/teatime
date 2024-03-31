@@ -12,7 +12,7 @@ type Tea struct {
 	ID         int64
 	Teapod     string
 	Collection string
-	Resource   string
+	Rid        string
 	Value      interface{}
 	Created    sql.NullTime
 	Updated    sql.NullTime
