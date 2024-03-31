@@ -11,7 +11,8 @@ import (
 	"github.com/enuesaa/teatime/pkg/repository/dbq"
 )
 
-//go:generate sqlc generate --file db.yaml
+// To generate model files, 
+// run `sqlc generate --file db.yaml` in this dir.
 
 type DbRepositoryInterface interface {
 	Open() error
