@@ -20,7 +20,14 @@ func Serve(impl ProviderInterface) {
 			},
 		},
 	}
+	if err := impl.ProvideBefore(); err != nil {
+		LogE(err)
+		return
+	}
 	plugin.Serve(&config)
+	if err := impl.ProvideAfter(); err != nil {
+		LogE(err)
+	}
 }
 
 func NewClient(command string) *plugin.Client {

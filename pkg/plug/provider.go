@@ -1,12 +1,37 @@
 package plug
 
+import (
+	"github.com/enuesaa/teatime/pkg/repository"
+	"github.com/enuesaa/teatime/pkg/repository/dbq"
+)
+
 type ProviderInterface interface {
+	ProvideBefore() error
+	ProvideAfter() error
+
 	Info() InfoResult
 	List() ListResult
 	Get(id string) GetResult
 	Set(row Row) error
 	Del(id string) error
 	GetCard(name string) GetCardResult
+}
+
+type Provider struct {
+	Query *dbq.Queries
+	repos repository.Repos
+}
+func (p *Provider) ProvideBefore() error {
+	p.repos = repository.New()
+	query, err := p.repos.DB.Query()
+	if err != nil {
+		return err
+	}
+	p.Query = query
+	return nil
+}
+func (p *Provider) ProvideAfter() error {
+	return p.repos.DB.Close()
 }
 
 type Info struct {

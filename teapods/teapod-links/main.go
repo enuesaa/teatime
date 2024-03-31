@@ -5,17 +5,18 @@ import (
 	"fmt"
 
 	"github.com/enuesaa/teatime/pkg/plug"
-	"github.com/enuesaa/teatime/pkg/repository"
 )
 
 func main() {
-	handler := Handler{}
-	plug.Serve(&handler)
+	provider := Provider{}
+	plug.Serve(&provider)
 }
 
-type Handler struct {}
+type Provider struct {
+	*plug.Provider
+}
 
-func (s *Handler) Info() plug.InfoResult {
+func (p *Provider) Info() plug.InfoResult {
 	info := plug.Info{
 		Name: "teapod-links",
 		Description: "links teapod",
@@ -23,17 +24,9 @@ func (s *Handler) Info() plug.InfoResult {
 	return plug.NewInfoResult(info)
 }
 
-func (h *Handler) List() plug.ListResult {
-	repos := repository.New()
-	if err := repos.DB.Open(); err != nil {
-		return plug.NewListErrResult(err)
-	}
-	queries, err := repos.DB.Query()
-	repos.DB.Close()
-	if err != nil {
-		return plug.NewListErrResult(err)
-	}
-	kvs, err := queries.ListTeas(context.Background(), "links")
+func (p *Provider) List() plug.ListResult {
+	ctx := context.Background()
+	kvs, err := p.Query.ListTeas(ctx, "links")
 	if err != nil {
 		return plug.NewListErrResult(err)
 	}
@@ -43,7 +36,7 @@ func (h *Handler) List() plug.ListResult {
 	return plug.NewListResult(list)
 }
 
-func (h *Handler) Get(id string) plug.GetResult {
+func (h *Provider) Get(id string) plug.GetResult {
 	row := plug.Row{
 		Id: id,
 		Values: make(plug.Values, 0),
@@ -51,14 +44,14 @@ func (h *Handler) Get(id string) plug.GetResult {
 	return plug.NewGetResult(row)
 }
 
-func (h *Handler) Set(row plug.Row) error {
+func (h *Provider) Set(row plug.Row) error {
 	return nil
 }
 
-func (h *Handler) Del(id string) error {
+func (h *Provider) Del(id string) error {
 	return nil
 }
 
-func (h *Handler) GetCard(name string) plug.GetCardResult {
+func (h *Provider) GetCard(name string) plug.GetCardResult {
 	return plug.NewGetCardErrResult(nil)
 }
