@@ -11,6 +11,11 @@ export type ProviderSchema = {
   command: string
 }
 
+export type SchemaSchema = {
+  name: string
+  vals: Record<string, 'str'|'bool'|'int'>
+}
+
 export type InfoSchema = {
   name: string
   command: string

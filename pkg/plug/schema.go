@@ -5,7 +5,7 @@ import "fmt"
 type Info struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
-	Schemas []string `json:"schemas"`
+	Schemas []Schema `json:"schemas"`
 	Cards []string `json:"cards"`
 }
 type Tea struct {
@@ -39,3 +39,8 @@ type GetResult = Result[Tea]
 type GetCardResult = Result[Card]
 type SetResult = Result[bool]
 type DelResult = Result[bool]
+
+type Schema struct {
+	Name string
+	Vals map[string]string // `str`, `bool`, or `int`
+}

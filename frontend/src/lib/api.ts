@@ -1,11 +1,17 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { ApiBase, ApiListBase, CardSchema, InfoSchema, PanelSchema, ProviderSchema, RecordSchema } from './schema'
+import { ApiBase, ApiListBase, CardSchema, SchemaSchema, InfoSchema, PanelSchema, ProviderSchema, RecordSchema } from './schema'
 const backendApiHost = 'localhost:3000/api'
 
 export const useListProviders = () => useQuery('listProviders', async (): Promise<ApiListBase<ProviderSchema>> => {
   const res = await fetch(`http://${backendApiHost}/teapods`)
   const body = await res.json()
   return body as ApiListBase<ProviderSchema>
+})
+
+export const useListSchemas = () => useQuery('listSchemas', async (): Promise<ApiListBase<SchemaSchema>> => {
+  const res = await fetch(`http://${backendApiHost}/schemas`)
+  const body = await res.json()
+  return body as ApiListBase<SchemaSchema>
 })
 
 export const useAddProvider = () => {

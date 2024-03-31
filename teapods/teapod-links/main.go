@@ -17,6 +17,16 @@ func (p *Provider) Info() plug.InfoResult {
 	info := plug.Info{
 		Name: "teapod-links",
 		Description: "links teapod",
+		Cards: []string{},
+		Schemas: []plug.Schema{
+			{
+				Name: "links",
+				Vals: map[string]string{
+					"title": "str",
+					"link": "str",
+				},
+			},
+		},
 	}
 	return p.NewInfoResult(info)
 }
