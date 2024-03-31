@@ -1,9 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { ApiBase, ApiListBase, CardSchema, InfoSchema, PanelSchema, ProviderSchema, RecordSchema } from './schema'
-const backendApiHost = import.meta.env.VITE_BACKEND_API_HOST as string
+const backendApiHost = 'localhost:3000/api'
 
 export const useListProviders = () => useQuery('listProviders', async (): Promise<ApiListBase<ProviderSchema>> => {
-  const res = await fetch(`http://${backendApiHost}/providers`)
+  const res = await fetch(`http://${backendApiHost}/teapods`)
   const body = await res.json()
   return body as ApiListBase<ProviderSchema>
 })

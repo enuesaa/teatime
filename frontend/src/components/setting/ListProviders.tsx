@@ -1,7 +1,4 @@
 import { Heading, Text, Table } from '@radix-ui/themes'
-import { AddPluginModal } from '@/components/setting/AddPluginModal'
-import { EditPluginModal } from '@/components/setting/EditPluginModal'
-import { DeletePluginModal } from '@/components/setting/DeletePluginModal'
 import { useListProviders } from '@/lib/api'
 import { PluginInfo } from './PluginInfo'
 
@@ -10,7 +7,7 @@ export const ListProviders = () => {
 
   return (
     <>
-      <Heading as='h3'>Plugins <AddPluginModal /></Heading>
+      <Heading as='h3'>Plugins {/*<AddPluginModal />*/}</Heading>
       <Text as='p' size='4' mt='2' mb='6' color='gray'></Text>
 
       <Table.Root variant='surface'>
@@ -24,13 +21,13 @@ export const ListProviders = () => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {providers !== undefined && providers?.items?.map(p => (
+          {providers !== undefined && providers?.data?.map(p => (
             <Table.Row key={p.id}>
               <Table.RowHeaderCell>{p.name}</Table.RowHeaderCell>
               <Table.Cell>{p.command}</Table.Cell>
               <Table.Cell><PluginInfo id={p.id} /></Table.Cell>
-              <Table.Cell><EditPluginModal id={p.id} /></Table.Cell>
-              <Table.Cell><DeletePluginModal id={p.id} /></Table.Cell>
+              <Table.Cell>{/*<EditPluginModal id={p.id} />*/}</Table.Cell>
+              <Table.Cell>{/*<DeletePluginModal id={p.id} />*/}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
