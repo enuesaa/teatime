@@ -1,6 +1,9 @@
 package main
 
 import (
+	"context"
+	"fmt"
+
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/repository"
 )
@@ -22,11 +25,20 @@ func (s *Handler) Info() plug.InfoResult {
 
 func (h *Handler) List() plug.ListResult {
 	repos := repository.New()
-	if err := repos.DB.Open(); err != nil {
+	queries, err := repos.DB.Open()
+	if err != nil {
 		return plug.NewListErrResult(err)
 	}
+	kvs, err := queries.ListKvsOfTeapod(context.Background(), "links")
+	if err != nil {
+		return plug.NewListErrResult(err)
+	}
+	fmt.Println(kvs)
 
 	list := make([]string, 0)
+	// for _, kv := range kvs {
+		// list = append(list, string(kv.ID))
+	// }
 	return plug.NewListResult(list)
 }
 

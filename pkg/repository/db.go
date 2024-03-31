@@ -13,7 +13,7 @@ import (
 //go:generate sqlc generate --file db.yaml
 
 type DbRepositoryInterface interface {
-	Open() error
+	Open() (*dbq.Queries, error)
 	Close() error
 }
 
@@ -29,32 +29,33 @@ func (repo *DbRepository) dsn() string {
 	return dsn
 }
 
-func (repo *DbRepository) Open() error {
+func (repo *DbRepository) Open() (*dbq.Queries, error) {
 	ctx := context.Background()
 
 	db, err := sql.Open("sqlite", repo.dsn())
 	if err != nil {
-		return err
+		return nil, err
 	}
 	// create tables
 	if _, err := db.ExecContext(ctx, ddl); err != nil {
-		return err
+		return nil, err
 	}
 	queries := dbq.New(db)
-	kv, err := queries.CreateKv(ctx, dbq.CreateKvParams{
-		Teapod: "links",
-		Path: "a",
-		Value: sql.NullString{
-			String: "b",
-			Valid: true,
-		},
-	})
-	if err != nil {
-		return err
-	}
-	fmt.Println(kv)
+	return queries, nil
+	// kv, err := queries.CreateKv(ctx, dbq.CreateKvParams{
+	// 	Teapod: "links",
+	// 	Path: "a",
+	// 	Value: sql.NullString{
+	// 		String: "b",
+	// 		Valid: true,
+	// 	},
+	// })
+	// if err != nil {
+	// 	return err
+	// }
+	// fmt.Println(kv)
 
-	return nil
+	// return nil
 }
 
 func (repo *DbRepository) Close() error {

@@ -2,6 +2,7 @@ package controller
 
 import (
 	"errors"
+	"log"
 
 	"github.com/labstack/echo/v4"
 )
@@ -30,6 +31,7 @@ func HandleError(next echo.HandlerFunc) echo.HandlerFunc {
 		if errors.As(err, &apperr) {
 			return c.JSON(422, err)
 		}
+		log.Println(err)
 
 		apperr = NewAppErr()
 		apperr.Errors = append(apperr.Errors, AppErrItem{
