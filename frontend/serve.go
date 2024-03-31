@@ -19,15 +19,16 @@ var dist embed.FS
 func Serve(c echo.Context) error {
 	path := c.Request().URL.Path // like `/`
 	path = fmt.Sprintf("dist%s", path)
-	if strings.HasSuffix(path, "/") {
-		path += "index.html"
+
+	fileExt := filepath.Ext(path)
+	if fileExt == "" || strings.HasSuffix(path, "/") {
+		path = "dist/index.html"
 	}
 
 	f, err := dist.ReadFile(path)
 	if err != nil {
 		return err
 	}
-	fileExt := filepath.Ext(path)
 	mimeType := mime.TypeByExtension(fileExt)
 
 	return c.Blob(200, mimeType, f)

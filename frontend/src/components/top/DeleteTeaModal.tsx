@@ -18,7 +18,7 @@ export const DeleteTeaModal = ({ rid }: Props) => {
         <Button color='red' radius='full' style={{ height: '28px' }}>delete</Button>
       </AlertDialog.Trigger>
       <AlertDialog.Content>
-        <AlertDialog.Title>Delete Plugin</AlertDialog.Title>
+        <AlertDialog.Title>Delete Tea</AlertDialog.Title>
         <AlertDialog.Description size='2'>
           Do you proceed?
         </AlertDialog.Description>
