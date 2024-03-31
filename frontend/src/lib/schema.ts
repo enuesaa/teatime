@@ -11,6 +11,17 @@ export type ProviderSchema = {
   command: string
 }
 
+export type TeaSchema = {
+  id: string
+  value: string
+}
+
+// this is for dev.
+export type LinksTeaSchema = {
+  title: string
+  link: string
+}
+
 export type SchemaSchema = {
   name: string
   vals: Record<string, 'str'|'bool'|'int'>
