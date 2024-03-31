@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/enuesaa/teatime/pkg/plug"
+	"github.com/enuesaa/teatime/pkg/repository"
 )
 
 func main() {
@@ -12,6 +13,10 @@ func main() {
 type Handler struct {}
 
 func (h *Handler) Init() error {
+	repos := repository.New()
+	if err := repos.DB.Open(); err != nil {
+		return err
+	}
 	return nil
 }
 

@@ -6,24 +6,17 @@ import (
 
 	"github.com/enuesaa/teatime/frontend"
 	"github.com/enuesaa/teatime/pkg/controller"
-	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
-	repos := repository.New()
-	if err := repos.DB.Open(); err != nil {
-		log.Fatalf(err.Error())
-	}
-	return
-
-	provider := service.NewProviderService("coredata")
+	provider := service.NewProviderService("links")
 	if err := provider.Init(); err != nil {
-		// this is correct. do not stop here to show error message on web console.
 		fmt.Printf("Error: %s\n", err.Error())
 	}
+	return
 
 	app := echo.New()
 	app.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{

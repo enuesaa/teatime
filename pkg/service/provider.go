@@ -18,7 +18,7 @@ type ProviderService struct {
 }
 
 func (srv *ProviderService) GetProvider() (plug.ProviderInterface, error) {
-	command := fmt.Sprintf("teatime-plugin-%s", srv.Name)
+	command := fmt.Sprintf("teapod-%s", srv.Name)
 	return plug.Run(command)
 }
 

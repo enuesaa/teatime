@@ -14,7 +14,7 @@ var validationRules = map[string]interface{}{
 func ListRows(c echo.Context) error {
 	list := make([]IdSchema, 0)
 
-	providerSrv := service.NewProviderService("coredata")
+	providerSrv := service.NewProviderService("links")
 	ids, err := providerSrv.ListRows()
 	if err != nil {
 		return err
