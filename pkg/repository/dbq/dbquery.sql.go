@@ -7,82 +7,98 @@ package dbq
 
 import (
 	"context"
-	"database/sql"
 )
 
-const createKv = `-- name: CreateKv :one
-INSERT INTO kvs (
-  teapod, path, value
+const createTea = `-- name: CreateTea :one
+INSERT INTO teas (
+  teapod, collection, value
 ) VALUES (
   ?, ?, ?
 )
-RETURNING id, teapod, path, value
+RETURNING id, teapod, collection, resource, value, created, updated
 `
 
-type CreateKvParams struct {
-	Teapod string
-	Path   string
-	Value  sql.NullString
+type CreateTeaParams struct {
+	Teapod     string
+	Collection string
+	Value      interface{}
 }
 
-func (q *Queries) CreateKv(ctx context.Context, arg CreateKvParams) (Kv, error) {
-	row := q.db.QueryRowContext(ctx, createKv, arg.Teapod, arg.Path, arg.Value)
-	var i Kv
+func (q *Queries) CreateTea(ctx context.Context, arg CreateTeaParams) (Tea, error) {
+	row := q.db.QueryRowContext(ctx, createTea, arg.Teapod, arg.Collection, arg.Value)
+	var i Tea
 	err := row.Scan(
 		&i.ID,
 		&i.Teapod,
-		&i.Path,
+		&i.Collection,
+		&i.Resource,
 		&i.Value,
+		&i.Created,
+		&i.Updated,
 	)
 	return i, err
 }
 
-const deleteKv = `-- name: DeleteKv :exec
-DELETE FROM kvs
-WHERE id = ?
+const deleteTea = `-- name: DeleteTea :exec
+DELETE FROM teas
+WHERE teapod = ? and resource = ?
 `
 
-func (q *Queries) DeleteKv(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, deleteKv, id)
+type DeleteTeaParams struct {
+	Teapod   string
+	Resource string
+}
+
+func (q *Queries) DeleteTea(ctx context.Context, arg DeleteTeaParams) error {
+	_, err := q.db.ExecContext(ctx, deleteTea, arg.Teapod, arg.Resource)
 	return err
 }
 
-const getKv = `-- name: GetKv :one
-SELECT id, teapod, path, value FROM kvs
-WHERE id = ? LIMIT 1
+const getTea = `-- name: GetTea :one
+SELECT id, teapod, collection, resource, value, created, updated FROM teas WHERE teapod = ? and resource = ? LIMIT 1
 `
 
-func (q *Queries) GetKv(ctx context.Context, id int64) (Kv, error) {
-	row := q.db.QueryRowContext(ctx, getKv, id)
-	var i Kv
+type GetTeaParams struct {
+	Teapod   string
+	Resource string
+}
+
+func (q *Queries) GetTea(ctx context.Context, arg GetTeaParams) (Tea, error) {
+	row := q.db.QueryRowContext(ctx, getTea, arg.Teapod, arg.Resource)
+	var i Tea
 	err := row.Scan(
 		&i.ID,
 		&i.Teapod,
-		&i.Path,
+		&i.Collection,
+		&i.Resource,
 		&i.Value,
+		&i.Created,
+		&i.Updated,
 	)
 	return i, err
 }
 
-const listKvsOfTeapod = `-- name: ListKvsOfTeapod :many
-SELECT id, teapod, path, value FROM kvs
-WHERE teapod = ?
+const listTeas = `-- name: ListTeas :many
+SELECT id, teapod, collection, resource, value, created, updated FROM teas WHERE teapod = ?
 `
 
-func (q *Queries) ListKvsOfTeapod(ctx context.Context, teapod string) ([]Kv, error) {
-	rows, err := q.db.QueryContext(ctx, listKvsOfTeapod, teapod)
+func (q *Queries) ListTeas(ctx context.Context, teapod string) ([]Tea, error) {
+	rows, err := q.db.QueryContext(ctx, listTeas, teapod)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Kv
+	var items []Tea
 	for rows.Next() {
-		var i Kv
+		var i Tea
 		if err := rows.Scan(
 			&i.ID,
 			&i.Teapod,
-			&i.Path,
+			&i.Collection,
+			&i.Resource,
 			&i.Value,
+			&i.Created,
+			&i.Updated,
 		); err != nil {
 			return nil, err
 		}
@@ -97,19 +113,19 @@ func (q *Queries) ListKvsOfTeapod(ctx context.Context, teapod string) ([]Kv, err
 	return items, nil
 }
 
-const updateKv = `-- name: UpdateKv :exec
-UPDATE kvs
+const updateTea = `-- name: UpdateTea :exec
+UPDATE teas
 set value = ?
-WHERE id = ? and path = ?
+WHERE teapod = ? and resource = ?
 `
 
-type UpdateKvParams struct {
-	Value sql.NullString
-	ID    int64
-	Path  string
+type UpdateTeaParams struct {
+	Value    interface{}
+	Teapod   string
+	Resource string
 }
 
-func (q *Queries) UpdateKv(ctx context.Context, arg UpdateKvParams) error {
-	_, err := q.db.ExecContext(ctx, updateKv, arg.Value, arg.ID, arg.Path)
+func (q *Queries) UpdateTea(ctx context.Context, arg UpdateTeaParams) error {
+	_, err := q.db.ExecContext(ctx, updateTea, arg.Value, arg.Teapod, arg.Resource)
 	return err
 }

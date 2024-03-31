@@ -1,24 +1,22 @@
--- name: ListKvsOfTeapod :many
-SELECT * FROM kvs
-WHERE teapod = ?;
+-- name: ListTeas :many
+SELECT * FROM teas WHERE teapod = ?;
 
--- name: GetKv :one
-SELECT * FROM kvs
-WHERE id = ? LIMIT 1;
+-- name: GetTea :one
+SELECT * FROM teas WHERE teapod = ? and resource = ? LIMIT 1;
 
--- name: CreateKv :one
-INSERT INTO kvs (
-  teapod, path, value
+-- name: CreateTea :one
+INSERT INTO teas (
+  teapod, collection, value
 ) VALUES (
   ?, ?, ?
 )
 RETURNING *;
 
--- name: UpdateKv :exec
-UPDATE kvs
+-- name: UpdateTea :exec
+UPDATE teas
 set value = ?
-WHERE id = ? and path = ?;
+WHERE teapod = ? and resource = ?;
 
--- name: DeleteKv :exec
-DELETE FROM kvs
-WHERE id = ?;
+-- name: DeleteTea :exec
+DELETE FROM teas
+WHERE teapod = ? and resource = ?;

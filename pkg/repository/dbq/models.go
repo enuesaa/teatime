@@ -8,9 +8,12 @@ import (
 	"database/sql"
 )
 
-type Kv struct {
-	ID     int64
-	Teapod string
-	Path   string
-	Value  sql.NullString
+type Tea struct {
+	ID         int64
+	Teapod     string
+	Collection string
+	Resource   string
+	Value      interface{}
+	Created    sql.NullTime
+	Updated    sql.NullTime
 }

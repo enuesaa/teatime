@@ -29,16 +29,13 @@ func (h *Handler) List() plug.ListResult {
 	if err != nil {
 		return plug.NewListErrResult(err)
 	}
-	kvs, err := queries.ListKvsOfTeapod(context.Background(), "links")
+	kvs, err := queries.ListTeas(context.Background(), "links")
 	if err != nil {
 		return plug.NewListErrResult(err)
 	}
 	fmt.Println(kvs)
 
 	list := make([]string, 0)
-	// for _, kv := range kvs {
-		// list = append(list, string(kv.ID))
-	// }
 	return plug.NewListResult(list)
 }
 
