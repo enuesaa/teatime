@@ -1,6 +1,6 @@
 import { Heading, Text, Table } from '@radix-ui/themes'
 import { useListProviders } from '@/lib/api'
-import { PluginInfo } from './PluginInfo'
+import { ProviderInfo } from './ProviderInfo'
 
 export const ListProviders = () => {
   const { data: providers } = useListProviders()
@@ -16,8 +16,6 @@ export const ListProviders = () => {
             <Table.ColumnHeaderCell width='10%'>Name</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell width='20%'>Command</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Info</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell width='5%'></Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell width='5%'></Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -25,9 +23,7 @@ export const ListProviders = () => {
             <Table.Row key={p.id}>
               <Table.RowHeaderCell>{p.name}</Table.RowHeaderCell>
               <Table.Cell>{p.command}</Table.Cell>
-              <Table.Cell><PluginInfo id={p.id} /></Table.Cell>
-              <Table.Cell>{/*<EditPluginModal id={p.id} />*/}</Table.Cell>
-              <Table.Cell>{/*<DeletePluginModal id={p.id} />*/}</Table.Cell>
+              <Table.Cell><ProviderInfo id={p.id} /></Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>

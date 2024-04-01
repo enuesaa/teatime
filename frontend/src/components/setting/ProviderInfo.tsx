@@ -4,7 +4,7 @@ import { Code } from '@radix-ui/themes'
 type Props = {
   id: string
 }
-export const PluginInfo = ({ id }: Props) => {
+export const ProviderInfo = ({ id }: Props) => {
   const {data: info} = useGetProviderInfo(id)
 
   return (
