@@ -9,23 +9,23 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
-    "@radix-ui/themes": "^2.0.0",
-    "@vanilla-extract/css": "^1.14.1",
+    "@radix-ui/themes": "^3.0.1",
+    "@vanilla-extract/css": "^1.14.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.47.0",
-    "react-icons": "^4.11.0",
+    "react-hook-form": "^7.51.2",
+    "react-icons": "^4.12.0",
     "react-query": "^3.39.3",
-    "react-router-dom": "^6.18.0"
+    "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
-    "@types/node": "^20.8.9",
-    "@types/react": "^18.2.33",
-    "@types/react-dom": "^18.2.14",
-    "@vanilla-extract/vite-plugin": "^4.0.1",
-    "@vitejs/plugin-react": "^4.1.0",
-    "prettier": "^3.0.3",
-    "typescript": "^5.2.2",
-    "vite": "^4.5.2"
+    "@types/node": "^20.12.3",
+    "@types/react": "^18.2.74",
+    "@types/react-dom": "^18.2.23",
+    "@vanilla-extract/vite-plugin": "^4.0.7",
+    "@vitejs/plugin-react": "^4.2.1",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.3",
+    "vite": "^4.5.3"
   }
 }

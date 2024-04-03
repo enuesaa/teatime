@@ -22,11 +22,11 @@ export const AddTeaModal = () => {
           <Flex direction='column' gap='3'>
             <label>
               <Text as='div' size='2' mb='1' weight='bold'>Name</Text>
-              <TextField.Input data-1p-ignore {...register('title')} />
+              <TextField.Root {...register('title')} />
             </label>
             <label>
               <Text as='div' size='2' mb='1' weight='bold'>Links</Text>
-              <TextField.Input {...register('link')} />
+              <TextField.Root {...register('link')} />
             </label>
           </Flex>
 
