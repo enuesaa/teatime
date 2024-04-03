@@ -7,8 +7,12 @@ export default function Page() {
     <>
       <Header />
       <Container size='4' mt='4'>
-        <Heading as='h2' size='8'>Settings</Heading>
-        <Text as='p' size='4' mt='2' mb='6' color='gray'>teatime settings</Text>
+        <Heading as='h2' size='8'>
+          Settings
+        </Heading>
+        <Text as='p' size='4' mt='2' mb='6' color='gray'>
+          teatime settings
+        </Text>
 
         <ListProviders />
       </Container>

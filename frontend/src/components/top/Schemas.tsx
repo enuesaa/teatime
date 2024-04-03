@@ -4,14 +4,8 @@ export const Schemas = () => {
   const schemas = useListSchemas()
 
   if (schemas.isLoading) {
-    return (<></>)
+    return <></>
   }
 
-  return (
-    <>
-      {schemas.data?.data?.map((d, i) => (
-        <div key={i}>{d.name}</div>
-      ))}
-    </>
-  )
+  return <>{schemas.data?.data?.map((d, i) => <div key={i}>{d.name}</div>)}</>
 }

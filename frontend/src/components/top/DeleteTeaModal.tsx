@@ -1,4 +1,4 @@
-import { useDeleteProvider, useDeleteTea } from '@/lib/api'
+import { useDeleteTea } from '@/lib/api'
 import { Button, Flex, AlertDialog } from '@radix-ui/themes'
 import { MouseEventHandler } from 'react'
 
@@ -6,7 +6,7 @@ type Props = {
   rid: string
 }
 export const DeleteTeaModal = ({ rid }: Props) => {
-  const { mutateAsync: deleteProvider } =  useDeleteTea(rid)
+  const { mutateAsync: deleteProvider } = useDeleteTea(rid)
   const handleDelete: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault()
     await deleteProvider()
@@ -15,20 +15,24 @@ export const DeleteTeaModal = ({ rid }: Props) => {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button color='red' radius='full' style={{ height: '28px' }}>delete</Button>
+        <Button color='red' radius='full' style={{ height: '28px' }}>
+          delete
+        </Button>
       </AlertDialog.Trigger>
       <AlertDialog.Content>
         <AlertDialog.Title>Delete Tea</AlertDialog.Title>
-        <AlertDialog.Description size='2'>
-          Do you proceed?
-        </AlertDialog.Description>
+        <AlertDialog.Description size='2'>Do you proceed?</AlertDialog.Description>
 
         <Flex gap='3' mt='4' justify='end'>
           <AlertDialog.Cancel>
-            <Button variant='soft' color='gray'>Cancel</Button>
+            <Button variant='soft' color='gray'>
+              Cancel
+            </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button variant='solid' color='red' onClick={handleDelete}>Delete</Button>
+            <Button variant='solid' color='red' onClick={handleDelete}>
+              Delete
+            </Button>
           </AlertDialog.Action>
         </Flex>
       </AlertDialog.Content>

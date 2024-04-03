@@ -9,7 +9,9 @@ export const ListTeas = () => {
 
   return (
     <>
-      <Heading as='h3'>Teas <AddTeaModal /></Heading>
+      <Heading as='h3'>
+        Teas <AddTeaModal />
+      </Heading>
       <Text as='p' size='4' mt='2' mb='6' color='gray'></Text>
 
       <Table.Root variant='surface'>
@@ -22,14 +24,19 @@ export const ListTeas = () => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {teas !== undefined && teas?.data?.map((tea, i) => (
-            <Table.Row key={i}>
-              <Table.RowHeaderCell>{tea.id}</Table.RowHeaderCell>
-              <Table.Cell><TeaInfo rid={tea.id} /></Table.Cell>
-              <Table.Cell>{/*<EditPluginModal id={p.id} />*/}</Table.Cell>
-              <Table.Cell><DeleteTeaModal rid={tea.id} /></Table.Cell>
-            </Table.Row>
-          ))}
+          {teas !== undefined &&
+            teas?.data?.map((tea, i) => (
+              <Table.Row key={i}>
+                <Table.RowHeaderCell>{tea.id}</Table.RowHeaderCell>
+                <Table.Cell>
+                  <TeaInfo rid={tea.id} />
+                </Table.Cell>
+                <Table.Cell>{/*<EditPluginModal id={p.id} />*/}</Table.Cell>
+                <Table.Cell>
+                  <DeleteTeaModal rid={tea.id} />
+                </Table.Cell>
+              </Table.Row>
+            ))}
         </Table.Body>
       </Table.Root>
     </>

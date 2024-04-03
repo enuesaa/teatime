@@ -24,7 +24,7 @@ export type LinksTeaSchema = {
 
 export type SchemaSchema = {
   name: string
-  vals: Record<string, 'str'|'bool'|'int'>
+  vals: Record<string, 'str' | 'bool' | 'int'>
 }
 
 export type InfoSchema = {
@@ -63,7 +63,7 @@ export type TablePanelConfig = {
 export type TablePanelRecord = {
   model: string
   name: string
-  values: TablePanelRecordValue[];
+  values: TablePanelRecordValue[]
 }
 
 export type TablePanelRecordValue = {

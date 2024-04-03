@@ -7,7 +7,7 @@ export const ListProviders = () => {
 
   return (
     <>
-      <Heading as='h3'>Plugins {/*<AddPluginModal />*/}</Heading>
+      <Heading as='h3'>Plugins</Heading>
       <Text as='p' size='4' mt='2' mb='6' color='gray'></Text>
 
       <Table.Root variant='surface'>
@@ -19,13 +19,16 @@ export const ListProviders = () => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {providers !== undefined && providers?.data?.map(p => (
-            <Table.Row key={p.id}>
-              <Table.RowHeaderCell>{p.name}</Table.RowHeaderCell>
-              <Table.Cell>{p.command}</Table.Cell>
-              <Table.Cell><ProviderInfo id={p.id} /></Table.Cell>
-            </Table.Row>
-          ))}
+          {providers !== undefined &&
+            providers?.data?.map((p) => (
+              <Table.Row key={p.id}>
+                <Table.RowHeaderCell>{p.name}</Table.RowHeaderCell>
+                <Table.Cell>{p.command}</Table.Cell>
+                <Table.Cell>
+                  <ProviderInfo id={p.id} />
+                </Table.Cell>
+              </Table.Row>
+            ))}
         </Table.Body>
       </Table.Root>
     </>
