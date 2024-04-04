@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { ApiBase, ApiListBase } from './schema'
-const backendApiHost = 'localhost:3000/api'
 
+const backendApiHost = import.meta.env.BASE_URL
 
 export type TeaSchema = {
   id: string
