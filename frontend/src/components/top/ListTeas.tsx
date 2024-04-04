@@ -1,5 +1,5 @@
 import { Heading, Text, Table } from '@radix-ui/themes'
-import { useListTeas } from '@/lib/api'
+import { useListTeas } from '@/lib/api/teas'
 import { TeaInfo } from './TeaInfo'
 import { DeleteTeaModal } from './DeleteTeaModal'
 import { AddTeaModal } from './AddTeaModal'

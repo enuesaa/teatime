@@ -1,8 +1,7 @@
-import { useAddTea } from '@/lib/api'
+import { useAddTea, type LinksTeaSchema } from '@/lib/api/teas'
 import { Dialog, Button, Flex, Text, TextField, IconButton } from '@radix-ui/themes'
 import { BiPlus } from 'react-icons/bi'
 import { useForm } from 'react-hook-form'
-import { LinksTeaSchema } from '@/lib/schema'
 
 export const AddTeaModal = () => {
   const { mutate: addTea } = useAddTea()

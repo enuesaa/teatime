@@ -1,4 +1,4 @@
-import { useGetTeaInfo } from '@/lib/api'
+import { useGetTeaInfo } from '@/lib/api/teas'
 import { Code } from '@radix-ui/themes'
 
 type Props = {

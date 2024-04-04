@@ -1,9 +1,9 @@
 import { Heading, Text, Table } from '@radix-ui/themes'
-import { useListProviders } from '@/lib/api'
+import { useListTeapods } from '@/lib/api/teapods'
 import { ProviderInfo } from './ProviderInfo'
 
 export const ListProviders = () => {
-  const { data: providers } = useListProviders()
+  const { data: teapods } = useListTeapods()
 
   return (
     <>
@@ -19,8 +19,8 @@ export const ListProviders = () => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {providers !== undefined &&
-            providers?.data?.map((p) => (
+          {teapods !== undefined &&
+            teapods?.data?.map((p) => (
               <Table.Row key={p.id}>
                 <Table.RowHeaderCell>{p.name}</Table.RowHeaderCell>
                 <Table.Cell>{p.command}</Table.Cell>

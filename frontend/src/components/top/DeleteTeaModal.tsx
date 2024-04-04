@@ -1,4 +1,4 @@
-import { useDeleteTea } from '@/lib/api'
+import { useDeleteTea } from '@/lib/api/teas'
 import { Button, Flex, AlertDialog } from '@radix-ui/themes'
 import { MouseEventHandler } from 'react'
 

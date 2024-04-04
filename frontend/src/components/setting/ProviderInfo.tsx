@@ -1,4 +1,4 @@
-import { useGetProviderInfo } from '@/lib/api'
+import { useGetProviderInfo } from '@/lib/api/teapods'
 import { Code } from '@radix-ui/themes'
 
 type Props = {

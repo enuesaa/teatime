@@ -1,4 +1,4 @@
-import { useListSchemas } from '@/lib/api'
+import { useListSchemas } from '@/lib/api/teas'
 
 export const Schemas = () => {
   const schemas = useListSchemas()
