@@ -33,11 +33,6 @@ func HandleError(next echo.HandlerFunc) echo.HandlerFunc {
 		}
 		log.Println(err)
 
-		apperr = NewAppErr()
-		apperr.Errors = append(apperr.Errors, AppErrItem{
-			Path:    "$",
-			Message: "Internal Server Error",
-		})
 		return c.JSON(500, apperr)
 	}
 }

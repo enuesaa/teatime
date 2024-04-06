@@ -25,19 +25,23 @@ func main() {
 		AllowOrigins: []string{"http://localhost:3001"},
 	}))
 
+	// api
 	api := app.Group("/api")
 	api.Use(controller.HandleData)
 	api.Use(controller.HandleError)
+
+	// api teapods
 	api.GET("/teapods", controller.ListTeapods)
 	api.GET("/teapods/:name", controller.GetTeapodInfo)
-	api.GET("/teas", controller.ListTeas)
-	api.GET("/teas/:rid", controller.GetTea)
-	api.POST("/teas", controller.CreateTea)
-	api.PUT("/teas/:rid", controller.UpdateTea)
-	api.DELETE("/teas/:rid", controller.DeleteTea)
-	// api.GET("/cards", controller.ListCards)
-	// api.GET("/cards/:name", controller.GetCard)
 
+	// api teapods teas
+	api.GET("/teapods/:name/teas", controller.ListTeas)
+	api.GET("/teapods/:name/teas/:rid", controller.GetTea)
+	api.POST("/teapods/:name/teas", controller.CreateTea)
+	api.PUT("/teapods/:name/teas/:rid", controller.UpdateTea)
+	api.DELETE("/teapods/:name/teas/:rid", controller.DeleteTea)
+
+	// ui
 	app.Any("/*", ui.Serve)
 
 	if err := app.Start(":3000"); err != nil {
