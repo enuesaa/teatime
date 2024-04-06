@@ -26,7 +26,9 @@ export const ListTeapods = () => {
               <Table.Row key={i}>
                 <Table.RowHeaderCell>{p.name}</Table.RowHeaderCell>
                 <Table.Cell>{p.command}</Table.Cell>
-                <Table.Cell><TeapodDescription name={p.name} /></Table.Cell>
+                <Table.Cell>
+                  <TeapodDescription name={p.name} />
+                </Table.Cell>
                 <Table.Cell>
                   <TeapodSchemas name={p.name} />
                 </Table.Cell>

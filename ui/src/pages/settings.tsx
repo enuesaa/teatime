@@ -1,5 +1,5 @@
 import { Header } from '@/components/common/Header'
-import { Container, Heading, Text, Table } from '@radix-ui/themes'
+import { Container, Heading, Text } from '@radix-ui/themes'
 import { ListTeapods } from '@/components/setting/ListTeapods'
 
 export default function Page() {

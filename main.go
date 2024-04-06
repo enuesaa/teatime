@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/enuesaa/teatime/frontend"
+	"github.com/enuesaa/teatime/ui"
 	"github.com/enuesaa/teatime/pkg/controller"
 	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/labstack/echo/v4"
@@ -38,7 +38,7 @@ func main() {
 	// api.GET("/cards", controller.ListCards)
 	// api.GET("/cards/:name", controller.GetCard)
 
-	app.Any("/*", frontend.Serve)
+	app.Any("/*", ui.Serve)
 
 	if err := app.Start(":3000"); err != nil {
 		log.Fatalf("Error: %s", err.Error())
