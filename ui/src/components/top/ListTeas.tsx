@@ -1,6 +1,6 @@
 import { Heading, Text, Table } from '@radix-ui/themes'
 import { useListTeas } from '@/lib/api/teas'
-import { TeaInfo } from './TeaInfo'
+import { DescribeTea } from './DescribeTea'
 import { DeleteTeaModal } from './DeleteTeaModal'
 import { AddTeaModal } from './AddTeaModal'
 
@@ -29,11 +29,11 @@ export const ListTeas = () => {
               <Table.Row key={i}>
                 <Table.RowHeaderCell>{tea.id}</Table.RowHeaderCell>
                 <Table.Cell>
-                  <TeaInfo rid={tea.id} />
+                  <DescribeTea teaid={tea.id} />
                 </Table.Cell>
-                <Table.Cell>{/*<EditPluginModal id={p.id} />*/}</Table.Cell>
+                <Table.Cell></Table.Cell>
                 <Table.Cell>
-                  <DeleteTeaModal rid={tea.id} />
+                  <DeleteTeaModal teaid={tea.id} />
                 </Table.Cell>
               </Table.Row>
             ))}

@@ -8,6 +8,10 @@ export default defineConfig(({ mode }) => {
     define: {
       API_BASE_URL: mode === 'production' ? '/api' : 'http://localhost:3000/api'
     },
+    esbuild: {
+      target: 'esnext',
+      format: 'esm',
+    },
     plugins: [
       react(),
       vanillaExtractPlugin(),

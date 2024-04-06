@@ -3,10 +3,10 @@ import { Button, Flex, AlertDialog } from '@radix-ui/themes'
 import { MouseEventHandler } from 'react'
 
 type Props = {
-  rid: string
+  teaid: string
 }
-export const DeleteTeaModal = ({ rid }: Props) => {
-  const { mutateAsync: deleteProvider } = useDeleteTea(rid)
+export const DeleteTeaModal = ({ teaid }: Props) => {
+  const { mutateAsync: deleteProvider } = useDeleteTea(teaid)
   const handleDelete: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault()
     await deleteProvider()
