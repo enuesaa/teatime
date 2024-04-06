@@ -21,5 +21,6 @@ type TeapodInfoSchema = {
 export const useGetTeapodInfo = (name: string) =>
   useQuery<ApiBase<TeapodInfoSchema>>(`getProviderInfo-${name}`, async () => {
     const res = await fetch(`${API_BASE_URL}/teapods/${name}`)
-    return await res.json()
+    const body = await res.json()
+    return body
   })

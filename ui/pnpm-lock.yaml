@@ -6,7 +6,7 @@ settings:
 
 dependencies:
   '@radix-ui/themes':
-    specifier: ^3.0.2
+    specifier: ^3.0.1
     version: 3.0.2(@types/react-dom@18.2.24)(@types/react@18.2.74)(react-dom@18.2.0)(react@18.2.0)
   '@vanilla-extract/css':
     specifier: ^1.14.2
@@ -21,8 +21,8 @@ dependencies:
     specifier: ^7.51.2
     version: 7.51.2(react@18.2.0)
   react-icons:
-    specifier: ^4.12.0
-    version: 4.12.0(react@18.2.0)
+    specifier: ^5.0.1
+    version: 5.0.1(react@18.2.0)
   react-query:
     specifier: ^3.39.3
     version: 3.39.3(react-dom@18.2.0)(react@18.2.0)
@@ -32,13 +32,13 @@ dependencies:
 
 devDependencies:
   '@types/node':
-    specifier: ^20.12.5
+    specifier: ^20.12.3
     version: 20.12.5
   '@types/react':
     specifier: ^18.2.74
     version: 18.2.74
   '@types/react-dom':
-    specifier: ^18.2.24
+    specifier: ^18.2.23
     version: 18.2.24
   '@vanilla-extract/vite-plugin':
     specifier: ^4.0.7
@@ -50,7 +50,7 @@ devDependencies:
     specifier: ^3.2.5
     version: 3.2.5
   typescript:
-    specifier: ^5.4.4
+    specifier: ^5.4.3
     version: 5.4.4
   vite:
     specifier: ^4.5.3
@@ -2957,8 +2957,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /react-icons@4.12.0(react@18.2.0):
-    resolution: {integrity: sha512-IBaDuHiShdZqmfc/TwHu6+d6k2ltNCf3AszxNmjJc1KUfXdEeRJOKyNvLmAHaarhzGmTSVygNdyu8/opXv2gaw==}
+  /react-icons@5.0.1(react@18.2.0):
+    resolution: {integrity: sha512-WqLZJ4bLzlhmsvme6iFdgO8gfZP17rfjYEJ2m9RsZjZ+cc4k1hTzknEz63YS1MeT50kVzoa1Nz36f4BEx+Wigw==}
     peerDependencies:
       react: '*'
     dependencies:

@@ -8,13 +8,15 @@ export type TeaSchema = {
 export const useListTeas = () =>
   useQuery<ApiListBase<TeaSchema>>('listTeas', async () => {
     const res = await fetch(`${API_BASE_URL}/teapods/links/teas`)
-    return await res.json()
+    const body = await res.json()
+    return body
   })
 
 export const useGetTea = (rid: string) =>
   useQuery<ApiBase<TeaSchema>>(`getTeaInfo-${rid}`, async () => {
     const res = await fetch(`${API_BASE_URL}/teapods/links/teas/${rid}`)
-    return await res.json()
+    const body = await res.json()
+    return body
   })
 
 // this is for dev.
@@ -34,6 +36,7 @@ export const useAddTea = () => {
         body: JSON.stringify(value),
       })
       const body = await res.json()
+      return body
     },
     onSuccess: () => queryClient.invalidateQueries('listTeas'),
   })
@@ -42,7 +45,7 @@ export const useAddTea = () => {
 export const useDeleteTea = (rid: string) => {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: async (): Promise<void> => {
+    mutationFn: async () => {
       const res = await fetch(`${API_BASE_URL}/teapods/links/teas/${rid}`, {
         method: 'DELETE',
       })
