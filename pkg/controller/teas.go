@@ -45,11 +45,11 @@ func CreateTea(c echo.Context) error {
 	if err := Validate(c, &value, validationRules); err != nil {
 		return err
 	}
-	rid, err := service.NewTeapodSrv(name).CreateTea(value)
+	teaid, err := service.NewTeapodSrv(name).CreateTea(value)
 	if err != nil {
 		return err
 	}
-	return WithData(c, NewIdSchema(rid))
+	return WithData(c, NewIdSchema(teaid))
 }
 
 func UpdateTea(c echo.Context) error {

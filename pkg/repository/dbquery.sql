@@ -4,11 +4,11 @@ WHERE teapod = ?;
 
 -- name: GetTea :one
 SELECT * FROM teas
-WHERE teapod = ? and rid = ? LIMIT 1;
+WHERE teapod = ? and teaid = ? LIMIT 1;
 
 -- name: CreateTea :one
 INSERT INTO teas (
-  teapod, collection, rid, value
+  teapod, collection, teaid, value
 ) VALUES (
   ?, ?, ?, ?
 )
@@ -16,4 +16,4 @@ RETURNING *;
 
 -- name: DeleteTea :exec
 DELETE FROM teas
-WHERE teapod = ? and rid = ?;
+WHERE teapod = ? and teaid = ?;

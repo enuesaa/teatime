@@ -11,17 +11,17 @@ import (
 
 const createTea = `-- name: CreateTea :one
 INSERT INTO teas (
-  teapod, collection, rid, value
+  teapod, collection, teaid, value
 ) VALUES (
   ?, ?, ?, ?
 )
-RETURNING id, teapod, collection, rid, value, created, updated
+RETURNING id, teapod, collection, teaid, value, created, updated
 `
 
 type CreateTeaParams struct {
 	Teapod     string
 	Collection string
-	Rid        string
+	Teaid        string
 	Value      interface{}
 }
 
@@ -29,7 +29,7 @@ func (q *Queries) CreateTea(ctx context.Context, arg CreateTeaParams) (Tea, erro
 	row := q.db.QueryRowContext(ctx, createTea,
 		arg.Teapod,
 		arg.Collection,
-		arg.Rid,
+		arg.Teaid,
 		arg.Value,
 	)
 	var i Tea
@@ -37,7 +37,7 @@ func (q *Queries) CreateTea(ctx context.Context, arg CreateTeaParams) (Tea, erro
 		&i.ID,
 		&i.Teapod,
 		&i.Collection,
-		&i.Rid,
+		&i.Teaid,
 		&i.Value,
 		&i.Created,
 		&i.Updated,
@@ -47,37 +47,37 @@ func (q *Queries) CreateTea(ctx context.Context, arg CreateTeaParams) (Tea, erro
 
 const deleteTea = `-- name: DeleteTea :exec
 DELETE FROM teas
-WHERE teapod = ? and rid = ?
+WHERE teapod = ? and teaid = ?
 `
 
 type DeleteTeaParams struct {
 	Teapod string
-	Rid    string
+	Teaid    string
 }
 
 func (q *Queries) DeleteTea(ctx context.Context, arg DeleteTeaParams) error {
-	_, err := q.db.ExecContext(ctx, deleteTea, arg.Teapod, arg.Rid)
+	_, err := q.db.ExecContext(ctx, deleteTea, arg.Teapod, arg.Teaid)
 	return err
 }
 
 const getTea = `-- name: GetTea :one
-SELECT id, teapod, collection, rid, value, created, updated FROM teas
-WHERE teapod = ? and rid = ? LIMIT 1
+SELECT id, teapod, collection, teaid, value, created, updated FROM teas
+WHERE teapod = ? and teaid = ? LIMIT 1
 `
 
 type GetTeaParams struct {
 	Teapod string
-	Rid    string
+	Teaid    string
 }
 
 func (q *Queries) GetTea(ctx context.Context, arg GetTeaParams) (Tea, error) {
-	row := q.db.QueryRowContext(ctx, getTea, arg.Teapod, arg.Rid)
+	row := q.db.QueryRowContext(ctx, getTea, arg.Teapod, arg.Teaid)
 	var i Tea
 	err := row.Scan(
 		&i.ID,
 		&i.Teapod,
 		&i.Collection,
-		&i.Rid,
+		&i.Teaid,
 		&i.Value,
 		&i.Created,
 		&i.Updated,
@@ -86,7 +86,7 @@ func (q *Queries) GetTea(ctx context.Context, arg GetTeaParams) (Tea, error) {
 }
 
 const listTeas = `-- name: ListTeas :many
-SELECT id, teapod, collection, rid, value, created, updated FROM teas
+SELECT id, teapod, collection, teaid, value, created, updated FROM teas
 WHERE teapod = ?
 `
 
@@ -103,7 +103,7 @@ func (q *Queries) ListTeas(ctx context.Context, teapod string) ([]Tea, error) {
 			&i.ID,
 			&i.Teapod,
 			&i.Collection,
-			&i.Rid,
+			&i.Teaid,
 			&i.Value,
 			&i.Created,
 			&i.Updated,

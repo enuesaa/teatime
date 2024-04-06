@@ -9,7 +9,7 @@ type Info struct {
 	Cards []string `json:"cards"`
 }
 type Tea struct {
-	Rid   string `json:"rid"`
+	Teaid   string `json:"teaid"`
 	Value Value `json:"value"`
 }
 type Value map[string]string

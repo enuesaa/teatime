@@ -27,9 +27,9 @@ func (cc *ConnectClient) List() ListResult {
 	cc.client.Call("Plugin.List", new(interface{}), &resp)
 	return resp
 }
-func (cc *ConnectClient) Get(rid string) GetResult {
+func (cc *ConnectClient) Get(teaid string) GetResult {
 	var resp GetResult
-	cc.client.Call("Plugin.Get", rid, &resp)
+	cc.client.Call("Plugin.Get", teaid, &resp)
 	return resp
 }
 func (cc *ConnectClient) Set(tea Tea) SetResult {
@@ -37,9 +37,9 @@ func (cc *ConnectClient) Set(tea Tea) SetResult {
 	cc.client.Call("Plugin.Set", tea, &resp)
 	return resp
 }
-func (cc *ConnectClient) Del(rid string) DelResult {
+func (cc *ConnectClient) Del(teaid string) DelResult {
 	var resp DelResult
-	cc.client.Call("Plugin.Del", rid, &resp)
+	cc.client.Call("Plugin.Del", teaid, &resp)
 	return resp
 }
 func (cc *ConnectClient) GetCard(name string) GetCardResult {

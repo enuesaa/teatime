@@ -47,21 +47,21 @@ func (p *Provider) DBListTeas() ([]Tea, error) {
 	list := make([]Tea, 0)
 	for _, dbtea := range dbteas {
 		list = append(list, Tea{
-			Rid: dbtea.Rid,
+			Teaid: dbtea.Teaid,
 			// Value: dbtea.Value,
 		})
 	}
 	return list, nil
 }
 
-func (p *Provider) DBGetTea(rid string) (Tea, error) {
+func (p *Provider) DBGetTea(teaid string) (Tea, error) {
 	query, err := p.repos.DB.Query()
 	if err != nil {
 		return Tea{}, err
 	}
 	param := dbq.GetTeaParams{
 		Teapod: p.teapod,
-		Rid: rid,
+		Teaid: teaid,
 	}
 	dbtea, err := query.GetTea(context.Background(), param)
 	if err != nil {
@@ -71,10 +71,10 @@ func (p *Provider) DBGetTea(rid string) (Tea, error) {
 	if err := json.Unmarshal([]byte(dbtea.Value.(string)), &value); err != nil {
 		return Tea{}, err
 	}
-	return Tea{Rid: dbtea.Rid, Value: value}, nil
+	return Tea{Teaid: dbtea.Teaid, Value: value}, nil
 }
 
-func (p *Provider) DBCreateTea(rid string, value Value) error {
+func (p *Provider) DBCreateTea(teaid string, value Value) error {
 	query, err := p.repos.DB.Query()
 	if err != nil {
 		return err
@@ -86,21 +86,21 @@ func (p *Provider) DBCreateTea(rid string, value Value) error {
 	param := dbq.CreateTeaParams{
 		Teapod: p.teapod,
 		Collection: "",
-		Rid: rid,
+		Teaid: teaid,
 		Value: string(valuebytes),
 	}
 	_, err = query.CreateTea(context.Background(), param)
 	return err
 }
 
-func (p *Provider) DBDeleteTea(rid string) error {
+func (p *Provider) DBDeleteTea(teaid string) error {
 	query, err := p.repos.DB.Query()
 	if err != nil {
 		return err
 	}
 	param := dbq.DeleteTeaParams{
 		Teapod: p.teapod,
-		Rid: rid,
+		Teaid: teaid,
 	}
 	return query.DeleteTea(context.Background(), param)
 }

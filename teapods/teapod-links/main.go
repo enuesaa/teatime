@@ -39,13 +39,13 @@ func (p *Provider) List() plug.ListResult {
 
 	list := make([]string, 0)
 	for _, tea := range teas {
-		list = append(list, tea.Rid)
+		list = append(list, tea.Teaid)
 	}
 	return p.NewListResult(list)
 }
 
-func (p *Provider) Get(rid string) plug.GetResult {
-	tea, err := p.DBGetTea(rid)
+func (p *Provider) Get(teaid string) plug.GetResult {
+	tea, err := p.DBGetTea(teaid)
 	if err != nil {
 		return p.NewGetErr(err)
 	}
@@ -53,14 +53,14 @@ func (p *Provider) Get(rid string) plug.GetResult {
 }
 
 func (p *Provider) Set(tea plug.Tea) plug.SetResult {
-	if err := p.DBCreateTea(tea.Rid, tea.Value); err != nil {
+	if err := p.DBCreateTea(tea.Teaid, tea.Value); err != nil {
 		return p.NewSetErr(err)
 	}
 	return p.NewSetResult()
 }
 
-func (p *Provider) Del(rid string) plug.DelResult {
-	if err := p.DBDeleteTea(rid); err != nil {
+func (p *Provider) Del(teaid string) plug.DelResult {
+	if err := p.DBDeleteTea(teaid); err != nil {
 		return p.NewDelErr(err)
 	}
 	return p.NewDelResult()
