@@ -12,25 +12,26 @@ var validationRules = map[string]interface{}{
 }
 
 func ListTeas(c echo.Context) error {
-	list := make([]IdSchema, 0)
+	name := c.Param("name")
 
-	ids, err := service.NewTeapodSrv("links").ListTeas()
+	ids, err := service.NewTeapodSrv(name).ListTeas()
 	if err != nil {
 		return err
 	}
+	list := make([]IdSchema, 0)
 	for _, id := range ids {
 		list = append(list, IdSchema{
 			Id: id,
 		})
 	}
-
 	return WithData(c, list)
 }
 
 func GetTea(c echo.Context) error {
-	rid := c.Param("rid")
+	name := c.Param("name")
+	teaid := c.Param("teaid")
 
-	tea, err := service.NewTeapodSrv("links").GetTea(rid)
+	tea, err := service.NewTeapodSrv(name).GetTea(teaid)
 	if err != nil {
 		return err
 	}
@@ -38,11 +39,13 @@ func GetTea(c echo.Context) error {
 }
 
 func CreateTea(c echo.Context) error {
+	name := c.Param("name")
+
 	var value plug.Value
 	if err := Validate(c, &value, validationRules); err != nil {
 		return err
 	}
-	rid, err := service.NewTeapodSrv("links").CreateTea(value)
+	rid, err := service.NewTeapodSrv(name).CreateTea(value)
 	if err != nil {
 		return err
 	}
@@ -50,24 +53,24 @@ func CreateTea(c echo.Context) error {
 }
 
 func UpdateTea(c echo.Context) error {
-	rid := c.Param("rid")
+	name := c.Param("name")
+	teaid := c.Param("teaid")
 
 	var value plug.Value
 	if err := Validate(c, &value, validationRules); err != nil {
 		return err
 	}
-	teapodSrv := service.NewTeapodSrv("links")
-	if _, err := teapodSrv.UpdateTea(rid, value); err != nil {
+	if _, err := service.NewTeapodSrv(name).UpdateTea(teaid, value); err != nil {
 		return err
 	}
-	return WithData(c, NewIdSchema(rid))
+	return WithData(c, NewIdSchema(teaid))
 }
 
 func DeleteTea(c echo.Context) error {
-	rid := c.Param("rid")
+	name := c.Param("name")
+	teaid := c.Param("teaid")
 
-	teapodSrv := service.NewTeapodSrv("links")
-	if err := teapodSrv.DeleteTea(rid); err != nil {
+	if err := service.NewTeapodSrv(name).DeleteTea(teaid); err != nil {
 		return err
 	}
 

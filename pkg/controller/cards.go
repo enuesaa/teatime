@@ -5,26 +5,11 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func ListCards(c echo.Context) error {
-	list := make([]IdSchema, 0)
-
-	info, err := service.NewTeapodSrv("links").GetInfo()
-	if err != nil {
-		return err
-	}
-	for _, name := range info.Cards {
-		list = append(list, IdSchema{
-			Id: name,
-		})
-	}
-
-	return WithData(c, list)
-}
-
 func GetCard(c echo.Context) error {
+	name := c.Param("name")
 	id := c.Param("id")
 
-	card, err := service.NewTeapodSrv("links").GetCard(id)
+	card, err := service.NewTeapodSrv(name).GetCard(id)
 	if err != nil {
 		return err
 	}

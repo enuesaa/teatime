@@ -14,9 +14,9 @@ type ProviderInterface interface {
 
 	Info() InfoResult
 	List() ListResult
-	Get(rid string) GetResult
+	Get(teaid string) GetResult
 	Set(tea Tea) SetResult
-	Del(rid string) DelResult
+	Del(teaid string) DelResult
 	GetCard(name string) GetCardResult
 }
 
