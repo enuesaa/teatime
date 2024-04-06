@@ -4,7 +4,7 @@ import { TeapodSchemas } from './TeapodSchemas'
 import { TeapodDescription } from './TeapodDescription'
 
 export const ListTeapods = () => {
-  const { data: teapods } = useListTeapods()
+  const teapods = useListTeapods()
 
   return (
     <>
@@ -22,7 +22,7 @@ export const ListTeapods = () => {
         </Table.Header>
         <Table.Body>
           {teapods !== undefined &&
-            teapods?.data?.map((p, i) => (
+            teapods.data?.map((p, i) => (
               <Table.Row key={i}>
                 <Table.RowHeaderCell>{p.name}</Table.RowHeaderCell>
                 <Table.Cell>{p.command}</Table.Cell>

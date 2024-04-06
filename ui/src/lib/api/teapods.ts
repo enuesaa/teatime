@@ -8,9 +8,10 @@ type TeapodSchema = {
   command: string
 }
 export const useListTeapods = () =>
-  useQuery<ApiListBase<TeapodSchema>>('listTeapods', async () => {
+  useQuery<TeapodSchema[]>('listTeapods', async () => {
     const res = await fetch(`${apiBaseUrl}/teapods`)
-    return await res.json()
+    const body = await res.json()
+    return body?.data ?? []
   })
 
 type TeapodInfoSchema = {
