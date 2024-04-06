@@ -1,5 +1,5 @@
 import { Header } from '@/components/common/Header'
-import { ListTeas } from '@/components/top/ListTeas'
+import { ListTeas } from '@/components/teabox/ListTeas'
 import { Container } from '@radix-ui/themes'
 import { useParams } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ export default function Page() {
     <>
       <Header />
       <Container size='4' m='3' pt='3'>
-        <ListTeas />
+        <ListTeas teapod={teapod} teabox={teabox} />
       </Container>
     </>
   )

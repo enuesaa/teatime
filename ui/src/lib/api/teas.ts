@@ -7,9 +7,9 @@ export type TeaSchema = {
   id: string
   value: string
 }
-export const useListTeas = () =>
+export const useListTeas = (teabox: string, teapod: string) =>
   useQuery<ApiListBase<TeaSchema>>('listTeas', async () => {
-    const res = await fetch(`${apiBaseUrl}/teapods/links/teas`)
+    const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teas`)
     const body = await res.json()
     return body
   })

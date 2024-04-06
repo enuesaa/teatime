@@ -4,8 +4,12 @@ import { DescribeTea } from './DescribeTea'
 import { DeleteTeaModal } from './DeleteTeaModal'
 import { AddTeaModal } from './AddTeaModal'
 
-export const ListTeas = () => {
-  const { data: teas } = useListTeas()
+type Props = {
+  teabox: string
+  teapod: string
+}
+export const ListTeas = ({ teabox, teapod }: Props) => {
+  const { data: teas } = useListTeas(teabox, teapod)
 
   return (
     <>
