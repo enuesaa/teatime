@@ -4,18 +4,18 @@ import { Code } from '@radix-ui/themes'
 type Props = {
   name: string
 }
-export const TeapodInfo = ({ name }: Props) => {
+export const TeapodSchemas = ({ name }: Props) => {
   const { data: info } = useGetTeapodInfo(name)
 
   return (
     <>
-      {info !== undefined && (
-        <pre>
+      {info !== undefined && info.data.schemas.map((s,i) => (
+        <pre key={i}>
           <Code color='gray' style={{ display: 'block', padding: '10px' }}>
-            {JSON.stringify(info?.data, null, '  ')}
+            {JSON.stringify(s, null, '  ')}
           </Code>
         </pre>
-      )}
+      ))}
     </>
   )
 }

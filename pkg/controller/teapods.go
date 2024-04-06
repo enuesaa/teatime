@@ -2,6 +2,7 @@ package controller
 
 import (
 	"fmt"
+
 	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/labstack/echo/v4"
 )
@@ -23,6 +24,12 @@ type TeapodInfo struct {
 	Name string `json:"name"`
 	Command string `json:"command"`
 	Description string `json:"description"`
+	Cards []string `json:"cards"`
+	Schemas []TeapodInfoSchema `json:"schemas"`
+}
+type TeapodInfoSchema struct {
+	Name string `json:"name"`
+	Vals map[string]string `json:"vals"`
 }
 func GetTeapodInfo(c echo.Context) error {
 	name := c.Param("name")
@@ -37,28 +44,15 @@ func GetTeapodInfo(c echo.Context) error {
 		Name: name,
 		Command: fmt.Sprintf("teapod-%s", name),
 		Description: info.Description,
+		Cards: info.Cards,
+		Schemas: make([]TeapodInfoSchema, 0),
 	}
-
-	return WithData(c, data)
-}
-
-type Schema struct {
-	Name string `json:"name"`
-	Vals map[string]string `json:"vals"`
-}
-func ListSchemas(c echo.Context) error {
-	providerSrv := service.NewProviderService("links")
-	info, err := providerSrv.GetInfo()
-	if err != nil {
-		return err
-	}
-
-	list := make([]Schema, 0)
 	for _, schema := range info.Schemas {
-		list = append(list, Schema{
+		data.Schemas = append(data.Schemas, TeapodInfoSchema{
 			Name: schema.Name,
 			Vals: schema.Vals,
 		})
 	}
-	return WithData(c, list)
+
+	return WithData(c, data)
 }

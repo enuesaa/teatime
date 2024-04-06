@@ -20,6 +20,7 @@ type TeapodInfoSchema = {
   command: string
   description: string
   cards: string[]
+  schemas: any[]
 }
 export const useGetTeapodInfo = (name: string) =>
   useQuery<ApiBase<TeapodInfoSchema>>(`getProviderInfo-${name}`, async () => {

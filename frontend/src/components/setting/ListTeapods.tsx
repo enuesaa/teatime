@@ -1,6 +1,6 @@
 import { Heading, Text, Table } from '@radix-ui/themes'
 import { useListTeapods } from '@/lib/api/teapods'
-import { TeapodInfo } from './TeapodInfo'
+import { TeapodSchemas } from './TeapodSchemas'
 import { TeapodDescription } from './TeapodDescription'
 
 export const ListTeapods = () => {
@@ -17,7 +17,7 @@ export const ListTeapods = () => {
             <Table.ColumnHeaderCell width='10%'>Name</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell width='10%'>Command</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell width='20%'>Description</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Info</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Schemas</Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -28,7 +28,7 @@ export const ListTeapods = () => {
                 <Table.Cell>{p.command}</Table.Cell>
                 <Table.Cell><TeapodDescription name={p.name} /></Table.Cell>
                 <Table.Cell>
-                  <TeapodInfo name={p.name} />
+                  <TeapodSchemas name={p.name} />
                 </Table.Cell>
               </Table.Row>
             ))}
