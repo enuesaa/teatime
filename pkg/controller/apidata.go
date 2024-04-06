@@ -20,6 +20,11 @@ func HandleData(next echo.HandlerFunc) echo.HandlerFunc {
 			return err
 		}
 
+		// check that reponse body is already set.
+		if c.Response().Committed {
+			return nil
+		}
+
 		data := c.Get("data")
 		if data == nil {
 			data = struct{}{}

@@ -2,7 +2,6 @@ package controller
 
 import (
 	"errors"
-	"log"
 
 	"github.com/labstack/echo/v4"
 )
@@ -27,12 +26,17 @@ func HandleError(next echo.HandlerFunc) echo.HandlerFunc {
 		if err == nil {
 			return nil
 		}
-		var apperr AppErr
-		if errors.As(err, &apperr) {
+		if errors.As(err, &AppErr{}) {
 			return c.JSON(422, err)
 		}
-		log.Println(err)
 
+		apperr := AppErr{
+			Errors: []AppErrItem{
+				{
+					Message: "Internal Server Error",
+				},
+			},
+		}
 		return c.JSON(500, apperr)
 	}
 }
