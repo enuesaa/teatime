@@ -1,20 +1,22 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { ApiBase, ApiListBase } from './schema'
 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+
 export type TeaSchema = {
   id: string
   value: string
 }
 export const useListTeas = () =>
   useQuery<ApiListBase<TeaSchema>>('listTeas', async () => {
-    const res = await fetch(`${API_BASE_URL}/teapods/links/teas`)
+    const res = await fetch(`${apiBaseUrl}/teapods/links/teas`)
     const body = await res.json()
     return body
   })
 
 export const useGetTea = (rid: string) =>
   useQuery<ApiBase<TeaSchema>>(`getTeaInfo-${rid}`, async () => {
-    const res = await fetch(`${API_BASE_URL}/teapods/links/teas/${rid}`)
+    const res = await fetch(`${apiBaseUrl}/teapods/links/teas/${rid}`)
     const body = await res.json()
     return body
   })
@@ -28,7 +30,7 @@ export const useAddTea = () => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async (value: LinksTeaSchema) => {
-      const res = await fetch(`${API_BASE_URL}/teapods/links/teas`, {
+      const res = await fetch(`${apiBaseUrl}/teapods/links/teas`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,7 +48,7 @@ export const useDeleteTea = (rid: string) => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async () => {
-      const res = await fetch(`${API_BASE_URL}/teapods/links/teas/${rid}`, {
+      const res = await fetch(`${apiBaseUrl}/teapods/links/teas/${rid}`, {
         method: 'DELETE',
       })
       const body = await res.json()
