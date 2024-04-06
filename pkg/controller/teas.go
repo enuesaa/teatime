@@ -14,8 +14,7 @@ var validationRules = map[string]interface{}{
 func ListTeas(c echo.Context) error {
 	list := make([]IdSchema, 0)
 
-	providerSrv := service.NewProviderService("links")
-	ids, err := providerSrv.ListTeas()
+	ids, err := service.NewTeapodSrv("links").ListTeas()
 	if err != nil {
 		return err
 	}
@@ -31,8 +30,7 @@ func ListTeas(c echo.Context) error {
 func GetTea(c echo.Context) error {
 	rid := c.Param("rid")
 
-	providerSrv := service.NewProviderService("links")
-	tea, err := providerSrv.GetTea(rid)
+	tea, err := service.NewTeapodSrv("links").GetTea(rid)
 	if err != nil {
 		return err
 	}
@@ -44,8 +42,7 @@ func CreateTea(c echo.Context) error {
 	if err := Validate(c, &value, validationRules); err != nil {
 		return err
 	}
-	providerSrv := service.NewProviderService("links")
-	rid, err := providerSrv.CreateTea(value)
+	rid, err := service.NewTeapodSrv("links").CreateTea(value)
 	if err != nil {
 		return err
 	}
@@ -59,8 +56,8 @@ func UpdateTea(c echo.Context) error {
 	if err := Validate(c, &value, validationRules); err != nil {
 		return err
 	}
-	providerSrv := service.NewProviderService("links")
-	if _, err := providerSrv.UpdateTea(rid, value); err != nil {
+	teapodSrv := service.NewTeapodSrv("links")
+	if _, err := teapodSrv.UpdateTea(rid, value); err != nil {
 		return err
 	}
 	return WithData(c, NewIdSchema(rid))
@@ -69,8 +66,8 @@ func UpdateTea(c echo.Context) error {
 func DeleteTea(c echo.Context) error {
 	rid := c.Param("rid")
 
-	providerSrv := service.NewProviderService("links")
-	if err := providerSrv.DeleteTea(rid); err != nil {
+	teapodSrv := service.NewTeapodSrv("links")
+	if err := teapodSrv.DeleteTea(rid); err != nil {
 		return err
 	}
 

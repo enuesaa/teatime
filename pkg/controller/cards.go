@@ -8,8 +8,7 @@ import (
 func ListCards(c echo.Context) error {
 	list := make([]IdSchema, 0)
 
-	providerSrv := service.NewProviderService("links")
-	info, err := providerSrv.GetInfo()
+	info, err := service.NewTeapodSrv("links").GetInfo()
 	if err != nil {
 		return err
 	}
@@ -25,8 +24,7 @@ func ListCards(c echo.Context) error {
 func GetCard(c echo.Context) error {
 	id := c.Param("id")
 
-	providerSrv := service.NewProviderService("links")
-	card, err := providerSrv.GetCard(id)
+	card, err := service.NewTeapodSrv("links").GetCard(id)
 	if err != nil {
 		return err
 	}

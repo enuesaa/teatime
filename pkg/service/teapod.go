@@ -7,22 +7,22 @@ import (
 	"github.com/google/uuid"
 )
 
-func NewProviderService(name string) *ProviderService {
-	return &ProviderService{
+func NewTeapodSrv(name string) *TeapodSrv {
+	return &TeapodSrv{
 		Name: name,
 	}
 }
 
-type ProviderService struct {
+type TeapodSrv struct {
 	Name string
 }
 
-func (srv *ProviderService) GetProvider() (plug.ProviderInterface, error) {
+func (srv *TeapodSrv) GetProvider() (plug.ProviderInterface, error) {
 	command := fmt.Sprintf("teapod-%s", srv.Name)
 	return plug.Run(command)
 }
 
-func (srv *ProviderService) GetInfo() (plug.Info, error) {
+func (srv *TeapodSrv) GetInfo() (plug.Info, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return plug.Info{}, err
@@ -31,7 +31,7 @@ func (srv *ProviderService) GetInfo() (plug.Info, error) {
 	return result.Data, result.Err()
 }
 
-func (srv *ProviderService) ListTeas() ([]string, error) {
+func (srv *TeapodSrv) ListTeas() ([]string, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return make([]string, 0), err
@@ -40,7 +40,7 @@ func (srv *ProviderService) ListTeas() ([]string, error) {
 	return result.Data, result.Err()
 }
 
-func (srv *ProviderService) GetTea(rid string) (plug.Tea, error) {
+func (srv *TeapodSrv) GetTea(rid string) (plug.Tea, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return plug.Tea{}, err
@@ -49,7 +49,7 @@ func (srv *ProviderService) GetTea(rid string) (plug.Tea, error) {
 	return result.Data, result.Err()
 }
 
-func (srv *ProviderService) CreateTea(value plug.Value) (string, error) {
+func (srv *TeapodSrv) CreateTea(value plug.Value) (string, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return "", err
@@ -65,7 +65,7 @@ func (srv *ProviderService) CreateTea(value plug.Value) (string, error) {
 	return rid, nil
 }
 
-func (srv *ProviderService) UpdateTea(rid string, value plug.Value) (string, error) {
+func (srv *TeapodSrv) UpdateTea(rid string, value plug.Value) (string, error) {
 	if err := srv.DeleteTea(rid); err != nil {
 		return "", err
 	}
@@ -83,7 +83,7 @@ func (srv *ProviderService) UpdateTea(rid string, value plug.Value) (string, err
 	return rid, nil
 }
 
-func (srv *ProviderService) DeleteTea(rid string) error {
+func (srv *TeapodSrv) DeleteTea(rid string) error {
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return err
@@ -92,7 +92,7 @@ func (srv *ProviderService) DeleteTea(rid string) error {
 	return result.Err()
 }
 
-func (srv *ProviderService) GetCard(name string) (plug.Card, error) {
+func (srv *TeapodSrv) GetCard(name string) (plug.Card, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return plug.Card{}, err

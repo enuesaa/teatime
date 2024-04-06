@@ -34,8 +34,7 @@ type TeapodInfoSchema struct {
 func GetTeapodInfo(c echo.Context) error {
 	name := c.Param("name")
 
-	providerSrv := service.NewProviderService(name)
-	info, err := providerSrv.GetInfo()
+	info, err := service.NewTeapodSrv(name).GetInfo()
 	if err != nil {
 		return err
 	}
