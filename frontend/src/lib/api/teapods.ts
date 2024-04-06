@@ -1,31 +1,29 @@
 import { useQuery } from 'react-query'
 import { ApiBase, ApiListBase } from './schema'
 
-const backendApiHost = import.meta.env.BASE_URL
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+console.log(import.meta.env)
 
-export type ProviderSchema = {
-  id: string
+type TeapodSchema = {
   name: string
   command: string
 }
+export const useListTeapods = () =>
+  useQuery<ApiListBase<TeapodSchema>>('listTeapods', async () => {
+    const res = await fetch(`${apiBaseUrl}/api/teapods`)
+    const body = await res.json()
+    return body
+  })
 
-export type InfoSchema = {
+type TeapodInfoSchema = {
   name: string
   command: string
   description: string
   cards: string[]
 }
-
-export const useListTeapods = () =>
-  useQuery('listProviders', async (): Promise<ApiListBase<ProviderSchema>> => {
-    const res = await fetch(`http://${backendApiHost}/teapods`)
+export const useGetTeapodInfo = (name: string) =>
+  useQuery<ApiBase<TeapodInfoSchema>>(`getProviderInfo-${name}`, async () => {
+    const res = await fetch(`${apiBaseUrl}/api/teapods/${name}`)
     const body = await res.json()
-    return body as ApiListBase<ProviderSchema>
-  })
-
-export const useGetProviderInfo = (name: string) =>
-  useQuery('getProviderInfo', async (): Promise<ApiBase<InfoSchema>> => {
-    const res = await fetch(`http://${backendApiHost}/providers/${name}`)
-    const body = await res.json()
-    return body as ApiBase<InfoSchema>
+    return body
   })

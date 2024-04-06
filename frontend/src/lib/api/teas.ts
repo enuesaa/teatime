@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { ApiBase, ApiListBase } from './schema'
 
-const backendApiHost = import.meta.env.BASE_URL
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
 
 export type TeaSchema = {
   id: string
@@ -21,21 +21,21 @@ export type SchemaSchema = {
 
 export const useListSchemas = () =>
   useQuery('listSchemas', async (): Promise<ApiListBase<SchemaSchema>> => {
-    const res = await fetch(`http://${backendApiHost}/schemas`)
+    const res = await fetch(`${apiBaseUrl}/api/schemas`)
     const body = await res.json()
     return body as ApiListBase<SchemaSchema>
   })
 
 export const useListTeas = () =>
   useQuery('listTeas', async (): Promise<ApiListBase<TeaSchema>> => {
-    const res = await fetch(`http://${backendApiHost}/teas`)
+    const res = await fetch(`${apiBaseUrl}/api/teas`)
     const body = await res.json()
     return body as ApiListBase<TeaSchema>
   })
 
 export const useGetTeaInfo = (rid: string) =>
   useQuery(`getTeaInfo-${rid}`, async (): Promise<ApiBase<TeaSchema>> => {
-    const res = await fetch(`http://${backendApiHost}/teas/${rid}`)
+    const res = await fetch(`${apiBaseUrl}/api/teas/${rid}`)
     const body = await res.json()
     return body as ApiBase<TeaSchema>
   })
@@ -44,7 +44,7 @@ export const useAddTea = () => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async (value: LinksTeaSchema) => {
-      const res = await fetch(`http://${backendApiHost}/teas`, {
+      const res = await fetch(`${apiBaseUrl}/api/teas`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ export const useDeleteTea = (rid: string) => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async (): Promise<void> => {
-      const res = await fetch(`http://${backendApiHost}/teas/${rid}`, {
+      const res = await fetch(`${apiBaseUrl}/api/teas/${rid}`, {
         method: 'DELETE',
       })
       const body = await res.json()

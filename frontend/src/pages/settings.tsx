@@ -1,6 +1,6 @@
 import { Header } from '@/components/common/Header'
 import { Container, Heading, Text, Table } from '@radix-ui/themes'
-import { ListProviders } from '@/components/setting/ListProviders'
+import { ListTeapods } from '@/components/setting/ListTeapods'
 
 export default function Page() {
   return (
@@ -14,7 +14,7 @@ export default function Page() {
           teatime settings
         </Text>
 
-        <ListProviders />
+        <ListTeapods />
       </Container>
     </>
   )

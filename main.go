@@ -29,6 +29,7 @@ func main() {
 	api.Use(controller.HandleData)
 	api.Use(controller.HandleError)
 	api.GET("/teapods", controller.ListTeapods)
+	api.GET("/teapods/:name", controller.GetTeapodInfo)
 	api.GET("/schemas", controller.ListSchemas)
 	api.GET("/teas", controller.ListTeas)
 	api.GET("/teas/:rid", controller.GetTea)

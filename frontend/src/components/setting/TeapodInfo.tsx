@@ -1,11 +1,11 @@
-import { useGetProviderInfo } from '@/lib/api/teapods'
+import { useGetTeapodInfo } from '@/lib/api/teapods'
 import { Code } from '@radix-ui/themes'
 
 type Props = {
-  id: string
+  name: string
 }
-export const ProviderInfo = ({ id }: Props) => {
-  const { data: info } = useGetProviderInfo(id)
+export const TeapodInfo = ({ name }: Props) => {
+  const { data: info } = useGetTeapodInfo(name)
 
   return (
     <>
