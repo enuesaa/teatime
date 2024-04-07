@@ -24,7 +24,7 @@ type Provider struct {
 	repos repository.Repos
 }
 
-func (p *Provider) Serve(teapod string, repos repository.Repos) error {
+func (p *Provider) Serve(teapod string, provider ProviderInterface, repos repository.Repos) error {
 	p.teapod = teapod
 	p.repos = repos
 	if err := p.repos.DB.Open(); err != nil {
@@ -38,7 +38,7 @@ func (p *Provider) Serve(teapod string, repos repository.Repos) error {
 		},
 		Plugins: map[string]plugin.Plugin{
 			"main": &Connector{
-				Impl: p,
+				Impl: provider,
 			},
 		},
 	}

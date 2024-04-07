@@ -9,7 +9,7 @@ import (
 
 func main() {
 	provider := Provider{}
-	if err := provider.Serve("links", repository.New()); err != nil {
+	if err := provider.Serve("links", &provider, repository.New()); err != nil {
 		log.Fatalf("Error: %s", err)
 	}
 }
