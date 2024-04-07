@@ -23,13 +23,17 @@ export const useGetTea = (teapod: string, teaid: string) =>
 
 // this is for dev.
 export type LinksTeaSchema = {
-  title: string
-  link: string
+  teabox: string
+  vals: {
+    title: string
+    link: string
+  }
 }
 export const useAddTea = (teapod: string) => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async (value: LinksTeaSchema) => {
+      value.teabox = 'links'
       const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teas`, {
         method: 'POST',
         headers: {

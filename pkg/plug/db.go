@@ -72,7 +72,7 @@ func (d *DB) CreateTea(tea Tea) error {
 	}
 	param := dbq.CreateTeaParams{
 		Teapod: d.teapod,
-		Collection: "",
+		Teabox: "",
 		Teaid: tea.Teaid,
 		Value: string(valuebytes),
 	}

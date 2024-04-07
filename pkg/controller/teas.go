@@ -59,24 +59,40 @@ func CreateTea(c echo.Context) error {
 		return apperr
 	}
 
-	// teaid, err := service.NewTeapodSrv(teapodName).CreateTea(value)
-	// if err != nil {
-	// 	return err
-	// }
-	return WithData(c, NewIdSchema(""))
+	teaid, err := teapodSrv.CreateTea(req.Vals)
+	if err != nil {
+		return err
+	}
+	return WithData(c, NewIdSchema(teaid))
 }
 
 func UpdateTea(c echo.Context) error {
-	// teapodName := c.Param("teapod")
+	teapodName := c.Param("teapod")
 	teaid := c.Param("teaid")
 
-	// var value plug.Value
-	// if err := Validate(c, &value, validationRules); err != nil {
-	// 	return err
-	// }
-	// if _, err := service.NewTeapodSrv(teapodName).UpdateTea(teaid, value); err != nil {
-	// 	return err
-	// }
+
+	var req CreateTeaReq
+	if err := Validate(c, &req); err != nil {
+		return err
+	}
+
+	teapodSrv := service.NewTeapodSrv(teapodName)
+	teabox, err := teapodSrv.GetTeabox(req.Teabox)
+	if err != nil {
+		return err
+	}
+
+	if err := teapodSrv.ValidateTeaboxVals(teabox, req.Vals); err != nil {
+		apperr := NewAppErr()
+		apperr.Errors = append(apperr.Errors, AppErrItem{
+			Path: "",
+			Message: err.Error(),
+		})
+		return apperr
+	}
+	if _, err := teapodSrv.UpdateTea(teaid, req.Vals); err != nil {
+		return err
+	}
 	return WithData(c, NewIdSchema(teaid))
 }
 

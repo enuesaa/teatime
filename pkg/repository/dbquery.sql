@@ -8,7 +8,7 @@ WHERE teapod = ? and teaid = ? LIMIT 1;
 
 -- name: CreateTea :one
 INSERT INTO teas (
-  teapod, collection, teaid, value
+  teapod, teabox, teaid, value
 ) VALUES (
   ?, ?, ?, ?
 )

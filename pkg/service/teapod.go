@@ -110,13 +110,13 @@ func (srv *TeapodSrv) GetCard(name string) (plug.Card, error) {
 }
 
 func (srv *TeapodSrv) ValidateTeaboxVals(teabox plug.Teabox, vals plug.Vals) error {
-	for key, _ := range teabox.Vals {
+	for key := range teabox.Vals {
 		if _, ok := vals[key]; !ok {
 			return fmt.Errorf("key `%s` is required.", key)
 		}
 	}
 
-	for key, _ := range vals {
+	for key := range vals {
 		if _, ok := teabox.Vals[key]; !ok {
 			return fmt.Errorf("additional key `%s` is not allowd.", key)
 		}

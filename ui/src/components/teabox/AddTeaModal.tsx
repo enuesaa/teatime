@@ -33,13 +33,13 @@ export const AddTeaModal = ({ teapod }: Props) => {
               <Text as='div' size='2' mb='1' weight='bold'>
                 Name
               </Text>
-              <TextField.Root {...register('title')} />
+              <TextField.Root {...register('vals.title')} />
             </label>
             <label>
               <Text as='div' size='2' mb='1' weight='bold'>
                 Links
               </Text>
-              <TextField.Root {...register('link')} />
+              <TextField.Root {...register('vals.link')} />
             </label>
           </Flex>
 

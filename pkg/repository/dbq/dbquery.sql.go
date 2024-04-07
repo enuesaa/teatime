@@ -11,24 +11,24 @@ import (
 
 const createTea = `-- name: CreateTea :one
 INSERT INTO teas (
-  teapod, collection, teaid, value
+  teapod, teabox, teaid, value
 ) VALUES (
   ?, ?, ?, ?
 )
-RETURNING id, teapod, collection, teaid, value, created, updated
+RETURNING id, teapod, teabox, teaid, value, created, updated
 `
 
 type CreateTeaParams struct {
-	Teapod     string
-	Collection string
-	Teaid        string
-	Value      interface{}
+	Teapod string
+	Teabox string
+	Teaid  string
+	Value  interface{}
 }
 
 func (q *Queries) CreateTea(ctx context.Context, arg CreateTeaParams) (Tea, error) {
 	row := q.db.QueryRowContext(ctx, createTea,
 		arg.Teapod,
-		arg.Collection,
+		arg.Teabox,
 		arg.Teaid,
 		arg.Value,
 	)
@@ -36,7 +36,7 @@ func (q *Queries) CreateTea(ctx context.Context, arg CreateTeaParams) (Tea, erro
 	err := row.Scan(
 		&i.ID,
 		&i.Teapod,
-		&i.Collection,
+		&i.Teabox,
 		&i.Teaid,
 		&i.Value,
 		&i.Created,
@@ -52,7 +52,7 @@ WHERE teapod = ? and teaid = ?
 
 type DeleteTeaParams struct {
 	Teapod string
-	Teaid    string
+	Teaid  string
 }
 
 func (q *Queries) DeleteTea(ctx context.Context, arg DeleteTeaParams) error {
@@ -61,13 +61,13 @@ func (q *Queries) DeleteTea(ctx context.Context, arg DeleteTeaParams) error {
 }
 
 const getTea = `-- name: GetTea :one
-SELECT id, teapod, collection, teaid, value, created, updated FROM teas
+SELECT id, teapod, teabox, teaid, value, created, updated FROM teas
 WHERE teapod = ? and teaid = ? LIMIT 1
 `
 
 type GetTeaParams struct {
 	Teapod string
-	Teaid    string
+	Teaid  string
 }
 
 func (q *Queries) GetTea(ctx context.Context, arg GetTeaParams) (Tea, error) {
@@ -76,7 +76,7 @@ func (q *Queries) GetTea(ctx context.Context, arg GetTeaParams) (Tea, error) {
 	err := row.Scan(
 		&i.ID,
 		&i.Teapod,
-		&i.Collection,
+		&i.Teabox,
 		&i.Teaid,
 		&i.Value,
 		&i.Created,
@@ -86,7 +86,7 @@ func (q *Queries) GetTea(ctx context.Context, arg GetTeaParams) (Tea, error) {
 }
 
 const listTeas = `-- name: ListTeas :many
-SELECT id, teapod, collection, teaid, value, created, updated FROM teas
+SELECT id, teapod, teabox, teaid, value, created, updated FROM teas
 WHERE teapod = ?
 `
 
@@ -102,7 +102,7 @@ func (q *Queries) ListTeas(ctx context.Context, teapod string) ([]Tea, error) {
 		if err := rows.Scan(
 			&i.ID,
 			&i.Teapod,
-			&i.Collection,
+			&i.Teabox,
 			&i.Teaid,
 			&i.Value,
 			&i.Created,

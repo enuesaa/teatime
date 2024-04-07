@@ -34,6 +34,7 @@ func main() {
 	api.GET("/teapods", controller.ListTeapods)
 	api.GET("/teapods/:teapod", controller.GetTeapodInfo)
 	api.GET("/teapods/:teapod/cards/:id", controller.GetCard)
+	// api.GET("/teapods/:teapod/teaboxes", controller.ListTeaboxes)
 
 	// api teapods teas
 	api.GET("/teapods/:teapod/teas", controller.ListTeas)
