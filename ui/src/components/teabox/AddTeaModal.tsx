@@ -3,8 +3,12 @@ import { Dialog, Button, Flex, Text, TextField, IconButton } from '@radix-ui/the
 import { BiPlus } from 'react-icons/bi'
 import { useForm } from 'react-hook-form'
 
-export const AddTeaModal = () => {
-  const { mutate: addTea } = useAddTea()
+type Props = {
+  teapod: string
+  teabox: string
+}
+export const AddTeaModal = ({ teapod, teabox }: Props) => {
+  const { mutate: addTea } = useAddTea(teapod, teabox)
   const { register, handleSubmit, reset } = useForm<LinksTeaSchema>()
 
   return (

@@ -7,16 +7,16 @@ export type TeaSchema = {
   id: string
   value: string
 }
-export const useListTeas = (teabox: string, teapod: string) =>
-  useQuery<ApiListBase<TeaSchema>>('listTeas', async () => {
+export const useListTeas = (teapod: string, teabox: string) =>
+  useQuery<ApiListBase<TeaSchema>>(`listTeas-${teapod}-${teabox}`, async () => {
     const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teabox/${teabox}/teas`)
     const body = await res.json()
     return body
   })
 
-export const useGetTea = (rid: string) =>
-  useQuery<ApiBase<TeaSchema>>(`getTeaInfo-${rid}`, async () => {
-    const res = await fetch(`${apiBaseUrl}/teapods/links/teabox/links/teas/${rid}`)
+export const useGetTea = (teapod: string, teabox: string, teaid: string) =>
+  useQuery<ApiBase<TeaSchema>>(`getTeaInfo-${teapod}-${teabox}-${teaid}`, async () => {
+    const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teabox/${teabox}/teas/${teaid}`)
     const body = await res.json()
     return body
   })
@@ -26,11 +26,11 @@ export type LinksTeaSchema = {
   title: string
   link: string
 }
-export const useAddTea = () => {
+export const useAddTea = (teapod: string, teabox: string) => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async (value: LinksTeaSchema) => {
-      const res = await fetch(`${apiBaseUrl}/teapods/links/teabox/links/teas`, {
+      const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teabox/${teabox}/teas`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,11 +44,11 @@ export const useAddTea = () => {
   })
 }
 
-export const useDeleteTea = (rid: string) => {
+export const useDeleteTea = (teapod: string, teabox: string, teaid: string) => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async () => {
-      const res = await fetch(`${apiBaseUrl}/teapods/links/teabox/links/teas/${rid}`, {
+      const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teabox/${teabox}/teas/${teaid}`, {
         method: 'DELETE',
       })
       const body = await res.json()

@@ -2,10 +2,12 @@ import { useGetTea } from '@/lib/api/teas'
 import { Code } from '@radix-ui/themes'
 
 type Props = {
+  teapod: string
+  teabox: string
   teaid: string
 }
-export const DescribeTea = ({ teaid }: Props) => {
-  const { data: info } = useGetTea(teaid)
+export const DescribeTea = ({ teapod, teabox, teaid }: Props) => {
+  const { data: info } = useGetTea(teapod, teabox, teaid)
 
   return (
     <>

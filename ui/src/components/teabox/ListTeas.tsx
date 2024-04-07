@@ -9,12 +9,12 @@ type Props = {
   teapod: string
 }
 export const ListTeas = ({ teabox, teapod }: Props) => {
-  const { data: teas } = useListTeas(teabox, teapod)
+  const { data: teas } = useListTeas(teapod, teabox)
 
   return (
     <>
       <Heading as='h3'>
-        Teas <AddTeaModal />
+        Teas <AddTeaModal teapod={teapod} teabox={teabox} />
       </Heading>
       <Text as='p' size='4' mt='2' mb='6' color='gray'></Text>
 
@@ -33,11 +33,11 @@ export const ListTeas = ({ teabox, teapod }: Props) => {
               <Table.Row key={i}>
                 <Table.RowHeaderCell>{tea.id}</Table.RowHeaderCell>
                 <Table.Cell>
-                  <DescribeTea teaid={tea.id} />
+                  <DescribeTea teapod={teapod} teabox={teabox} teaid={tea.id} />
                 </Table.Cell>
                 <Table.Cell></Table.Cell>
                 <Table.Cell>
-                  <DeleteTeaModal teaid={tea.id} />
+                  <DeleteTeaModal teapod={teapod} teabox={teabox} teaid={tea.id} />
                 </Table.Cell>
               </Table.Row>
             ))}
