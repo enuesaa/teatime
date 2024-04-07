@@ -2,7 +2,7 @@ package plug
 
 type ProviderInterface interface {
 	Info() (Info, error)
-	List() ([]string, error)
+	List() ([]Tea, error)
 	Get(teaid string) (Tea, error)
 	Set(tea Tea) error
 	Del(teaid string) error

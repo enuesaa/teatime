@@ -30,10 +30,10 @@ func (srv *TeapodSrv) GetInfo() (plug.Info, error) {
 	return provider.Info()
 }
 
-func (srv *TeapodSrv) ListTeas() ([]string, error) {
+func (srv *TeapodSrv) ListTeas() ([]plug.Tea, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
-		return make([]string, 0), err
+		return make([]plug.Tea, 0), err
 	}
 	return provider.List()
 }

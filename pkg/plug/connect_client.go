@@ -13,8 +13,8 @@ func (cc *ConnectClient) Info() (Info, error) {
 	cc.client.Call("Plugin.Info", new(interface{}), &resp)
 	return resp.Data, resp.Err()
 }
-func (cc *ConnectClient) List() ([]string, error) {
-	var resp Result[[]string]
+func (cc *ConnectClient) List() ([]Tea, error) {
+	var resp Result[[]Tea]
 	cc.client.Call("Plugin.List", new(interface{}), &resp)
 	return resp.Data, resp.Err()
 }

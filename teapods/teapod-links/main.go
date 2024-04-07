@@ -41,16 +41,8 @@ func (p *Provider) Info() (plug.Info, error) {
 	return info, nil
 }
 
-func (p *Provider) List() ([]string, error) {
-	teas, err := p.DB.ListTeas()
-	if err != nil {
-		return make([]string, 0), err
-	}
-	list := make([]string, 0)
-	for _, tea := range teas {
-		list = append(list, tea.Teaid)
-	}
-	return list, nil
+func (p *Provider) List() ([]plug.Tea, error) {
+	return p.DB.ListTeas()
 }
 
 func (p *Provider) Get(teaid string) (plug.Tea, error) {

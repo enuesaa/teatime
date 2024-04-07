@@ -14,14 +14,14 @@ var validationRules = map[string]interface{}{
 func ListTeas(c echo.Context) error {
 	teapodName := c.Param("teapod")
 
-	ids, err := service.NewTeapodSrv(teapodName).ListTeas()
+	teas, err := service.NewTeapodSrv(teapodName).ListTeas()
 	if err != nil {
 		return err
 	}
 	list := make([]IdSchema, 0)
-	for _, id := range ids {
+	for _, tea := range teas {
 		list = append(list, IdSchema{
-			Id: id,
+			Id: tea.Teaid,
 		})
 	}
 	return WithData(c, list)

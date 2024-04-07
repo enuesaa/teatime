@@ -20,15 +20,15 @@ func (s *ConnectServer) Info(arg interface{}, resp *Result[Info]) error {
 	return nil
 }
 
-func (s *ConnectServer) List(arg interface{}, resp *Result[[]string]) error {
+func (s *ConnectServer) List(arg interface{}, resp *Result[[]Tea]) error {
 	list, err := s.Impl.List()
 	if err != nil {
-		*resp = Result[[]string]{
+		*resp = Result[[]Tea]{
 			HasErr: true,
 			ErrMsg: err.Error(),
 		}
 	} else {
-		*resp = Result[[]string]{
+		*resp = Result[[]Tea]{
 			Data: list,
 			HasErr: false,
 		}
