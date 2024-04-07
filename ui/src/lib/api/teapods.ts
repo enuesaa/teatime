@@ -23,6 +23,7 @@ type TeapodInfoSchema = {
 }
 export type TeapodInfoTeabox = {
   name: string
+  comment: string
   vals: Record<string, string>
 }
 export const useGetTeapodInfo = (name: string) =>

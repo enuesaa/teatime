@@ -29,6 +29,7 @@ type TeapodInfo struct {
 }
 type TeapodInfoTeabox struct {
 	Name string `json:"name"`
+	Comment string `json:"comment"`
 	Vals map[string]string `json:"vals"`
 }
 func GetTeapodInfo(c echo.Context) error {
@@ -46,10 +47,11 @@ func GetTeapodInfo(c echo.Context) error {
 		Cards: make([]string, 0),
 		Teaboxes: make([]TeapodInfoTeabox, 0),
 	}
-	for _, schema := range info.Teaboxes {
+	for _, teabox := range info.Teaboxes {
 		data.Teaboxes = append(data.Teaboxes, TeapodInfoTeabox{
-			Name: schema.Name,
-			Vals: schema.Vals,
+			Name: teabox.Name,
+			Comment: teabox.Comment,
+			Vals: teabox.Vals,
 		})
 	}
 

@@ -19,7 +19,7 @@ export const ListTeas = ({ teapod }: Props) => {
       <Heading as='h3'>
         <Flex>
           <Box width='500px'>
-            Teas <AddTeaModal teapod={teapod} />
+            Teas <AddTeaModal teapod={teapod} teabox={teabox} />
           </Box>
           <Box flexGrow='1' flexShrink='1'>
             {teaboxes.length > 0 && <ListTeasCtl handleTeaboxChange={handleTeaboxChange} teaboxes={teaboxes} />}

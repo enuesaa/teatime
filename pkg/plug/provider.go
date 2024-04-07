@@ -29,5 +29,6 @@ type Card struct {
 }
 type Teabox struct {
 	Name string
+	Comment string
 	Vals map[string]string // `str`, `bool`, or `int`
 }

@@ -1,16 +1,17 @@
 import { LinksTeaSchema, useAddTea } from '@/lib/api/teas'
-import { Dialog, Button, Flex, Text, TextField, IconButton } from '@radix-ui/themes'
+import { Dialog, Button, Flex, Text, TextField, IconButton, Kbd } from '@radix-ui/themes'
 import { BiPlus } from 'react-icons/bi'
 import { TeapodInfoTeabox, useGetTeapodInfo } from '@/lib/api/teapods'
 import { FormEventHandler } from 'react'
 
 type Props = {
   teapod: string
+  teabox: string
 }
-export const AddTeaModal = ({ teapod }: Props) => {
+export const AddTeaModal = ({ teapod, teabox: teaboxName }: Props) => {
   const addTea = useAddTea(teapod)
   const info = useGetTeapodInfo(teapod)
-  const teabox = info.data?.teaboxes[0] ?? {vals: {}, name: ''} as TeapodInfoTeabox
+  const teabox = info.data?.teaboxes.find(v => v.name === teaboxName) ?? {vals: {}, name: ''} as TeapodInfoTeabox
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
@@ -37,8 +38,8 @@ export const AddTeaModal = ({ teapod }: Props) => {
       </Dialog.Trigger>
 
       <Dialog.Content>
-        <Dialog.Title>Add Tea</Dialog.Title>
-        <Dialog.Description mb='4'></Dialog.Description>
+        <Dialog.Title>Add <Kbd>{teabox.name.toUpperCase()}</Kbd></Dialog.Title>
+        <Dialog.Description mb='4'>{teabox.comment}</Dialog.Description>
 
         <form onSubmit={handleSubmit}>
           <Flex direction='column' gap='3'>

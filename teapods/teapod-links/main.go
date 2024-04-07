@@ -31,9 +31,20 @@ func (p *Provider) Info() (plug.Info, error) {
 		Teaboxes: []plug.Teabox{
 			{
 				Name: "links",
+				Comment: "Resgister your favorite site and look up later.",
 				Vals: map[string]string{
 					"title": "str",
 					"link": "str",
+					"memo": "str",
+					"priority": "str", // todo int
+				},
+			},
+			{
+				Name: "tags",
+				Comment: "Configure tags.",
+				Vals: map[string]string{
+					"name": "str",
+					"memo": "str",
 				},
 			},
 		},
