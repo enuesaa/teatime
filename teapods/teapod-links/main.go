@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 
 	"github.com/enuesaa/teatime/pkg/plug"
@@ -41,35 +42,42 @@ func (p *Provider) Info() plug.InfoResult {
 }
 
 func (p *Provider) List() plug.ListResult {
-	teas, err := p.DBListTeas()
+	dbteas, err := p.Repos.DB.ListTeas("links")
 	if err != nil {
 		return p.NewListErr(err)
 	}
-
 	list := make([]string, 0)
-	for _, tea := range teas {
-		list = append(list, tea.Teaid)
+	for _, dbtea := range dbteas {
+		list = append(list, dbtea.Teaid)
 	}
 	return p.NewListResult(list)
 }
 
 func (p *Provider) Get(teaid string) plug.GetResult {
-	tea, err := p.DBGetTea(teaid)
+	dbtea, err := p.Repos.DB.GetTea("links", teaid)
 	if err != nil {
 		return p.NewGetErr(err)
 	}
-	return p.NewGetResult(tea)
+	var value plug.Value
+	if err := json.Unmarshal([]byte(dbtea.Value.(string)), &value); err != nil {
+		return p.NewGetErr(err)
+	}
+	return p.NewGetResult(plug.Tea{Teaid: dbtea.Teaid, Value: value})
 }
 
 func (p *Provider) Set(tea plug.Tea) plug.SetResult {
-	if err := p.DBCreateTea(tea.Teaid, tea.Value); err != nil {
+	valuebytes, err := json.Marshal(tea.Value)
+	if err != nil {
+		return p.NewSetErr(err)
+	}
+	if err := p.Repos.DB.CreateTea("links", tea.Teaid, string(valuebytes)); err != nil {
 		return p.NewSetErr(err)
 	}
 	return p.NewSetResult()
 }
 
 func (p *Provider) Del(teaid string) plug.DelResult {
-	if err := p.DBDeleteTea(teaid); err != nil {
+	if err := p.Repos.DB.DeleteTea("links", teaid); err != nil {
 		return p.NewDelErr(err)
 	}
 	return p.NewDelResult()

@@ -1,12 +1,9 @@
 package plug
 
 import (
-	"context"
-	"encoding/json"
 	"fmt"
 
 	"github.com/enuesaa/teatime/pkg/repository"
-	"github.com/enuesaa/teatime/pkg/repository/dbq"
 	"github.com/hashicorp/go-plugin"
 )
 
@@ -21,13 +18,13 @@ type ProviderInterface interface {
 
 type Provider struct {
 	teapod string
-	repos repository.Repos
+	Repos repository.Repos
 }
 
 func (p *Provider) Serve(teapod string, provider ProviderInterface, repos repository.Repos) error {
 	p.teapod = teapod
-	p.repos = repos
-	if err := p.repos.DB.Open(); err != nil {
+	p.Repos = repos
+	if err := p.Repos.DB.Open(); err != nil {
 		return err
 	}
 	config := plugin.ServeConfig{
@@ -44,77 +41,7 @@ func (p *Provider) Serve(teapod string, provider ProviderInterface, repos reposi
 	}
 	plugin.Serve(&config)
 
-	return p.repos.DB.Close()
-}
-
-func (p *Provider) DBListTeas() ([]Tea, error) {
-	query, err := p.repos.DB.Query()
-	if err != nil {
-		return make([]Tea, 0), err
-	}
-	dbteas, err := query.ListTeas(context.Background(), p.teapod)
-	if err != nil {
-		return make([]Tea, 0), err
-	}
-	list := make([]Tea, 0)
-	for _, dbtea := range dbteas {
-		list = append(list, Tea{
-			Teaid: dbtea.Teaid,
-			// Value: dbtea.Value,
-		})
-	}
-	return list, nil
-}
-
-func (p *Provider) DBGetTea(teaid string) (Tea, error) {
-	query, err := p.repos.DB.Query()
-	if err != nil {
-		return Tea{}, err
-	}
-	param := dbq.GetTeaParams{
-		Teapod: p.teapod,
-		Teaid: teaid,
-	}
-	dbtea, err := query.GetTea(context.Background(), param)
-	if err != nil {
-		return Tea{}, err
-	}
-	var value Value
-	if err := json.Unmarshal([]byte(dbtea.Value.(string)), &value); err != nil {
-		return Tea{}, err
-	}
-	return Tea{Teaid: dbtea.Teaid, Value: value}, nil
-}
-
-func (p *Provider) DBCreateTea(teaid string, value Value) error {
-	query, err := p.repos.DB.Query()
-	if err != nil {
-		return err
-	}
-	valuebytes, err := json.Marshal(value)
-	if err != nil {
-		return err
-	}
-	param := dbq.CreateTeaParams{
-		Teapod: p.teapod,
-		Collection: "",
-		Teaid: teaid,
-		Value: string(valuebytes),
-	}
-	_, err = query.CreateTea(context.Background(), param)
-	return err
-}
-
-func (p *Provider) DBDeleteTea(teaid string) error {
-	query, err := p.repos.DB.Query()
-	if err != nil {
-		return err
-	}
-	param := dbq.DeleteTeaParams{
-		Teapod: p.teapod,
-		Teaid: teaid,
-	}
-	return query.DeleteTea(context.Background(), param)
+	return p.Repos.DB.Close()
 }
 
 // schemas
