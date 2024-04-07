@@ -1,18 +1,18 @@
-import { Heading, Text, Table, SegmentedControl, Flex, Box } from '@radix-ui/themes'
-import { useListTeas } from '@/lib/api/teas'
-import { DescribeTea } from './DescribeTea'
-import { DeleteTeaModal } from './DeleteTeaModal'
+import { Heading, Text, Flex, Box } from '@radix-ui/themes'
 import { AddTeaModal } from './AddTeaModal'
-import { FormEventHandler, useState } from 'react'
+import { useState } from 'react'
+import { ListTeasTable } from './ListTeasTable'
+import { ListTeasCtl } from './ListTeasCtl'
+import { useGetTeapodInfo } from '@/lib/api/teapods'
 
 type Props = {
   teapod: string
 }
 export const ListTeas = ({ teapod }: Props) => {
-  const teas = useListTeas(teapod)
+  const info = useGetTeapodInfo(teapod)
   const [teabox, setTeabox] = useState<string>('links')
-
   const handleTeaboxChange = (value: string) => setTeabox(value)
+  const teaboxes = info.data?.teaboxes.map(v => v.name) ?? []
 
   return (
     <>
@@ -22,40 +22,12 @@ export const ListTeas = ({ teapod }: Props) => {
             Teas <AddTeaModal teapod={teapod} />
           </Box>
           <Box flexGrow='1' flexShrink='1'>
-            <SegmentedControl.Root defaultValue='links' onValueChange={handleTeaboxChange} radius='full' variant='classic' size='3'>
-              <SegmentedControl.Item value='links'>Links</SegmentedControl.Item>
-              <SegmentedControl.Item value='notes'>Notes</SegmentedControl.Item>
-            </SegmentedControl.Root>
+            {teaboxes.length > 0 && <ListTeasCtl handleTeaboxChange={handleTeaboxChange} teaboxes={teaboxes} />}
           </Box>
         </Flex>
       </Heading>
-      <Text as='p' size='4' mt='2' mb='6' color='gray'></Text>
-
-      <Table.Root variant='surface'>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeaderCell width='30%'>Id</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Value</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell width='5%'></Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell width='5%'></Table.ColumnHeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {teas.data !== undefined &&
-            teas?.data?.map((tea, i) => (
-              <Table.Row key={i}>
-                <Table.RowHeaderCell>{tea.id}</Table.RowHeaderCell>
-                <Table.Cell>
-                  <DescribeTea teapod={teapod} teaid={tea.id} />
-                </Table.Cell>
-                <Table.Cell></Table.Cell>
-                <Table.Cell>
-                  <DeleteTeaModal teapod={teapod} teaid={tea.id} />
-                </Table.Cell>
-              </Table.Row>
-            ))}
-        </Table.Body>
-      </Table.Root>
+      <Text as='p' size='4' mt='2' mb='2' color='gray'></Text>
+      <ListTeasTable teapod={teapod} teabox={teabox} />
     </>
   )
 }
