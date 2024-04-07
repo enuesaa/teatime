@@ -6,10 +6,10 @@ import (
 )
 
 func GetCard(c echo.Context) error {
-	name := c.Param("name")
+	teapodName := c.Param("teapod")
 	id := c.Param("id")
 
-	card, err := service.NewTeapodSrv(name).GetCard(id)
+	card, err := service.NewTeapodSrv(teapodName).GetCard(id)
 	if err != nil {
 		return err
 	}

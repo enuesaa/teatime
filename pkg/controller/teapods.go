@@ -32,16 +32,16 @@ type TeapodInfoSchema struct {
 	Vals map[string]string `json:"vals"`
 }
 func GetTeapodInfo(c echo.Context) error {
-	name := c.Param("name")
+	teapodName := c.Param("teapod")
 
-	info, err := service.NewTeapodSrv(name).GetInfo()
+	info, err := service.NewTeapodSrv(teapodName).GetInfo()
 	if err != nil {
 		return err
 	}
 
 	data := TeapodInfo {
-		Name: name,
-		Command: fmt.Sprintf("teapod-%s", name),
+		Name: teapodName,
+		Command: fmt.Sprintf("teapod-%s", teapodName),
 		Description: info.Description,
 		Cards: info.Cards,
 		Schemas: make([]TeapodInfoSchema, 0),

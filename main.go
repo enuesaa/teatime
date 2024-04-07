@@ -32,15 +32,15 @@ func main() {
 
 	// api teapods
 	api.GET("/teapods", controller.ListTeapods)
-	api.GET("/teapods/:name", controller.GetTeapodInfo)
-	api.GET("/teapods/:name/cards/:id", controller.GetCard)
+	api.GET("/teapods/:teapod", controller.GetTeapodInfo)
+	api.GET("/teapods/:teapod/cards/:id", controller.GetCard)
 
 	// api teapods teas
-	api.GET("/teapods/:name/teas", controller.ListTeas)
-	api.GET("/teapods/:name/teas/:teaid", controller.GetTea)
-	api.POST("/teapods/:name/teas", controller.CreateTea)
-	api.PUT("/teapods/:name/teas/:teaid", controller.UpdateTea)
-	api.DELETE("/teapods/:name/teas/:teaid", controller.DeleteTea)
+	api.GET("/teapods/:teapod/teabox/:teabox/teas", controller.ListTeas)
+	api.GET("/teapods/:teapod/teabox/:teabox/teas/:teaid", controller.GetTea)
+	api.POST("/teapods/:teapod/teabox/:teabox/teas", controller.CreateTea)
+	api.PUT("/teapods/:teapod/teabox/:teabox/teas/:teaid", controller.UpdateTea)
+	api.DELETE("/teapods/:teapod/teabox/:teabox/teas/:teaid", controller.DeleteTea)
 
 	// ui
 	app.Any("/*", ui.Serve)

@@ -12,9 +12,9 @@ var validationRules = map[string]interface{}{
 }
 
 func ListTeas(c echo.Context) error {
-	name := c.Param("name")
+	teapodName := c.Param("teapod")
 
-	ids, err := service.NewTeapodSrv(name).ListTeas()
+	ids, err := service.NewTeapodSrv(teapodName).ListTeas()
 	if err != nil {
 		return err
 	}
@@ -28,10 +28,10 @@ func ListTeas(c echo.Context) error {
 }
 
 func GetTea(c echo.Context) error {
-	name := c.Param("name")
+	teapodName := c.Param("teapod")
 	teaid := c.Param("teaid")
 
-	tea, err := service.NewTeapodSrv(name).GetTea(teaid)
+	tea, err := service.NewTeapodSrv(teapodName).GetTea(teaid)
 	if err != nil {
 		return err
 	}
@@ -39,13 +39,13 @@ func GetTea(c echo.Context) error {
 }
 
 func CreateTea(c echo.Context) error {
-	name := c.Param("name")
+	teapodName := c.Param("teapod")
 
 	var value plug.Value
 	if err := Validate(c, &value, validationRules); err != nil {
 		return err
 	}
-	teaid, err := service.NewTeapodSrv(name).CreateTea(value)
+	teaid, err := service.NewTeapodSrv(teapodName).CreateTea(value)
 	if err != nil {
 		return err
 	}
@@ -53,24 +53,24 @@ func CreateTea(c echo.Context) error {
 }
 
 func UpdateTea(c echo.Context) error {
-	name := c.Param("name")
+	teapodName := c.Param("teapod")
 	teaid := c.Param("teaid")
 
 	var value plug.Value
 	if err := Validate(c, &value, validationRules); err != nil {
 		return err
 	}
-	if _, err := service.NewTeapodSrv(name).UpdateTea(teaid, value); err != nil {
+	if _, err := service.NewTeapodSrv(teapodName).UpdateTea(teaid, value); err != nil {
 		return err
 	}
 	return WithData(c, NewIdSchema(teaid))
 }
 
 func DeleteTea(c echo.Context) error {
-	name := c.Param("name")
+	teapodName := c.Param("teapod")
 	teaid := c.Param("teaid")
 
-	if err := service.NewTeapodSrv(name).DeleteTea(teaid); err != nil {
+	if err := service.NewTeapodSrv(teapodName).DeleteTea(teaid); err != nil {
 		return err
 	}
 
