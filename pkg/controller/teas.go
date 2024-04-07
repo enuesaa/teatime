@@ -1,7 +1,6 @@
 package controller
 
 import (
-	// "github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/labstack/echo/v4"
 )
@@ -35,21 +34,30 @@ func GetTea(c echo.Context) error {
 
 type CreateTeaReq struct {
 	Teabox string `json:"teabox" validate:"min=1"`
-	Vals map[string]string `json:"vals"`
+	Vals map[string]string `json:"vals" validate:"required"`
 }
 func CreateTea(c echo.Context) error {
-	// teapodName := c.Param("teapod")
+	teapodName := c.Param("teapod")
 
 	var req CreateTeaReq
 	if err := Validate(c, &req); err != nil {
 		return err
 	}
 
-	// teapodSrv := service.NewTeapodSrv(teapodName)
-	// _, err := teapodSrv.GetTeabox("links")
-	// if err != nil {
-	// 	return err
-	// }
+	teapodSrv := service.NewTeapodSrv(teapodName)
+	teabox, err := teapodSrv.GetTeabox(req.Teabox)
+	if err != nil {
+		return err
+	}
+
+	if err := teapodSrv.ValidateTeaboxVals(teabox, req.Vals); err != nil {
+		apperr := NewAppErr()
+		apperr.Errors = append(apperr.Errors, AppErrItem{
+			Path: "",
+			Message: err.Error(),
+		})
+		return apperr
+	}
 
 	// teaid, err := service.NewTeapodSrv(teapodName).CreateTea(value)
 	// if err != nil {
