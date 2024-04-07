@@ -19,10 +19,6 @@ type DbRepositoryInterface interface {
 	Close() error
 	Migrate() error
 	Query() (*dbq.Queries, error)
-	ListTeas(teapod string) ([]dbq.Tea, error)
-	GetTea(teapod string, teaid string) (dbq.Tea, error)
-	CreateTea(teapod string, teaid string, value string) error
-	DeleteTea(teapod string, teaid string) error
 }
 
 //go:embed dbschema.sql
@@ -79,51 +75,3 @@ func (repo *DbRepository) Query() (*dbq.Queries, error) {
 	}
 	return dbq.New(repo.db), nil
 }
-
-func (repo *DbRepository) ListTeas(teapod string) ([]dbq.Tea, error) {
-	query, err := repo.Query()
-	if err != nil {
-		return make([]dbq.Tea, 0), err
-	}
-	return query.ListTeas(context.Background(), teapod)
-}
-
-func (repo *DbRepository) GetTea(teapod string, teaid string) (dbq.Tea, error) {
-	query, err := repo.Query()
-	if err != nil {
-		return dbq.Tea{}, err
-	}
-	param := dbq.GetTeaParams{
-		Teapod: teapod,
-		Teaid: teaid,
-	}
-	return query.GetTea(context.Background(), param)
-}
-
-func (repo *DbRepository) CreateTea(teapod string, teaid string, value string) error {
-	query, err := repo.Query()
-	if err != nil {
-		return err
-	}
-	param := dbq.CreateTeaParams{
-		Teapod: teapod,
-		Collection: "",
-		Teaid: teaid,
-		Value: value,
-	}
-	_, err = query.CreateTea(context.Background(), param)
-	return err
-}
-
-func (repo *DbRepository) DeleteTea(teapod string, teaid string) error {
-	query, err := repo.Query()
-	if err != nil {
-		return err
-	}
-	param := dbq.DeleteTeaParams{
-		Teapod: teapod,
-		Teaid: teaid,
-	}
-	return query.DeleteTea(context.Background(), param)
-}
-
