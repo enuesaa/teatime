@@ -2,11 +2,19 @@ package main
 
 import (
 	"github.com/enuesaa/teatime/pkg/plug"
+	"github.com/enuesaa/teatime/pkg/repository"
 )
 
 func main() {
 	provider := Provider{}
+	if err := provider.ProvideBefore("links", repository.New()); err != nil {
+		plug.LogE(err)
+		return
+	}
 	plug.Serve(&provider, "links")
+	if err := provider.ProvideAfter(); err != nil {
+		plug.LogE(err)
+	}
 }
 
 type Provider struct {

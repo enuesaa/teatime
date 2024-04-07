@@ -9,9 +9,6 @@ import (
 )
 
 type ProviderInterface interface {
-	ProvideBefore(teapod string, repos repository.Repos) error
-	ProvideAfter() error
-
 	Info() InfoResult
 	List() ListResult
 	Get(teaid string) GetResult

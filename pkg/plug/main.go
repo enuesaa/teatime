@@ -3,17 +3,11 @@ package plug
 import (
 	"os/exec"
 
-	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/go-plugin"
 )
 
 func Serve(impl ProviderInterface, teapod string) {
-	if err := impl.ProvideBefore(teapod, repository.New()); err != nil {
-		LogE(err)
-		return
-	}
-
 	config := plugin.ServeConfig{
 		HandshakeConfig: plugin.HandshakeConfig{
 			ProtocolVersion:  1,
@@ -27,10 +21,6 @@ func Serve(impl ProviderInterface, teapod string) {
 		},
 	}
 	plugin.Serve(&config)
-
-	if err := impl.ProvideAfter(); err != nil {
-		LogE(err)
-	}
 }
 
 func NewClient(command string) *plugin.Client {
