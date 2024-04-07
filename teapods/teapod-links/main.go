@@ -23,7 +23,7 @@ func (p *Provider) Serve() error {
 	return p.Provider.Serve("links", p, repository.New())
 }
 
-func (p *Provider) Info() plug.InfoResult {
+func (p *Provider) Info() (plug.Info, error) {
 	info := plug.Info{
 		Name: "teapod-links",
 		Description: "links teapod",
@@ -38,51 +38,51 @@ func (p *Provider) Info() plug.InfoResult {
 			},
 		},
 	}
-	return p.NewInfoResult(info)
+	return info, nil
 }
 
-func (p *Provider) List() plug.ListResult {
+func (p *Provider) List() ([]string, error) {
 	dbteas, err := p.Repos.DB.ListTeas("links")
 	if err != nil {
-		return p.NewListErr(err)
+		return make([]string, 0), err
 	}
 	list := make([]string, 0)
 	for _, dbtea := range dbteas {
 		list = append(list, dbtea.Teaid)
 	}
-	return p.NewListResult(list)
+	return list, nil
 }
 
-func (p *Provider) Get(teaid string) plug.GetResult {
+func (p *Provider) Get(teaid string) (plug.Tea, error) {
 	dbtea, err := p.Repos.DB.GetTea("links", teaid)
 	if err != nil {
-		return p.NewGetErr(err)
+		return plug.Tea{}, err
 	}
 	var value plug.Value
 	if err := json.Unmarshal([]byte(dbtea.Value.(string)), &value); err != nil {
-		return p.NewGetErr(err)
+		return plug.Tea{}, err
 	}
-	return p.NewGetResult(plug.Tea{Teaid: dbtea.Teaid, Value: value})
+	return plug.Tea{Teaid: dbtea.Teaid, Value: value}, nil
 }
 
-func (p *Provider) Set(tea plug.Tea) plug.SetResult {
+func (p *Provider) Set(tea plug.Tea) error {
 	valuebytes, err := json.Marshal(tea.Value)
 	if err != nil {
-		return p.NewSetErr(err)
+		return err
 	}
 	if err := p.Repos.DB.CreateTea("links", tea.Teaid, string(valuebytes)); err != nil {
-		return p.NewSetErr(err)
+		return err
 	}
-	return p.NewSetResult()
+	return nil
 }
 
-func (p *Provider) Del(teaid string) plug.DelResult {
+func (p *Provider) Del(teaid string) error {
 	if err := p.Repos.DB.DeleteTea("links", teaid); err != nil {
-		return p.NewDelErr(err)
+		return err
 	}
-	return p.NewDelResult()
+	return nil
 }
 
-func (p *Provider) GetCard(name string) plug.GetCardResult {
-	return p.NewGetCardErr(nil)
+func (p *Provider) GetCard(name string) (plug.Card, error) {
+	return plug.Card{}, nil
 }

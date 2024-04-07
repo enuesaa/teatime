@@ -27,8 +27,7 @@ func (srv *TeapodSrv) GetInfo() (plug.Info, error) {
 	if err != nil {
 		return plug.Info{}, err
 	}
-	result := provider.Info()
-	return result.Data, result.Err()
+	return provider.Info()
 }
 
 func (srv *TeapodSrv) ListTeas() ([]string, error) {
@@ -36,8 +35,7 @@ func (srv *TeapodSrv) ListTeas() ([]string, error) {
 	if err != nil {
 		return make([]string, 0), err
 	}
-	result := provider.List()
-	return result.Data, result.Err()
+	return provider.List()
 }
 
 func (srv *TeapodSrv) GetTea(teaid string) (plug.Tea, error) {
@@ -45,8 +43,7 @@ func (srv *TeapodSrv) GetTea(teaid string) (plug.Tea, error) {
 	if err != nil {
 		return plug.Tea{}, err
 	}
-	result := provider.Get(teaid)
-	return result.Data, result.Err()
+	return provider.Get(teaid)
 }
 
 func (srv *TeapodSrv) CreateTea(value plug.Value) (string, error) {
@@ -59,8 +56,8 @@ func (srv *TeapodSrv) CreateTea(value plug.Value) (string, error) {
 		Teaid:   teaid,
 		Value: value,
 	}
-	if result := provider.Set(tea); result.HasErr {
-		return "", result.Err()
+	if err := provider.Set(tea); err != nil {
+		return "", err
 	}
 	return teaid, nil
 }
@@ -77,8 +74,8 @@ func (srv *TeapodSrv) UpdateTea(teaid string, value plug.Value) (string, error) 
 		Teaid:   teaid,
 		Value: value,
 	}
-	if result := provider.Set(tea); result.HasErr {
-		return "", result.Err()
+	if err := provider.Set(tea); err != nil {
+		return "", err
 	}
 	return teaid, nil
 }
@@ -88,8 +85,7 @@ func (srv *TeapodSrv) DeleteTea(teaid string) error {
 	if err != nil {
 		return err
 	}
-	result := provider.Del(teaid)
-	return result.Err()
+	return provider.Del(teaid)
 }
 
 func (srv *TeapodSrv) GetCard(name string) (plug.Card, error) {
@@ -97,6 +93,5 @@ func (srv *TeapodSrv) GetCard(name string) (plug.Card, error) {
 	if err != nil {
 		return plug.Card{}, err
 	}
-	result := provider.GetCard(name)
-	return result.Data, result.Err()
+	return provider.GetCard(name)
 }

@@ -5,26 +5,59 @@ type ConnectServer struct {
 }
 
 func (s *ConnectServer) Info(arg interface{}, resp *InfoResult) error {
-	*resp = s.Impl.Info()
+	info, err := s.Impl.Info()
+	if err != nil {
+		*resp = NewInfoErr(err)
+	} else {
+		*resp = NewInfoResult(info)
+	}
 	return nil
 }
+
 func (s *ConnectServer) List(arg interface{}, resp *ListResult) error {
-	*resp = s.Impl.List()
+	list, err := s.Impl.List()
+	if err != nil {
+		*resp = NewListErr(err)
+	} else {
+		*resp = NewListResult(list)
+	}
 	return nil
 }
+
 func (s *ConnectServer) Get(teaid string, resp *GetResult) error {
-	*resp = s.Impl.Get(teaid)
+	tea, err := s.Impl.Get(teaid)
+	if err != nil {
+		*resp = NewGetErr(err)
+	} else {
+		*resp = NewGetResult(tea)
+	}
 	return nil
 }
+
 func (s *ConnectServer) Set(tea Tea, resp *SetResult) error {
-	*resp = s.Impl.Set(tea)
+	if err := s.Impl.Set(tea); err != nil {
+		*resp = NewSetErr(err)
+	} else {
+		*resp = NewSetResult()
+	}
 	return nil
 }
+
 func (s *ConnectServer) Del(teaid string, resp *DelResult) error {
-	*resp = s.Impl.Del(teaid)
+	if err := s.Impl.Del(teaid); err != nil {
+		*resp = NewDelErr(err)
+	} else {
+		*resp = NewDelResult()
+	}
 	return nil
 }
+
 func (s *ConnectServer) GetCard(name string, resp *GetCardResult) error {
-	*resp = s.Impl.GetCard(name)
+	card, err := s.Impl.GetCard(name)
+	if err != nil {
+		*resp = NewGetCardErr(err)
+	} else {
+		*resp = NewGetCardResult(card)
+	}
 	return nil
 }

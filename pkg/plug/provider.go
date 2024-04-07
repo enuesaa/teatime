@@ -1,19 +1,17 @@
 package plug
 
 import (
-	"fmt"
-
 	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/hashicorp/go-plugin"
 )
 
 type ProviderInterface interface {
-	Info() InfoResult
-	List() ListResult
-	Get(teaid string) GetResult
-	Set(tea Tea) SetResult
-	Del(teaid string) DelResult
-	GetCard(name string) GetCardResult
+	Info() (Info, error)
+	List() ([]string, error)
+	Get(teaid string) (Tea, error)
+	Set(tea Tea) error
+	Del(teaid string) error
+	GetCard(name string) (Card, error)
 }
 
 type Provider struct {
@@ -45,99 +43,80 @@ func (p *Provider) Serve(teapod string, provider ProviderInterface, repos reposi
 }
 
 // schemas
-func (p *Provider) NewInfoResult(data Info) InfoResult {
+func NewInfoResult(data Info) InfoResult {
 	return InfoResult{
 		Data: data,
 		HasErr: false,
 	}
 }
-func (p *Provider) NewInfoErr(err error) InfoResult {
+func NewInfoErr(err error) InfoResult {
 	return InfoResult{
 		HasErr: true,
 		ErrMsg: err.Error(),
 	}
 }
 
-func (p *Provider) NewListResult(data []string) ListResult {
+func NewListResult(data []string) ListResult {
 	return ListResult{
 		Data: data,
 		HasErr: false,
 	}
 }
-func (p *Provider) NewListErr(err error) ListResult {
+func NewListErr(err error) ListResult {
 	return ListResult{
 		HasErr: true,
 		ErrMsg: err.Error(),
 	}
 }
 
-func (p *Provider) NewGetResult(data Tea) GetResult {
+func NewGetResult(data Tea) GetResult {
 	return GetResult{
 		Data: data,
 		HasErr: false,
 	}
 }
-func (p *Provider) NewGetErr(err error) GetResult {
+func NewGetErr(err error) GetResult {
 	return GetResult{
 		HasErr: true,
 		ErrMsg: err.Error(),
 	}
 }
 
-func (p *Provider) NewGetCardResult(card Card) GetCardResult {
+func NewGetCardResult(card Card) GetCardResult {
 	return GetCardResult{
 		Data: card,
 		HasErr: false,
 	}
 }
-func (p *Provider) NewGetCardErr(err error) GetCardResult {
+func NewGetCardErr(err error) GetCardResult {
 	return GetCardResult{
 		HasErr: true,
 		ErrMsg: err.Error(),
 	}
 }
 
-func (p *Provider) NewSetResult() SetResult {
+func NewSetResult() SetResult {
 	return SetResult{
 		Data: true,
 		HasErr: false,
 	}
 }
-func (p *Provider) NewSetErr(err error) SetResult {
+func NewSetErr(err error) SetResult {
 	return SetResult{
 		HasErr: true,
 		ErrMsg: err.Error(),
 	}
 }
 
-func (p *Provider) NewDelResult() DelResult {
+func NewDelResult() DelResult {
 	return SetResult{
 		Data: true,
 		HasErr: false,
 	}
 }
-func (p *Provider) NewDelErr(err error) DelResult {
+func NewDelErr(err error) DelResult {
 	return SetResult{
 		HasErr: true,
 		ErrMsg: err.Error(),
 	}
-}
-
-func (p *Provider) Info() InfoResult {
-	return p.NewInfoErr(fmt.Errorf("not implemented"))
-}
-func (p *Provider) List() ListResult {
-	return p.NewListErr(fmt.Errorf("not implemented"))
-}
-func (p *Provider) Get(teaid string) GetResult {
-	return p.NewGetErr(fmt.Errorf("not implemented"))
-}
-func (p *Provider) Set(tea Tea) SetResult {
-	return p.NewSetErr(fmt.Errorf("not implemented"))
-}
-func (p *Provider) Del(teaid string) DelResult {
-	return p.NewDelErr(fmt.Errorf("not implemented"))
-}
-func (p *Provider) GetCard(name string) GetCardResult {
-	return p.NewGetCardErr(fmt.Errorf("not implemented"))
 }
