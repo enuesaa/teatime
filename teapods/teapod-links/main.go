@@ -9,18 +9,20 @@ import (
 )
 
 func main() {
-	provider := Provider{}
-	if err := provider.Serve(); err != nil {
+	provider := Provider{
+		Repos: repository.New(),
+	}
+	if err := provider.Repos.DB.Open(); err != nil {
+		log.Fatalf("Error: %s", err)
+	}
+	plug.Serve(&provider)
+	if err := provider.Repos.DB.Close(); err != nil {
 		log.Fatalf("Error: %s", err)
 	}
 }
 
 type Provider struct {
-	plug.Provider
-}
-
-func (p *Provider) Serve() error {
-	return p.Provider.Serve("links", p, repository.New())
+	Repos repository.Repos
 }
 
 func (p *Provider) Info() (plug.Info, error) {
