@@ -3,9 +3,11 @@ package plug
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/enuesaa/teatime/pkg/repository/dbq"
+	"github.com/hashicorp/go-plugin"
 )
 
 type ProviderInterface interface {
@@ -22,13 +24,26 @@ type Provider struct {
 	repos repository.Repos
 }
 
-func (p *Provider) ProvideBefore(teapod string, repos repository.Repos) error {
+func (p *Provider) Serve(teapod string, repos repository.Repos) error {
 	p.teapod = teapod
 	p.repos = repos
-	return p.repos.DB.Open()
-}
+	if err := p.repos.DB.Open(); err != nil {
+		return err
+	}
+	config := plugin.ServeConfig{
+		HandshakeConfig: plugin.HandshakeConfig{
+			ProtocolVersion:  1,
+			MagicCookieKey:   "hey",
+			MagicCookieValue: "hello",
+		},
+		Plugins: map[string]plugin.Plugin{
+			"main": &Connector{
+				Impl: p,
+			},
+		},
+	}
+	plugin.Serve(&config)
 
-func (p *Provider) ProvideAfter() error {
 	return p.repos.DB.Close()
 }
 
@@ -179,4 +194,23 @@ func (p *Provider) NewDelErr(err error) DelResult {
 		HasErr: true,
 		ErrMsg: err.Error(),
 	}
+}
+
+func (p *Provider) Info() InfoResult {
+	return p.NewInfoErr(fmt.Errorf("not implemented"))
+}
+func (p *Provider) List() ListResult {
+	return p.NewListErr(fmt.Errorf("not implemented"))
+}
+func (p *Provider) Get(teaid string) GetResult {
+	return p.NewGetErr(fmt.Errorf("not implemented"))
+}
+func (p *Provider) Set(tea Tea) SetResult {
+	return p.NewSetErr(fmt.Errorf("not implemented"))
+}
+func (p *Provider) Del(teaid string) DelResult {
+	return p.NewDelErr(fmt.Errorf("not implemented"))
+}
+func (p *Provider) GetCard(name string) GetCardResult {
+	return p.NewGetCardErr(fmt.Errorf("not implemented"))
 }

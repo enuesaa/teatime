@@ -7,22 +7,6 @@ import (
 	"github.com/hashicorp/go-plugin"
 )
 
-func Serve(impl ProviderInterface, teapod string) {
-	config := plugin.ServeConfig{
-		HandshakeConfig: plugin.HandshakeConfig{
-			ProtocolVersion:  1,
-			MagicCookieKey:   "hey",
-			MagicCookieValue: "hello",
-		},
-		Plugins: map[string]plugin.Plugin{
-			"main": &Connector{
-				Impl: impl,
-			},
-		},
-	}
-	plugin.Serve(&config)
-}
-
 func NewClient(command string) *plugin.Client {
 	logger := hclog.New(&hclog.LoggerOptions{
 		Name:        "teatime",
