@@ -8,7 +8,7 @@ type Props = {
   teabox: string;
 }
 export const ListTeasTable = ({ teapod, teabox }: Props) => {
-  const teas = useListTeas(teapod)
+  const teas = useListTeas(teapod, teabox)
 
   return (
     <Table.Root variant='surface'>

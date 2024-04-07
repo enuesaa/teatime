@@ -1,4 +1,4 @@
-import { LinksTeaSchema, useAddTea } from '@/lib/api/teas'
+import { useAddTea, CreateTeaReq } from '@/lib/api/teas'
 import { Dialog, Button, Flex, Text, TextField, IconButton, Kbd } from '@radix-ui/themes'
 import { BiPlus } from 'react-icons/bi'
 import { TeapodInfoTeabox, useGetTeapodInfo } from '@/lib/api/teapods'
@@ -9,13 +9,13 @@ type Props = {
   teabox: string
 }
 export const AddTeaModal = ({ teapod, teabox: teaboxName }: Props) => {
-  const addTea = useAddTea(teapod)
+  const addTea = useAddTea(teapod, teaboxName)
   const info = useGetTeapodInfo(teapod)
   const teabox = info.data?.teaboxes.find(v => v.name === teaboxName) ?? {vals: {}, name: ''} as TeapodInfoTeabox
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
-    const data: LinksTeaSchema = {
+    const data: CreateTeaReq = {
       teabox: teabox.name,
       vals: {},
     }
@@ -48,7 +48,7 @@ export const AddTeaModal = ({ teapod, teabox: teaboxName }: Props) => {
                 <Text as='div' size='2' mb='1' weight='bold'>
                   {v}
                 </Text>
-                <TextField.Root name={v} />
+                <TextField.Root name={v} data-1p-ignore />
               </label>
             ))}
           </Flex>

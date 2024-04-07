@@ -7,10 +7,9 @@ type Props = {
   teaid: string
 }
 export const DeleteTeaModal = ({ teapod, teaid }: Props) => {
-  const { mutateAsync: deleteProvider } = useDeleteTea(teapod, teaid)
-  const handleDelete: MouseEventHandler<HTMLButtonElement> = async (e) => {
-    e.preventDefault()
-    await deleteProvider()
+  const deleteTea = useDeleteTea(teapod, teaid)
+  const handleDelete: MouseEventHandler<HTMLButtonElement> = (e) => {
+    deleteTea.mutate()
   }
 
   return (
