@@ -12,7 +12,7 @@ type ProviderInterface interface {
 type Info struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
-	Schemas []Schema `json:"schemas"`
+	Teaboxes []Teabox `json:"teaboxes"`
 	Cards []string `json:"cards"`
 }
 type Tea struct {
@@ -27,7 +27,7 @@ type Card struct {
 	Type string `json:"type"` // text
 	Text string `json:"text"`
 }
-type Schema struct {
+type Teabox struct {
 	Name string
 	Vals map[string]string // `str`, `bool`, or `int`
 }

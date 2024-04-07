@@ -4,11 +4,10 @@ import { MouseEventHandler } from 'react'
 
 type Props = {
   teapod: string
-  teabox: string
   teaid: string
 }
-export const DeleteTeaModal = ({ teapod, teabox, teaid }: Props) => {
-  const { mutateAsync: deleteProvider } = useDeleteTea(teapod, teabox, teaid)
+export const DeleteTeaModal = ({ teapod, teaid }: Props) => {
+  const { mutateAsync: deleteProvider } = useDeleteTea(teapod, teaid)
   const handleDelete: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault()
     await deleteProvider()

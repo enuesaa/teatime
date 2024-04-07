@@ -27,8 +27,8 @@ func (p *Provider) Info() (plug.Info, error) {
 	info := plug.Info{
 		Name: "teapod-links",
 		Description: "links teapod",
-		Cards: []string{},
-		Schemas: []plug.Schema{
+		Cards: make([]string, 0),
+		Teaboxes: []plug.Teabox{
 			{
 				Name: "links",
 				Vals: map[string]string{

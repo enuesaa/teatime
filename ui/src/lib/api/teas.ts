@@ -7,16 +7,16 @@ export type TeaSchema = {
   id: string
   value: string
 }
-export const useListTeas = (teapod: string, teabox: string) =>
-  useQuery<ApiListBase<TeaSchema>>(`listTeas-${teapod}-${teabox}`, async () => {
-    const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teabox/${teabox}/teas`)
+export const useListTeas = (teapod: string) =>
+  useQuery<ApiListBase<TeaSchema>>(`listTeas-${teapod}`, async () => {
+    const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teas`)
     const body = await res.json()
     return body
   })
 
-export const useGetTea = (teapod: string, teabox: string, teaid: string) =>
-  useQuery<ApiBase<TeaSchema>>(`getTeaInfo-${teapod}-${teabox}-${teaid}`, async () => {
-    const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teabox/${teabox}/teas/${teaid}`)
+export const useGetTea = (teapod: string, teaid: string) =>
+  useQuery<ApiBase<TeaSchema>>(`getTeaInfo-${teapod}-${teaid}`, async () => {
+    const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teas/${teaid}`)
     const body = await res.json()
     return body
   })
@@ -26,11 +26,11 @@ export type LinksTeaSchema = {
   title: string
   link: string
 }
-export const useAddTea = (teapod: string, teabox: string) => {
+export const useAddTea = (teapod: string) => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async (value: LinksTeaSchema) => {
-      const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teabox/${teabox}/teas`, {
+      const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teas`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,11 +44,11 @@ export const useAddTea = (teapod: string, teabox: string) => {
   })
 }
 
-export const useDeleteTea = (teapod: string, teabox: string, teaid: string) => {
+export const useDeleteTea = (teapod: string, teaid: string) => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async () => {
-      const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teabox/${teabox}/teas/${teaid}`, {
+      const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teas/${teaid}`, {
         method: 'DELETE',
       })
       const body = await res.json()

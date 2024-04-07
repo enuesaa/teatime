@@ -5,10 +5,9 @@ import { useForm } from 'react-hook-form'
 
 type Props = {
   teapod: string
-  teabox: string
 }
-export const AddTeaModal = ({ teapod, teabox }: Props) => {
-  const { mutate: addTea } = useAddTea(teapod, teabox)
+export const AddTeaModal = ({ teapod }: Props) => {
+  const { mutate: addTea } = useAddTea(teapod)
   const { register, handleSubmit, reset } = useForm<LinksTeaSchema>()
 
   return (

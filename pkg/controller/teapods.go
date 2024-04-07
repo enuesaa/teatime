@@ -25,9 +25,9 @@ type TeapodInfo struct {
 	Command string `json:"command"`
 	Description string `json:"description"`
 	Cards []string `json:"cards"`
-	Schemas []TeapodInfoSchema `json:"schemas"`
+	Teaboxes []TeapodInfoTeabox `json:"teaboxes"`
 }
-type TeapodInfoSchema struct {
+type TeapodInfoTeabox struct {
 	Name string `json:"name"`
 	Vals map[string]string `json:"vals"`
 }
@@ -44,10 +44,10 @@ func GetTeapodInfo(c echo.Context) error {
 		Command: fmt.Sprintf("teapod-%s", teapodName),
 		Description: info.Description,
 		Cards: info.Cards,
-		Schemas: make([]TeapodInfoSchema, 0),
+		Teaboxes: make([]TeapodInfoTeabox, 0),
 	}
-	for _, schema := range info.Schemas {
-		data.Schemas = append(data.Schemas, TeapodInfoSchema{
+	for _, schema := range info.Teaboxes {
+		data.Teaboxes = append(data.Teaboxes, TeapodInfoTeabox{
 			Name: schema.Name,
 			Vals: schema.Vals,
 		})

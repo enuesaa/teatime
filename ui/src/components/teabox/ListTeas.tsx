@@ -5,16 +5,15 @@ import { DeleteTeaModal } from './DeleteTeaModal'
 import { AddTeaModal } from './AddTeaModal'
 
 type Props = {
-  teabox: string
   teapod: string
 }
-export const ListTeas = ({ teabox, teapod }: Props) => {
-  const { data: teas } = useListTeas(teapod, teabox)
+export const ListTeas = ({ teapod }: Props) => {
+  const { data: teas } = useListTeas(teapod)
 
   return (
     <>
       <Heading as='h3'>
-        Teas <AddTeaModal teapod={teapod} teabox={teabox} />
+        Teas <AddTeaModal teapod={teapod} />
       </Heading>
       <Text as='p' size='4' mt='2' mb='6' color='gray'></Text>
 
@@ -33,11 +32,11 @@ export const ListTeas = ({ teabox, teapod }: Props) => {
               <Table.Row key={i}>
                 <Table.RowHeaderCell>{tea.id}</Table.RowHeaderCell>
                 <Table.Cell>
-                  <DescribeTea teapod={teapod} teabox={teabox} teaid={tea.id} />
+                  <DescribeTea teapod={teapod} teaid={tea.id} />
                 </Table.Cell>
                 <Table.Cell></Table.Cell>
                 <Table.Cell>
-                  <DeleteTeaModal teapod={teapod} teabox={teabox} teaid={tea.id} />
+                  <DeleteTeaModal teapod={teapod} teaid={tea.id} />
                 </Table.Cell>
               </Table.Row>
             ))}

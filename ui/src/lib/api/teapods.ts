@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query'
-import { ApiBase, ApiListBase } from './schema'
+import { ApiBase } from './schema'
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
 
@@ -19,11 +19,15 @@ type TeapodInfoSchema = {
   command: string
   description: string
   cards: string[]
-  schemas: any[]
+  teaboxes: TeapodInfoTeabox[]
+}
+type TeapodInfoTeabox = {
+  name: string
+  vals: Record<string, string>
 }
 export const useGetTeapodInfo = (name: string) =>
-  useQuery<ApiBase<TeapodInfoSchema>>(`getProviderInfo-${name}`, async () => {
+  useQuery<TeapodInfoSchema>(`getProviderInfo-${name}`, async () => {
     const res = await fetch(`${apiBaseUrl}/teapods/${name}`)
     const body = await res.json()
-    return body
+    return body?.data ?? {}
   })

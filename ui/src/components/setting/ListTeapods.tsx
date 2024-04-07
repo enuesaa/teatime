@@ -17,7 +17,7 @@ export const ListTeapods = () => {
             <Table.ColumnHeaderCell width='10%'>Name</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell width='10%'>Command</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell width='20%'>Description</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Schemas</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Teaboxes</Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
