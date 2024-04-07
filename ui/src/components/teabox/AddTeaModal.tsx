@@ -1,14 +1,22 @@
-import { useAddTea, type LinksTeaSchema } from '@/lib/api/teas'
+import { useAddTea } from '@/lib/api/teas'
 import { Dialog, Button, Flex, Text, TextField, IconButton } from '@radix-ui/themes'
 import { BiPlus } from 'react-icons/bi'
-import { useForm } from 'react-hook-form'
+import { TeapodInfoTeabox, useGetTeapodInfo } from '@/lib/api/teapods'
+import { FormEventHandler } from 'react'
 
 type Props = {
   teapod: string
 }
 export const AddTeaModal = ({ teapod }: Props) => {
-  const { mutate: addTea } = useAddTea(teapod)
-  const { register, handleSubmit, reset } = useForm<LinksTeaSchema>()
+  const addTea = useAddTea(teapod)
+  const info = useGetTeapodInfo(teapod)
+  const teabox = info.data?.teaboxes[0] ?? {vals: {}, name: ''} as TeapodInfoTeabox
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault()
+    const data = {}
+    addTea.mutate(data)
+  }
 
   return (
     <Dialog.Root>
@@ -22,25 +30,16 @@ export const AddTeaModal = ({ teapod }: Props) => {
         <Dialog.Title>Add Tea</Dialog.Title>
         <Dialog.Description mb='4'></Dialog.Description>
 
-        <form
-          onSubmit={handleSubmit((data) => {
-            addTea(data)
-            reset()
-          })}
-        >
+        <form onSubmit={handleSubmit}>
           <Flex direction='column' gap='3'>
-            <label>
-              <Text as='div' size='2' mb='1' weight='bold'>
-                Name
-              </Text>
-              <TextField.Root {...register('vals.title')} />
-            </label>
-            <label>
-              <Text as='div' size='2' mb='1' weight='bold'>
-                Links
-              </Text>
-              <TextField.Root {...register('vals.link')} />
-            </label>
+            {teabox?.vals && Object.keys(teabox.vals).map((v, i) => (
+              <label>
+                <Text as='div' size='2' mb='1' weight='bold'>
+                  {v}
+                </Text>
+                <TextField.Root name={v} />
+              </label>
+            ))}
           </Flex>
 
           <Flex gap='3' mt='4' justify='end'>

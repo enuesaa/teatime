@@ -24,10 +24,7 @@ export const useGetTea = (teapod: string, teaid: string) =>
 // this is for dev.
 export type LinksTeaSchema = {
   teabox: string
-  vals: {
-    title: string
-    link: string
-  }
+  vals: Record<string, string>
 }
 export const useAddTea = (teapod: string) => {
   const queryClient = useQueryClient()

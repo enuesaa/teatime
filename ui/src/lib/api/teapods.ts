@@ -21,7 +21,7 @@ type TeapodInfoSchema = {
   cards: string[]
   teaboxes: TeapodInfoTeabox[]
 }
-type TeapodInfoTeabox = {
+export type TeapodInfoTeabox = {
   name: string
   vals: Record<string, string>
 }
