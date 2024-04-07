@@ -34,8 +34,14 @@ func (d *DB) ListTeas() ([]Tea, error) {
 
 	list := make([]Tea, 0)
 	for _, dbtea := range dbteas {
+		var vals map[string]string
+		if err := json.Unmarshal([]byte(dbtea.Value.(string)), &vals); err != nil {
+			return make([]Tea, 0), err
+		}
 		list = append(list, Tea{
 			Teaid: dbtea.Teaid,
+			Teabox: dbtea.Teabox,
+			Vals: vals,
 		})
 	}
 	return list, err
@@ -57,8 +63,14 @@ func (d *DB) ListTeasByTeaboxName(teaboxName string) ([]Tea, error) {
 
 	list := make([]Tea, 0)
 	for _, dbtea := range dbteas {
+		var vals map[string]string
+		if err := json.Unmarshal([]byte(dbtea.Value.(string)), &vals); err != nil {
+			return make([]Tea, 0), err
+		}
 		list = append(list, Tea{
 			Teaid: dbtea.Teaid,
+			Teabox: dbtea.Teabox,
+			Vals: vals,
 		})
 	}
 	return list, err

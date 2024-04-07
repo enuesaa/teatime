@@ -5,6 +5,11 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+type Tea struct {
+	Teaid string `json:"teaid"`
+	Teabox string `json:"teabox"`
+	Vals map[string]string `json:"vals"`
+}
 func ListTeas(c echo.Context) error {
 	teapodName := c.Param("teapod")
 	teaboxName := c.QueryParam("teabox")
@@ -13,10 +18,12 @@ func ListTeas(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	list := make([]IdSchema, 0)
+	list := make([]Tea, 0)
 	for _, tea := range teas {
-		list = append(list, IdSchema{
-			Id: tea.Teaid,
+		list = append(list, Tea{
+			Teaid: tea.Teaid,
+			Teabox: tea.Teabox,
+			Vals: tea.Vals,
 		})
 	}
 	return WithData(c, list)

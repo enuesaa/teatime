@@ -4,8 +4,9 @@ import { ApiBase, ApiListBase } from './schema'
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
 
 export type TeaSchema = {
-  id: string
-  value: string
+  teaid: string
+  teabox: string
+  vals: Record<string, string>
 }
 export const useListTeas = (teapod: string, teabox: string) =>
   useQuery<TeaSchema[]>([`listTeas-${teapod}`, teabox], async () => {
@@ -15,10 +16,10 @@ export const useListTeas = (teapod: string, teabox: string) =>
   })
 
 export const useGetTea = (teapod: string, teaid: string) =>
-  useQuery<ApiBase<TeaSchema>>(`getTeaInfo-${teapod}-${teaid}`, async () => {
+  useQuery<TeaSchema>(`getTeaInfo-${teapod}-${teaid}`, async () => {
     const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teas/${teaid}`)
     const body = await res.json()
-    return body
+    return body?.data ?? {}
   })
 
 export type CreateTeaReq = {
