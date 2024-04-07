@@ -9,13 +9,17 @@ import (
 
 func main() {
 	provider := Provider{}
-	if err := provider.Serve("links", &provider, repository.New()); err != nil {
+	if err := provider.Serve(); err != nil {
 		log.Fatalf("Error: %s", err)
 	}
 }
 
 type Provider struct {
 	plug.Provider
+}
+
+func (p *Provider) Serve() error {
+	return p.Provider.Serve("links", p, repository.New())
 }
 
 func (p *Provider) Info() plug.InfoResult {
