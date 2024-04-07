@@ -4,7 +4,7 @@ import { Container } from '@radix-ui/themes'
 import { useParams } from 'react-router-dom';
 
 export default function Page() {
-  const { teapod, teabox } = useParams()
+  const { teapod } = useParams()
   if (teapod === null || teapod === undefined) {
     return (<></>)
   }

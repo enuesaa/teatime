@@ -43,7 +43,7 @@ func GetTeapodInfo(c echo.Context) error {
 		Name: teapodName,
 		Command: fmt.Sprintf("teapod-%s", teapodName),
 		Description: info.Description,
-		Cards: info.Cards,
+		Cards: make([]string, 0),
 		Teaboxes: make([]TeapodInfoTeabox, 0),
 	}
 	for _, schema := range info.Teaboxes {

@@ -30,6 +30,19 @@ func (srv *TeapodSrv) GetInfo() (plug.Info, error) {
 	return provider.Info()
 }
 
+func (srv *TeapodSrv) GetTeabox(name string) (plug.Teabox, error) {
+	info, err := srv.GetInfo()
+	if err != nil {
+		return plug.Teabox{}, fmt.Errorf("teabox not found.")
+	}
+	for _, teabox := range info.Teaboxes {
+		if name == teabox.Name {
+			return teabox, nil
+		}
+	}
+	return plug.Teabox{}, fmt.Errorf("teabox not found.")
+}
+
 func (srv *TeapodSrv) ListTeas() ([]plug.Tea, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
@@ -46,7 +59,7 @@ func (srv *TeapodSrv) GetTea(teaid string) (plug.Tea, error) {
 	return provider.Get(teaid)
 }
 
-func (srv *TeapodSrv) CreateTea(value plug.Value) (string, error) {
+func (srv *TeapodSrv) CreateTea(vals plug.Vals) (string, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return "", err
@@ -54,7 +67,7 @@ func (srv *TeapodSrv) CreateTea(value plug.Value) (string, error) {
 	teaid := fmt.Sprintf("%s:%s", srv.Name, uuid.NewString())
 	tea := plug.Tea{
 		Teaid:   teaid,
-		Value: value,
+		Vals: vals,
 	}
 	if err := provider.Set(tea); err != nil {
 		return "", err
@@ -62,7 +75,7 @@ func (srv *TeapodSrv) CreateTea(value plug.Value) (string, error) {
 	return teaid, nil
 }
 
-func (srv *TeapodSrv) UpdateTea(teaid string, value plug.Value) (string, error) {
+func (srv *TeapodSrv) UpdateTea(teaid string, vals plug.Vals) (string, error) {
 	if err := srv.DeleteTea(teaid); err != nil {
 		return "", err
 	}
@@ -71,8 +84,8 @@ func (srv *TeapodSrv) UpdateTea(teaid string, value plug.Value) (string, error) 
 		return teaid, err
 	}
 	tea := plug.Tea{
-		Teaid:   teaid,
-		Value: value,
+		Teaid: teaid,
+		Vals: vals,
 	}
 	if err := provider.Set(tea); err != nil {
 		return "", err

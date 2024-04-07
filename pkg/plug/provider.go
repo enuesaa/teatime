@@ -10,22 +10,22 @@ type ProviderInterface interface {
 }
 
 type Info struct {
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	Teaboxes []Teabox `json:"teaboxes"`
-	Cards []string `json:"cards"`
+	Name        string
+	Description string
+	Teaboxes []Teabox
+	Cards []string
 }
 type Tea struct {
-	Teaid   string `json:"teaid"`
-	Value Value `json:"value"`
+	Teaid string
+	Vals Vals
 }
-type Value map[string]string
+type Vals map[string]string
 type Card struct {
-	Name string `json:"name"`
-	Title string `json:"title"`
-	Description string `json:"description"`
-	Type string `json:"type"` // text
-	Text string `json:"text"`
+	Name string
+	Title string
+	Description string
+	Type string // text
+	Text string
 }
 type Teabox struct {
 	Name string

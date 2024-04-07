@@ -54,11 +54,11 @@ func (d *DB) GetTea(teaid string) (Tea, error) {
 	if err != nil {
 		return Tea{}, err
 	}
-	var value Value
-	if err := json.Unmarshal([]byte(dbtea.Value.(string)), &value); err != nil {
+	var vals map[string]string
+	if err := json.Unmarshal([]byte(dbtea.Value.(string)), &vals); err != nil {
 		return Tea{}, err
 	}
-	return Tea{Teaid: dbtea.Teaid, Value: value}, nil
+	return Tea{Teaid: dbtea.Teaid, Vals: vals}, nil
 }
 
 func (d *DB) CreateTea(tea Tea) error {
@@ -66,7 +66,7 @@ func (d *DB) CreateTea(tea Tea) error {
 	if err != nil {
 		return err
 	}
-	valuebytes, err := json.Marshal(tea.Value)
+	valuebytes, err := json.Marshal(tea.Vals)
 	if err != nil {
 		return err
 	}

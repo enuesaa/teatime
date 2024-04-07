@@ -9,7 +9,7 @@ export default function Page() {
       <Header />
       <Container size='4' m='3' pt='3'>
         <ListTeapods />
-        <Link href='/teapods/links/teas/links'>LINKS</Link>
+        <Link href='/teapods/links/teas'>LINKS</Link>
       </Container>
     </>
   )

@@ -17,7 +17,7 @@ export const App = () => {
           <Routes>
             <Route path='/' element={<TopPage />} />
             <Route path='/settings' element={<SettingsPage />} />
-            <Route path='/teapods/:teapod/teas/:teabox' element={<TeasPage />} />
+            <Route path='/teapods/:teapod/teas' element={<TeasPage />} />
           </Routes>
         </BrowserRouter>
       </Theme>
