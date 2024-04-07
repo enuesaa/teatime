@@ -43,12 +43,16 @@ func (srv *TeapodSrv) GetTeabox(name string) (plug.Teabox, error) {
 	return plug.Teabox{}, fmt.Errorf("teabox not found.")
 }
 
-func (srv *TeapodSrv) ListTeas() ([]plug.Tea, error) {
+func (srv *TeapodSrv) ListTeas(teaboxName string) ([]plug.Tea, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return make([]plug.Tea, 0), err
 	}
-	return provider.List()
+	props := plug.ListProps{}
+	if teaboxName != "" {
+		props.TeaboxName = &teaboxName
+	}
+	return provider.List(props)
 }
 
 func (srv *TeapodSrv) GetTea(teaid string) (plug.Tea, error) {
@@ -59,14 +63,15 @@ func (srv *TeapodSrv) GetTea(teaid string) (plug.Tea, error) {
 	return provider.Get(teaid)
 }
 
-func (srv *TeapodSrv) CreateTea(vals plug.Vals) (string, error) {
+func (srv *TeapodSrv) CreateTea(teaboxName string, vals plug.Vals) (string, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return "", err
 	}
-	teaid := fmt.Sprintf("%s:%s", srv.Name, uuid.NewString())
+	teaid := uuid.NewString()
 	tea := plug.Tea{
-		Teaid:   teaid,
+		Teaid: teaid,
+		Teabox: teaboxName,
 		Vals: vals,
 	}
 	if err := provider.Set(tea); err != nil {

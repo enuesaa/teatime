@@ -13,9 +13,9 @@ func (cc *ConnectClient) Info() (Info, error) {
 	cc.client.Call("Plugin.Info", new(interface{}), &resp)
 	return resp.Data, resp.Err()
 }
-func (cc *ConnectClient) List() ([]Tea, error) {
+func (cc *ConnectClient) List(props ListProps) ([]Tea, error) {
 	var resp Result[[]Tea]
-	cc.client.Call("Plugin.List", new(interface{}), &resp)
+	cc.client.Call("Plugin.List", props, &resp)
 	return resp.Data, resp.Err()
 }
 func (cc *ConnectClient) Get(teaid string) (Tea, error) {

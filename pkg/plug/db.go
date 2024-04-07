@@ -41,6 +41,29 @@ func (d *DB) ListTeas() ([]Tea, error) {
 	return list, err
 }
 
+func (d *DB) ListTeasByTeaboxName(teaboxName string) ([]Tea, error) {
+	query, err := d.repos.DB.Query()
+	if err != nil {
+		return make([]Tea, 0), err
+	}
+	arg := dbq.ListTeasByTeaboxNameParams{
+		Teapod: d.teapod,
+		Teabox: teaboxName,
+	}
+	dbteas, err := query.ListTeasByTeaboxName(context.Background(), arg)
+	if err != nil {
+		return make([]Tea, 0), err
+	}
+
+	list := make([]Tea, 0)
+	for _, dbtea := range dbteas {
+		list = append(list, Tea{
+			Teaid: dbtea.Teaid,
+		})
+	}
+	return list, err
+}
+
 func (d *DB) GetTea(teaid string) (Tea, error) {
 	query, err := d.repos.DB.Query()
 	if err != nil {
@@ -72,7 +95,7 @@ func (d *DB) CreateTea(tea Tea) error {
 	}
 	param := dbq.CreateTeaParams{
 		Teapod: d.teapod,
-		Teabox: "",
+		Teabox: tea.Teabox,
 		Teaid: tea.Teaid,
 		Value: string(valuebytes),
 	}

@@ -2,7 +2,7 @@ package plug
 
 type ProviderInterface interface {
 	Info() (Info, error)
-	List() ([]Tea, error)
+	List(props ListProps) ([]Tea, error)
 	Get(teaid string) (Tea, error)
 	Set(tea Tea) error
 	Del(teaid string) error
@@ -15,8 +15,12 @@ type Info struct {
 	Teaboxes []Teabox
 	Cards []string
 }
+type ListProps struct {
+	TeaboxName *string
+}
 type Tea struct {
 	Teaid string
+	Teabox string
 	Vals Vals
 }
 type Vals map[string]string

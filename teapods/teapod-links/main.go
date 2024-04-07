@@ -52,7 +52,10 @@ func (p *Provider) Info() (plug.Info, error) {
 	return info, nil
 }
 
-func (p *Provider) List() ([]plug.Tea, error) {
+func (p *Provider) List(props plug.ListProps) ([]plug.Tea, error) {
+	if props.TeaboxName != nil {
+		return p.DB.ListTeasByTeaboxName(*props.TeaboxName)
+	}
 	return p.DB.ListTeas()
 }
 

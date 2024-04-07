@@ -2,6 +2,10 @@
 SELECT * FROM teas
 WHERE teapod = ?;
 
+-- name: ListTeasByTeaboxName :many
+SELECT * FROM teas
+WHERE teapod = ? and teabox = ?;
+
 -- name: GetTea :one
 SELECT * FROM teas
 WHERE teapod = ? and teaid = ? LIMIT 1;

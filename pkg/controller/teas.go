@@ -7,8 +7,9 @@ import (
 
 func ListTeas(c echo.Context) error {
 	teapodName := c.Param("teapod")
+	teaboxName := c.QueryParam("teabox")
 
-	teas, err := service.NewTeapodSrv(teapodName).ListTeas()
+	teas, err := service.NewTeapodSrv(teapodName).ListTeas(teaboxName)
 	if err != nil {
 		return err
 	}
@@ -59,7 +60,7 @@ func CreateTea(c echo.Context) error {
 		return apperr
 	}
 
-	teaid, err := teapodSrv.CreateTea(req.Vals)
+	teaid, err := teapodSrv.CreateTea(req.Teabox, req.Vals)
 	if err != nil {
 		return err
 	}
