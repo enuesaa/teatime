@@ -43,7 +43,7 @@ export const AddTeaModal = ({ teapod }: Props) => {
         <form onSubmit={handleSubmit}>
           <Flex direction='column' gap='3'>
             {teabox?.vals && Object.keys(teabox.vals).map((v, i) => (
-              <label>
+              <label key={i}>
                 <Text as='div' size='2' mb='1' weight='bold'>
                   {v}
                 </Text>

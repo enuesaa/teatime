@@ -8,10 +8,10 @@ export type TeaSchema = {
   value: string
 }
 export const useListTeas = (teapod: string) =>
-  useQuery<ApiListBase<TeaSchema>>(`listTeas-${teapod}`, async () => {
+  useQuery<TeaSchema[]>(`listTeas-${teapod}`, async () => {
     const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teas`)
     const body = await res.json()
-    return body
+    return body?.data ?? [] 
   })
 
 export const useGetTea = (teapod: string, teaid: string) =>
