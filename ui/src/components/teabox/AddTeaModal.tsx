@@ -1,4 +1,4 @@
-import { useAddTea } from '@/lib/api/teas'
+import { LinksTeaSchema, useAddTea } from '@/lib/api/teas'
 import { Dialog, Button, Flex, Text, TextField, IconButton } from '@radix-ui/themes'
 import { BiPlus } from 'react-icons/bi'
 import { TeapodInfoTeabox, useGetTeapodInfo } from '@/lib/api/teapods'
@@ -14,7 +14,17 @@ export const AddTeaModal = ({ teapod }: Props) => {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
-    const data = {}
+    const data: LinksTeaSchema = {
+      teabox: teabox.name,
+      vals: {},
+    }
+    Object.keys(teabox.vals).map(key => {
+      if (e.target.hasOwnProperty(key)) {
+        data.vals[key] = (e.target as any)[key].value ?? '' 
+      } else {
+        data.vals[key] = ''
+      }
+    })
     addTea.mutate(data)
   }
 
