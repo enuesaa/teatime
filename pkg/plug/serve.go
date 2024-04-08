@@ -4,7 +4,6 @@ import (
 	"github.com/hashicorp/go-plugin"
 )
 
-
 func Serve(provider ProviderInterface) {
 	config := plugin.ServeConfig{
 		HandshakeConfig: plugin.HandshakeConfig{

@@ -11,7 +11,7 @@ import (
 	"github.com/enuesaa/teatime/pkg/repository/dbq"
 )
 
-// To generate model files, 
+// To generate model files,
 // run `sqlc generate --file db.yaml` in this dir.
 
 type DbRepositoryInterface interface {

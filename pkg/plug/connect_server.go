@@ -13,7 +13,7 @@ func (s *ConnectServer) Info(arg interface{}, resp *Result[Info]) error {
 		}
 	} else {
 		*resp = Result[Info]{
-			Data: info,
+			Data:   info,
 			HasErr: false,
 		}
 	}
@@ -29,7 +29,7 @@ func (s *ConnectServer) List(props ListProps, resp *Result[[]Tea]) error {
 		}
 	} else {
 		*resp = Result[[]Tea]{
-			Data: list,
+			Data:   list,
 			HasErr: false,
 		}
 	}
@@ -45,7 +45,7 @@ func (s *ConnectServer) Get(teaid string, resp *Result[Tea]) error {
 		}
 	} else {
 		*resp = Result[Tea]{
-			Data: tea,
+			Data:   tea,
 			HasErr: false,
 		}
 	}
@@ -60,7 +60,7 @@ func (s *ConnectServer) Set(tea Tea, resp *Result[bool]) error {
 		}
 	} else {
 		*resp = Result[bool]{
-			Data: true,
+			Data:   true,
 			HasErr: false,
 		}
 	}
@@ -75,7 +75,7 @@ func (s *ConnectServer) Del(teaid string, resp *Result[bool]) error {
 		}
 	} else {
 		*resp = Result[bool]{
-			Data: true,
+			Data:   true,
 			HasErr: false,
 		}
 	}
@@ -91,7 +91,7 @@ func (s *ConnectServer) GetCard(name string, resp *Result[Card]) error {
 		}
 	} else {
 		*resp = Result[Card]{
-			Data: card,
+			Data:   card,
 			HasErr: false,
 		}
 	}

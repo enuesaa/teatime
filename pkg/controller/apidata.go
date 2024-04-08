@@ -30,7 +30,7 @@ func HandleData(next echo.HandlerFunc) echo.HandlerFunc {
 			data = struct{}{}
 		}
 
-		res := ApiResponse {
+		res := ApiResponse{
 			Data: data,
 		}
 		return c.JSON(200, res)

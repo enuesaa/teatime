@@ -6,10 +6,11 @@ import (
 )
 
 type Tea struct {
-	Teaid string `json:"teaid"`
-	Teabox string `json:"teabox"`
-	Vals map[string]string `json:"vals"`
+	Teaid  string            `json:"teaid"`
+	Teabox string            `json:"teabox"`
+	Vals   map[string]string `json:"vals"`
 }
+
 func ListTeas(c echo.Context) error {
 	teapodName := c.Param("teapod")
 	teaboxName := c.QueryParam("teabox")
@@ -21,9 +22,9 @@ func ListTeas(c echo.Context) error {
 	list := make([]Tea, 0)
 	for _, tea := range teas {
 		list = append(list, Tea{
-			Teaid: tea.Teaid,
+			Teaid:  tea.Teaid,
 			Teabox: tea.Teabox,
-			Vals: tea.Vals,
+			Vals:   tea.Vals,
 		})
 	}
 	return WithData(c, list)
@@ -41,9 +42,10 @@ func GetTea(c echo.Context) error {
 }
 
 type CreateTeaReq struct {
-	Teabox string `json:"teabox" validate:"min=1"`
-	Vals map[string]string `json:"vals" validate:"required"`
+	Teabox string            `json:"teabox" validate:"min=1"`
+	Vals   map[string]string `json:"vals" validate:"required"`
 }
+
 func CreateTea(c echo.Context) error {
 	teapodName := c.Param("teapod")
 
@@ -61,7 +63,7 @@ func CreateTea(c echo.Context) error {
 	if err := teapodSrv.ValidateTeaboxVals(teabox, req.Vals); err != nil {
 		apperr := NewAppErr()
 		apperr.Errors = append(apperr.Errors, AppErrItem{
-			Path: "",
+			Path:    "",
 			Message: err.Error(),
 		})
 		return apperr
@@ -78,7 +80,6 @@ func UpdateTea(c echo.Context) error {
 	teapodName := c.Param("teapod")
 	teaid := c.Param("teaid")
 
-
 	var req CreateTeaReq
 	if err := Validate(c, &req); err != nil {
 		return err
@@ -93,7 +94,7 @@ func UpdateTea(c echo.Context) error {
 	if err := teapodSrv.ValidateTeaboxVals(teabox, req.Vals); err != nil {
 		apperr := NewAppErr()
 		apperr.Errors = append(apperr.Errors, AppErrItem{
-			Path: "",
+			Path:    "",
 			Message: err.Error(),
 		})
 		return apperr

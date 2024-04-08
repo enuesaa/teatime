@@ -10,7 +10,7 @@ import (
 
 type DB struct {
 	teapod string
-	repos repository.Repos
+	repos  repository.Repos
 }
 
 func (d *DB) Init(teapod string) error {
@@ -39,9 +39,9 @@ func (d *DB) ListTeas() ([]Tea, error) {
 			return make([]Tea, 0), err
 		}
 		list = append(list, Tea{
-			Teaid: dbtea.Teaid,
+			Teaid:  dbtea.Teaid,
 			Teabox: dbtea.Teabox,
-			Vals: vals,
+			Vals:   vals,
 		})
 	}
 	return list, err
@@ -68,9 +68,9 @@ func (d *DB) ListTeasByTeaboxName(teaboxName string) ([]Tea, error) {
 			return make([]Tea, 0), err
 		}
 		list = append(list, Tea{
-			Teaid: dbtea.Teaid,
+			Teaid:  dbtea.Teaid,
 			Teabox: dbtea.Teabox,
-			Vals: vals,
+			Vals:   vals,
 		})
 	}
 	return list, err
@@ -83,7 +83,7 @@ func (d *DB) GetTea(teaid string) (Tea, error) {
 	}
 	param := dbq.GetTeaParams{
 		Teapod: d.teapod,
-		Teaid: teaid,
+		Teaid:  teaid,
 	}
 	dbtea, err := query.GetTea(context.Background(), param)
 	if err != nil {
@@ -108,8 +108,8 @@ func (d *DB) CreateTea(tea Tea) error {
 	param := dbq.CreateTeaParams{
 		Teapod: d.teapod,
 		Teabox: tea.Teabox,
-		Teaid: tea.Teaid,
-		Value: string(valuebytes),
+		Teaid:  tea.Teaid,
+		Value:  string(valuebytes),
 	}
 	_, err = query.CreateTea(context.Background(), param)
 	return err
@@ -122,7 +122,7 @@ func (d *DB) DeleteTea(teaid string) error {
 	}
 	param := dbq.DeleteTeaParams{
 		Teapod: d.teapod,
-		Teaid: teaid,
+		Teaid:  teaid,
 	}
 	return query.DeleteTea(context.Background(), param)
 }

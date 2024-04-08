@@ -8,6 +8,7 @@ import (
 type ConnectClient struct {
 	client *rpc.Client
 }
+
 func (cc *ConnectClient) Info() (Info, error) {
 	var resp Result[Info]
 	cc.client.Call("Plugin.Info", new(interface{}), &resp)

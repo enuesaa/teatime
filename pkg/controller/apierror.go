@@ -15,6 +15,7 @@ type AppErrItem struct {
 	Path    string `json:"path"`
 	Message string `json:"message"`
 }
+
 func NewAppErr() AppErr {
 	return AppErr{
 		Errors: make([]AppErrItem, 0),

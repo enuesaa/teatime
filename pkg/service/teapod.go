@@ -70,9 +70,9 @@ func (srv *TeapodSrv) CreateTea(teaboxName string, vals plug.Vals) (string, erro
 	}
 	teaid := uuid.NewString()
 	tea := plug.Tea{
-		Teaid: teaid,
+		Teaid:  teaid,
 		Teabox: teaboxName,
-		Vals: vals,
+		Vals:   vals,
 	}
 	if err := provider.Set(tea); err != nil {
 		return "", err
@@ -90,7 +90,7 @@ func (srv *TeapodSrv) UpdateTea(teaid string, vals plug.Vals) (string, error) {
 	}
 	tea := plug.Tea{
 		Teaid: teaid,
-		Vals: vals,
+		Vals:  vals,
 	}
 	if err := provider.Set(tea); err != nil {
 		return "", err

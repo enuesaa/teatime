@@ -12,27 +12,27 @@ type ProviderInterface interface {
 type Info struct {
 	Name        string
 	Description string
-	Teaboxes []Teabox
-	Cards []string
+	Teaboxes    []Teabox
+	Cards       []string
 }
 type ListProps struct {
 	TeaboxName *string
 }
 type Tea struct {
-	Teaid string
+	Teaid  string
 	Teabox string
-	Vals Vals
+	Vals   Vals
 }
 type Vals map[string]string
 type Card struct {
-	Name string
-	Title string
+	Name        string
+	Title       string
 	Description string
-	Type string // text
-	Text string
+	Type        string // text
+	Text        string
 }
 type Teabox struct {
-	Name string
+	Name    string
 	Comment string
-	Vals map[string]string // `str`, `bool`, or `int`
+	Vals    map[string]string // `str`, `bool`, or `int`
 }

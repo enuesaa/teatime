@@ -3,9 +3,9 @@ package main
 import (
 	"log"
 
-	"github.com/enuesaa/teatime/ui"
 	"github.com/enuesaa/teatime/pkg/controller"
 	"github.com/enuesaa/teatime/pkg/repository"
+	"github.com/enuesaa/teatime/ui"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )

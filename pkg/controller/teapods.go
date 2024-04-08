@@ -8,30 +8,32 @@ import (
 )
 
 type Teapod struct {
-	Name string `json:"name"`
+	Name    string `json:"name"`
 	Command string `json:"command"`
 }
+
 func ListTeapods(c echo.Context) error {
 	list := make([]Teapod, 0)
 	list = append(list, Teapod{
-		Name: "links",
+		Name:    "links",
 		Command: fmt.Sprintf("teapod-%s", "links"),
 	})
 	return WithData(c, list)
 }
 
 type TeapodInfo struct {
-	Name string `json:"name"`
-	Command string `json:"command"`
-	Description string `json:"description"`
-	Cards []string `json:"cards"`
-	Teaboxes []TeapodInfoTeabox `json:"teaboxes"`
+	Name        string             `json:"name"`
+	Command     string             `json:"command"`
+	Description string             `json:"description"`
+	Cards       []string           `json:"cards"`
+	Teaboxes    []TeapodInfoTeabox `json:"teaboxes"`
 }
 type TeapodInfoTeabox struct {
-	Name string `json:"name"`
-	Comment string `json:"comment"`
-	Vals map[string]string `json:"vals"`
+	Name    string            `json:"name"`
+	Comment string            `json:"comment"`
+	Vals    map[string]string `json:"vals"`
 }
+
 func GetTeapodInfo(c echo.Context) error {
 	teapodName := c.Param("teapod")
 
@@ -40,18 +42,18 @@ func GetTeapodInfo(c echo.Context) error {
 		return err
 	}
 
-	data := TeapodInfo {
-		Name: teapodName,
-		Command: fmt.Sprintf("teapod-%s", teapodName),
+	data := TeapodInfo{
+		Name:        teapodName,
+		Command:     fmt.Sprintf("teapod-%s", teapodName),
 		Description: info.Description,
-		Cards: make([]string, 0),
-		Teaboxes: make([]TeapodInfoTeabox, 0),
+		Cards:       make([]string, 0),
+		Teaboxes:    make([]TeapodInfoTeabox, 0),
 	}
 	for _, teabox := range info.Teaboxes {
 		data.Teaboxes = append(data.Teaboxes, TeapodInfoTeabox{
-			Name: teabox.Name,
+			Name:    teabox.Name,
 			Comment: teabox.Comment,
-			Vals: teabox.Vals,
+			Vals:    teabox.Vals,
 		})
 	}
 
