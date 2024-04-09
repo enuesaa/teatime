@@ -11,7 +11,7 @@ type Props = {
 export const AddTeaModal = ({ teapod, teabox: teaboxName }: Props) => {
   const addTea = useAddTea(teapod, teaboxName)
   const info = useGetTeapodInfo(teapod)
-  const teabox = info.data?.teaboxes.find(v => v.name === teaboxName) ?? {vals: {}, name: ''} as TeapodInfoTeabox
+  const teabox = info.data?.teaboxes.find((v) => v.name === teaboxName) ?? ({ vals: {}, name: '' } as TeapodInfoTeabox)
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
@@ -19,9 +19,9 @@ export const AddTeaModal = ({ teapod, teabox: teaboxName }: Props) => {
       teabox: teabox.name,
       vals: {},
     }
-    Object.keys(teabox.vals).map(key => {
+    Object.keys(teabox.vals).map((key) => {
       if (e.target.hasOwnProperty(key)) {
-        data.vals[key] = (e.target as any)[key].value ?? '' 
+        data.vals[key] = (e.target as any)[key].value ?? ''
       } else {
         data.vals[key] = ''
       }
@@ -38,19 +38,22 @@ export const AddTeaModal = ({ teapod, teabox: teaboxName }: Props) => {
       </Dialog.Trigger>
 
       <Dialog.Content>
-        <Dialog.Title>Add <Kbd>{teabox.name.toUpperCase()}</Kbd></Dialog.Title>
+        <Dialog.Title>
+          Add <Kbd>{teabox.name.toUpperCase()}</Kbd>
+        </Dialog.Title>
         <Dialog.Description mb='4'>{teabox.comment}</Dialog.Description>
 
         <form onSubmit={handleSubmit}>
           <Flex direction='column' gap='3'>
-            {teabox?.vals && Object.keys(teabox.vals).map((v, i) => (
-              <label key={i}>
-                <Text as='div' size='2' mb='1' weight='bold'>
-                  {v}
-                </Text>
-                <TextField.Root name={v} data-1p-ignore />
-              </label>
-            ))}
+            {teabox?.vals &&
+              Object.keys(teabox.vals).map((v, i) => (
+                <label key={i}>
+                  <Text as='div' size='2' mb='1' weight='bold'>
+                    {v}
+                  </Text>
+                  <TextField.Root name={v} data-1p-ignore />
+                </label>
+              ))}
           </Flex>
 
           <Flex gap='3' mt='4' justify='end'>

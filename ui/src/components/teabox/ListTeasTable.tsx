@@ -4,16 +4,16 @@ import { DeleteTeaModal } from './DeleteTeaModal'
 import { useGetTeapodInfo } from '@/lib/api/teapods'
 
 type Props = {
-  teapod: string;
-  teabox: string;
+  teapod: string
+  teabox: string
 }
 export const ListTeasTable = ({ teapod, teabox: teaboxName }: Props) => {
   const info = useGetTeapodInfo(teapod)
   const teas = useListTeas(teapod, teaboxName)
-  const teabox = info.data?.teaboxes.find(v => v.name === teaboxName)
+  const teabox = info.data?.teaboxes.find((v) => v.name === teaboxName)
 
   if (teabox === undefined) {
-    return (<></>)
+    return <></>
   }
 
   return (
@@ -32,7 +32,7 @@ export const ListTeasTable = ({ teapod, teabox: teaboxName }: Props) => {
           teas?.data?.map((tea, i) => (
             <Table.Row key={i}>
               <Table.RowHeaderCell>{tea.teaid}</Table.RowHeaderCell>
-              {Object.keys(teabox.vals).map((v,i) => (
+              {Object.keys(teabox.vals).map((v, i) => (
                 <Table.Cell key={i}>{tea.vals.hasOwnProperty(v) ? tea.vals[v] : ''}</Table.Cell>
               ))}
               <Table.Cell>

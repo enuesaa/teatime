@@ -12,7 +12,7 @@ export const useListTeas = (teapod: string, teabox: string) =>
   useQuery<TeaSchema[]>([`listTeas-${teapod}`, teabox], async () => {
     const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teas?teabox=${teabox}`)
     const body = await res.json()
-    return body?.data ?? [] 
+    return body?.data ?? []
   })
 
 export const useGetTea = (teapod: string, teaid: string) =>

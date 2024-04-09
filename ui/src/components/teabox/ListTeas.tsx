@@ -11,7 +11,7 @@ type Props = {
 export const ListTeas = ({ teapod }: Props) => {
   const info = useGetTeapodInfo(teapod)
   const handleTeaboxChange = (value: string) => setTeabox(value)
-  const teaboxes = info.data?.teaboxes.map(v => v.name) ?? []
+  const teaboxes = info.data?.teaboxes.map((v) => v.name) ?? []
   const [teabox, setTeabox] = useState<string>('links')
 
   return (

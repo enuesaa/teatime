@@ -9,7 +9,7 @@ export const ListTeapods = () => {
     <>
       {teapods.data?.map((v, i) => (
         <Link key={i} href='/teapods/links/teas' asChild>
-          <Card variant='surface' style={{width:'100px', textAlign: 'center'}}>
+          <Card variant='surface' style={{ width: '100px', textAlign: 'center' }}>
             {v.name}
           </Card>
         </Link>
