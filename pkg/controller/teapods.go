@@ -46,7 +46,7 @@ func GetTeapodInfo(c echo.Context) error {
 		Name:        teapodName,
 		Command:     fmt.Sprintf("teapod-%s", teapodName),
 		Description: info.Description,
-		Cards:       make([]string, 0),
+		Cards:       info.Cards,
 		Teaboxes:    make([]TeapodInfoTeabox, 0),
 	}
 	for _, teabox := range info.Teaboxes {
