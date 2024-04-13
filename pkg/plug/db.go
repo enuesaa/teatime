@@ -8,21 +8,33 @@ import (
 	"github.com/enuesaa/teatime/pkg/repository/dbq"
 )
 
+func NewDB(teapod string) DB {
+	db := DB {
+		teapod: teapod,
+		repos: repository.New(),
+	}
+	return db
+}
+
 type DB struct {
 	teapod string
 	repos  repository.Repos
 }
 
-func (d *DB) Init(teapod string) error {
-	d.teapod = teapod
-	d.repos = repository.New()
-	return d.repos.DB.Open()
+func (d *DB) openAnyway() error {
+	if !d.repos.DB.IsOpen() {
+		return d.repos.DB.Open()
+	}
+	return nil
 }
 
 func (d *DB) Close() error {
 	return nil
 }
 func (d *DB) ListTeas() ([]Tea, error) {
+	if err := d.openAnyway(); err != nil {
+		return make([]Tea, 0), err
+	}
 	query, err := d.repos.DB.Query()
 	if err != nil {
 		return make([]Tea, 0), err
@@ -48,6 +60,9 @@ func (d *DB) ListTeas() ([]Tea, error) {
 }
 
 func (d *DB) ListTeasByTeaboxName(teaboxName string) ([]Tea, error) {
+	if err := d.openAnyway(); err != nil {
+		return make([]Tea, 0), err
+	}
 	query, err := d.repos.DB.Query()
 	if err != nil {
 		return make([]Tea, 0), err
@@ -77,6 +92,9 @@ func (d *DB) ListTeasByTeaboxName(teaboxName string) ([]Tea, error) {
 }
 
 func (d *DB) GetTea(teaid string) (Tea, error) {
+	if err := d.openAnyway(); err != nil {
+		return Tea{}, err
+	}
 	query, err := d.repos.DB.Query()
 	if err != nil {
 		return Tea{}, err
@@ -97,6 +115,9 @@ func (d *DB) GetTea(teaid string) (Tea, error) {
 }
 
 func (d *DB) CreateTea(tea Tea) error {
+	if err := d.openAnyway(); err != nil {
+		return err
+	}
 	query, err := d.repos.DB.Query()
 	if err != nil {
 		return err
@@ -116,6 +137,9 @@ func (d *DB) CreateTea(tea Tea) error {
 }
 
 func (d *DB) DeleteTea(teaid string) error {
+	if err := d.openAnyway(); err != nil {
+		return err
+	}
 	query, err := d.repos.DB.Query()
 	if err != nil {
 		return err

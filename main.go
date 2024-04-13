@@ -19,7 +19,9 @@ func main() {
 	}
 
 	app := echo.New()
-	app.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{}))
+	app.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
+		Format: "method=${method}, uri=${uri}, status=${status}\n",
+	}))
 	app.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"http://localhost:3001"},
 	}))
@@ -30,7 +32,7 @@ func main() {
 	api.Use(controller.HandleError)
 
 	teapods := api.Group("/teapods")
-	teapods.GET("/", controller.ListTeapods)
+	teapods.GET("", controller.ListTeapods)
 	teapods.GET("/:teapod", controller.GetTeapodInfo)
 	teapods.GET("/:teapod/cards/:id", controller.GetCard)
 	teapods.GET("/:teapod/teas", controller.ListTeas)

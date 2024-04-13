@@ -1,27 +1,19 @@
 package main
 
 import (
-	"log"
-
 	"github.com/enuesaa/teatime/pkg/plug"
 )
 
+var db plug.DB
+
 func main() {
-	db := plug.DB{}
-	if err := db.Init("links"); err != nil {
-		log.Fatalf("Error: %s", err)
-	}
+	db = plug.NewDB("links")
 	defer db.Close()
 
-	provider := Provider{
-		DB: db,
-	}
-	plug.Serve(&provider)
+	plug.Serve(&Provider{})
 }
 
-type Provider struct {
-	DB plug.DB
-}
+type Provider struct {}
 
 func (p *Provider) Info() (plug.Info, error) {
 	info := plug.Info{
@@ -54,21 +46,21 @@ func (p *Provider) Info() (plug.Info, error) {
 
 func (p *Provider) List(props plug.ListProps) ([]plug.Tea, error) {
 	if props.TeaboxName != nil {
-		return p.DB.ListTeasByTeaboxName(*props.TeaboxName)
+		return db.ListTeasByTeaboxName(*props.TeaboxName)
 	}
-	return p.DB.ListTeas()
+	return db.ListTeas()
 }
 
 func (p *Provider) Get(teaid string) (plug.Tea, error) {
-	return p.DB.GetTea(teaid)
+	return db.GetTea(teaid)
 }
 
 func (p *Provider) Set(tea plug.Tea) error {
-	return p.DB.CreateTea(tea)
+	return db.CreateTea(tea)
 }
 
 func (p *Provider) Del(teaid string) error {
-	return p.DB.DeleteTea(teaid)
+	return db.DeleteTea(teaid)
 }
 
 func (p *Provider) GetCard(name string) (plug.Card, error) {

@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	_ "embed"
-	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -17,10 +16,11 @@ import (
 // To generate model files,
 // run `sqlc generate --file db.yaml` in this dir.
 
-type DbRepositoryInterface interface {
+type DBRepositoryInterface interface {
 	IsDBExist() bool
 	Migrate() error
 	Open() error
+	IsOpen() bool
 	Close() error
 	Query() (*dbq.Queries, error)
 }
@@ -28,31 +28,31 @@ type DbRepositoryInterface interface {
 //go:embed dbschema.sql
 var dbMigrateQuery string
 
-type DbRepository struct {
+type DBRepository struct {
 	db *sql.DB
 }
 
-func (repo *DbRepository) dbdir() string {
+func (repo *DBRepository) dbdir() string {
 	homedir, _ := os.UserHomeDir()
 	return filepath.Join(homedir, ".teatime")
 }
 
-func (repo *DbRepository) dbpath() string {
+func (repo *DBRepository) dbpath() string {
 	return filepath.Join(repo.dbdir(), "teatime.db")
 }
 
-func (repo *DbRepository) dsn() string {
+func (repo *DBRepository) dsn() string {
 	return fmt.Sprintf("file:%s?_fk=1", repo.dbpath())
 }
 
-func (repo *DbRepository) IsDBExist() bool {
-	if _, err := os.Stat(repo.dbpath()); errors.Is(err, os.ErrNotExist) {
+func (repo *DBRepository) IsDBExist() bool {
+	if _, err := os.Stat(repo.dbpath()); os.IsNotExist(err) {
 		return false
 	}
 	return true
 }
 
-func (repo *DbRepository) Migrate() error {
+func (repo *DBRepository) Migrate() error {
 	if err := os.MkdirAll(repo.dbdir(), os.ModePerm); err != nil {
 		return err
 	}
@@ -69,7 +69,7 @@ func (repo *DbRepository) Migrate() error {
 	return nil
 }
 
-func (repo *DbRepository) Open() error {
+func (repo *DBRepository) Open() error {
 	db, err := sql.Open("sqlite", repo.dsn())
 	if err != nil {
 		return err
@@ -78,7 +78,11 @@ func (repo *DbRepository) Open() error {
 	return nil
 }
 
-func (repo *DbRepository) Close() error {
+func (repo *DBRepository) IsOpen() bool {
+	return repo.db != nil
+}
+
+func (repo *DBRepository) Close() error {
 	if repo.db == nil {
 		return nil
 	}
@@ -89,14 +93,14 @@ func (repo *DbRepository) Close() error {
 	return nil
 }
 
-func (repo *DbRepository) checkOpened() error {
+func (repo *DBRepository) checkOpened() error {
 	if repo.db == nil {
 		return fmt.Errorf("db is not opened.")
 	}
 	return nil
 }
 
-func (repo *DbRepository) Query() (*dbq.Queries, error) {
+func (repo *DBRepository) Query() (*dbq.Queries, error) {
 	if err := repo.checkOpened(); err != nil {
 		return nil, err
 	}
