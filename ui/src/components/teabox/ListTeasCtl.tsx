@@ -1,14 +1,21 @@
 import { SegmentedControl } from '@radix-ui/themes'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
-  handleTeaboxChange: (value: string) => void
+  teapod: string
   teaboxes: string[]
 }
-export const ListTeasCtl = ({ handleTeaboxChange, teaboxes }: Props) => {
+export const ListTeasCtl = ({ teapod, teaboxes }: Props) => {
+  const navigate = useNavigate()
+
+  const gotoTeaboxPage = (teabox: string) => {
+    navigate(`/teapods/${teapod}/teas?teabox=${teabox}`)
+  }
+
   return (
     <SegmentedControl.Root
       defaultValue={teaboxes[0]}
-      onValueChange={handleTeaboxChange}
+      onValueChange={gotoTeaboxPage}
       radius='full'
       variant='classic'
       size='3'

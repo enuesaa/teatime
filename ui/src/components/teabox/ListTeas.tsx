@@ -1,18 +1,19 @@
 import { Heading, Text, Flex, Box } from '@radix-ui/themes'
 import { AddTeaModal } from './AddTeaModal'
-import { useState } from 'react'
 import { ListTeasTable } from './ListTeasTable'
 import { ListTeasCtl } from './ListTeasCtl'
 import { useGetTeapodInfo } from '@/lib/api/teapods'
 
 type Props = {
   teapod: string
+  teabox: null|string
 }
-export const ListTeas = ({ teapod }: Props) => {
+export const ListTeas = ({ teapod, teabox }: Props) => {
   const info = useGetTeapodInfo(teapod)
-  const handleTeaboxChange = (value: string) => setTeabox(value)
   const teaboxes = info.data?.teaboxes.map((v) => v.name) ?? []
-  const [teabox, setTeabox] = useState<string>('links')
+  if (teabox === null) {
+    teabox = teaboxes[0]
+  }
 
   return (
     <>
@@ -22,7 +23,7 @@ export const ListTeas = ({ teapod }: Props) => {
             Teas <AddTeaModal teapod={teapod} teabox={teabox} />
           </Box>
           <Box flexGrow='1' flexShrink='1'>
-            {teaboxes.length > 0 && <ListTeasCtl handleTeaboxChange={handleTeaboxChange} teaboxes={teaboxes} />}
+            {teaboxes.length > 0 && <ListTeasCtl teapod={teapod} teaboxes={teaboxes} />}
           </Box>
         </Flex>
       </Heading>
