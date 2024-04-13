@@ -1,18 +1,15 @@
 import { useListTeapods } from '@/lib/api/teapods'
-import { Card } from '@radix-ui/themes'
-import { Link } from '@/components/common/Link'
+import { Card, Heading } from '@radix-ui/themes'
+import { DescribeTeapod } from './DescribeTeapod'
 
 export const ListTeapods = () => {
   const teapods = useListTeapods()
 
   return (
     <>
+      <Heading mb='3'>teapods</Heading>
       {teapods.data?.map((v, i) => (
-        <Link key={i} href='/teapods/links/teas' asChild>
-          <Card variant='surface' style={{ width: '100px', textAlign: 'center' }}>
-            {v.name}
-          </Card>
-        </Link>
+        <DescribeTeapod key={i} name={v.name} />
       ))}
     </>
   )
