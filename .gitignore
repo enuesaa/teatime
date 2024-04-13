@@ -7,8 +7,3 @@
 # go
 go.work
 go.work.sum
-.env
-
-# app
-*.db
-teapods/teapod-links/teapod-links
