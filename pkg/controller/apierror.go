@@ -31,6 +31,10 @@ func HandleError(next echo.HandlerFunc) echo.HandlerFunc {
 		if errors.As(err, &AppErr{}) {
 			return c.JSON(422, err)
 		}
+		// like 404
+		if _, ok := err.(*echo.HTTPError); ok {
+			return err
+		}
 		fmt.Printf("Error: %s", err)
 
 		apperr := AppErr{
