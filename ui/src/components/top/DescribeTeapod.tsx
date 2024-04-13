@@ -1,15 +1,24 @@
-import { Button, Card } from '@radix-ui/themes'
+import { Button, Card, Heading } from '@radix-ui/themes'
 import { Link } from '../common/Link'
+import { useGetTeapodInfo } from '@/lib/api/teapods'
 
 type Props = {
-  name: string
+  teapod: string
 }
-export const DescribeTeapod = ({ name }: Props) => {
+export const DescribeTeapod = ({ teapod }: Props) => {
+  const info = useGetTeapodInfo(teapod)
+  const teaboxes = info.data?.teaboxes.map((v) => v.name) ?? []
+
   return (
-    <Link href={`/teapods/${name}/teas`} asChild>
-      <Button color='gray' variant='outline' highContrast>
-        {name}
-      </Button>
-    </Link>
+    <>
+      <Heading>{teapod}</Heading>
+      {teaboxes.map((v,i) => (
+        <Link href={`/teapods/${teapod}/teas?teabox=${v}`} asChild key={i}>
+          <Button color='gray' variant='outline' highContrast m='2'>
+            {v}
+          </Button>
+        </Link>
+      ))}
+    </>
   )
 }
