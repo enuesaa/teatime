@@ -19,7 +19,20 @@ type TeapodSrv struct {
 
 func (srv *TeapodSrv) GetProvider() (plug.ProviderInterface, error) {
 	command := fmt.Sprintf("teapod-%s", srv.Name)
-	return plug.Run(command)
+	client := plug.NewClient(command)
+	// defer client.Kill()
+
+	rpcc, err := client.Client()
+	if err != nil {
+		return nil, err
+	}
+
+	raw, err := rpcc.Dispense("main")
+	if err != nil {
+		return nil, err
+	}
+
+	return raw.(plug.ProviderInterface), nil
 }
 
 func (srv *TeapodSrv) GetInfo() (plug.Info, error) {

@@ -28,20 +28,3 @@ func NewClient(command string) *plugin.Client {
 
 	return plugin.NewClient(&config)
 }
-
-func Run(command string) (ProviderInterface, error) {
-	client := NewClient(command)
-	// defer client.Kill()
-
-	rpcc, err := client.Client()
-	if err != nil {
-		return nil, err
-	}
-
-	raw, err := rpcc.Dispense("main")
-	if err != nil {
-		return nil, err
-	}
-
-	return raw.(ProviderInterface), nil
-}
