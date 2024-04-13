@@ -31,3 +31,15 @@ export const useGetTeapodInfo = (name: string) =>
     const body = await res.json()
     return body?.data ?? {}
   })
+
+export type TeapodCard = {
+  name: string
+  title: string
+  text: string
+}
+export const useGetTeapodCard = (teapod: string, name: string) => 
+  useQuery<TeapodCard>(`useGetTeapodCard-${teapod}-${name}`, async () => {
+    const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/cards/${name}`)
+    const body = await res.json()
+    return body?.data ?? {}
+  })

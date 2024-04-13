@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/enuesaa/teatime/pkg/plug"
 )
 
@@ -19,7 +21,7 @@ func (p *Provider) Info() (plug.Info, error) {
 	info := plug.Info{
 		Name: "teapod-links",
 		Description: "links teapod",
-		Cards: make([]string, 0),
+		Cards: []string{"summary"},
 		Teaboxes: []plug.Teabox{
 			{
 				Name: "links",
@@ -64,5 +66,15 @@ func (p *Provider) Del(teaid string) error {
 }
 
 func (p *Provider) GetCard(name string) (plug.Card, error) {
-	return plug.Card{}, nil
+	if name == "summary" {
+		card := plug.Card{
+			Name: "summary",
+			Title: "Summary Card",
+			Description: "Links Teapod Summary",
+			Type: "text",
+			Text: "hello",
+		}
+		return card, nil
+	}
+	return plug.Card{}, fmt.Errorf("not found")
 }
