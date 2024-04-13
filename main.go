@@ -29,17 +29,15 @@ func main() {
 	api.Use(controller.HandleData)
 	api.Use(controller.HandleError)
 
-	// api teapods
-	api.GET("/teapods", controller.ListTeapods)
-	api.GET("/teapods/:teapod", controller.GetTeapodInfo)
-	api.GET("/teapods/:teapod/cards/:id", controller.GetCard)
-
-	// api teapods teas
-	api.GET("/teapods/:teapod/teas", controller.ListTeas)
-	api.GET("/teapods/:teapod/teas/:teaid", controller.GetTea)
-	api.POST("/teapods/:teapod/teas", controller.CreateTea)
-	api.PUT("/teapods/:teapod/teas/:teaid", controller.UpdateTea)
-	api.DELETE("/teapods/:teapod/teas/:teaid", controller.DeleteTea)
+	teapods := api.Group("/teapods")
+	teapods.GET("/", controller.ListTeapods)
+	teapods.GET("/:teapod", controller.GetTeapodInfo)
+	teapods.GET("/:teapod/cards/:id", controller.GetCard)
+	teapods.GET("/:teapod/teas", controller.ListTeas)
+	teapods.GET("/:teapod/teas/:teaid", controller.GetTea)
+	teapods.POST("/:teapod/teas", controller.CreateTea)
+	teapods.PUT("/:teapod/teas/:teaid", controller.UpdateTea)
+	teapods.DELETE("/:teapod/teas/:teaid", controller.DeleteTea)
 
 	// ui
 	app.Any("/*", ui.Serve)
