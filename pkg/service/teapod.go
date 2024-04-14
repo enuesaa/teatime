@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/enuesaa/teatime/pkg/plug"
-	"github.com/google/uuid"
+	"github.com/matoous/go-nanoid/v2"
 )
 
 func NewTeapodSrv(name string) *TeapodSrv {
@@ -81,7 +81,10 @@ func (srv *TeapodSrv) CreateTea(teaboxName string, vals plug.Vals) (string, erro
 	if err != nil {
 		return "", err
 	}
-	teaid := uuid.NewString()
+	teaid, err := gonanoid.New()
+	if err != nil {
+		return "", err
+	}
 	tea := plug.Tea{
 		Teaid:  teaid,
 		Teabox: teaboxName,
