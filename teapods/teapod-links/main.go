@@ -29,7 +29,7 @@ func (p *Provider) Info() (plug.Info, error) {
 				Vals: map[string]string{
 					"title": "str",
 					"link": "str",
-					"memo": "str",
+					"memo": "str", // todo longtext
 					"priority": "str", // todo int
 				},
 			},
