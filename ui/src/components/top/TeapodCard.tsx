@@ -9,7 +9,7 @@ export const TeapodCard = ({ teapod, name }: Props) => {
   const card = useGetTeapodCard(teapod, name)
 
   return (
-    <Card style={{width: '300px'}} mb='5'>
+    <Card style={{ width: '300px' }} mb='5'>
       <DataList.Root>
         <DataList.Item>
           <DataList.Label>name</DataList.Label>

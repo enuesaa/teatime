@@ -1,12 +1,12 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { Theme } from '@radix-ui/themes'
-import TopPage from '@/pages/index'
-import TeasPage from '@/pages/teas'
-import SettingsPage from '@/pages/settings'
 import { Layout } from './components/common/Layout'
-import '@radix-ui/themes/styles.css'
+import TopPage from '@/pages/index'
+import SettingsPage from '@/pages/settings'
+import TeasPage from '@/pages/teas'
 import '@/style.css'
+import { Theme } from '@radix-ui/themes'
+import '@radix-ui/themes/styles.css'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 export const App = () => {
   const queryClient = new QueryClient()

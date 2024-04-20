@@ -1,7 +1,7 @@
+import styles from './Header.css'
+import { Flex, Box, Container, Separator, Link } from '@radix-ui/themes'
 import { BiCoffee } from 'react-icons/bi'
 import { MdOutlineCoffeeMaker } from 'react-icons/md'
-import { Flex, Box, Container, Separator, Link } from '@radix-ui/themes'
-import styles from './Header.css'
 
 export const Header = () => {
   return (

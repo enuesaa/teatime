@@ -1,7 +1,7 @@
-import { Heading, Text, Table } from '@radix-ui/themes'
-import { useListTeapods } from '@/lib/api/teapods'
-import { TeapodSchemas } from './TeapodSchemas'
 import { TeapodDescription } from './TeapodDescription'
+import { TeapodSchemas } from './TeapodSchemas'
+import { useListTeapods } from '@/lib/api/teapods'
+import { Heading, Text, Table } from '@radix-ui/themes'
 
 export const ListTeapods = () => {
   const teapods = useListTeapods()

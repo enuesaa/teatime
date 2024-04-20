@@ -1,7 +1,7 @@
-import { useListTeas } from '@/lib/api/teas'
-import { Table } from '@radix-ui/themes'
 import { DeleteTeaModal } from './DeleteTeaModal'
 import { useGetTeapodInfo } from '@/lib/api/teapods'
+import { useListTeas } from '@/lib/api/teas'
+import { Table } from '@radix-ui/themes'
 
 type Props = {
   teapod: string

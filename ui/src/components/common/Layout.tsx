@@ -1,5 +1,5 @@
+import { Header } from '@/components/common/Header'
 import { Container } from '@radix-ui/themes'
-import { Header } from './Header'
 import { ReactNode } from 'react'
 
 type Props = {

@@ -1,12 +1,12 @@
-import { Heading, Text, Flex, Box } from '@radix-ui/themes'
 import { AddTeaModal } from './AddTeaModal'
-import { ListTeasTable } from './ListTeasTable'
 import { ListTeasCtl } from './ListTeasCtl'
+import { ListTeasTable } from './ListTeasTable'
 import { useGetTeapodInfo } from '@/lib/api/teapods'
+import { Heading, Text, Flex, Box } from '@radix-ui/themes'
 
 type Props = {
   teapod: string
-  teabox: null|string
+  teabox: null | string
 }
 export const ListTeas = ({ teapod, teabox }: Props) => {
   const info = useGetTeapodInfo(teapod)

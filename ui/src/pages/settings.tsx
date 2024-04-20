@@ -1,5 +1,5 @@
-import { Heading, Text } from '@radix-ui/themes'
 import { ListTeapods } from '@/components/setting/ListTeapods'
+import { Heading, Text } from '@radix-ui/themes'
 
 export default function Page() {
   return (
