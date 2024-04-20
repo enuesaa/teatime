@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite dev --port 3001",
     "build": "vite build",
-    "format": "prettier --write \"src/**/*.{ts,tsx}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "knip": "knip"
   },
   "dependencies": {
     "@radix-ui/themes": "^3.0.2",
@@ -24,6 +25,7 @@
     "@types/react-dom": "^18.2.24",
     "@vanilla-extract/vite-plugin": "^4.0.7",
     "@vitejs/plugin-react": "^4.2.1",
+    "knip": "^5.9.4",
     "prettier": "^3.2.5",
     "typescript": "^5.4.4",
     "vite": "^4.5.3"

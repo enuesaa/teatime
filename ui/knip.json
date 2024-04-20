@@ -1,0 +1,6 @@
+{
+  "entry": ["src/main.tsx"],
+  "project": ["src/**/*.ts", "src/**/*.tsx"],
+  "ignore": [],
+  "ignoreDependencies": []
+}

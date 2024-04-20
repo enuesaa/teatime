@@ -1,5 +1,4 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { ApiBase, ApiListBase } from './schema'
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
 
