@@ -1,18 +1,13 @@
-import { Layout } from '@/components/common/Layout'
 import { ListTeas } from '@/components/teabox/ListTeas'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { useQueryStr } from '@/lib/navigation/querystr'
+import { useParams } from 'react-router-dom'
 
 export default function Page() {
   const { teapod } = useParams()
-  const [searchParams] = useSearchParams()
+  const teabox = useQueryStr('teabox')
   if (teapod === null || teapod === undefined) {
     return <></>
   }
-  const teabox = searchParams.get('teabox')
 
-  return (
-    <Layout>
-      <ListTeas teapod={teapod} teabox={teabox} />
-    </Layout>
-  )
+  return <ListTeas teapod={teapod} teabox={teabox} />
 }

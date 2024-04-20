@@ -1,10 +1,9 @@
-import { Layout } from '@/components/common/Layout'
 import { Heading, Text } from '@radix-ui/themes'
 import { ListTeapods } from '@/components/setting/ListTeapods'
 
 export default function Page() {
   return (
-    <Layout>
+    <>
       <Heading as='h2' size='8'>
         Settings
       </Heading>
@@ -13,6 +12,6 @@ export default function Page() {
       </Text>
 
       <ListTeapods />
-    </Layout>
+    </>
   )
 }
