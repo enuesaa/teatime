@@ -6,7 +6,7 @@ import path from 'node:path'
 
 export default defineConfig(({ mode }) => {
   const envvar = {
-    API_BASE: mode === 'production' ? '/' : 'http://localhost:3000/',
+    API_BASE: mode === 'production' ? '/api' : 'http://localhost:3000/api',
   }
 
   return {

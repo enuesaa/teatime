@@ -1,4 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
+import { query } from './base'
 
 const apiBaseUrl = import.meta.env.API_BASE
 
@@ -7,19 +8,9 @@ export type TeaSchema = {
   teabox: string
   vals: Record<string, string>
 }
-export const useListTeas = (teapod: string, teabox: string) =>
-  useQuery<TeaSchema[]>([`listTeas-${teapod}`, teabox], async () => {
-    const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teas?teabox=${teabox}`)
-    const body = await res.json()
-    return body?.data ?? []
-  })
+export const useListTeas = (teapod: string, teabox: string) => query<TeaSchema[]>(`teapods/${teapod}/teas?teabox=${teabox}`)
 
-export const useGetTea = (teapod: string, teaid: string) =>
-  useQuery<TeaSchema>(`getTeaInfo-${teapod}-${teaid}`, async () => {
-    const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/teas/${teaid}`)
-    const body = await res.json()
-    return body?.data ?? {}
-  })
+export const useGetTea = (teapod: string, teaid: string) => query<TeaSchema>(`teapods/${teapod}/teas/${teaid}`)
 
 export type CreateTeaReq = {
   teabox: string

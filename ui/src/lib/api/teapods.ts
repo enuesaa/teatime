@@ -1,17 +1,10 @@
-import { useQuery } from 'react-query'
-
-const apiBaseUrl = import.meta.env.API_BASE
+import { query } from './base'
 
 type TeapodSchema = {
   name: string
   command: string
 }
-export const useListTeapods = () =>
-  useQuery<TeapodSchema[]>('listTeapods', async () => {
-    const res = await fetch(`${apiBaseUrl}/teapods`)
-    const body = await res.json()
-    return body?.data ?? []
-  })
+export const useListTeapods = () => query<TeapodSchema[]>('teapods')
 
 type TeapodInfoSchema = {
   name: string
@@ -25,21 +18,11 @@ export type TeapodInfoTeabox = {
   comment: string
   vals: Record<string, string>
 }
-export const useGetTeapodInfo = (name: string) =>
-  useQuery<TeapodInfoSchema>(`getProviderInfo-${name}`, async () => {
-    const res = await fetch(`${apiBaseUrl}/teapods/${name}`)
-    const body = await res.json()
-    return body?.data ?? {}
-  })
+export const useGetTeapodInfo = (name: string) => query<TeapodInfoSchema>(`teapods/${name}`)
 
 export type TeapodCard = {
   name: string
   title: string
   text: string
 }
-export const useGetTeapodCard = (teapod: string, name: string) => 
-  useQuery<TeapodCard>(`useGetTeapodCard-${teapod}-${name}`, async () => {
-    const res = await fetch(`${apiBaseUrl}/teapods/${teapod}/cards/${name}`)
-    const body = await res.json()
-    return body?.data ?? {}
-  })
+export const useGetTeapodCard = (teapod: string, name: string) => query<TeapodCard>(`teapods/${teapod}/cards/${name}`)
