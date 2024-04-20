@@ -1,6 +1,5 @@
-import { Header } from '@/components/common/Header'
+import { Layout } from '@/components/common/Layout'
 import { ListTeas } from '@/components/teabox/ListTeas'
-import { Container } from '@radix-ui/themes'
 import { useParams, useSearchParams } from 'react-router-dom'
 
 export default function Page() {
@@ -12,11 +11,8 @@ export default function Page() {
   const teabox = searchParams.get('teabox')
 
   return (
-    <>
-      <Header />
-      <Container size='4' m='3' pt='3'>
-        <ListTeas teapod={teapod} teabox={teabox} />
-      </Container>
-    </>
+    <Layout>
+      <ListTeas teapod={teapod} teabox={teabox} />
+    </Layout>
   )
 }

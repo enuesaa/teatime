@@ -31,6 +31,7 @@ func main() {
 	api.Use(controller.HandleData)
 	api.Use(controller.HandleError)
 
+	// api teapod
 	teapods := api.Group("/teapods")
 	teapods.GET("", controller.ListTeapods)
 	teapods.GET("/:teapod", controller.GetTeapodInfo)
