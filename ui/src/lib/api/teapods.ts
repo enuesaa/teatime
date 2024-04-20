@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+const apiBaseUrl = import.meta.env.API_BASE
 
 type TeapodSchema = {
   name: string
