@@ -6,10 +6,11 @@ import (
 )
 
 type Card struct {
-	Name string `json:"name"`
+	Name  string `json:"name"`
 	Title string `json:"title"`
-	Text string `json:"text"`
+	Text  string `json:"text"`
 }
+
 func GetCard(c echo.Context) error {
 	teapodName := c.Param("teapod")
 	name := c.Param("name")
@@ -19,9 +20,9 @@ func GetCard(c echo.Context) error {
 		return err
 	}
 	card := Card{
-		Name: data.Name,
+		Name:  data.Name,
 		Title: data.Title,
-		Text: data.Text,
+		Text:  data.Text,
 	}
 
 	return WithData(c, card)

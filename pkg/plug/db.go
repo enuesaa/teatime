@@ -9,9 +9,9 @@ import (
 )
 
 func NewDB(teapod string) DB {
-	db := DB {
+	db := DB{
 		teapod: teapod,
-		repos: repository.New(),
+		repos:  repository.New(),
 	}
 	return db
 }
