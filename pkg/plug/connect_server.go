@@ -36,62 +36,16 @@ func (s *ConnectServer) List(props ListProps, resp *Result[[]Tea]) error {
 	return nil
 }
 
-func (s *ConnectServer) Get(teaid string, resp *Result[Tea]) error {
-	tea, err := s.Impl.Get(teaid)
+func (s *ConnectServer) Act(props ActProps, resp *Result[string]) error {
+	message, err := s.Impl.Act(props)
 	if err != nil {
-		*resp = Result[Tea]{
+		*resp = Result[string]{
 			HasErr: true,
 			ErrMsg: err.Error(),
 		}
 	} else {
-		*resp = Result[Tea]{
-			Data:   tea,
-			HasErr: false,
-		}
-	}
-	return nil
-}
-
-func (s *ConnectServer) Set(tea Tea, resp *Result[bool]) error {
-	if err := s.Impl.Set(tea); err != nil {
-		*resp = Result[bool]{
-			HasErr: true,
-			ErrMsg: err.Error(),
-		}
-	} else {
-		*resp = Result[bool]{
-			Data:   true,
-			HasErr: false,
-		}
-	}
-	return nil
-}
-
-func (s *ConnectServer) Del(teaid string, resp *Result[bool]) error {
-	if err := s.Impl.Del(teaid); err != nil {
-		*resp = Result[bool]{
-			HasErr: true,
-			ErrMsg: err.Error(),
-		}
-	} else {
-		*resp = Result[bool]{
-			Data:   true,
-			HasErr: false,
-		}
-	}
-	return nil
-}
-
-func (s *ConnectServer) GetCard(name string, resp *Result[Card]) error {
-	card, err := s.Impl.GetCard(name)
-	if err != nil {
-		*resp = Result[Card]{
-			HasErr: true,
-			ErrMsg: err.Error(),
-		}
-	} else {
-		*resp = Result[Card]{
-			Data:   card,
+		*resp = Result[string]{
+			Data:   message,
 			HasErr: false,
 		}
 	}

@@ -19,23 +19,8 @@ func (cc *ConnectClient) List(props ListProps) ([]Tea, error) {
 	cc.client.Call("Plugin.List", props, &resp)
 	return resp.Data, resp.Err()
 }
-func (cc *ConnectClient) Get(teaid string) (Tea, error) {
-	var resp Result[Tea]
-	cc.client.Call("Plugin.Get", teaid, &resp)
-	return resp.Data, resp.Err()
-}
-func (cc *ConnectClient) Set(tea Tea) error {
-	var resp Result[bool]
-	cc.client.Call("Plugin.Set", tea, &resp)
-	return resp.Err()
-}
-func (cc *ConnectClient) Del(teaid string) error {
-	var resp Result[bool]
-	cc.client.Call("Plugin.Del", teaid, &resp)
-	return resp.Err()
-}
-func (cc *ConnectClient) GetCard(name string) (Card, error) {
-	var resp Result[Card]
-	cc.client.Call("Plugin.GetCard", name, &resp)
+func (cc *ConnectClient) Act(props ActProps) (string, error) {
+	var resp Result[string]
+	cc.client.Call("Plugin.Act", props, &resp)
 	return resp.Data, resp.Err()
 }

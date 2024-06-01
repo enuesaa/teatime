@@ -3,7 +3,7 @@ package plug
 type ProviderInterface interface {
 	Info() (Info, error)
 	List(props ListProps) ([]Tea, error)
-	Act(props ActProps) error
+	Act(props ActProps) (string, error)
 }
 
 type Info struct {
@@ -34,7 +34,7 @@ type Action struct {
 type Val struct {
 	Name     string
 	Value    string
-	Type     ValCast // `str`, `bool`, or `int`
+	Cast     ValCast // `str`, `bool`, or `int`
 	Nullable bool
 }
 
@@ -53,5 +53,5 @@ type ListProps struct {
 
 type ActProps struct {
 	Name string
-	Val  []Val
+	Vals []Val
 }

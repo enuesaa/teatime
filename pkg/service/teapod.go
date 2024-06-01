@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/enuesaa/teatime/pkg/plug"
-	"github.com/matoous/go-nanoid/v2"
 )
 
 func NewTeapodSrv(name string) *TeapodSrv {
@@ -68,79 +67,33 @@ func (srv *TeapodSrv) ListTeas(teaboxName string) ([]plug.Tea, error) {
 	return provider.List(props)
 }
 
-func (srv *TeapodSrv) GetTea(teaid string) (plug.Tea, error) {
-	provider, err := srv.GetProvider()
-	if err != nil {
-		return plug.Tea{}, err
-	}
-	return provider.Get(teaid)
-}
-
-func (srv *TeapodSrv) CreateTea(teaboxName string, vals plug.Vals) (string, error) {
+func (srv *TeapodSrv) Act(name string, vals []plug.Val) (string, error) {
 	provider, err := srv.GetProvider()
 	if err != nil {
 		return "", err
 	}
-	teaid, err := gonanoid.New()
+
+	message, err := provider.Act(plug.ActProps{
+		Name: name,
+		Vals: vals,
+	})
 	if err != nil {
 		return "", err
 	}
-	tea := plug.Tea{
-		Teaid:  teaid,
-		Teabox: teaboxName,
-		Vals:   vals,
-	}
-	if err := provider.Set(tea); err != nil {
-		return "", err
-	}
-	return teaid, nil
+	return message, nil
 }
 
-func (srv *TeapodSrv) UpdateTea(teaid string, vals plug.Vals) (string, error) {
-	if err := srv.DeleteTea(teaid); err != nil {
-		return "", err
-	}
-	provider, err := srv.GetProvider()
-	if err != nil {
-		return teaid, err
-	}
-	tea := plug.Tea{
-		Teaid: teaid,
-		Vals:  vals,
-	}
-	if err := provider.Set(tea); err != nil {
-		return "", err
-	}
-	return teaid, nil
-}
+// func (srv *TeapodSrv) ValidateTeaboxVals(teabox plug.Teabox, vals plug.Vals) error {
+// 	for key := range teabox.Vals {
+// 		if _, ok := vals[key]; !ok {
+// 			return fmt.Errorf("key `%s` is required.", key)
+// 		}
+// 	}
 
-func (srv *TeapodSrv) DeleteTea(teaid string) error {
-	provider, err := srv.GetProvider()
-	if err != nil {
-		return err
-	}
-	return provider.Del(teaid)
-}
-
-func (srv *TeapodSrv) GetCard(name string) (plug.Card, error) {
-	provider, err := srv.GetProvider()
-	if err != nil {
-		return plug.Card{}, err
-	}
-	return provider.GetCard(name)
-}
-
-func (srv *TeapodSrv) ValidateTeaboxVals(teabox plug.Teabox, vals plug.Vals) error {
-	for key := range teabox.Vals {
-		if _, ok := vals[key]; !ok {
-			return fmt.Errorf("key `%s` is required.", key)
-		}
-	}
-
-	for key := range vals {
-		if _, ok := teabox.Vals[key]; !ok {
-			return fmt.Errorf("additional key `%s` is not allowd.", key)
-		}
-	}
-	return nil
-}
+// 	for key := range vals {
+// 		if _, ok := teabox.Vals[key]; !ok {
+// 			return fmt.Errorf("additional key `%s` is not allowd.", key)
+// 		}
+// 	}
+// 	return nil
+// }

@@ -46,14 +46,12 @@ func GetTeapodInfo(c echo.Context) error {
 		Name:        teapodName,
 		Command:     fmt.Sprintf("teapod-%s", teapodName),
 		Description: info.Description,
-		Cards:       info.Cards,
 		Teaboxes:    make([]TeapodInfoTeabox, 0),
 	}
 	for _, teabox := range info.Teaboxes {
 		data.Teaboxes = append(data.Teaboxes, TeapodInfoTeabox{
 			Name:    teabox.Name,
 			Comment: teabox.Comment,
-			Vals:    teabox.Vals,
 		})
 	}
 

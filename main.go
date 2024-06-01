@@ -35,12 +35,7 @@ func main() {
 	teapods := api.Group("/teapods")
 	teapods.GET("", controller.ListTeapods)
 	teapods.GET("/:teapod", controller.GetTeapodInfo)
-	teapods.GET("/:teapod/cards/:name", controller.GetCard)
 	teapods.GET("/:teapod/teas", controller.ListTeas)
-	teapods.GET("/:teapod/teas/:teaid", controller.GetTea)
-	teapods.POST("/:teapod/teas", controller.CreateTea)
-	teapods.PUT("/:teapod/teas/:teaid", controller.UpdateTea)
-	teapods.DELETE("/:teapod/teas/:teaid", controller.DeleteTea)
 
 	// ui
 	app.Any("/*", ui.Serve)
