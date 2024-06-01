@@ -42,6 +42,18 @@ const (
 	ValCastBool
 )
 
+func (v *ValCast) String() string {
+	switch *v {
+	case ValCastStr:
+		return "str"
+	case ValCastNum:
+		return "num"
+	case ValCastBool:
+		return "bool"
+	}
+	return ""
+}
+
 // tea
 type Tea struct {
 	Teaid  string

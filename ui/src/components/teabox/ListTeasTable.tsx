@@ -1,4 +1,3 @@
-import { DeleteTeaModal } from './DeleteTeaModal'
 import { useGetTeapodInfo } from '@/lib/api/teapods'
 import { useListTeas } from '@/lib/api/teas'
 import { Table } from '@radix-ui/themes'
@@ -36,7 +35,7 @@ export const ListTeasTable = ({ teapod, teabox: teaboxName }: Props) => {
                 <Table.Cell key={i}>{tea.vals.hasOwnProperty(v) ? tea.vals[v] : ''}</Table.Cell>
               ))}
               <Table.Cell>
-                <DeleteTeaModal teapod={teapod} teaid={tea.teaid} />
+                {/* <DeleteTeaModal teapod={teapod} teaid={tea.teaid} /> */}
               </Table.Cell>
             </Table.Row>
           ))}

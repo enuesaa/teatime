@@ -25,13 +25,17 @@ type TeapodInfo struct {
 	Name        string             `json:"name"`
 	Command     string             `json:"command"`
 	Description string             `json:"description"`
-	Cards       []string           `json:"cards"`
 	Teaboxes    []TeapodInfoTeabox `json:"teaboxes"`
 }
 type TeapodInfoTeabox struct {
-	Name    string            `json:"name"`
-	Comment string            `json:"comment"`
-	Vals    map[string]string `json:"vals"`
+	Name    string  `json:"name"`
+	Comment string   `json:"comment"`
+	ValDefs []ValDef `json:"valDefs"`
+}
+type ValDef struct {
+	Name     string `json:"name"`
+	Cast     string `json:"cast"`
+	Nullable bool   `json:"nullable"`
 }
 
 func GetTeapodInfo(c echo.Context) error {
@@ -49,9 +53,18 @@ func GetTeapodInfo(c echo.Context) error {
 		Teaboxes:    make([]TeapodInfoTeabox, 0),
 	}
 	for _, teabox := range info.Teaboxes {
+		valdefs := make([]ValDef, 0)
+		for _, valdef := range teabox.ValDefs {
+			valdefs = append(valdefs, ValDef{
+				Name: valdef.Name,
+				Cast: valdef.Cast.String(),
+				Nullable: valdef.Nullable,
+			})
+		}
 		data.Teaboxes = append(data.Teaboxes, TeapodInfoTeabox{
 			Name:    teabox.Name,
 			Comment: teabox.Comment,
+			ValDefs: valdefs,
 		})
 	}
 

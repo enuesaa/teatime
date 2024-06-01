@@ -1,4 +1,4 @@
-import { AddTeaModal } from './AddTeaModal'
+// import { AddTeaModal } from './AddTeaModal'
 import { ListTeasCtl } from './ListTeasCtl'
 import { ListTeasTable } from './ListTeasTable'
 import { useGetTeapodInfo } from '@/lib/api/teapods'
@@ -20,7 +20,7 @@ export const ListTeas = ({ teapod, teabox }: Props) => {
       <Heading as='h3'>
         <Flex>
           <Box width='500px'>
-            Teas <AddTeaModal teapod={teapod} teabox={teabox} />
+            Teas {/* <AddTeaModal teapod={teapod} teabox={teabox} /> */}
           </Box>
           <Box flexGrow='1' flexShrink='1'>
             {teaboxes.length > 0 && <ListTeasCtl teapod={teapod} teaboxes={teaboxes} />}

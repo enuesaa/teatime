@@ -19,10 +19,3 @@ export type TeapodInfoTeabox = {
   vals: Record<string, string>
 }
 export const useGetTeapodInfo = (name: string) => query<TeapodInfoSchema>(`teapods/${name}`)
-
-export type TeapodCard = {
-  name: string
-  title: string
-  text: string
-}
-export const useGetTeapodCard = (teapod: string, name: string) => query<TeapodCard>(`teapods/${teapod}/cards/${name}`)
