@@ -1,17 +1,10 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/enuesaa/teatime/pkg/plug"
 )
 
-var db plug.DB
-
 func main() {
-	db = plug.NewDB("links")
-	defer db.Close()
-
 	plug.Serve(&Provider{})
 }
 
@@ -21,25 +14,31 @@ func (p *Provider) Info() (plug.Info, error) {
 	info := plug.Info{
 		Name: "teapod-links",
 		Description: "links teapod",
-		Cards: []string{"summary"},
 		Teaboxes: []plug.Teabox{
 			{
 				Name: "links",
 				Comment: "Resgister your favorite site and look up later.",
-				Vals: map[string]string{
-					"title": "str",
-					"link": "str",
-					"memo": "str", // todo longtext
-					"priority": "str", // todo int
+				ValDefs: []plug.ValDef{
+					{Name: "title", Cast: plug.ValCastStr, Nullable: false},
+					{Name: "link", Cast: plug.ValCastStr, Nullable: false},
+					{Name: "memo", Cast: plug.ValCastStr, Nullable: false},
+					{Name: "priority", Cast: plug.ValCastNum, Nullable: false},
 				},
 			},
 			{
 				Name: "tags",
 				Comment: "Configure tags.",
-				Vals: map[string]string{
-					"name": "str",
-					"memo": "str",
+				ValDefs: []plug.ValDef{
+					{Name: "name", Cast: plug.ValCastStr, Nullable: false},
+					{Name: "memo", Cast: plug.ValCastStr, Nullable: false},
 				},
+			},
+		},
+		Actions: []plug.Action{
+			{
+				Name: "remove",
+				Comment: "remove tea",
+				Teabox: plug.String("tags"),
 			},
 		},
 	}
@@ -47,34 +46,9 @@ func (p *Provider) Info() (plug.Info, error) {
 }
 
 func (p *Provider) List(props plug.ListProps) ([]plug.Tea, error) {
-	if props.TeaboxName != nil {
-		return db.ListTeasByTeaboxName(*props.TeaboxName)
-	}
-	return db.ListTeas()
+	return make([]plug.Tea, 0), nil
 }
 
-func (p *Provider) Get(teaid string) (plug.Tea, error) {
-	return db.GetTea(teaid)
-}
-
-func (p *Provider) Set(tea plug.Tea) error {
-	return db.CreateTea(tea)
-}
-
-func (p *Provider) Del(teaid string) error {
-	return db.DeleteTea(teaid)
-}
-
-func (p *Provider) GetCard(name string) (plug.Card, error) {
-	if name == "summary" {
-		card := plug.Card{
-			Name: "summary",
-			Title: "Summary Card",
-			Description: "Links Teapod Summary",
-			Type: "text",
-			Text: "hello",
-		}
-		return card, nil
-	}
-	return plug.Card{}, fmt.Errorf("not found")
+func (p *Provider) Act(props plug.ActProps) (string, error) {
+	return "", nil
 }

@@ -6,6 +6,7 @@ type ProviderInterface interface {
 	Act(props ActProps) (string, error)
 }
 
+// info
 type Info struct {
 	Name        string
 	Description string
@@ -13,27 +14,22 @@ type Info struct {
 	Actions     []Action
 }
 
+// teabox & action def
 type Teabox struct {
 	Name    string
 	Comment string
-	Vals    []Val
-}
-
-type Tea struct {
-	Teaid  string
-	Teabox string
-	Vals   []Val
+	ValDefs []ValDef
 }
 
 type Action struct {
 	Name    string
 	Comment string
-	Vals    []Val
+	Teabox  *string // to bind teabox, fill this.
+	ValDefs []ValDef
 }
 
-type Val struct {
+type ValDef struct {
 	Name     string
-	Value    string
 	Cast     ValCast // `str`, `bool`, or `int`
 	Nullable bool
 }
@@ -46,6 +42,19 @@ const (
 	ValCastBool
 )
 
+// tea
+type Tea struct {
+	Teaid  string
+	Teabox string
+	Vals   []Val
+}
+
+type Val struct {
+	Name     string
+	Value    string
+}
+
+// props
 type ListProps struct {
 	TeaboxName *string
 	LastRead *string // for pagination
