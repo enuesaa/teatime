@@ -46,7 +46,26 @@ func (p *Provider) Info() (plug.Info, error) {
 }
 
 func (p *Provider) List(props plug.ListProps) ([]plug.Tea, error) {
-	return make([]plug.Tea, 0), nil
+	list := make([]plug.Tea, 0)
+
+	switch *props.TeaboxName {
+	case "links":
+		list = append(list, plug.Tea{
+			Teaid: "a",
+			Teabox: "links",
+			Vals: []plug.Val{
+				{Name: "title", Value: "a"},
+				{Name: "link", Value: "https://example.com"},
+				{Name: "memo", Value: "memo"},
+				{Name: "priority", Value: "0"},
+			},
+		})
+		return list, nil
+	case "tags":
+		return list, nil
+	}
+
+	return list, nil
 }
 
 func (p *Provider) Act(props plug.ActProps) (string, error) {
