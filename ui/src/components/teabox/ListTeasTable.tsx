@@ -20,8 +20,8 @@ export const ListTeasTable = ({ teapod, teabox: teaboxName }: Props) => {
       <Table.Header>
         <Table.Row>
           <Table.ColumnHeaderCell width='10%'>Id</Table.ColumnHeaderCell>
-          {Object.keys(teabox.vals).map((v, i) => (
-            <Table.ColumnHeaderCell key={i}>{v.toUpperCase()}</Table.ColumnHeaderCell>
+          {teabox.valdefs.map((v, i) => (
+            <Table.ColumnHeaderCell key={i}>{v.name.toUpperCase()}</Table.ColumnHeaderCell>
           ))}
           <Table.ColumnHeaderCell width='5%'></Table.ColumnHeaderCell>
         </Table.Row>
@@ -31,8 +31,8 @@ export const ListTeasTable = ({ teapod, teabox: teaboxName }: Props) => {
           teas?.data?.map((tea, i) => (
             <Table.Row key={i}>
               <Table.RowHeaderCell>{tea.teaid}</Table.RowHeaderCell>
-              {Object.keys(teabox.vals).map((v, i) => (
-                <Table.Cell key={i}>{tea.vals.hasOwnProperty(v) ? tea.vals[v] : ''}</Table.Cell>
+              {teabox.valdefs.map((v, i) => (
+                <Table.Cell key={i}>{tea.vals.hasOwnProperty(v.name) ? tea.vals[v.name] : ''}</Table.Cell>
               ))}
               <Table.Cell>
                 {/* <DeleteTeaModal teapod={teapod} teaid={tea.teaid} /> */}

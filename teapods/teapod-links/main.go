@@ -18,7 +18,7 @@ func (p *Provider) Info() (plug.Info, error) {
 			{
 				Name: "links",
 				Comment: "Resgister your favorite site and look up later.",
-				ValDefs: []plug.ValDef{
+				Valdefs: []plug.Valdef{
 					{Name: "title", Cast: plug.ValCastStr, Nullable: false},
 					{Name: "link", Cast: plug.ValCastStr, Nullable: false},
 					{Name: "memo", Cast: plug.ValCastStr, Nullable: false},
@@ -28,7 +28,7 @@ func (p *Provider) Info() (plug.Info, error) {
 			{
 				Name: "tags",
 				Comment: "Configure tags.",
-				ValDefs: []plug.ValDef{
+				Valdefs: []plug.Valdef{
 					{Name: "name", Cast: plug.ValCastStr, Nullable: false},
 					{Name: "memo", Cast: plug.ValCastStr, Nullable: false},
 				},

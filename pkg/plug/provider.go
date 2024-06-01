@@ -18,17 +18,17 @@ type Info struct {
 type Teabox struct {
 	Name    string
 	Comment string
-	ValDefs []ValDef
+	Valdefs []Valdef
 }
 
 type Action struct {
 	Name    string
 	Comment string
 	Teabox  *string // to bind teabox, fill this.
-	ValDefs []ValDef
+	Valdefs []Valdef
 }
 
-type ValDef struct {
+type Valdef struct {
 	Name     string
 	Cast     ValCast // `str`, `bool`, or `int`
 	Nullable bool

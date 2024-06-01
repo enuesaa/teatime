@@ -26,10 +26,17 @@ func ListTeas(c echo.Context) error {
 	}
 	list := make([]Tea, 0)
 	for _, tea := range teas {
+		vals := make([]TeaVal, 0)
+		for _, val := range tea.Vals {
+			vals = append(vals, TeaVal{
+				Name: val.Name,
+				Value: val.Value,
+			})
+		}
 		list = append(list, Tea{
 			Teaid:  tea.Teaid,
 			Teabox: tea.Teabox,
-			// Vals:   tea.Vals,
+			Vals:   vals,
 		})
 	}
 	return WithData(c, list)
