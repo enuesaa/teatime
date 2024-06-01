@@ -4,19 +4,14 @@ import (
 	"log"
 
 	"github.com/enuesaa/teatime/pkg/controller"
-	"github.com/enuesaa/teatime/pkg/repository"
+	// "github.com/enuesaa/teatime/pkg/repository"
 	"github.com/enuesaa/teatime/ui"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
-	repos := repository.New()
-	if !repos.DB.IsDBExist() {
-		if err := repos.DB.Migrate(); err != nil {
-			log.Fatalf("Error: %s", err.Error())
-		}
-	}
+	// repos := repository.New()
 
 	app := echo.New()
 	app.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
