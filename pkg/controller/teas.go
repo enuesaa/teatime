@@ -11,9 +11,9 @@ type Tea struct {
 	Vals   []TeaVal `json:"vals"`
 }
 type TeaVal struct {
-	Name  string `json:"name"`
+	Name  string      `json:"name"`
 	Value interface{} `json:"value"`
-	Type  string `json:"type"`
+	Type  string      `json:"type"`
 }
 
 func ListTeas(c echo.Context) error {
@@ -29,7 +29,7 @@ func ListTeas(c echo.Context) error {
 		vals := make([]TeaVal, 0)
 		for _, val := range tea.Vals {
 			vals = append(vals, TeaVal{
-				Name: val.Name,
+				Name:  val.Name,
 				Value: val.Value,
 			})
 		}

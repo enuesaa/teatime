@@ -25,7 +25,7 @@ func NewResult[T any](data T, err error) Result[T] {
 	}
 
 	return Result[T]{
-		Data: data,
+		Data:   data,
 		HasErr: false,
 	}
-} 
+}

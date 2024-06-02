@@ -19,8 +19,8 @@ export type TeapodInfoTeabox = {
   valdefs: TeapodInfoTeaboxValdef[]
 }
 export type TeapodInfoTeaboxValdef = {
-	name: string
-	cast: string
-	nullable: boolean
+  name: string
+  cast: string
+  nullable: boolean
 }
 export const useGetTeapodInfo = (name: string) => query<TeapodInfoSchema>(`teapods/${name}`)

@@ -32,11 +32,9 @@ export const ListTeasTable = ({ teapod, teabox: teaboxName }: Props) => {
             <Table.Row key={i}>
               <Table.RowHeaderCell>{tea.teaid}</Table.RowHeaderCell>
               {teabox.valdefs.map((v, i) => (
-                <Table.Cell key={i}>{tea.vals.find(t => t.name === v.name)?.value ?? ''}</Table.Cell>
+                <Table.Cell key={i}>{tea.vals.find((t) => t.name === v.name)?.value ?? ''}</Table.Cell>
               ))}
-              <Table.Cell>
-                {/* <DeleteTeaModal teapod={teapod} teaid={tea.teaid} /> */}
-              </Table.Cell>
+              <Table.Cell>{/* <DeleteTeaModal teapod={teapod} teaid={tea.teaid} /> */}</Table.Cell>
             </Table.Row>
           ))}
       </Table.Body>

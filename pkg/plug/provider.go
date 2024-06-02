@@ -62,14 +62,14 @@ type Tea struct {
 }
 
 type Val struct {
-	Name     string
-	Value    string
+	Name  string
+	Value string
 }
 
 // props
 type ListProps struct {
 	TeaboxName *string
-	LastRead *string // for pagination
+	LastRead   *string // for pagination
 }
 
 type ActProps struct {
