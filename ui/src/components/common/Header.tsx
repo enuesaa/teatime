@@ -1,5 +1,6 @@
 import styles from './Header.css'
-import { Flex, Box, Container, Separator, Link } from '@radix-ui/themes'
+import { Flex, Box, Container, Separator } from '@radix-ui/themes'
+import { Link } from './Link'
 import { BiCoffee } from 'react-icons/bi'
 import { MdOutlineCoffeeMaker } from 'react-icons/md'
 

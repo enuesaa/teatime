@@ -13,17 +13,17 @@ export const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Theme appearance='dark' accentColor='purple'>
-        <Layout>
-          <BrowserRouter>
+      <BrowserRouter>
+        <Theme appearance='dark' accentColor='purple'>
+          <Layout>
             <Routes>
               <Route path='/' element={<TopPage />} />
               <Route path='/settings' element={<SettingsPage />} />
               <Route path='/teapods/:teapod/teas' element={<TeasPage />} />
             </Routes>
-          </BrowserRouter>
-        </Layout>
-      </Theme>
+          </Layout>
+        </Theme>
+      </BrowserRouter>
     </QueryClientProvider>
   )
 }
