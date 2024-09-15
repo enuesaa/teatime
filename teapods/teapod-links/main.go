@@ -8,6 +8,7 @@ func main() {
 	plug.Serve(&Provider{})
 }
 
+// define data structure.
 type Provider struct {}
 
 func (p *Provider) Info() (plug.Info, error) {
