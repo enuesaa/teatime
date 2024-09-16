@@ -56,15 +56,7 @@ func (srv *TeapodSrv) GetTeabox(name string) (plug.Teabox, error) {
 }
 
 func (srv *TeapodSrv) ListTeas(teaboxName string) ([]plug.Tea, error) {
-	provider, err := srv.GetProvider()
-	if err != nil {
-		return make([]plug.Tea, 0), err
-	}
-	props := plug.ListProps{}
-	if teaboxName != "" {
-		props.TeaboxName = &teaboxName
-	}
-	return provider.List(props)
+	return make([]plug.Tea, 0), nil
 }
 
 func (srv *TeapodSrv) Act(name string, vals []plug.Val) (string, error) {

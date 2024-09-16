@@ -6,3 +6,8 @@
 - プラグインでアクションを定義できる
 - アクションはデータをフェッチして mongodb に入れるのが主なユースケース
 - プラグインの情報は mongodb に入れる
+
+## Create go.work
+```bash
+go work init . ./plugins/teatime-plugin-coredata
+```

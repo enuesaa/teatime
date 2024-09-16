@@ -2,7 +2,6 @@ package plug
 
 type ProviderInterface interface {
 	Info() (Info, error)
-	List(props ListProps) ([]Tea, error)
 	Act(props ActProps) (string, error)
 }
 

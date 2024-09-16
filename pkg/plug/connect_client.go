@@ -15,12 +15,6 @@ func (cc *ConnectClient) Info() (Info, error) {
 	return resp.Data, resp.Err()
 }
 
-func (cc *ConnectClient) List(props ListProps) ([]Tea, error) {
-	var resp Result[[]Tea]
-	cc.client.Call("Plugin.List", props, &resp)
-	return resp.Data, resp.Err()
-}
-
 func (cc *ConnectClient) Act(props ActProps) (string, error) {
 	var resp Result[string]
 	cc.client.Call("Plugin.Act", props, &resp)
