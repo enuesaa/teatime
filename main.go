@@ -4,16 +4,18 @@ import (
 	"log"
 
 	"github.com/enuesaa/teatime/pkg/controller"
-	// "github.com/enuesaa/teatime/pkg/repository"
+	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/enuesaa/teatime/ui"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
-	SaveDataToMongo()
-
-	// repos := repository.New()
+	repos := repository.New()
+	if err := repos.DB.Connect(); err != nil {
+		log.Fatalf("Error: %s", err.Error())
+	}
+	defer repos.DB.Disconnect()
 
 	app := echo.New()
 	app.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
@@ -33,6 +35,12 @@ func main() {
 	teapods.GET("", controller.ListTeapods)
 	teapods.GET("/:teapod", controller.GetTeapodInfo)
 	teapods.GET("/:teapod/teas", controller.ListTeas)
+
+	// health
+	healthCtl := controller.HealthController{
+		Repos: repos,
+	}
+	api.GET("/health", healthCtl.Get)
 
 	// ui
 	app.Any("/*", ui.Serve)

@@ -11,6 +11,7 @@ import (
 
 type DBRepositoryInterface interface {
 	Connect() error
+	Disconnect() error
 	Create(name string, document bson.D) (string, error)
 	Find(name string, filter bson.D) (interface{}, error)
 }
@@ -24,6 +25,13 @@ func (repo *DBRepository) Connect() error {
 		return err
 	}
 	repo.client = client
+	return nil
+}
+
+func (repo *DBRepository) Disconnect() error {
+	if repo.client != nil {
+		return repo.client.Disconnect(context.Background())
+	}
 	return nil
 }
 
