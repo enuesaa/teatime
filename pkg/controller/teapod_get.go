@@ -31,12 +31,12 @@ func (ctl *Ctl) GetTeapod(c echo.Context) error {
 		Description: info.Description,
 		Teaboxes:    make([]TeapodInfoTeabox, 0),
 	}
-	for _, teabox := range info.Teaboxes {
-		data.Teaboxes = append(data.Teaboxes, TeapodInfoTeabox{
-			// Name:    teabox,
-			Comment: teabox.Comment,
-		})
-	}
+	// for _, teabox := range info.Teaboxes {
+	// 	data.Teaboxes = append(data.Teaboxes, TeapodInfoTeabox{
+	// 		// Name:    teabox,
+	// 		Comment: teabox.Comment,
+	// 	})
+	// }
 
 	return ctl.WithData(c, data)
 }
