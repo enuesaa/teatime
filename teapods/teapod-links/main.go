@@ -14,13 +14,24 @@ func (p *Provider) Info() (plug.Info, error) {
 	info := plug.Info{
 		Name: "teapod-links",
 		Description: "links teapod",
-		Teaboxes: map[string]plug.Teabox{
-			"links": {
+		Teaboxes: []plug.Teabox{
+			{
+				Name: "links",
 				Comment: "Resgister your favorite site and look up later.",
-				Schema: "a",
+				Valdefs: []plug.Valdef{
+					{Name: "title", Cast: plug.ValCastStr, Nullable: false},
+					{Name: "link", Cast: plug.ValCastStr, Nullable: false},
+					{Name: "memo", Cast: plug.ValCastStr, Nullable: false},
+					{Name: "priority", Cast: plug.ValCastNum, Nullable: false},
+				},
 			},
-			"tags": {
+			{
+				Name: "tags",
 				Comment: "Configure tags.",
+				Valdefs: []plug.Valdef{
+					{Name: "name", Cast: plug.ValCastStr, Nullable: false},
+					{Name: "memo", Cast: plug.ValCastStr, Nullable: false},
+				},
 			},
 		},
 		Actions: []plug.Action{

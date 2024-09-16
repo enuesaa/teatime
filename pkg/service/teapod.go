@@ -57,16 +57,6 @@ func (srv *TeapodSrv) GetInfo(teapod string) (plug.Info, error) {
 }
 
 func (srv *TeapodSrv) ListTeas(teapod string, teabox string) ([]plug.Tea, error) {
-	info, err := srv.GetInfo(teapod)
-	if err != nil {
-		return make([]plug.Tea, 0), err
-	}
-	box, ok := info.Teaboxes[teabox]
-	if !ok {
-		return make([]plug.Tea, 0), err
-	}
-	fmt.Printf("%+v\n", box)
-	
 	name := fmt.Sprintf("%s-%s", teapod, teabox)
 	list := make([]plug.Tea, 0)
 
