@@ -20,7 +20,7 @@ func (ctl *Ctl) ListTeas(c echo.Context) error {
 	teapodName := c.Param("teapod")
 	teaboxName := c.QueryParam("teabox")
 
-	teas, err := service.NewTeapodSrv(teapodName).ListTeas(teaboxName)
+	teas, err := service.NewTeapodSrv(teapodName, ctl.repos).ListTeas(teaboxName)
 	if err != nil {
 		return err
 	}

@@ -30,14 +30,11 @@ func main() {
 	api.Use(controller.HandleData)
 	api.Use(controller.HandleError)
 
-	// api teapod
 	ctl := controller.New(repos)
 	api.GET("/health", ctl.GetHealth)
-
-	teapods := api.Group("/teapods")
-	teapods.GET("", ctl.ListTeapods)
-	teapods.GET("/:teapod", ctl.GetTeapodInfo)
-	teapods.GET("/:teapod/teas", ctl.ListTeas)
+	api.GET("/teapods", ctl.ListTeapods)
+	api.GET("/teapods/:teapod", ctl.GetTeapodInfo)
+	api.GET("/teapods/:teapod/teas", ctl.ListTeas)
 
 	// ui
 	app.Any("/*", ui.Serve)

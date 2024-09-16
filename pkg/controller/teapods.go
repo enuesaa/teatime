@@ -13,8 +13,11 @@ type Teapod struct {
 }
 
 func (ctl *Ctl) ListTeapods(c echo.Context) error {
-	list := make([]Teapod, 0)
-
+	teapodSrv := service.NewTeapodSrv("", ctl.repos)
+	list, err := teapodSrv.List()
+	if err != nil {
+		return err
+	}
 	return WithData(c, list)
 }
 
@@ -38,7 +41,7 @@ type Valdef struct {
 func (ctl *Ctl) GetTeapodInfo(c echo.Context) error {
 	teapodName := c.Param("teapod")
 
-	info, err := service.NewTeapodSrv(teapodName).GetInfo()
+	info, err := service.NewTeapodSrv(teapodName, ctl.repos).GetInfo()
 	if err != nil {
 		return err
 	}

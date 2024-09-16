@@ -4,16 +4,32 @@ import (
 	"fmt"
 
 	"github.com/enuesaa/teatime/pkg/plug"
+	"github.com/enuesaa/teatime/pkg/repository"
+	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
-func NewTeapodSrv(name string) *TeapodSrv {
+func NewTeapodSrv(name string, repos repository.Repos) *TeapodSrv {
 	return &TeapodSrv{
 		Name: name,
+		repos: repos,
 	}
 }
 
 type TeapodSrv struct {
+	// deprecated
 	Name string
+	repos repository.Repos
+}
+
+type Teapod struct {
+	Name string `json:"name"`
+}
+func (srv *TeapodSrv) List() ([]Teapod, error) {
+	list := make([]Teapod, 0)
+	if err := srv.repos.DB.FindAll("teapods", bson.D{}, &list); err != nil {
+		return list, err
+	}
+	return list, nil
 }
 
 func (srv *TeapodSrv) GetProvider() (plug.ProviderInterface, error) {
