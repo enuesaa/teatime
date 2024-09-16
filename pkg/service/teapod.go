@@ -8,22 +8,21 @@ import (
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
-func NewTeapodSrv(name string, repos repository.Repos) *TeapodSrv {
+
+type Teapod struct {
+	Name string `json:"name"`
+}
+
+func NewTeapodSrv(repos repository.Repos) *TeapodSrv {
 	return &TeapodSrv{
-		Name: name,
 		repos: repos,
 	}
 }
 
 type TeapodSrv struct {
-	// deprecated
-	Name string
 	repos repository.Repos
 }
 
-type Teapod struct {
-	Name string `json:"name"`
-}
 func (srv *TeapodSrv) List() ([]Teapod, error) {
 	list := make([]Teapod, 0)
 	if err := srv.repos.DB.FindAll("teapods", bson.D{}, &list); err != nil {
@@ -33,7 +32,7 @@ func (srv *TeapodSrv) List() ([]Teapod, error) {
 }
 
 func (srv *TeapodSrv) GetProvider() (plug.ProviderInterface, error) {
-	command := fmt.Sprintf("teapod-%s", srv.Name)
+	command := fmt.Sprintf("teapod-%s", "links")
 	client := plug.NewClient(command)
 	// defer client.Kill()
 
@@ -61,14 +60,14 @@ func (srv *TeapodSrv) GetInfo() (plug.Info, error) {
 func (srv *TeapodSrv) GetTeabox(name string) (plug.Teabox, error) {
 	info, err := srv.GetInfo()
 	if err != nil {
-		return plug.Teabox{}, fmt.Errorf("teabox not found.")
+		return plug.Teabox{}, fmt.Errorf("teabox not found")
 	}
 	for _, teabox := range info.Teaboxes {
 		if name == teabox.Name {
 			return teabox, nil
 		}
 	}
-	return plug.Teabox{}, fmt.Errorf("teabox not found.")
+	return plug.Teabox{}, fmt.Errorf("teabox not found")
 }
 
 func (srv *TeapodSrv) ListTeas(teaboxName string) ([]plug.Tea, error) {
@@ -90,18 +89,3 @@ func (srv *TeapodSrv) Act(name string, vals []plug.Val) (string, error) {
 	}
 	return message, nil
 }
-
-// func (srv *TeapodSrv) ValidateTeaboxVals(teabox plug.Teabox, vals plug.Vals) error {
-// 	for key := range teabox.Vals {
-// 		if _, ok := vals[key]; !ok {
-// 			return fmt.Errorf("key `%s` is required.", key)
-// 		}
-// 	}
-
-// 	for key := range vals {
-// 		if _, ok := teabox.Vals[key]; !ok {
-// 			return fmt.Errorf("additional key `%s` is not allowd.", key)
-// 		}
-// 	}
-// 	return nil
-// }

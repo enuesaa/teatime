@@ -31,7 +31,6 @@ func main() {
 	api.Use(controller.HandleError)
 
 	ctl := controller.New(repos)
-	api.GET("/health", ctl.GetHealth)
 	api.GET("/teapods", ctl.ListTeapods)
 	api.GET("/teapods/:teapod", ctl.GetTeapodInfo)
 	api.GET("/teapods/:teapod/teas", ctl.ListTeas)

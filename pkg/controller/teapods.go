@@ -7,13 +7,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type Teapod struct {
-	Name    string `json:"name"`
-	Command string `json:"command"`
-}
-
 func (ctl *Ctl) ListTeapods(c echo.Context) error {
-	teapodSrv := service.NewTeapodSrv("", ctl.repos)
+	teapodSrv := service.NewTeapodSrv(ctl.repos)
 	list, err := teapodSrv.List()
 	if err != nil {
 		return err
@@ -41,7 +36,7 @@ type Valdef struct {
 func (ctl *Ctl) GetTeapodInfo(c echo.Context) error {
 	teapodName := c.Param("teapod")
 
-	info, err := service.NewTeapodSrv(teapodName, ctl.repos).GetInfo()
+	info, err := service.NewTeapodSrv(ctl.repos).GetInfo()
 	if err != nil {
 		return err
 	}
