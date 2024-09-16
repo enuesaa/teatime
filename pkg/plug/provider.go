@@ -9,15 +9,14 @@ type ProviderInterface interface {
 type Info struct {
 	Name        string
 	Description string
-	Teaboxes    []Teabox
+	Teaboxes    map[string]Teabox
 	Actions     []Action
 }
 
 // teabox & action def
 type Teabox struct {
-	Name    string
 	Comment string
-	Valdefs []Valdef
+	Schema  interface{}
 }
 
 type Action struct {

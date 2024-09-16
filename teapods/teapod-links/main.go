@@ -14,13 +14,12 @@ func (p *Provider) Info() (plug.Info, error) {
 	info := plug.Info{
 		Name: "teapod-links",
 		Description: "links teapod",
-		Teaboxes: []plug.Teabox{
-			{
-				Name: "links",
+		Teaboxes: map[string]plug.Teabox{
+			"links": {
 				Comment: "Resgister your favorite site and look up later.",
+				Schema: "a",
 			},
-			{
-				Name: "tags",
+			"tags": {
 				Comment: "Configure tags.",
 			},
 		},

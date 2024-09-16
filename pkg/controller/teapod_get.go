@@ -33,7 +33,7 @@ func (ctl *Ctl) GetTeapod(c echo.Context) error {
 	}
 	for _, teabox := range info.Teaboxes {
 		data.Teaboxes = append(data.Teaboxes, TeapodInfoTeabox{
-			Name:    teabox.Name,
+			// Name:    teabox,
 			Comment: teabox.Comment,
 		})
 	}
