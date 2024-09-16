@@ -5,9 +5,14 @@ import (
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
+type GetHealthResponse struct {
+	Health bool `json:"health"`
+}
+
 func (ctl *Ctl) GetHealth(c echo.Context) error {
-	res, err := ctl.repos.DB.Find("notes", bson.D{})
-	if err != nil {
+	var res GetHealthResponse
+
+	if err := ctl.repos.DB.Find("notes", bson.D{}, &res); err != nil {
 		return err
 	}
 

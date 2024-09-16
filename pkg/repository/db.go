@@ -13,7 +13,8 @@ type DBRepositoryInterface interface {
 	Connect() error
 	Disconnect() error
 	Create(name string, document bson.D) (string, error)
-	Find(name string, filter bson.D) (interface{}, error)
+	FindAll(name string, filter bson.D, res interface{}) error
+	Find(name string, filter bson.D, res interface{}) error
 }
 type DBRepository struct {
 	client *mongo.Client
@@ -48,16 +49,22 @@ func (repo *DBRepository) Create(name string, document bson.D) (string, error) {
 	return fmt.Sprintf("%s", id), nil
 }
 
-func (repo *DBRepository) Find(name string, filter bson.D) (interface{}, error) {
+func (repo *DBRepository) FindAll(name string, filter bson.D, res interface{}) error {
 	ctx := context.Background()
+	db := repo.client.Database("app")
+	collection := db.Collection(name)
 
-	collection := repo.client.Database("app").Collection(name)
-	var result struct {
-		Value string
+	cur, err := collection.Find(ctx, filter)
+	if err != nil {
+		return err
 	}
-	if err := collection.FindOne(ctx, filter).Decode(&result); err != nil {
-		return result, err
-	}
+	return cur.All(ctx, res)
+}
 
-	return result, nil
+func (repo *DBRepository) Find(name string, filter bson.D, res interface{}) error {
+	ctx := context.Background()
+	db := repo.client.Database("app")
+	collection := db.Collection(name)
+
+	return collection.FindOne(ctx, filter).Decode(res)
 }
