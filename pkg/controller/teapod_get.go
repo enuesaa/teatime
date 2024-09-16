@@ -7,15 +7,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func (ctl *Ctl) ListTeapods(c echo.Context) error {
-	teapodSrv := service.NewTeapodSrv(ctl.repos)
-	list, err := teapodSrv.List()
-	if err != nil {
-		return err
-	}
-	return WithData(c, list)
-}
-
 type TeapodInfo struct {
 	Name        string             `json:"name"`
 	Command     string             `json:"command"`
@@ -25,15 +16,8 @@ type TeapodInfo struct {
 type TeapodInfoTeabox struct {
 	Name    string   `json:"name"`
 	Comment string   `json:"comment"`
-	Valdefs []Valdef `json:"valdefs"`
 }
-type Valdef struct {
-	Name     string `json:"name"`
-	Cast     string `json:"cast"`
-	Nullable bool   `json:"nullable"`
-}
-
-func (ctl *Ctl) GetTeapodInfo(c echo.Context) error {
+func (ctl *Ctl) GetTeapod(c echo.Context) error {
 	teapodName := c.Param("teapod")
 
 	info, err := service.NewTeapodSrv(ctl.repos).GetInfo()
@@ -48,20 +32,11 @@ func (ctl *Ctl) GetTeapodInfo(c echo.Context) error {
 		Teaboxes:    make([]TeapodInfoTeabox, 0),
 	}
 	for _, teabox := range info.Teaboxes {
-		valdefs := make([]Valdef, 0)
-		for _, valdef := range teabox.Valdefs {
-			valdefs = append(valdefs, Valdef{
-				Name:     valdef.Name,
-				Cast:     valdef.Cast.String(),
-				Nullable: valdef.Nullable,
-			})
-		}
 		data.Teaboxes = append(data.Teaboxes, TeapodInfoTeabox{
 			Name:    teabox.Name,
 			Comment: teabox.Comment,
-			Valdefs: valdefs,
 		})
 	}
 
-	return WithData(c, data)
+	return ctl.WithData(c, data)
 }

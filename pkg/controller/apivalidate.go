@@ -12,7 +12,7 @@ type AppValidationError struct {
 	Errors []AppErrItem `json:"errors"`
 }
 
-func Validate(c echo.Context, reqbody interface{}) error {
+func (ctl *Ctl) Validate(c echo.Context, reqbody interface{}) error {
 	if err := c.Bind(&reqbody); err != nil {
 		return err
 	}
