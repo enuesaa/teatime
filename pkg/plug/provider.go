@@ -9,17 +9,11 @@ type ProviderInterface interface {
 type Info struct {
 	Name        string
 	Description string
-	Teaboxes    []Teabox
+	Schema      []Valdef
 	Actions     []Action
 }
 
-// teabox & action def
-type Teabox struct {
-	Name string
-	Comment string
-	Valdefs []Valdef
-}
-
+// action
 type Action struct {
 	Name    string
 	Comment string
