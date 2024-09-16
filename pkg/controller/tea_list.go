@@ -17,27 +17,13 @@ type TeaVal struct {
 }
 
 func (ctl *Ctl) ListTeas(c echo.Context) error {
-	// teapodName := c.Param("teapod")
-	teaboxName := c.QueryParam("teabox")
+	teapod := c.Param("teapod")
+	teabox := c.Param("teabox")
 
-	teas, err := service.NewTeapodSrv(ctl.repos).ListTeas(teaboxName)
+	teapodSrv := service.NewTeapodSrv(ctl.repos)
+	list, err := teapodSrv.ListTeas(teapod, teabox)
 	if err != nil {
 		return err
-	}
-	list := make([]Tea, 0)
-	for _, tea := range teas {
-		vals := make([]TeaVal, 0)
-		for _, val := range tea.Vals {
-			vals = append(vals, TeaVal{
-				Name:  val.Name,
-				Value: val.Value,
-			})
-		}
-		list = append(list, Tea{
-			Teaid:  tea.Teaid,
-			Teabox: tea.Teabox,
-			Vals:   vals,
-		})
 	}
 	return ctl.WithData(c, list)
 }

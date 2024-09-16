@@ -18,16 +18,16 @@ type TeapodInfoTeabox struct {
 	Comment string   `json:"comment"`
 }
 func (ctl *Ctl) GetTeapod(c echo.Context) error {
-	teapodName := c.Param("teapod")
+	teapod := c.Param("teapod")
 
-	info, err := service.NewTeapodSrv(ctl.repos).GetInfo()
+	info, err := service.NewTeapodSrv(ctl.repos).GetInfo(teapod)
 	if err != nil {
 		return err
 	}
 
 	data := TeapodInfo{
-		Name:        teapodName,
-		Command:     fmt.Sprintf("teapod-%s", teapodName),
+		Name:        teapod,
+		Command:     fmt.Sprintf("teapod-%s", teapod),
 		Description: info.Description,
 		Teaboxes:    make([]TeapodInfoTeabox, 0),
 	}

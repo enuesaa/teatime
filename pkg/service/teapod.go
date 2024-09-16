@@ -8,7 +8,6 @@ import (
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
-
 type Teapod struct {
 	Name string `json:"name"`
 }
@@ -31,8 +30,8 @@ func (srv *TeapodSrv) List() ([]Teapod, error) {
 	return list, nil
 }
 
-func (srv *TeapodSrv) GetProvider() (plug.ProviderInterface, error) {
-	command := fmt.Sprintf("teapod-%s", "links")
+func (srv *TeapodSrv) GetProvider(teapod string) (plug.ProviderInterface, error) {
+	command := fmt.Sprintf("teapod-%s", teapod)
 	client := plug.NewClient(command)
 	// defer client.Kill()
 
@@ -49,33 +48,27 @@ func (srv *TeapodSrv) GetProvider() (plug.ProviderInterface, error) {
 	return raw.(plug.ProviderInterface), nil
 }
 
-func (srv *TeapodSrv) GetInfo() (plug.Info, error) {
-	provider, err := srv.GetProvider()
+func (srv *TeapodSrv) GetInfo(teapod string) (plug.Info, error) {
+	provider, err := srv.GetProvider(teapod)
 	if err != nil {
 		return plug.Info{}, err
 	}
 	return provider.Info()
 }
 
-func (srv *TeapodSrv) GetTeabox(name string) (plug.Teabox, error) {
-	info, err := srv.GetInfo()
-	if err != nil {
-		return plug.Teabox{}, fmt.Errorf("teabox not found")
+func (srv *TeapodSrv) ListTeas(teapod string, teabox string) ([]plug.Tea, error) {
+	name := fmt.Sprintf("%s-%s", teapod, teabox)
+	list := make([]plug.Tea, 0)
+
+	if err := srv.repos.DB.FindAll(name, bson.D{}, &list); err != nil {
+		return list, err
 	}
-	for _, teabox := range info.Teaboxes {
-		if name == teabox.Name {
-			return teabox, nil
-		}
-	}
-	return plug.Teabox{}, fmt.Errorf("teabox not found")
+
+	return list, nil
 }
 
-func (srv *TeapodSrv) ListTeas(teaboxName string) ([]plug.Tea, error) {
-	return make([]plug.Tea, 0), nil
-}
-
-func (srv *TeapodSrv) Act(name string, vals []plug.Val) (string, error) {
-	provider, err := srv.GetProvider()
+func (srv *TeapodSrv) Act(teapod string, name string, vals []plug.Val) (string, error) {
+	provider, err := srv.GetProvider(teapod)
 	if err != nil {
 		return "", err
 	}

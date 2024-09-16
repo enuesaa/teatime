@@ -32,7 +32,7 @@ func main() {
 	api.Use(ctl.HandleError)
 	api.GET("/teapods", ctl.ListTeapods)
 	api.GET("/teapods/:teapod", ctl.GetTeapod)
-	api.GET("/teapods/:teapod/teas", ctl.ListTeas)
+	api.GET("/teapods/:teapod/:teabox", ctl.ListTeas)
 
 	// ui
 	app.Any("/*", ui.Serve)
