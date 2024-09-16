@@ -12,12 +12,9 @@ type Teapod struct {
 	Command string `json:"command"`
 }
 
-func ListTeapods(c echo.Context) error {
+func (ctl *Ctl) ListTeapods(c echo.Context) error {
 	list := make([]Teapod, 0)
-	list = append(list, Teapod{
-		Name:    "links",
-		Command: fmt.Sprintf("teapod-%s", "links"),
-	})
+
 	return WithData(c, list)
 }
 
@@ -38,7 +35,7 @@ type Valdef struct {
 	Nullable bool   `json:"nullable"`
 }
 
-func GetTeapodInfo(c echo.Context) error {
+func (ctl *Ctl) GetTeapodInfo(c echo.Context) error {
 	teapodName := c.Param("teapod")
 
 	info, err := service.NewTeapodSrv(teapodName).GetInfo()

@@ -16,7 +16,7 @@ type TeaVal struct {
 	Type  string      `json:"type"`
 }
 
-func ListTeas(c echo.Context) error {
+func (ctl *Ctl) ListTeas(c echo.Context) error {
 	teapodName := c.Param("teapod")
 	teaboxName := c.QueryParam("teabox")
 

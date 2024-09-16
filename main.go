@@ -31,16 +31,13 @@ func main() {
 	api.Use(controller.HandleError)
 
 	// api teapod
-	teapods := api.Group("/teapods")
-	teapods.GET("", controller.ListTeapods)
-	teapods.GET("/:teapod", controller.GetTeapodInfo)
-	teapods.GET("/:teapod/teas", controller.ListTeas)
+	ctl := controller.New(repos)
+	api.GET("/health", ctl.GetHealth)
 
-	// health
-	healthCtl := controller.HealthController{
-		Repos: repos,
-	}
-	api.GET("/health", healthCtl.Get)
+	teapods := api.Group("/teapods")
+	teapods.GET("", ctl.ListTeapods)
+	teapods.GET("/:teapod", ctl.GetTeapodInfo)
+	teapods.GET("/:teapod/teas", ctl.ListTeas)
 
 	// ui
 	app.Any("/*", ui.Serve)
