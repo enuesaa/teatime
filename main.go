@@ -11,6 +11,8 @@ import (
 )
 
 func main() {
+	SaveDataToMongo()
+
 	// repos := repository.New()
 
 	app := echo.New()

@@ -14,8 +14,7 @@ services:
     depends_on:
       - mongo
     environment:
-      - ME_CONFIG_MONGODB_AUTH_USERNAME=admin
-      - ME_CONFIG_MONGODB_AUTH_PASSWORD=pass
+      - ME_CONFIG_BASICAUTH=false
 
 volumes:
   mongodata:
