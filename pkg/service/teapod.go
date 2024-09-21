@@ -8,12 +8,13 @@ import (
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
+// mongodb で findall するとき使っている
 type Teapod struct {
-	Name string `json:"name"`
+	Name string
 }
 
-func NewTeapodSrv(repos repository.Repos) *TeapodSrv {
-	return &TeapodSrv{
+func NewTeapodSrv(repos repository.Repos) TeapodSrv {
+	return TeapodSrv{
 		repos: repos,
 	}
 }

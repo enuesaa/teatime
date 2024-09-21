@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/enuesaa/teatime/pkg/router"
 	"github.com/enuesaa/teatime/pkg/repository"
+	"github.com/enuesaa/teatime/pkg/router"
 )
 
 func main() {

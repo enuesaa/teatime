@@ -9,21 +9,22 @@ import (
 )
 
 type ViewResponse struct {
-	Name        string             `json:"name"`
-	Command     string             `json:"command"`
-	Description string             `json:"description"`
+	Name        string               `json:"name"`
+	Command     string               `json:"command"`
+	Description string               `json:"description"`
 	Teaboxes    []ViewResponseTeabox `json:"teaboxes"`
 }
 type ViewResponseTeabox struct {
-	Name    string   `json:"name"`
-	Comment string   `json:"comment"`
+	Name    string `json:"name"`
+	Comment string `json:"comment"`
 }
 
 func View(c echo.Context) error {
 	cc := ctx.Use(c)
 	teapod := cc.Param("teapod")
 
-	info, err := service.NewTeapodSrv(cc.Repos).GetInfo(teapod)
+	teapodSrv := service.NewTeapodSrv(cc.Repos)
+	info, err := teapodSrv.GetInfo(teapod)
 	if err != nil {
 		return err
 	}

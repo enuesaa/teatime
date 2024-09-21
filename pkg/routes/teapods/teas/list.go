@@ -10,7 +10,10 @@ func List(c echo.Context) error {
 	cc := ctx.Use(c)
 	teapod := cc.Param("teapod")
 
-	teaSrv := service.NewTeaSrv(cc.Repos, teapod)
+	teaSrv, err := service.NewTeaSrv(cc.Repos, teapod)
+	if err != nil {
+		return err
+	}
 	list, err := teaSrv.List()
 	if err != nil {
 		return err

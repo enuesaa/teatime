@@ -11,7 +11,7 @@ type Context struct {
 	Repos repository.Repos
 }
 
-func(cc *Context) WithData(data interface{}) error {
+func (cc *Context) WithData(data interface{}) error {
 	cc.Set("data", data)
 
 	return nil

@@ -48,8 +48,8 @@ func (v *ValCast) String() string {
 
 // tea
 type Tea struct {
-	Teaid  string
-	Vals   []Val
+	Teaid string
+	Vals  []Val
 }
 
 type Val struct {
@@ -59,7 +59,7 @@ type Val struct {
 
 // props
 type ListProps struct {
-	LastRead   *string // for pagination
+	LastRead *string // for pagination
 }
 
 type ActProps struct {
