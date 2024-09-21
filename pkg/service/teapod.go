@@ -55,30 +55,3 @@ func (srv *TeapodSrv) GetInfo(teapod string) (plug.Info, error) {
 	}
 	return provider.Info()
 }
-
-func (srv *TeapodSrv) ListTeas(teapod string, teabox string) ([]plug.Tea, error) {
-	name := fmt.Sprintf("%s-%s", teapod, teabox)
-	list := make([]plug.Tea, 0)
-
-	if err := srv.repos.DB.FindAll(name, bson.D{}, &list); err != nil {
-		return list, err
-	}
-
-	return list, nil
-}
-
-func (srv *TeapodSrv) Act(teapod string, name string, vals []plug.Val) (string, error) {
-	provider, err := srv.GetProvider(teapod)
-	if err != nil {
-		return "", err
-	}
-
-	message, err := provider.Act(plug.ActProps{
-		Name: name,
-		Vals: vals,
-	})
-	if err != nil {
-		return "", err
-	}
-	return message, nil
-}
