@@ -1,4 +1,4 @@
-package controller
+package router
 
 type IdSchema struct {
 	Id string `json:"id"`

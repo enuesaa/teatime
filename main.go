@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/enuesaa/teatime/pkg/controller"
+	"github.com/enuesaa/teatime/pkg/router"
 	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -24,7 +24,7 @@ func main() {
 		AllowOrigins: []string{"http://localhost:3001"},
 	}))
 
-	controller.SetupRoutes(app, repos)
+	router.Setup(app, repos)
 
 	if err := app.Start(":3000"); err != nil {
 		log.Fatalf("Error: %s", err.Error())

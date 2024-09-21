@@ -1,14 +1,14 @@
-package controller
+package router
 
 import (
-	"github.com/enuesaa/teatime/pkg/controller/teapods"
-	"github.com/enuesaa/teatime/pkg/controller/teapods/teas"
+	"github.com/enuesaa/teatime/pkg/router/teapods"
+	"github.com/enuesaa/teatime/pkg/router/teapods/teas"
 	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/enuesaa/teatime/ui"
 	"github.com/labstack/echo/v4"
 )
 
-func SetupRoutes(app *echo.Echo, repos repository.Repos) {
+func Setup(app *echo.Echo, repos repository.Repos) {
 	api := app.Group("/api")
 	api.Use(HandleData)
 	api.Use(HandleError)
