@@ -8,6 +8,12 @@ import (
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
+func NewTeaSrv(repos repository.Repos) *TeaSrv {
+	return &TeaSrv{
+		repos: repos,
+	}
+}
+
 type TeaSrv struct {
 	repos repository.Repos
 }
@@ -24,18 +30,18 @@ func (srv *TeaSrv) ListTeas(teapod string, teabox string) ([]plug.Tea, error) {
 }
 
 func (srv *TeaSrv) Act(teapod string, name string, vals []plug.Val) (string, error) {
-	// provider, err := srv.GetProvider(teapod)
-	// if err != nil {
-	// 	return "", err
-	// }
+	teapodSrv := NewTeapodSrv(srv.repos)
+	provider, err := teapodSrv.GetProvider(teapod)
+	if err != nil {
+		return "", err
+	}
 
-	// message, err := provider.Act(plug.ActProps{
-	// 	Name: name,
-	// 	Vals: vals,
-	// })
-	// if err != nil {
-	// 	return "", err
-	// }
-	// return message, nil
-	return "", nil
+	message, err := provider.Act(plug.ActProps{
+		Name: name,
+		Vals: vals,
+	})
+	if err != nil {
+		return "", err
+	}
+	return message, nil
 }

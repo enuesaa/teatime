@@ -20,8 +20,8 @@ func (ctl *Ctl) ListTeas(c echo.Context) error {
 	teapod := c.Param("teapod")
 	teabox := c.Param("teabox")
 
-	teapodSrv := service.NewTeapodSrv(ctl.repos)
-	list, err := teapodSrv.ListTeas(teapod, teabox)
+	teaSrv := service.NewTeaSrv(ctl.repos)
+	list, err := teaSrv.ListTeas(teapod, teabox)
 	if err != nil {
 		return err
 	}
