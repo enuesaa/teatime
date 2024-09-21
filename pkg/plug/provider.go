@@ -17,7 +17,6 @@ type Info struct {
 type Action struct {
 	Name    string
 	Comment string
-	Teabox  *string // to bind teabox, fill this.
 	Valdefs []Valdef
 }
 
@@ -50,7 +49,6 @@ func (v *ValCast) String() string {
 // tea
 type Tea struct {
 	Teaid  string
-	Teabox string
 	Vals   []Val
 }
 
@@ -61,7 +59,6 @@ type Val struct {
 
 // props
 type ListProps struct {
-	TeaboxName *string
 	LastRead   *string // for pagination
 }
 

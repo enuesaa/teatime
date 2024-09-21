@@ -7,7 +7,6 @@ import (
 
 type Tea struct {
 	Teaid  string   `json:"teaid"`
-	Teabox string   `json:"teabox"`
 	Vals   []TeaVal `json:"vals"`
 }
 type TeaVal struct {

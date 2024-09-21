@@ -24,7 +24,6 @@ func (p *Provider) Info() (plug.Info, error) {
 			{
 				Name: "remove",
 				Comment: "remove tea",
-				Teabox: plug.String("tags"),
 			},
 		},
 	}
