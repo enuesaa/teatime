@@ -1,4 +1,4 @@
-package controller
+package teas
 
 // type CreateTeaReq struct {
 // 	Teabox string            `json:"teabox" validate:"min=1"`

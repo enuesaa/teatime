@@ -1,4 +1,4 @@
-package controller
+package teapods
 
 import (
 	"github.com/enuesaa/teatime/pkg/service"

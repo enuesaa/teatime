@@ -1,4 +1,4 @@
-package controller
+package teas
 
 import (
 	"github.com/enuesaa/teatime/pkg/service"

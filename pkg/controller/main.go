@@ -1,13 +1,24 @@
 package controller
 
-import "github.com/enuesaa/teatime/pkg/repository"
+import (
+	"github.com/enuesaa/teatime/pkg/controller/teapods"
+	"github.com/enuesaa/teatime/pkg/controller/teapods/teas"
+	"github.com/enuesaa/teatime/pkg/repository"
+	"github.com/enuesaa/teatime/ui"
+	"github.com/labstack/echo/v4"
+)
 
-func New(repos repository.Repos) Ctl {
-	return Ctl{
-		repos: repos,
-	}
-}
+func SetupRoutes(app *echo.Echo, repos repository.Repos) {
+	api := app.Group("/api")
+	api.Use(HandleData)
+	api.Use(HandleError)
 
-type Ctl struct {
-	repos repository.Repos
+	teapodsCtl := teapods.New(repos)
+	api.GET("/teapods", teapodsCtl.ListTeapods)
+	api.GET("/teapods/:teapod", teapodsCtl.GetTeapod)
+
+	teaCtl := teas.New(repos)
+	api.GET("/teapods/:teapod/teas", teaCtl.ListTeas)
+
+	app.Any("/*", ui.Serve)
 }

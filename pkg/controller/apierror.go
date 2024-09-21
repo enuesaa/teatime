@@ -22,7 +22,7 @@ func NewAppErr() AppErr {
 	}
 }
 
-func(ctl *Ctl) HandleError(next echo.HandlerFunc) echo.HandlerFunc {
+func HandleError(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		err := next(c)
 		if err == nil {
