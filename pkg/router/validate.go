@@ -7,11 +7,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type AppValidationError struct {
-	error
-	Errors []AppErrItem `json:"errors"`
-}
-
 func Validate(c echo.Context, reqbody interface{}) error {
 	if err := c.Bind(&reqbody); err != nil {
 		return err

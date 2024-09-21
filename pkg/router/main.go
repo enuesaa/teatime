@@ -3,8 +3,8 @@ package router
 import (
 	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/enuesaa/teatime/pkg/router/ctx"
-	"github.com/enuesaa/teatime/pkg/router/teapods"
-	"github.com/enuesaa/teatime/pkg/router/teapods/teas"
+	"github.com/enuesaa/teatime/pkg/routes/teapods"
+	"github.com/enuesaa/teatime/pkg/routes/teapods/teas"
 	"github.com/enuesaa/teatime/ui"
 	"github.com/labstack/echo/v4"
 )
