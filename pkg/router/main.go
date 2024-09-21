@@ -3,8 +3,9 @@ package router
 import (
 	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/enuesaa/teatime/pkg/router/middleware"
-	"github.com/enuesaa/teatime/pkg/routes/teapods"
-	"github.com/enuesaa/teatime/pkg/routes/teapods/teas"
+	apiTeapods "github.com/enuesaa/teatime/pkg/routes/teapods"
+	apiTeapodsInfo "github.com/enuesaa/teatime/pkg/routes/teapods/info"
+	apiTeapodsTeas "github.com/enuesaa/teatime/pkg/routes/teapods/teas"
 	"github.com/enuesaa/teatime/ui"
 	"github.com/labstack/echo/v4"
 )
@@ -19,9 +20,9 @@ func New(repos repository.Repos) *echo.Echo {
 	api.Use(middleware.HandleData)
 	api.Use(middleware.HandleError)
 
-	api.GET("/teapods", teapods.List)
-	api.GET("/teapods/:teapod", teapods.View)
-	api.GET("/teapods/:teapod/teas", teas.List)
+	api.GET("/teapods", apiTeapods.List)
+	api.GET("/teapods/:teapod/info", apiTeapodsInfo.View)
+	api.GET("/teapods/:teapod/teas", apiTeapodsTeas.List)
 
 	app.Any("/*", ui.Serve)
 

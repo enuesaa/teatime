@@ -1,4 +1,4 @@
-package teapods
+package info
 
 import (
 	"fmt"
@@ -7,17 +7,6 @@ import (
 	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/labstack/echo/v4"
 )
-
-type ViewResponse struct {
-	Name        string               `json:"name"`
-	Command     string               `json:"command"`
-	Description string               `json:"description"`
-	Teaboxes    []ViewResponseTeabox `json:"teaboxes"`
-}
-type ViewResponseTeabox struct {
-	Name    string `json:"name"`
-	Comment string `json:"comment"`
-}
 
 func View(c echo.Context) error {
 	cc := ctx.Use(c)
@@ -29,11 +18,11 @@ func View(c echo.Context) error {
 		return err
 	}
 
-	data := ViewResponse{
+	data := Item{
 		Name:        teapod,
 		Command:     fmt.Sprintf("teapod-%s", teapod),
 		Description: info.Description,
-		Teaboxes:    make([]ViewResponseTeabox, 0),
+		Teaboxes:    []ItemTeabox{},
 	}
 
 	return cc.WithData(data)
