@@ -5,8 +5,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// see https://codehex.hateblo.jp/entry/echo-context
-
 type Context struct {
 	echo.Context
 

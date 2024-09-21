@@ -6,16 +6,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type Tea struct {
-	Teaid  string   `json:"teaid"`
-	Vals   []TeaVal `json:"vals"`
-}
-type TeaVal struct {
-	Name  string      `json:"name"`
-	Value interface{} `json:"value"`
-	Type  string      `json:"type"`
-}
-
 func List(c echo.Context) error {
 	cc := ctx.Use(c)
 	teapod := cc.Param("teapod")

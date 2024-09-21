@@ -8,37 +8,32 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type TeapodInfo struct {
+type ViewResponse struct {
 	Name        string             `json:"name"`
 	Command     string             `json:"command"`
 	Description string             `json:"description"`
-	Teaboxes    []TeapodInfoTeabox `json:"teaboxes"`
+	Teaboxes    []ViewResponseTeabox `json:"teaboxes"`
 }
-type TeapodInfoTeabox struct {
+type ViewResponseTeabox struct {
 	Name    string   `json:"name"`
 	Comment string   `json:"comment"`
 }
+
 func View(c echo.Context) error {
 	cc := ctx.Use(c)
-	teapod := c.Param("teapod")
+	teapod := cc.Param("teapod")
 
 	info, err := service.NewTeapodSrv(cc.Repos).GetInfo(teapod)
 	if err != nil {
 		return err
 	}
 
-	data := TeapodInfo{
+	data := ViewResponse{
 		Name:        teapod,
 		Command:     fmt.Sprintf("teapod-%s", teapod),
 		Description: info.Description,
-		Teaboxes:    make([]TeapodInfoTeabox, 0),
+		Teaboxes:    make([]ViewResponseTeabox, 0),
 	}
-	// for _, teabox := range info.Teaboxes {
-	// 	data.Teaboxes = append(data.Teaboxes, TeapodInfoTeabox{
-	// 		// Name:    teabox,
-	// 		Comment: teabox.Comment,
-	// 	})
-	// }
 
 	return cc.WithData(data)
 }
