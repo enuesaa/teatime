@@ -1,28 +1,41 @@
 package service
 
 import (
-	"fmt"
-
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/repository"
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
-func NewTeaSrv(repos repository.Repos) *TeaSrv {
+func NewTeaSrv(repos repository.Repos, teapod string) *TeaSrv {
 	return &TeaSrv{
 		repos: repos,
+		teapod: teapod,
 	}
 }
 
 type TeaSrv struct {
 	repos repository.Repos
+	teapod string
+	provider plug.ProviderInterface
 }
 
-func (srv *TeaSrv) ListTeas(teapod string, teabox string) ([]plug.Tea, error) {
-	name := fmt.Sprintf("%s-%s", teapod, teabox)
-	list := make([]plug.Tea, 0)
+func (srv *TeaSrv) setupProvider() error {
+	teapodSrv := NewTeapodSrv(srv.repos)
+	provider, err := teapodSrv.GetProvider(srv.teapod)
+	if err != nil {
+		return err
+	}
+	srv.provider = provider
+	return nil
+}
 
-	if err := srv.repos.DB.FindAll(name, bson.D{}, &list); err != nil {
+func (srv *TeaSrv) List() ([]plug.Tea, error) {
+	list := make([]plug.Tea, 0)
+	if err := srv.setupProvider(); err != nil {
+		return list, err
+	}
+
+	if err := srv.repos.DB.FindAll(srv.teapod, bson.D{}, &list); err != nil {
 		return list, err
 	}
 
@@ -30,13 +43,11 @@ func (srv *TeaSrv) ListTeas(teapod string, teabox string) ([]plug.Tea, error) {
 }
 
 func (srv *TeaSrv) Act(teapod string, name string, vals []plug.Val) (string, error) {
-	teapodSrv := NewTeapodSrv(srv.repos)
-	provider, err := teapodSrv.GetProvider(teapod)
-	if err != nil {
+	if err := srv.setupProvider(); err != nil {
 		return "", err
 	}
 
-	message, err := provider.Act(plug.ActProps{
+	message, err := srv.provider.Act(plug.ActProps{
 		Name: name,
 		Vals: vals,
 	})

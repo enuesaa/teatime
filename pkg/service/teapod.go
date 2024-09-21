@@ -33,7 +33,7 @@ func (srv *TeapodSrv) List() ([]Teapod, error) {
 func (srv *TeapodSrv) GetProvider(teapod string) (plug.ProviderInterface, error) {
 	command := fmt.Sprintf("teapod-%s", teapod)
 	client := plug.NewClient(command)
-	// defer client.Kill()
+	// TODO: defer client.Kill()
 
 	rpcc, err := client.Client()
 	if err != nil {
