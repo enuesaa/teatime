@@ -3,6 +3,7 @@ package teapods
 import (
 	"fmt"
 
+	"github.com/enuesaa/teatime/pkg/router/ctx"
 	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/labstack/echo/v4"
 )
@@ -17,10 +18,11 @@ type TeapodInfoTeabox struct {
 	Name    string   `json:"name"`
 	Comment string   `json:"comment"`
 }
-func (ctl *Ctl) GetTeapod(c echo.Context) error {
+func View(c echo.Context) error {
+	cc := ctx.Use(c)
 	teapod := c.Param("teapod")
 
-	info, err := service.NewTeapodSrv(ctl.repos).GetInfo(teapod)
+	info, err := service.NewTeapodSrv(cc.Repos).GetInfo(teapod)
 	if err != nil {
 		return err
 	}
@@ -38,5 +40,5 @@ func (ctl *Ctl) GetTeapod(c echo.Context) error {
 	// 	})
 	// }
 
-	return ctl.WithData(c, data)
+	return cc.WithData(data)
 }

@@ -1,4 +1,4 @@
-package context
+package ctx
 
 import (
 	"github.com/enuesaa/teatime/pkg/repository"
@@ -13,6 +13,8 @@ type Context struct {
 	Repos repository.Repos
 }
 
-func Use(c echo.Context) *Context {
-	return c.(*Context)
+func(cc *Context) WithData(data interface{}) error {
+	cc.Set("data", data)
+
+	return nil
 }

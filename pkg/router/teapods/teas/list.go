@@ -1,6 +1,7 @@
 package teas
 
 import (
+	"github.com/enuesaa/teatime/pkg/router/ctx"
 	"github.com/enuesaa/teatime/pkg/service"
 	"github.com/labstack/echo/v4"
 )
@@ -15,13 +16,14 @@ type TeaVal struct {
 	Type  string      `json:"type"`
 }
 
-func (ctl *Ctl) ListTeas(c echo.Context) error {
-	teapod := c.Param("teapod")
+func List(c echo.Context) error {
+	cc := ctx.Use(c)
+	teapod := cc.Param("teapod")
 
-	teaSrv := service.NewTeaSrv(ctl.repos, teapod)
+	teaSrv := service.NewTeaSrv(cc.Repos, teapod)
 	list, err := teaSrv.List()
 	if err != nil {
 		return err
 	}
-	return ctl.WithData(c, list)
+	return cc.WithData(list)
 }

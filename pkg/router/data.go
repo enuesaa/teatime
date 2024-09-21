@@ -8,11 +8,6 @@ type ApiResponse struct {
 	Data interface{} `json:"data"`
 }
 
-func WithData(c echo.Context, data interface{}) error {
-	c.Set("data", data)
-	return nil
-}
-
 func HandleData(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		err := next(c)
