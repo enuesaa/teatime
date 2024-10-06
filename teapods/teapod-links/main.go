@@ -17,13 +17,26 @@ func (p *Provider) Info() (plug.Info, error) {
 		Teaboxes: []plug.Teabox{
 			{
 				Name: "links",
-				Schema: plug.M{},
+				Schema: plug.M{
+					"type": "object",
+					"required": []string{"title", "url"},
+					"properties": plug.M{
+						"title": plug.M{
+							"type": "string",
+							"description": "",
+						},
+						"url": plug.M{
+							"type": "string",
+							"description": "",
+						},
+					},
+				},
 			},
 		},
 		Actions: []plug.Action{
 			{
-				Event:   "app.remove",
-				Comment: "remove tea",
+				Event:   "app.sync",
+				Comment: "sync links",
 			},
 		},
 	}
