@@ -15,6 +15,7 @@ type DBRepositoryInterface interface {
 	Create(name string, document bson.D) (string, error)
 	FindAll(name string, filter bson.D, res interface{}) error
 	Find(name string, filter bson.D, res interface{}) error
+	Delete(name string, filter bson.D) error
 }
 type DBRepository struct {
 	client *mongo.Client
@@ -36,19 +37,6 @@ func (repo *DBRepository) Disconnect() error {
 	return nil
 }
 
-func (repo *DBRepository) Create(name string, document bson.D) (string, error) {
-	ctx := context.Background()
-
-	collection := repo.client.Database("app").Collection(name)
-	res, err := collection.InsertOne(ctx, document)
-	if err != nil {
-		return "", err
-	}
-	id := res.InsertedID
-
-	return fmt.Sprintf("%s", id), nil
-}
-
 func (repo *DBRepository) FindAll(name string, filter bson.D, res interface{}) error {
 	ctx := context.Background()
 	db := repo.client.Database("app")
@@ -67,4 +55,27 @@ func (repo *DBRepository) Find(name string, filter bson.D, res interface{}) erro
 	collection := db.Collection(name)
 
 	return collection.FindOne(ctx, filter).Decode(res)
+}
+
+func (repo *DBRepository) Create(name string, document bson.D) (string, error) {
+	ctx := context.Background()
+
+	collection := repo.client.Database("app").Collection(name)
+	res, err := collection.InsertOne(ctx, document)
+	if err != nil {
+		return "", err
+	}
+	id := res.InsertedID
+
+	return fmt.Sprintf("%s", id), nil
+}
+
+func (repo *DBRepository) Delete(name string, filter bson.D) error {
+	ctx := context.Background()
+
+	collection := repo.client.Database("app").Collection(name)
+	if _, err := collection.DeleteOne(ctx, filter); err != nil {
+		return err
+	}
+	return nil
 }
