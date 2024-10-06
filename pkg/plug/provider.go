@@ -1,69 +1,30 @@
 package plug
 
+import (
+	"go.mongodb.org/mongo-driver/v2/bson"
+)
+
 type ProviderInterface interface {
 	Info() (Info, error)
-	Act(props ActProps) (string, error)
+	Teaboxes() ([]Teabox, error)
+	Actions() ([]Action, error)
+	On(props OnProps) error
+	Logs() (string, error)
 }
 
-// info
 type Info struct {
 	Name        string
 	Description string
-	Schema      []Valdef
-	Actions     []Action
 }
-
-// action
+type Teabox struct {
+	Name string
+	Schema bson.M
+}
 type Action struct {
 	Name    string
 	Comment string
-	Valdefs []Valdef
-	// Trigger
 }
-
-type Valdef struct {
-	Name     string
-	Cast     ValCast // `str`, `bool`, or `int`
-	Nullable bool
-}
-
-type ValCast int
-
-const (
-	ValCastStr ValCast = iota
-	ValCastNum
-	ValCastBool
-)
-
-func (v *ValCast) String() string {
-	switch *v {
-	case ValCastStr:
-		return "str"
-	case ValCastNum:
-		return "num"
-	case ValCastBool:
-		return "bool"
-	}
-	return ""
-}
-
-// tea
-type Tea struct {
-	Teaid string
-	Vals  []Val
-}
-
-type Val struct {
-	Name  string
-	Value string
-}
-
-// props
-type ListProps struct {
-	LastRead *string // for pagination
-}
-
-type ActProps struct {
-	Name string
-	Vals []Val
+type OnProps struct {
+	Event string // like `tea.created`
+	Tea   bson.M
 }
