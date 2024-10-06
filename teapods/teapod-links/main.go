@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/enuesaa/teatime/pkg/plug"
+	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 func main() {
@@ -14,11 +15,11 @@ func (p *Provider) Info() (plug.Info, error) {
 	info := plug.Info{
 		Name: "teapod-links",
 		Description: "links teapod",
-		Schema: []plug.Valdef{
-			{Name: "title", Cast: plug.ValCastStr, Nullable: false},
-			{Name: "link", Cast: plug.ValCastStr, Nullable: false},
-			{Name: "memo", Cast: plug.ValCastStr, Nullable: false},
-			{Name: "priority", Cast: plug.ValCastNum, Nullable: false},
+		Teaboxes: []plug.Teabox{
+			{
+				Name: "links",
+				Schema: bson.M{},
+			},
 		},
 		Actions: []plug.Action{
 			{
@@ -30,6 +31,10 @@ func (p *Provider) Info() (plug.Info, error) {
 	return info, nil
 }
 
-func (p *Provider) Act(props plug.ActProps) (string, error) {
+func (p *Provider) OnTea(props plug.OnTeaProps) (bool, error) {
+	return true, nil
+}
+
+func (p *Provider) Logs() (string, error) {
 	return "", nil
 }

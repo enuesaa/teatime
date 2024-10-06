@@ -10,8 +10,14 @@ func (s *ConnectServer) Info(arg interface{}, resp *Result[Info]) error {
 	return nil
 }
 
-func (s *ConnectServer) Act(props ActProps, resp *Result[string]) error {
-	message, err := s.Impl.Act(props)
-	*resp = NewResult(message, err)
+func (s *ConnectServer) OnTea(props OnTeaProps, resp *Result[bool]) error {
+	is, err := s.Impl.OnTea(props)
+	*resp = NewResult(is, err)
+	return nil
+}
+
+func (s *ConnectServer) Logs(arg interface{}, resp *Result[string]) error {
+	logs, err := s.Impl.Logs()
+	*resp = NewResult(logs, err)
 	return nil
 }

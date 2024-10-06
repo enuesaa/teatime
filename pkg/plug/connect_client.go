@@ -15,8 +15,14 @@ func (cc *ConnectClient) Info() (Info, error) {
 	return resp.Data, resp.Err()
 }
 
-func (cc *ConnectClient) Act(props ActProps) (string, error) {
+func (cc *ConnectClient) OnTea(props OnTeaProps) (bool, error) {
+	var resp Result[bool]
+	cc.client.Call("Plugin.OnTea", props, &resp)
+	return resp.Data, resp.Err()
+}
+
+func (cc *ConnectClient) Logs() (string, error) {
 	var resp Result[string]
-	cc.client.Call("Plugin.Act", props, &resp)
+	cc.client.Call("Plugin.Logs", new(interface{}), &resp)
 	return resp.Data, resp.Err()
 }

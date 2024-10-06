@@ -6,15 +6,15 @@ import (
 
 type ProviderInterface interface {
 	Info() (Info, error)
-	Teaboxes() ([]Teabox, error)
-	Actions() ([]Action, error)
-	On(props OnProps) error
+	OnTea(props OnTeaProps) (bool, error)
 	Logs() (string, error)
 }
 
 type Info struct {
 	Name        string
 	Description string
+	Teaboxes []Teabox
+	Actions []Action
 }
 type Teabox struct {
 	Name string
@@ -24,7 +24,7 @@ type Action struct {
 	Name    string
 	Comment string
 }
-type OnProps struct {
-	Event string // like `tea.created`
+type OnTeaProps struct {
+	Event string // like `created`
 	Tea   bson.M
 }
