@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/enuesaa/teatime/pkg/plug"
-	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 func main() {
@@ -18,7 +17,7 @@ func (p *Provider) Info() (plug.Info, error) {
 		Teaboxes: []plug.Teabox{
 			{
 				Name: "links",
-				Schema: bson.M{},
+				Schema: plug.M{},
 			},
 		},
 		Actions: []plug.Action{

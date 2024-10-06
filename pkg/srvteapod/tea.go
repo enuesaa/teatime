@@ -24,9 +24,9 @@ func (srv *Srv) Get(teaId string) (plug.Tea, error) {
 	return data, nil
 }
 
-func (srv *Srv) Create(document bson.M) error {
+func (srv *Srv) Create(document plug.M) error {
 	document["teaId"] = uuid.NewString()
-	if _, err := srv.repos.DB.Create(srv.teapod, document); err != nil {
+	if _, err := srv.repos.DB.Create(srv.teapod, document.Bson()); err != nil {
 		return err
 	}
 	return nil

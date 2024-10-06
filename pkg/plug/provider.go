@@ -4,6 +4,11 @@ import (
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
+type M bson.M
+func (m *M) Bson() bson.M {
+	return bson.M(*m)
+}
+
 type ProviderInterface interface {
 	Info() (Info, error)
 	On(props OnProps) (bool, error)
@@ -18,7 +23,7 @@ type Info struct {
 }
 type Teabox struct {
 	Name string
-	Schema bson.M
+	Schema M
 }
 type Action struct {
 	Name    string
@@ -26,9 +31,9 @@ type Action struct {
 }
 type Tea struct {
 	TeaId string
-	Data bson.M
+	Data M
 }
 type OnProps struct {
 	Event string // like `created`
-	Tea   bson.M
+	Tea   M
 }
