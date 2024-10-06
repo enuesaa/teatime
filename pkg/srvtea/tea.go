@@ -1,4 +1,4 @@
-package srvteapod
+package srvtea
 
 import (
 	"github.com/enuesaa/teatime/pkg/plug"

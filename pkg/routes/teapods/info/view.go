@@ -12,11 +12,8 @@ func View(c echo.Context) error {
 	cc := ctx.Use(c)
 	teapod := cc.Param("teapod")
 
-	teapodSrv, err := srvteapod.New(cc.Repos, teapod)
-	if err != nil {
-		return err
-	}
-	info, err := teapodSrv.Info()
+	teapodSrv := srvteapod.New(cc.Repos)
+	info, err := teapodSrv.Info(teapod)
 	if err != nil {
 		return err
 	}
