@@ -7,7 +7,7 @@ import (
 	"github.com/hashicorp/go-plugin"
 )
 
-func NewClient(command string) (*plugin.Client) {
+func NewClient(command string) *plugin.Client {
 	logger := hclog.New(&hclog.LoggerOptions{
 		Name:        "teatime",
 		DisableTime: true,

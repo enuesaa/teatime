@@ -11,8 +11,8 @@ func New(repos repository.Repos, teapod string) (Srv, error) {
 		return Srv{}, err
 	}
 	srv := Srv{
-		repos: repos,
-		teapod: teapod,
+		repos:    repos,
+		teapod:   teapod,
 		provider: provider,
 	}
 	return srv, nil

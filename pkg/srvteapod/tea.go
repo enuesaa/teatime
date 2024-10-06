@@ -26,7 +26,7 @@ func (srv *Srv) Get(teaId string) (plug.Tea, error) {
 
 func (srv *Srv) Create(document bson.D) error {
 	document = append(document, bson.E{
-		Key: "teaId",
+		Key:   "teaId",
 		Value: uuid.NewString(),
 	})
 	if _, err := srv.repos.DB.Create(srv.teapod, document); err != nil {

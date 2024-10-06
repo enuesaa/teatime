@@ -8,6 +8,8 @@ import (
 )
 
 func main() {
+	poc()
+
 	repos := repository.New()
 	if err := repos.DB.Connect(); err != nil {
 		log.Fatalf("Error: %s", err.Error())
