@@ -12,10 +12,10 @@ import (
 type DBRepositoryInterface interface {
 	Connect() error
 	Disconnect() error
-	Create(name string, document bson.D) (string, error)
-	FindAll(name string, filter bson.D, res interface{}) error
-	Find(name string, filter bson.D, res interface{}) error
-	Delete(name string, filter bson.D) error
+	Create(name string, document bson.M) (string, error)
+	FindAll(name string, filter bson.M, res interface{}) error
+	Find(name string, filter bson.M, res interface{}) error
+	Delete(name string, filter bson.M) error
 }
 type DBRepository struct {
 	client *mongo.Client
@@ -37,7 +37,7 @@ func (repo *DBRepository) Disconnect() error {
 	return nil
 }
 
-func (repo *DBRepository) FindAll(name string, filter bson.D, res interface{}) error {
+func (repo *DBRepository) FindAll(name string, filter bson.M, res interface{}) error {
 	ctx := context.Background()
 	db := repo.client.Database("app")
 	collection := db.Collection(name)
@@ -49,7 +49,7 @@ func (repo *DBRepository) FindAll(name string, filter bson.D, res interface{}) e
 	return cur.All(ctx, res)
 }
 
-func (repo *DBRepository) Find(name string, filter bson.D, res interface{}) error {
+func (repo *DBRepository) Find(name string, filter bson.M, res interface{}) error {
 	ctx := context.Background()
 	db := repo.client.Database("app")
 	collection := db.Collection(name)
@@ -57,7 +57,7 @@ func (repo *DBRepository) Find(name string, filter bson.D, res interface{}) erro
 	return collection.FindOne(ctx, filter).Decode(res)
 }
 
-func (repo *DBRepository) Create(name string, document bson.D) (string, error) {
+func (repo *DBRepository) Create(name string, document bson.M) (string, error) {
 	ctx := context.Background()
 
 	collection := repo.client.Database("app").Collection(name)
@@ -70,7 +70,7 @@ func (repo *DBRepository) Create(name string, document bson.D) (string, error) {
 	return fmt.Sprintf("%s", id), nil
 }
 
-func (repo *DBRepository) Delete(name string, filter bson.D) error {
+func (repo *DBRepository) Delete(name string, filter bson.M) error {
 	ctx := context.Background()
 
 	collection := repo.client.Database("app").Collection(name)

@@ -10,7 +10,7 @@ func (srv *Srv) List() ([]string, error) {
 	}
 	teapods := make([]Teapod, 0)
 	list := make([]string, 0)
-	if err := srv.repos.DB.FindAll("teapods", bson.D{}, &teapods); err != nil {
+	if err := srv.repos.DB.FindAll("teapods", bson.M{}, &teapods); err != nil {
 		return list, err
 	}
 	for _, teapod := range teapods {

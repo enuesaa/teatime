@@ -46,9 +46,9 @@ func poc() {
 		panic(err)
 	}
 
-	res, err := db.Collection("notes").InsertOne(ctx, bson.D{
-		{Key: "name", Value: "aaa"},
-		{Key: "value", Value: "99"},
+	res, err := db.Collection("notes").InsertOne(ctx, bson.M{
+		"name": "aaa",
+		"value": "99",
 	})
 	if err != nil {
 		panic(err)
