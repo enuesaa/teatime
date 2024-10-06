@@ -18,7 +18,7 @@ func List(c echo.Context) error {
 	list := []Item{}
 	for _, teapod := range teapods {
 		list = append(list, Item{
-			Name: teapod.Name,
+			Name: teapod,
 		})
 	}
 	return cc.WithData(list)

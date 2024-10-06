@@ -18,6 +18,7 @@ type Action struct {
 	Name    string
 	Comment string
 	Valdefs []Valdef
+	// Trigger
 }
 
 type Valdef struct {
