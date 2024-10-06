@@ -58,3 +58,18 @@ func (srv *TeapodSrv) GetInfo(teapod string) (plug.Info, error) {
 	}
 	return provider.Info()
 }
+
+func (srv *TeapodSrv) Act(teapod string, name string, vals []plug.Val) (string, error) {
+	provider, err := srv.GetProvider(teapod)
+	if err != nil {
+		return "", err
+	}
+	message, err := provider.Act(plug.ActProps{
+		Name: name,
+		Vals: vals,
+	})
+	if err != nil {
+		return "", err
+	}
+	return message, nil
+}

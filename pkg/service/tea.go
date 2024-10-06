@@ -63,14 +63,3 @@ func (srv *TeaSrv) Delete(teaId string) error {
 	}
 	return nil
 }
-
-func (srv *TeaSrv) Act(teapod string, name string, vals []plug.Val) (string, error) {
-	message, err := srv.provider.Act(plug.ActProps{
-		Name: name,
-		Vals: vals,
-	})
-	if err != nil {
-		return "", err
-	}
-	return message, nil
-}
