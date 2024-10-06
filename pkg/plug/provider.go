@@ -11,7 +11,7 @@ func (m *M) Bson() bson.M {
 
 type ProviderInterface interface {
 	Info() (Info, error)
-	On(props OnProps) (bool, error)
+	On(props OnProps) (string, error)
 	Logs() (string, error)
 }
 
@@ -26,7 +26,7 @@ type Teabox struct {
 	Schema M
 }
 type Action struct {
-	Name    string
+	Event   string // like `app.created`
 	Comment string
 }
 type Tea struct {
@@ -34,6 +34,6 @@ type Tea struct {
 	Data M
 }
 type OnProps struct {
-	Event string // like `created`
-	Tea   M
+	Event string // like `tea.created`
+	Teas  []Tea  // associated
 }

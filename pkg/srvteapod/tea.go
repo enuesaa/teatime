@@ -32,6 +32,17 @@ func (srv *Srv) Create(document plug.M) error {
 	return nil
 }
 
+func (srv *Srv) Update(teaId string, document plug.M) error {
+	if err := srv.Delete(teaId); err != nil {
+		return err
+	}
+	document["teaId"] = teaId
+	if _, err := srv.repos.DB.Create(srv.teapod, document.Bson()); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (srv *Srv) Delete(teaId string) error {
 	filter := bson.M{"teaId": teaId}
 	if err := srv.repos.DB.Delete(srv.teapod, filter); err != nil {

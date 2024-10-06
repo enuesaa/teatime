@@ -22,7 +22,7 @@ func (p *Provider) Info() (plug.Info, error) {
 		},
 		Actions: []plug.Action{
 			{
-				Name: "remove",
+				Event:   "app.remove",
 				Comment: "remove tea",
 			},
 		},
@@ -30,8 +30,8 @@ func (p *Provider) Info() (plug.Info, error) {
 	return info, nil
 }
 
-func (p *Provider) On(props plug.OnProps) (bool, error) {
-	return true, nil
+func (p *Provider) On(props plug.OnProps) (string, error) {
+	return "", nil
 }
 
 func (p *Provider) Logs() (string, error) {

@@ -15,8 +15,8 @@ func (cc *ConnectClient) Info() (Info, error) {
 	return resp.Data, resp.Err()
 }
 
-func (cc *ConnectClient) On(props OnProps) (bool, error) {
-	var resp Result[bool]
+func (cc *ConnectClient) On(props OnProps) (string, error) {
+	var resp Result[string]
 	cc.client.Call("Plugin.On", props, &resp)
 	return resp.Data, resp.Err()
 }
