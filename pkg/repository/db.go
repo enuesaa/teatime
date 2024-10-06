@@ -12,6 +12,7 @@ import (
 type DBRepositoryInterface interface {
 	Connect() error
 	Disconnect() error
+	CreateCollection(name string, schema bson.M) error
 	Create(name string, document bson.M) (string, error)
 	FindAll(name string, filter bson.M, res interface{}) error
 	Find(name string, filter bson.M, res interface{}) error
@@ -35,6 +36,20 @@ func (repo *DBRepository) Disconnect() error {
 		return repo.client.Disconnect(context.Background())
 	}
 	return nil
+}
+
+func (repo *DBRepository) CreateCollection(name string, schema bson.M) error {
+	ctx := context.Background()
+	db := repo.client.Database("app")
+	validator := bson.M{
+		"$jsonSchema": schema,
+	}
+	err := db.CreateCollection(ctx, name,
+		options.CreateCollection().SetValidator(validator),
+		options.CreateCollection().SetValidationLevel("strict"),
+		options.CreateCollection().SetValidationAction("error"),
+	)
+	return err
 }
 
 func (repo *DBRepository) FindAll(name string, filter bson.M, res interface{}) error {

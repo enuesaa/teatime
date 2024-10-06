@@ -21,6 +21,7 @@ func New(repos repository.Repos) *echo.Echo {
 	api.Use(middleware.HandleError)
 
 	api.GET("/teapods", apiTeapods.List)
+	api.POST("/teapods", apiTeapods.Create)
 	api.GET("/teapods/:teapod/info", apiTeapodsInfo.View)
 	api.GET("/teapods/:teapod/teaboxes/:teabox/teas", apiTeapodsTeaboxesTeas.List)
 	api.GET("/teapods/:teapod/teaboxes/:teabox/teas/:teaId", apiTeapodsTeaboxesTeas.View)
