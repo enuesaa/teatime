@@ -31,7 +31,7 @@ func (p *Provider) Info() (plug.Info, error) {
 	return info, nil
 }
 
-func (p *Provider) OnTea(props plug.OnTeaProps) (bool, error) {
+func (p *Provider) On(props plug.OnProps) (bool, error) {
 	return true, nil
 }
 

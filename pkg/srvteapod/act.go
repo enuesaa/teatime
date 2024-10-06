@@ -4,13 +4,12 @@ import (
 	"github.com/enuesaa/teatime/pkg/plug"
 )
 
-func (srv *Srv) Act(teapod string, name string, vals []plug.Val) (string, error) {
-	message, err := srv.provider.Act(plug.ActProps{
-		Name: name,
-		Vals: vals,
+func (srv *Srv) Act(teapod string, name string) error {
+	_, err := srv.provider.On(plug.OnProps{
+		Event: name,
 	})
 	if err != nil {
-		return "", err
+		return err
 	}
-	return message, nil
+	return nil
 }

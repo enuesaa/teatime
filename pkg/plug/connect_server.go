@@ -10,8 +10,8 @@ func (s *ConnectServer) Info(arg interface{}, resp *Result[Info]) error {
 	return nil
 }
 
-func (s *ConnectServer) OnTea(props OnTeaProps, resp *Result[bool]) error {
-	is, err := s.Impl.OnTea(props)
+func (s *ConnectServer) On(props OnProps, resp *Result[bool]) error {
+	is, err := s.Impl.On(props)
 	*resp = NewResult(is, err)
 	return nil
 }
