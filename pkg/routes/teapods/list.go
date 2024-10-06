@@ -2,15 +2,15 @@ package teapods
 
 import (
 	"github.com/enuesaa/teatime/pkg/router/ctx"
-	"github.com/enuesaa/teatime/pkg/service"
+	"github.com/enuesaa/teatime/pkg/srvmanage"
 	"github.com/labstack/echo/v4"
 )
 
 func List(c echo.Context) error {
 	cc := ctx.Use(c)
 
-	teapodSrv := service.NewTeapodSrv(cc.Repos)
-	teapods, err := teapodSrv.List()
+	manageSrv := srvmanage.New(cc.Repos)
+	teapods, err := manageSrv.List()
 	if err != nil {
 		return err
 	}

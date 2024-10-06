@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/enuesaa/teatime/pkg/router/ctx"
-	"github.com/enuesaa/teatime/pkg/service"
+	"github.com/enuesaa/teatime/pkg/srvteapod"
 	"github.com/labstack/echo/v4"
 )
 
@@ -12,8 +12,11 @@ func View(c echo.Context) error {
 	cc := ctx.Use(c)
 	teapod := cc.Param("teapod")
 
-	teapodSrv := service.NewTeapodSrv(cc.Repos)
-	info, err := teapodSrv.GetInfo(teapod)
+	teapodSrv, err := srvteapod.New(cc.Repos, teapod)
+	if err != nil {
+		return err
+	}
+	info, err := teapodSrv.Info()
 	if err != nil {
 		return err
 	}
