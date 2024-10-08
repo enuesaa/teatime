@@ -4,11 +4,6 @@
 - teatime 自体はプラグインをコントロールする
 - mongodb にデータを保存する
 
-## Create go.work
-```bash
-go work init . ./teapods/teapod-links
-```
-
 ## MongoDB
 - https://nodejs.keicode.com/mongodb/backup-and-restore.php
 

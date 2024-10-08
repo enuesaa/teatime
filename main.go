@@ -9,10 +9,10 @@ import (
 
 func main() {
 	repos := repository.New()
-	if err := repos.DB.Connect(); err != nil {
+	if err := repos.Startup(); err != nil {
 		log.Fatalf("Error: %s", err.Error())
 	}
-	defer repos.DB.Disconnect()
+	defer repos.End()
 
 	app := router.New(repos)
 
