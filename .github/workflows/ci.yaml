@@ -28,7 +28,7 @@ jobs:
           key: docker-${{ github.sha }}
           restore-keys: docker-
 
-      - run: docker-compose up -d --wait
+      - run: docker compose up -d --wait
 
       - run: go generate ./...
       - run: go install
