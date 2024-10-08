@@ -37,13 +37,13 @@ func HandleError(next echo.HandlerFunc) echo.HandlerFunc {
 		}
 		fmt.Printf("Error: %s", err)
 
-		apperr := AppErr{
-			Errors: []AppErrItem{
-				{
-					Message: "Internal Server Error",
-				},
-			},
-		}
-		return c.JSON(500, apperr)
+		// apperr := AppErr{
+		// 	Errors: []AppErrItem{
+		// 		{
+		// 			Message: "Internal Server Error",
+		// 		},
+		// 	},
+		// }
+		return c.JSON(400, err)
 	}
 }

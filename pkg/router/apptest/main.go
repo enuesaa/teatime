@@ -3,6 +3,7 @@ package apptest
 import (
 	"io"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/enuesaa/teatime/pkg/repository"
@@ -43,4 +44,8 @@ func (a *AppTest) Run(method string, path string, handler echo.HandlerFunc, body
 
 func (a *AppTest) Get(path string, handler echo.HandlerFunc) (*httptest.ResponseRecorder, error) {
 	return a.Run("GET", path, handler, nil)
+}
+
+func (a *AppTest) Post(path string, handler echo.HandlerFunc, body string) (*httptest.ResponseRecorder, error) {
+	return a.Run("POST", path, handler, strings.NewReader(body))
 }
