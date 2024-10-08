@@ -1,11 +1,12 @@
 package apptest
 
 import (
+	"io"
 	"net/http/httptest"
 	"testing"
 
 	"github.com/enuesaa/teatime/pkg/repository"
-	"github.com/enuesaa/teatime/pkg/router/ctx"
+	"github.com/enuesaa/teatime/pkg/router/middleware"
 	"github.com/labstack/echo/v4"
 )
 
@@ -19,24 +20,27 @@ type AppTest struct {
 	t *testing.T
 }
 
-func (a *AppTest) Get(endpoint string, handler echo.HandlerFunc) (*httptest.ResponseRecorder, error) {
+func (a *AppTest) Run(method string, path string, handler echo.HandlerFunc, body io.Reader) (*httptest.ResponseRecorder, error) {
 	repos := repository.New()
 	if err := repos.Startup(); err != nil {
 		return nil, err
 	}
 
 	app := echo.New()
+	app.Use(middleware.BindCtx(repos))
+	app.Use(middleware.HandleData)
+	app.Use(middleware.HandleError)
 
-	req := httptest.NewRequest("GET", endpoint, nil)
+	app.Any(path, handler)
+
+	req := httptest.NewRequest(method, path, nil)
 	rec := httptest.NewRecorder()
 
-	c := app.NewContext(req, rec)
-	cc := ctx.Context{
-		Context: c,
-		Repos: repos,
-	}
-	if err := handler(cc); err != nil {
-		return rec, err
-	}
+	app.ServeHTTP(rec, req)
+
 	return rec, nil
+}
+
+func (a *AppTest) Get(path string, handler echo.HandlerFunc) (*httptest.ResponseRecorder, error) {
+	return a.Run("GET", path, handler, nil)
 }
