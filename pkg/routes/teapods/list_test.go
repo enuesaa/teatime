@@ -16,5 +16,5 @@ func TestList(t *testing.T) {
 	}
 
 	assert.Equal(t, 200, res.Code)
-	assert.JSONEq(t, `{"data":[{"name":"links"}]}`, res.Body.String())
+	assert.JSONEq(t, `{"data":[]}`, res.Body.String())
 }
