@@ -25,3 +25,8 @@ func (r *Result) GetI(path string) int {
 func (r *Result) GetB(path string) bool {
 	return r.ParseBody().Find(path).(bool)
 }
+
+// これどのくらい意味があるのかな
+func (r *Result) GetList(path string) []interface{} {
+	return r.ParseBody().Find(path).([]interface{})
+}

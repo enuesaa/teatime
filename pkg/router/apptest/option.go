@@ -13,15 +13,3 @@ func UseRoute(route string, path string) Option {
         c.Invoke = path
     }
 }
-
-
-// func NewConfig(opts ...Option) *Config {
-//     config := &Config{
-//         Name: "default",
-//     }
-//     for _, opt := range opts {
-//         opt(config)
-//     }
-    
-//     return config
-// }
