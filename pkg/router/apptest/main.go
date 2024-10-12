@@ -22,7 +22,7 @@ type AppTest struct {
 }
 
 func (a *AppTest) Run(method string, path string, handler echo.HandlerFunc, body io.Reader) (*httptest.ResponseRecorder, error) {
-	repos := repository.New()
+	repos := repository.NewMock()
 	if err := repos.Startup(); err != nil {
 		return nil, err
 	}

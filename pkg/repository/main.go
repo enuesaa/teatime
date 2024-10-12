@@ -19,3 +19,10 @@ func New() Repos {
 		DB:  &DBRepository{},
 	}
 }
+
+func NewMock() Repos {
+	return Repos {
+		Log: &LogRepository{},
+		DB: &DBMockRepository{},
+	}
+}
