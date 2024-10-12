@@ -27,15 +27,22 @@ type AppTest struct {
 	Repos repository.Repos
 }
 
-func (a *AppTest) Run(method string, path string, handler echo.HandlerFunc, body io.Reader) (Result, error) {
+func (a *AppTest) Run(method string, handler echo.HandlerFunc, body io.Reader, options ...Option) (Result, error) {
 	app := echo.New()
 	app.Use(middleware.BindCtx(a.Repos))
 	app.Use(middleware.HandleData)
 	app.Use(middleware.HandleError)
 
-	app.Any(path, handler)
+	config := Config{
+		Route: "/",
+		Invoke: "/",
+	}
+	for _, option := range options {
+		option(&config)
+	}
+	app.Any(config.Route, handler)
 
-	req := httptest.NewRequest(method, path, body)
+	req := httptest.NewRequest(method, config.Invoke, body)
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Content-Type", "application/json")
 	rec := httptest.NewRecorder()
@@ -45,18 +52,18 @@ func (a *AppTest) Run(method string, path string, handler echo.HandlerFunc, body
 	return Result{rec}, nil
 }
 
-func (a *AppTest) Get(path string, handler echo.HandlerFunc) (Result, error) {
-	return a.Run("GET", path, handler, nil)
+func (a *AppTest) Get(handler echo.HandlerFunc, options ...Option) (Result, error) {
+	return a.Run("GET", handler, nil, options...)
 }
 
-func (a *AppTest) Post(path string, handler echo.HandlerFunc, body string) (Result, error) {
-	return a.Run("POST", path, handler, strings.NewReader(body))
+func (a *AppTest) Post(handler echo.HandlerFunc, body string, options ...Option) (Result, error) {
+	return a.Run("POST", handler, strings.NewReader(body), options...)
 }
 
-func (a *AppTest) Put(path string, handler echo.HandlerFunc, body string) (Result, error) {
-	return a.Run("PUT", path, handler, strings.NewReader(body))
+func (a *AppTest) Put(handler echo.HandlerFunc, body string, options ...Option) (Result, error) {
+	return a.Run("PUT", handler, strings.NewReader(body), options...)
 }
 
-func (a *AppTest) Delete(path string, handler echo.HandlerFunc) (Result, error) {
-	return a.Run("DELETE", path, handler, nil)
+func (a *AppTest) Delete(handler echo.HandlerFunc, options ...Option) (Result, error) {
+	return a.Run("DELETE", handler, nil, options...)
 }

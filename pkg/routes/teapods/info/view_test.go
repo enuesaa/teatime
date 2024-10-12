@@ -16,9 +16,12 @@ func TestView(t *testing.T) {
 	err := teapodSrv.Register("teapod-links")
 	require.NoError(t, err)
 
-	res, err := app.Get("/api/teapods/teapod-links/info", View)
+	res, err := app.Get(View,
+		apptest.UseRoute("/api/teapods/:teapod/info", "/api/teapods/teapod-links/info"),
+	)
 	require.NoError(t, err)
 
 	assert.Equal(t, 200, res.Code)
-	assert.Equal(t, "", res.Body.String())
+	assert.Equal(t, "teapod-links", res.GetS("data.name"))
+	assert.Equal(t, "links teapod", res.GetS("data.description"))
 }

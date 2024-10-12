@@ -15,7 +15,7 @@ func TestDelete(t *testing.T) {
 	teapodSrv := srvteapod.New(app.Repos)
 	teapodSrv.Register("teapod-links")
 
-	res, err := app.Delete("/api/teapods/teapod-links", Delete)
+	res, err := app.Delete(Delete)
 	require.NoError(t, err)
 
 	assert.Equal(t, 200, res.Code)

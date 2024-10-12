@@ -10,7 +10,7 @@ import (
 
 func TestCreate(t *testing.T) {
 	app := apptest.New(t)
-	res, err := app.Post("/api/teapods", Create, `{
+	res, err := app.Post(Create, `{
 		"name": "teapod-links"
 	}`)
 	require.NoError(t, err)
