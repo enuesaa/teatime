@@ -52,3 +52,11 @@ func (a *AppTest) Get(path string, handler echo.HandlerFunc) (Result, error) {
 func (a *AppTest) Post(path string, handler echo.HandlerFunc, body string) (Result, error) {
 	return a.Run("POST", path, handler, strings.NewReader(body))
 }
+
+func (a *AppTest) Put(path string, handler echo.HandlerFunc, body string) (Result, error) {
+	return a.Run("PUT", path, handler, strings.NewReader(body))
+}
+
+func (a *AppTest) Delete(path string, handler echo.HandlerFunc) (Result, error) {
+	return a.Run("DELETE", path, handler, nil)
+}
