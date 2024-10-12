@@ -4,9 +4,7 @@ import (
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
-type DBMockRepository struct {
-	Fns DBRepositoryInterface
-}
+type DBMockRepository struct {}
 
 func (repo *DBMockRepository) Connect() error {
 	return nil
@@ -25,7 +23,7 @@ func (repo *DBMockRepository) Create(name string, document bson.M) (string, erro
 }
 
 func (repo *DBMockRepository) FindAll(name string, filter bson.M, res interface{}) error {
-	return repo.Fns.FindAll(name, filter, res)
+	return nil
 }
 
 func (repo *DBMockRepository) Find(name string, filter bson.M, res interface{}) error {
