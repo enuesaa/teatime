@@ -5,6 +5,7 @@ import (
 )
 
 type M bson.M
+
 func (m *M) Bson() bson.M {
 	return bson.M(*m)
 }
@@ -18,11 +19,11 @@ type ProviderInterface interface {
 type Info struct {
 	Name        string
 	Description string
-	Teaboxes []Teabox
-	Actions []Action
+	Teaboxes    []Teabox
+	Actions     []Action
 }
 type Teabox struct {
-	Name string
+	Name   string
 	Schema M
 }
 type Action struct {
@@ -31,7 +32,7 @@ type Action struct {
 }
 type Tea struct {
 	TeaId string
-	Data M
+	Data  M
 }
 type OnProps struct {
 	Event string // like `tea.created`

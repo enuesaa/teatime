@@ -11,7 +11,7 @@ func (srv *Srv) On(teapod string, event string, teas []plug.Tea) (string, error)
 	}
 	props := plug.OnProps{
 		Event: event,
-		Teas: teas,
+		Teas:  teas,
 	}
 	return provider.On(props)
 }

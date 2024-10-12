@@ -21,8 +21,8 @@ func New() Repos {
 }
 
 func NewMock() Repos {
-	return Repos {
+	return Repos{
 		Log: &LogRepository{},
-		DB: &DBMockRepository{},
+		DB:  &DBMockRepository{},
 	}
 }

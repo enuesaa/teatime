@@ -11,7 +11,7 @@ import (
 
 func TestList(t *testing.T) {
 	app := apptest.New(t)
-	app.Repos.DB.Create("teapods", bson.M{ "name": "testdata" })
+	app.Repos.DB.Create("teapods", bson.M{"name": "testdata"})
 
 	res, err := app.Get(List)
 	require.NoError(t, err)

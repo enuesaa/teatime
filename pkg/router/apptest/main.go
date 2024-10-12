@@ -13,7 +13,7 @@ import (
 
 func New(t *testing.T) AppTest {
 	app := AppTest{
-		t: t,
+		t:     t,
 		Repos: repository.NewMock(),
 	}
 	if err := app.Repos.Startup(); err != nil {
@@ -23,7 +23,7 @@ func New(t *testing.T) AppTest {
 }
 
 type AppTest struct {
-	t *testing.T
+	t     *testing.T
 	Repos repository.Repos
 }
 
@@ -34,7 +34,7 @@ func (a *AppTest) Run(method string, handler echo.HandlerFunc, body io.Reader, o
 	app.Use(middleware.HandleError)
 
 	config := Config{
-		Route: "/",
+		Route:  "/",
 		Invoke: "/",
 	}
 	for _, option := range options {

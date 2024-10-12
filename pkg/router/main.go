@@ -27,6 +27,7 @@ func New(repos repository.Repos) *echo.Echo {
 	api.GET("/teapods/:teapod/info", apiTeapodsInfo.View)
 	api.GET("/teapods/:teapod/teaboxes/:teabox/teas", apiTeapodsTeaboxesTeas.List)
 	api.GET("/teapods/:teapod/teaboxes/:teabox/teas/:teaId", apiTeapodsTeaboxesTeas.View)
+	api.POST("/teapods/:teapod/teaboxes/:teabox/teas", apiTeapodsTeaboxesTeas.Create)
 
 	app.Any("/*", ui.Serve)
 

@@ -1,36 +1,41 @@
 package teas
 
-// type CreateTeaReq struct {
-// 	Teabox string            `json:"teabox" validate:"min=1"`
-// 	Vals   map[string]string `json:"vals" validate:"required"`
-// }
+import (
+	"fmt"
 
-// func CreateTea(c echo.Context) error {
-// 	teapodName := c.Param("teapod")
+	"github.com/enuesaa/teatime/pkg/plug"
+	"github.com/enuesaa/teatime/pkg/router/ctx"
+	"github.com/enuesaa/teatime/pkg/srvtea"
+	"github.com/labstack/echo/v4"
+)
 
-// 	var req CreateTeaReq
-// 	if err := Validate(c, &req); err != nil {
-// 		return err
-// 	}
+func Create(c echo.Context) error {
+	cc := ctx.Use(c)
+	teapod := cc.Param("teapod")
+	teabox := cc.Param("teabox")
 
-// 	teapodSrv := service.NewTeapodSrv(teapodName)
-// 	teabox, err := teapodSrv.GetTeabox(req.Teabox)
-// 	if err != nil {
-// 		return err
-// 	}
+	var reqbody CreateRequestBody
+	if err := cc.Bind(&reqbody); err != nil {
+		return err
+	}
 
-// 	if err := teapodSrv.ValidateTeaboxVals(teabox, req.Vals); err != nil {
-// 		apperr := NewAppErr()
-// 		apperr.Errors = append(apperr.Errors, AppErrItem{
-// 			Path:    "",
-// 			Message: err.Error(),
-// 		})
-// 		return apperr
-// 	}
+	teaSrv, err := srvtea.New(cc.Repos, teapod, teabox)
+	if err != nil {
+		return err
+	}
 
-// 	teaid, err := teapodSrv.CreateTea(req.Teabox, req.Vals)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	return WithData(c, NewIdSchema(teaid))
-// }
+	// TODO: validate here.
+
+	err = teaSrv.Create(plug.M{
+		"name": reqbody.Name,
+	})
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+
+	res := Creation{
+		Id: "a", // TODO
+	}
+	return cc.WithData(res)
+}

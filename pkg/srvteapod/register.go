@@ -8,7 +8,7 @@ func (srv *Srv) Register(teapod string) error {
 		return err
 	}
 
-	if _, err := srv.repos.DB.Create("teapod", bson.M{ "name": teapod }); err != nil {
+	if _, err := srv.repos.DB.Create("teapod", bson.M{"name": teapod}); err != nil {
 		return err
 	}
 
