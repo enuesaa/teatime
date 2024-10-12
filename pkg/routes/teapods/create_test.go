@@ -5,18 +5,13 @@ import (
 
 	"github.com/enuesaa/teatime/pkg/router/apptest"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestCreateValidation(t *testing.T) {
-	app, err := apptest.New(t)
-	if err != nil {
-		t.Error(err)
-	}
-
+	app := apptest.New(t)
 	res, err := app.Post("/api/teapods", Create, `{}`)
-	if err != nil {
-		t.Error(err)
-	}
+	require.NoError(t, err)
 
 	assert.Equal(t, 400, res.Code)
 	assert.JSONEq(t, `{}`, res.Body.String())

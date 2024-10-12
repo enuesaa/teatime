@@ -11,15 +11,15 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func New(t *testing.T) (AppTest, error) {
+func New(t *testing.T) AppTest {
 	app := AppTest{
 		t: t,
 		Repos: repository.NewMock(),
 	}
 	if err := app.Repos.Startup(); err != nil {
-		return app, err
+		panic(err)
 	}
-	return app, nil
+	return app
 }
 
 type AppTest struct {
