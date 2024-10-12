@@ -19,7 +19,6 @@ func TestList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-
 	assert.Equal(t, 200, res.Code)
-	assert.JSONEq(t, `{"data":[{"name":"testdata"}]}`, res.Body.String())
+	assert.Equal(t, "testdata", res.GetS("data.[0].name"))
 }

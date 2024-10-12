@@ -27,7 +27,7 @@ type AppTest struct {
 	Repos repository.Repos
 }
 
-func (a *AppTest) Run(method string, path string, handler echo.HandlerFunc, body io.Reader) (*httptest.ResponseRecorder, error) {
+func (a *AppTest) Run(method string, path string, handler echo.HandlerFunc, body io.Reader) (Result, error) {
 	app := echo.New()
 	app.Use(middleware.BindCtx(a.Repos))
 	app.Use(middleware.HandleData)
@@ -40,13 +40,13 @@ func (a *AppTest) Run(method string, path string, handler echo.HandlerFunc, body
 
 	app.ServeHTTP(rec, req)
 
-	return rec, nil
+	return Result{rec}, nil
 }
 
-func (a *AppTest) Get(path string, handler echo.HandlerFunc) (*httptest.ResponseRecorder, error) {
+func (a *AppTest) Get(path string, handler echo.HandlerFunc) (Result, error) {
 	return a.Run("GET", path, handler, nil)
 }
 
-func (a *AppTest) Post(path string, handler echo.HandlerFunc, body string) (*httptest.ResponseRecorder, error) {
+func (a *AppTest) Post(path string, handler echo.HandlerFunc, body string) (Result, error) {
 	return a.Run("POST", path, handler, strings.NewReader(body))
 }
