@@ -30,6 +30,9 @@ jobs:
 
       - run: docker compose up -d --wait
 
+      - run: go install
+        working-directory: ./teapods/teapod-links
+
       - run: go generate ./...
       - run: go install
 

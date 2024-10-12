@@ -21,3 +21,7 @@ func (r *Result) GetS(path string) string {
 func (r *Result) GetI(path string) int {
 	return r.ParseBody().Find(path).(int)
 }
+
+func (r *Result) GetB(path string) bool {
+	return r.ParseBody().Find(path).(bool)
+}

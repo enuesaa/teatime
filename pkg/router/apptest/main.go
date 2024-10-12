@@ -35,7 +35,9 @@ func (a *AppTest) Run(method string, path string, handler echo.HandlerFunc, body
 
 	app.Any(path, handler)
 
-	req := httptest.NewRequest(method, path, nil)
+	req := httptest.NewRequest(method, path, body)
+	req.Header.Add("Accept", "application/json")
+	req.Header.Add("Content-Type", "application/json")
 	rec := httptest.NewRecorder()
 
 	app.ServeHTTP(rec, req)

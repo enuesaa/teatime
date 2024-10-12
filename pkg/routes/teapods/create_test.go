@@ -8,11 +8,13 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestCreateValidation(t *testing.T) {
+func TestCreate(t *testing.T) {
 	app := apptest.New(t)
-	res, err := app.Post("/api/teapods", Create, `{}`)
+	res, err := app.Post("/api/teapods", Create, `{
+		"name": "teapod-links"
+	}`)
 	require.NoError(t, err)
 
-	assert.Equal(t, 400, res.Code)
-	assert.JSONEq(t, `{}`, res.Body.String())
+	assert.Equal(t, 200, res.Code)
+	assert.Equal(t, true, res.GetB("data.ok"))
 }
