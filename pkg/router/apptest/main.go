@@ -11,25 +11,25 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func New(t *testing.T, repos repository.Repos) AppTest {
-	return AppTest{
+func New(t *testing.T) (AppTest, error) {
+	app := AppTest{
 		t: t,
-		repos: repos,
+		Repos: repository.NewMock(),
 	}
+	if err := app.Repos.Startup(); err != nil {
+		return app, err
+	}
+	return app, nil
 }
 
 type AppTest struct {
 	t *testing.T
-	repos repository.Repos
+	Repos repository.Repos
 }
 
 func (a *AppTest) Run(method string, path string, handler echo.HandlerFunc, body io.Reader) (*httptest.ResponseRecorder, error) {
-	if err := a.repos.Startup(); err != nil {
-		return nil, err
-	}
-
 	app := echo.New()
-	app.Use(middleware.BindCtx(a.repos))
+	app.Use(middleware.BindCtx(a.Repos))
 	app.Use(middleware.HandleData)
 	app.Use(middleware.HandleError)
 

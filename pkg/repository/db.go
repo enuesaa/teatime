@@ -20,6 +20,7 @@ type DBRepositoryInterface interface {
 }
 type DBRepository struct {
 	client *mongo.Client
+	db     *mongo.Database
 }
 
 func (repo *DBRepository) Connect() error {
@@ -28,6 +29,7 @@ func (repo *DBRepository) Connect() error {
 		return err
 	}
 	repo.client = client
+	repo.db = client.Database("app")
 	return nil
 }
 
@@ -40,11 +42,10 @@ func (repo *DBRepository) Disconnect() error {
 
 func (repo *DBRepository) CreateCollection(name string, schema bson.M) error {
 	ctx := context.Background()
-	db := repo.client.Database("app")
 	validator := bson.M{
 		"$jsonSchema": schema,
 	}
-	err := db.CreateCollection(ctx, name,
+	err := repo.db.CreateCollection(ctx, name,
 		options.CreateCollection().SetValidator(validator),
 		options.CreateCollection().SetValidationLevel("strict"),
 		options.CreateCollection().SetValidationAction("error"),
@@ -54,8 +55,7 @@ func (repo *DBRepository) CreateCollection(name string, schema bson.M) error {
 
 func (repo *DBRepository) FindAll(name string, filter bson.M, res interface{}) error {
 	ctx := context.Background()
-	db := repo.client.Database("app")
-	collection := db.Collection(name)
+	collection := repo.db.Collection(name)
 
 	cur, err := collection.Find(ctx, filter)
 	if err != nil {
@@ -66,8 +66,7 @@ func (repo *DBRepository) FindAll(name string, filter bson.M, res interface{}) e
 
 func (repo *DBRepository) Find(name string, filter bson.M, res interface{}) error {
 	ctx := context.Background()
-	db := repo.client.Database("app")
-	collection := db.Collection(name)
+	collection := repo.db.Collection(name)
 
 	return collection.FindOne(ctx, filter).Decode(res)
 }
@@ -75,7 +74,7 @@ func (repo *DBRepository) Find(name string, filter bson.M, res interface{}) erro
 func (repo *DBRepository) Create(name string, document bson.M) (string, error) {
 	ctx := context.Background()
 
-	collection := repo.client.Database("app").Collection(name)
+	collection := repo.db.Collection(name)
 	res, err := collection.InsertOne(ctx, document)
 	if err != nil {
 		return "", err
@@ -88,7 +87,7 @@ func (repo *DBRepository) Create(name string, document bson.M) (string, error) {
 func (repo *DBRepository) Delete(name string, filter bson.M) error {
 	ctx := context.Background()
 
-	collection := repo.client.Database("app").Collection(name)
+	collection := repo.db.Collection(name)
 	if _, err := collection.DeleteOne(ctx, filter); err != nil {
 		return err
 	}

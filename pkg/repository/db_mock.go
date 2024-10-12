@@ -1,35 +1,39 @@
 package repository
 
 import (
-	"go.mongodb.org/mongo-driver/v2/bson"
+	"context"
+	"fmt"
+
+	"github.com/google/uuid"
+	"go.mongodb.org/mongo-driver/v2/mongo"
+	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
 
-type DBMockRepository struct {}
+type DBMockRepository struct {
+	DBRepository
+}
 
 func (repo *DBMockRepository) Connect() error {
+	client, err := mongo.Connect(options.Client().ApplyURI("mongodb://localhost:27017"))
+	if err != nil {
+		return err
+	}
+	repo.client = client
+
+	dbName := fmt.Sprintf("test-%s", uuid.NewString())
+	repo.db = client.Database(dbName)
+
 	return nil
 }
 
 func (repo *DBMockRepository) Disconnect() error {
-	return nil
-}
-
-func (repo *DBMockRepository) CreateCollection(name string, schema bson.M) error {
-	return nil
-}
-
-func (repo *DBMockRepository) Create(name string, document bson.M) (string, error) {
-	return "", nil
-}
-
-func (repo *DBMockRepository) FindAll(name string, filter bson.M, res interface{}) error {
-	return nil
-}
-
-func (repo *DBMockRepository) Find(name string, filter bson.M, res interface{}) error {
-	return nil
-}
-
-func (repo *DBMockRepository) Delete(name string, filter bson.M) error {
+	ctx := context.Background()
+	if repo.db != nil {
+		// ignore error because this is not critical.
+		repo.db.Drop(ctx)
+	}
+	if repo.client != nil {
+		return repo.client.Disconnect(ctx)
+	}
 	return nil
 }
