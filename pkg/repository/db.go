@@ -13,7 +13,7 @@ type DBRepositoryInterface interface {
 	Connect() error
 	Disconnect() error
 	CreateCollection(name string, schema bson.M) error
-	Create(name string, document bson.M) (string, error)
+	Create(name string, document interface{}) (string, error)
 	FindAll(name string, filter bson.M, res interface{}) error
 	Find(name string, filter bson.M, res interface{}) error
 	Delete(name string, filter bson.M) error
@@ -71,7 +71,7 @@ func (repo *DBRepository) Find(name string, filter bson.M, res interface{}) erro
 	return collection.FindOne(ctx, filter).Decode(res)
 }
 
-func (repo *DBRepository) Create(name string, document bson.M) (string, error) {
+func (repo *DBRepository) Create(name string, document interface{}) (string, error) {
 	ctx := context.Background()
 
 	collection := repo.db.Collection(name)

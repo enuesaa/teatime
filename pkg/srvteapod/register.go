@@ -1,14 +1,19 @@
 package srvteapod
 
-import "go.mongodb.org/mongo-driver/v2/bson"
+import (
+	"fmt"
+)
 
-func (srv *Srv) Register(teapod string) error {
-	info, err := srv.Info(teapod)
+func (srv *Srv) Register(teapodName string) error {
+	info, err := srv.Info(teapodName)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to fetch teapod %s", teapodName)
 	}
 
-	if _, err := srv.repos.DB.Create("teapod", bson.M{"name": teapod}); err != nil {
+	teapod := Teapod {
+		Name: teapodName,
+	}
+	if _, err := srv.repos.DB.Create(ModelName, teapod); err != nil {
 		return err
 	}
 
