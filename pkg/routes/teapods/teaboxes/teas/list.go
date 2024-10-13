@@ -11,10 +11,7 @@ func List(c echo.Context) error {
 	teapod := cc.Param("teapodName")
 	teabox := cc.Param("teaboxName")
 
-	teaSrv, err := srvtea.New(cc.Repos, teapod, teabox)
-	if err != nil {
-		return err
-	}
+	teaSrv := srvtea.New(cc.Repos, teapod, teabox)
 	list, err := teaSrv.List()
 	if err != nil {
 		return err

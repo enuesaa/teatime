@@ -16,11 +16,7 @@ func Create(c echo.Context) error {
 		return err
 	}
 
-	teaSrv, err := srvtea.New(cc.Repos, teapod, teabox)
-	if err != nil {
-		return err
-	}
-
+	teaSrv := srvtea.New(cc.Repos, teapod, teabox)
 	teaId, err := teaSrv.Create(reqbody)
 	if err != nil {
 		return err

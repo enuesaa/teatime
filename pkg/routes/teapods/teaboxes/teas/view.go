@@ -12,10 +12,7 @@ func View(c echo.Context) error {
 	teabox := cc.Param("teaboxName")
 	teaId := cc.Param("teaId")
 
-	teaSrv, err := srvtea.New(cc.Repos, teapod, teabox)
-	if err != nil {
-		return err
-	}
+	teaSrv := srvtea.New(cc.Repos, teapod, teabox)
 	data, err := teaSrv.Get(teaId)
 	if err != nil {
 		return err

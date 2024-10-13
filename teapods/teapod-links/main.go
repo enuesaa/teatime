@@ -32,8 +32,10 @@ func (p *Provider) Info() (plug.Info, error) {
 }
 
 func (p *Provider) On(event plug.Event) ([]plug.Log, error) {
+	logs := []plug.Log{}
+
 	if event.Name == "data.created" {
-		return []plug.Log{}, fmt.Errorf("data.created event found")
+		return logs, fmt.Errorf("data.created event found")
 	}
-	return []plug.Log{}, nil
+	return logs, nil
 }

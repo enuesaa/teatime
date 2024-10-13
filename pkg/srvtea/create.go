@@ -2,14 +2,12 @@ package srvtea
 
 import (
 	"github.com/enuesaa/teatime/pkg/plug"
+	"github.com/enuesaa/teatime/pkg/srvteapod"
 )
 
 func (srv *Srv) Create(document plug.M) (string, error) {
-	_, err := srv.provider.On(plug.Event{
-		Name: "data.created",
-		Teas: []plug.Tea{},
-	})
-	if err != nil {
+	teapodSrv := srvteapod.New(srv.repos)
+	if err := teapodSrv.On(srv.teapod, "data.created", []plug.Tea{}); err != nil {
 		return "", err
 	}
 
