@@ -1,9 +1,17 @@
 package srvteapod
 
-import "go.mongodb.org/mongo-driver/v2/bson"
+import (
+	"fmt"
 
-func (srv *Srv) UnRegister(teapod string) error {
-	if err := srv.repos.DB.Delete(ModelName, bson.M{"name": teapod}); err != nil {
+	"go.mongodb.org/mongo-driver/v2/bson"
+)
+
+func (srv *Srv) UnRegister(teapodName string) error {
+	fmt.Println(teapodName)
+	filter := bson.M{
+		"name": teapodName,
+	}
+	if err := srv.repos.DB.Delete(srv.ModelName(), filter); err != nil {
 		return err
 	}
 	return nil

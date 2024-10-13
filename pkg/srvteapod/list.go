@@ -8,7 +8,7 @@ func (srv *Srv) List() ([]string, error) {
 	list := make([]string, 0)
 
 	teapods := make([]Teapod, 0)
-	if err := srv.repos.DB.FindAll(ModelName, bson.M{}, &teapods); err != nil {
+	if err := srv.repos.DB.FindAll(srv.ModelName(), bson.M{}, &teapods); err != nil {
 		return list, err
 	}
 
