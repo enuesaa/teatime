@@ -16,7 +16,8 @@ func TestCreate(t *testing.T) {
 	err := teapodSrv.Register("teapod-links")
 	require.NoError(t, err)
 
-	res, err := app.Post(Create, `{"name": "aaa"}`,
+	res, err := app.Post(Create,
+		apptest.UseBody(`{"name": "aaa"}`),
 		apptest.UseParam("teapodName", "teapod-links"),
 		apptest.UseParam("teaboxName", "links"),
 	)

@@ -1,9 +1,7 @@
 package apptest
 
 import (
-	"io"
 	"net/http/httptest"
-	"strings"
 	"testing"
 
 	"github.com/enuesaa/teatime/pkg/repository"
@@ -27,7 +25,7 @@ type AppTest struct {
 	Repos repository.Repos
 }
 
-func (a *AppTest) Run(method string, handler echo.HandlerFunc, body io.Reader, usefns ...UseFn) (Result, error) {
+func (a *AppTest) Run(method string, handler echo.HandlerFunc, usefns ...UseFn) (Result, error) {
 	config := NewConfig()
 	for _, usefn := range usefns {
 		usefn(&config)
@@ -47,9 +45,10 @@ func (a *AppTest) Run(method string, handler echo.HandlerFunc, body io.Reader, u
 
 	app.Any("/", handler)
 
-	req := httptest.NewRequest(method, "/", body)
-	req.Header.Add("Accept", "application/json")
-	req.Header.Add("Content-Type", "application/json")
+	req := httptest.NewRequest(method, "/", config.Body)
+	for name, value := range config.Headers {
+		req.Header.Add(name, value)
+	}
 	rec := httptest.NewRecorder()
 
 	app.ServeHTTP(rec, req)
@@ -58,17 +57,17 @@ func (a *AppTest) Run(method string, handler echo.HandlerFunc, body io.Reader, u
 }
 
 func (a *AppTest) Get(handler echo.HandlerFunc, usefns ...UseFn) (Result, error) {
-	return a.Run("GET", handler, nil, usefns...)
+	return a.Run("GET", handler, usefns...)
 }
 
-func (a *AppTest) Post(handler echo.HandlerFunc, body string, usefns ...UseFn) (Result, error) {
-	return a.Run("POST", handler, strings.NewReader(body), usefns...)
+func (a *AppTest) Post(handler echo.HandlerFunc, usefns ...UseFn) (Result, error) {
+	return a.Run("POST", handler, usefns...)
 }
 
-func (a *AppTest) Put(handler echo.HandlerFunc, body string, usefns ...UseFn) (Result, error) {
-	return a.Run("PUT", handler, strings.NewReader(body), usefns...)
+func (a *AppTest) Put(handler echo.HandlerFunc, usefns ...UseFn) (Result, error) {
+	return a.Run("PUT", handler, usefns...)
 }
 
 func (a *AppTest) Delete(handler echo.HandlerFunc, usefns ...UseFn) (Result, error) {
-	return a.Run("DELETE", handler, nil, usefns...)
+	return a.Run("DELETE", handler, usefns...)
 }
