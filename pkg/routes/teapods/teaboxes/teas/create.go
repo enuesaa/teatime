@@ -21,12 +21,13 @@ func Create(c echo.Context) error {
 		return err
 	}
 
-	if err := teaSrv.Create(reqbody); err != nil {
+	teaId, err := teaSrv.Create(reqbody)
+	if err != nil {
 		return err
 	}
 
 	res := Creation{
-		Id: "a", // TODO
+		Id: teaId,
 	}
 	return cc.WithData(res)
 }

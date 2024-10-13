@@ -2,7 +2,6 @@ package repository
 
 import (
 	"context"
-	"fmt"
 
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
@@ -107,9 +106,9 @@ func (repo *DBRepository) Create(name string, document interface{}) (string, err
 	if err != nil {
 		return "", err
 	}
-	id := res.InsertedID
+	id := res.InsertedID.(bson.ObjectID)
 
-	return fmt.Sprintf("%s", id), nil
+	return id.Hex(), nil
 }
 
 func (repo *DBRepository) Delete(name string, filter bson.M) error {
