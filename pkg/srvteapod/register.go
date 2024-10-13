@@ -16,22 +16,23 @@ func (srv *Srv) Register(teapodName string) error {
 		return fmt.Errorf("failed to fetch teapod %s", teapodName)
 	}
 
-	teapod := Teapod {
-		Name: teapodName,
-	}
-	if _, err := srv.repos.DB.Create(srv.ModelName(), teapod); err != nil {
-		return err
-	}
-
-	for _, teabox := range info.Teaboxes {
-		if err := srv.repos.DB.CreateCollection(teabox.Name, teabox.Schema.Bson()); err != nil {
-			return err
+	err = srv.repos.DB.WithTransaction(func() error {
+		teapod := Teapod {
+			Name: teapodName,
 		}
-	}
+		if _, err := srv.repos.DB.Create(srv.ModelName(), teapod); err != nil {
+			return err
+		}	
+		for _, teabox := range info.Teaboxes {
+			if err := srv.repos.DB.CreateCollection(teabox.Name, teabox.Schema.Bson()); err != nil {
+				return err
+			}
+		}
+	
+		return nil
+	})
 
-	// TODO: rollback
-
-	return nil
+	return err
 }
 
 func (srv *Srv) CheckAlreadyRegistered(teapodName string) error {

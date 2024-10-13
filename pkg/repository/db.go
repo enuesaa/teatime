@@ -12,6 +12,7 @@ import (
 type DBRepositoryInterface interface {
 	Connect() error
 	Disconnect() error
+	WithTransaction(fn func() error) error
 	CreateCollection(name string, schema bson.M) error
 	Create(name string, document interface{}) (string, error)
 	FindAll(name string, filter bson.M, res interface{}) error
@@ -19,8 +20,8 @@ type DBRepositoryInterface interface {
 	Delete(name string, filter bson.M) error
 }
 type DBRepository struct {
-	client *mongo.Client
-	db     *mongo.Database
+	client  *mongo.Client
+	db      *mongo.Database
 }
 
 func (repo *DBRepository) Connect() error {
@@ -38,6 +39,29 @@ func (repo *DBRepository) Disconnect() error {
 		return repo.client.Disconnect(context.Background())
 	}
 	return nil
+}
+
+func (repo *DBRepository) WithTransaction(fn func() error) error {
+	ctx := context.Background()
+
+	session, err := repo.client.StartSession()
+	if err != nil {
+		return err
+	}
+    defer session.EndSession(ctx)
+
+	err = mongo.WithSession(ctx, session, func (sc context.Context) error {
+		if err := session.StartTransaction(); err != nil {
+			return err
+		}
+		if err := fn(); err != nil {
+			session.AbortTransaction(sc)
+			return err
+		}
+		session.CommitTransaction(sc)
+		return nil
+	})
+	return err
 }
 
 func (repo *DBRepository) CreateCollection(name string, schema bson.M) error {
