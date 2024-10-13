@@ -10,7 +10,9 @@ import (
 )
 
 func TestList(t *testing.T) {
-	app := apptest.New(t)
+	app, end := apptest.New(t)
+	defer end()
+
 	app.Repos.DB.Create("teapods", bson.M{"name": "testdata"})
 
 	res, err := app.Get(List)

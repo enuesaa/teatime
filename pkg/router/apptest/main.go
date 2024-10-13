@@ -9,7 +9,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func New(t *testing.T) AppTest {
+func New(t *testing.T) (AppTest, func()) {
 	app := AppTest{
 		t:     t,
 		Repos: repository.NewMock(),
@@ -17,7 +17,10 @@ func New(t *testing.T) AppTest {
 	if err := app.Repos.Startup(); err != nil {
 		panic(err)
 	}
-	return app
+	callback := func () {
+		app.Repos.End()
+	}
+	return app, callback
 }
 
 type AppTest struct {

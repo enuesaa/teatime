@@ -10,7 +10,8 @@ import (
 )
 
 func TestViewTeaNotFound(t *testing.T) {
-	app := apptest.New(t)
+	app, end := apptest.New(t)
+	defer end()
 
 	teapodSrv := srvteapod.New(app.Repos)
 	err := teapodSrv.Register("teapod-links")

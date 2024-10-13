@@ -10,7 +10,8 @@ import (
 )
 
 func TestDelete(t *testing.T) {
-	app := apptest.New(t)
+	app, end := apptest.New(t)
+	defer end()
 
 	teapodSrv := srvteapod.New(app.Repos)
 	teapodSrv.Register("teapod-links")

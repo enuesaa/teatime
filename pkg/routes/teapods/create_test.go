@@ -9,7 +9,9 @@ import (
 )
 
 func TestCreate(t *testing.T) {
-	app := apptest.New(t)
+	app, end := apptest.New(t)
+	defer end()
+
 	res, err := app.Post(Create,
 		apptest.UseBody(`{"name": "teapod-links"}`),
 	)
