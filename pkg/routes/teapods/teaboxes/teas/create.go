@@ -1,9 +1,6 @@
 package teas
 
 import (
-	"fmt"
-
-	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/router/ctx"
 	"github.com/enuesaa/teatime/pkg/srvtea"
 	"github.com/labstack/echo/v4"
@@ -14,8 +11,8 @@ func Create(c echo.Context) error {
 	teapod := cc.Param("teapodName")
 	teabox := cc.Param("teaboxName")
 
-	var reqbody CreateRequestBody
-	if err := cc.Bind(&reqbody); err != nil {
+	var reqbody map[string]interface{}
+	if err := cc.BindBody(&reqbody); err != nil {
 		return err
 	}
 
@@ -24,13 +21,7 @@ func Create(c echo.Context) error {
 		return err
 	}
 
-	// TODO: validate here.
-
-	err = teaSrv.Create(plug.M{
-		"name": reqbody.Name,
-	})
-	if err != nil {
-		fmt.Println(err)
+	if err := teaSrv.Create(reqbody); err != nil {
 		return err
 	}
 
