@@ -5,7 +5,9 @@ services:
       - 27017:27017
     volumes:
       - mongodata:/data/db
+      - ./docker/mongo/init-replica.sh:/docker-entrypoint-initdb.d/init-replica.sh
     tty: true
+    command: ["mongod", "--replSet", "myReplicaSet"]
     healthcheck:
       test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
       interval: 10s

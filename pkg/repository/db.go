@@ -20,8 +20,9 @@ type DBRepositoryInterface interface {
 	Delete(name string, filter bson.M) error
 }
 type DBRepository struct {
-	client  *mongo.Client
-	db      *mongo.Database
+	client *mongo.Client
+	db     *mongo.Database
+	sc     context.Context // do not use this directly. instead use repo.ctx()
 }
 
 func (repo *DBRepository) Connect() error {
@@ -41,6 +42,13 @@ func (repo *DBRepository) Disconnect() error {
 	return nil
 }
 
+func (repo *DBRepository) ctx() context.Context {
+	if repo.sc != nil {
+		return repo.sc
+	}
+	return context.Background()
+}
+
 func (repo *DBRepository) WithTransaction(fn func() error) error {
 	ctx := context.Background()
 
@@ -48,9 +56,11 @@ func (repo *DBRepository) WithTransaction(fn func() error) error {
 	if err != nil {
 		return err
 	}
-    defer session.EndSession(ctx)
+	defer session.EndSession(ctx)
 
 	err = mongo.WithSession(ctx, session, func (sc context.Context) error {
+		repo.sc = sc
+
 		if err := session.StartTransaction(); err != nil {
 			return err
 		}
@@ -61,15 +71,16 @@ func (repo *DBRepository) WithTransaction(fn func() error) error {
 		session.CommitTransaction(sc)
 		return nil
 	})
+	repo.sc = nil
+
 	return err
 }
 
 func (repo *DBRepository) CreateCollection(name string, schema bson.M) error {
-	ctx := context.Background()
 	validator := bson.M{
 		"$jsonSchema": schema,
 	}
-	err := repo.db.CreateCollection(ctx, name,
+	err := repo.db.CreateCollection(repo.ctx(), name,
 		options.CreateCollection().SetValidator(validator),
 		options.CreateCollection().SetValidationLevel("strict"),
 		options.CreateCollection().SetValidationAction("error"),
@@ -78,28 +89,24 @@ func (repo *DBRepository) CreateCollection(name string, schema bson.M) error {
 }
 
 func (repo *DBRepository) FindAll(name string, filter bson.M, res interface{}) error {
-	ctx := context.Background()
 	collection := repo.db.Collection(name)
 
-	cur, err := collection.Find(ctx, filter)
+	cur, err := collection.Find(repo.ctx(), filter)
 	if err != nil {
 		return err
 	}
-	return cur.All(ctx, res)
+	return cur.All(repo.ctx(), res)
 }
 
 func (repo *DBRepository) Find(name string, filter bson.M, res interface{}) error {
-	ctx := context.Background()
 	collection := repo.db.Collection(name)
 
-	return collection.FindOne(ctx, filter).Decode(res)
+	return collection.FindOne(repo.ctx(), filter).Decode(res)
 }
 
 func (repo *DBRepository) Create(name string, document interface{}) (string, error) {
-	ctx := context.Background()
-
 	collection := repo.db.Collection(name)
-	res, err := collection.InsertOne(ctx, document)
+	res, err := collection.InsertOne(repo.ctx(), document)
 	if err != nil {
 		return "", err
 	}
@@ -109,10 +116,8 @@ func (repo *DBRepository) Create(name string, document interface{}) (string, err
 }
 
 func (repo *DBRepository) Delete(name string, filter bson.M) error {
-	ctx := context.Background()
-
 	collection := repo.db.Collection(name)
-	if _, err := collection.DeleteOne(ctx, filter); err != nil {
+	if _, err := collection.DeleteOne(repo.ctx(), filter); err != nil {
 		return err
 	}
 	return nil
