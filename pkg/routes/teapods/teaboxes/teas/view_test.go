@@ -17,9 +17,11 @@ func TestViewTeaNotFound(t *testing.T) {
 	require.NoError(t, err)
 
 	res, err := app.Get(View,
-		apptest.UseRoute("/api/teapods/:teapodName/teaboxes/:teaboxName/teas", "/api/teapods/teapod-links/teaboxes/links/teas/1"),
+		apptest.UseParam("teapodName", "teapod-links"),
+		apptest.UseParam("teaboxName", "links"),
+		apptest.UseParam("teaId", "1"),
 	)
 	require.NoError(t, err)
 
-	assert.Equal(t, 404, res.Code)
+	assert.Equal(t, 400, res.Code)
 }

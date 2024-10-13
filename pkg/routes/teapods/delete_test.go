@@ -16,7 +16,7 @@ func TestDelete(t *testing.T) {
 	teapodSrv.Register("teapod-links")
 
 	res, err := app.Delete(Delete, 
-		apptest.UseRoute("/teapods/:teapodName", "/teapods/teapod-links"),
+		apptest.UseParam("teapodName", "teapod-links"),
 	)
 	require.NoError(t, err)
 

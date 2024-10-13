@@ -17,7 +17,8 @@ func TestCreate(t *testing.T) {
 	require.NoError(t, err)
 
 	res, err := app.Post(Create, `{"name": "aaa"}`,
-		apptest.UseRoute("/api/teapods/:teapodName/teaboxes/:teaboxName/teas", "/api/teapods/teapod-links/teaboxes/links/teas"),
+		apptest.UseParam("teapodName", "teapod-links"),
+		apptest.UseParam("teaboxName", "links"),
 	)
 	require.NoError(t, err)
 

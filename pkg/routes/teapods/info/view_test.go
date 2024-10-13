@@ -17,7 +17,8 @@ func TestView(t *testing.T) {
 	require.NoError(t, err)
 
 	res, err := app.Get(View,
-		apptest.UseRoute("/api/teapods/:teapodName/info", "/api/teapods/teapod-links/info"),
+		apptest.UseParam("teapodName", "teapod-links"),
+		apptest.UseParam("teaboxName", "links"),
 	)
 	require.NoError(t, err)
 

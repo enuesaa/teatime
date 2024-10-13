@@ -27,22 +27,27 @@ type AppTest struct {
 	Repos repository.Repos
 }
 
-func (a *AppTest) Run(method string, handler echo.HandlerFunc, body io.Reader, options ...Option) (Result, error) {
+func (a *AppTest) Run(method string, handler echo.HandlerFunc, body io.Reader, usefns ...UseFn) (Result, error) {
+	config := NewConfig()
+	for _, usefn := range usefns {
+		usefn(&config)
+	}
+
 	app := echo.New()
+	app.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			c.SetParamNames(config.ParamNames...)
+			c.SetParamValues(config.ParamValues...)
+			return next(c)
+		}
+	})
 	app.Use(middleware.BindCtx(a.Repos))
 	app.Use(middleware.HandleData)
 	app.Use(middleware.HandleError)
 
-	config := Config{
-		Route:  "/",
-		Invoke: "/",
-	}
-	for _, option := range options {
-		option(&config)
-	}
-	app.Any(config.Route, handler)
+	app.Any("/", handler)
 
-	req := httptest.NewRequest(method, config.Invoke, body)
+	req := httptest.NewRequest(method, "/", body)
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Content-Type", "application/json")
 	rec := httptest.NewRecorder()
@@ -52,18 +57,18 @@ func (a *AppTest) Run(method string, handler echo.HandlerFunc, body io.Reader, o
 	return Result{rec}, nil
 }
 
-func (a *AppTest) Get(handler echo.HandlerFunc, options ...Option) (Result, error) {
-	return a.Run("GET", handler, nil, options...)
+func (a *AppTest) Get(handler echo.HandlerFunc, usefns ...UseFn) (Result, error) {
+	return a.Run("GET", handler, nil, usefns...)
 }
 
-func (a *AppTest) Post(handler echo.HandlerFunc, body string, options ...Option) (Result, error) {
-	return a.Run("POST", handler, strings.NewReader(body), options...)
+func (a *AppTest) Post(handler echo.HandlerFunc, body string, usefns ...UseFn) (Result, error) {
+	return a.Run("POST", handler, strings.NewReader(body), usefns...)
 }
 
-func (a *AppTest) Put(handler echo.HandlerFunc, body string, options ...Option) (Result, error) {
-	return a.Run("PUT", handler, strings.NewReader(body), options...)
+func (a *AppTest) Put(handler echo.HandlerFunc, body string, usefns ...UseFn) (Result, error) {
+	return a.Run("PUT", handler, strings.NewReader(body), usefns...)
 }
 
-func (a *AppTest) Delete(handler echo.HandlerFunc, options ...Option) (Result, error) {
-	return a.Run("DELETE", handler, nil, options...)
+func (a *AppTest) Delete(handler echo.HandlerFunc, usefns ...UseFn) (Result, error) {
+	return a.Run("DELETE", handler, nil, usefns...)
 }
