@@ -9,6 +9,7 @@ require (
 	github.com/hashicorp/go-plugin v1.6.1
 	github.com/labstack/echo/v4 v4.12.0
 	github.com/stretchr/testify v1.8.4
+	github.com/thedevsaddam/gojsonq/v2 v2.5.2
 	go.mongodb.org/mongo-driver/v2 v2.0.0-beta2
 )
 
@@ -30,7 +31,6 @@ require (
 	github.com/mitchellh/go-testing-interface v1.14.1 // indirect
 	github.com/oklog/run v1.1.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/thedevsaddam/gojsonq/v2 v2.5.2 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect

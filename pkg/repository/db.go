@@ -13,7 +13,8 @@ type DBRepositoryInterface interface {
 	Connect() error
 	Disconnect() error
 	WithTransaction(fn func() error) error
-	CreateCollection(name string, schema bson.M) error
+	CreateCollection(name string) error
+	DropCollection(name string) error
 	Create(name string, document interface{}) (string, error)
 	FindAll(name string, filter bson.M, res interface{}) error
 	Find(name string, filter bson.M, res interface{}) error
@@ -76,16 +77,12 @@ func (repo *DBRepository) WithTransaction(fn func() error) error {
 	return err
 }
 
-func (repo *DBRepository) CreateCollection(name string, schema bson.M) error {
-	validator := bson.M{
-		"$jsonSchema": schema,
-	}
-	err := repo.db.CreateCollection(repo.ctx(), name,
-		options.CreateCollection().SetValidator(validator),
-		options.CreateCollection().SetValidationLevel("strict"),
-		options.CreateCollection().SetValidationAction("error"),
-	)
-	return err
+func (repo *DBRepository) CreateCollection(name string) error {
+	return repo.db.CreateCollection(repo.ctx(), name)
+}
+
+func (repo *DBRepository) DropCollection(name string) error {
+	return repo.db.Collection(name).Drop(repo.ctx())
 }
 
 func (repo *DBRepository) FindAll(name string, filter bson.M, res interface{}) error {
