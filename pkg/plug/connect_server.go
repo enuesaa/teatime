@@ -10,14 +10,8 @@ func (s *ConnectServer) Info(arg interface{}, resp *Result[Info]) error {
 	return nil
 }
 
-func (s *ConnectServer) On(props OnProps, resp *Result[string]) error {
-	message, err := s.Impl.On(props)
+func (s *ConnectServer) On(event Event, resp *Result[[]Log]) error {
+	message, err := s.Impl.On(event)
 	*resp = NewResult(message, err)
-	return nil
-}
-
-func (s *ConnectServer) Logs(arg interface{}, resp *Result[string]) error {
-	logs, err := s.Impl.Logs()
-	*resp = NewResult(logs, err)
 	return nil
 }

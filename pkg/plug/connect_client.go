@@ -15,14 +15,8 @@ func (cc *ConnectClient) Info() (Info, error) {
 	return resp.Data, resp.Err()
 }
 
-func (cc *ConnectClient) On(props OnProps) (string, error) {
-	var resp Result[string]
-	cc.client.Call("Plugin.On", props, &resp)
-	return resp.Data, resp.Err()
-}
-
-func (cc *ConnectClient) Logs() (string, error) {
-	var resp Result[string]
-	cc.client.Call("Plugin.Logs", new(interface{}), &resp)
+func (cc *ConnectClient) On(event Event) ([]Log, error) {
+	var resp Result[[]Log]
+	cc.client.Call("Plugin.On", event, &resp)
 	return resp.Data, resp.Err()
 }

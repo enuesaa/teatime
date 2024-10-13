@@ -5,8 +5,8 @@ import (
 )
 
 func (srv *Srv) Create(document plug.M) (string, error) {
-	_, err := srv.provider.On(plug.OnProps{
-		Event: "data.created",
+	_, err := srv.provider.On(plug.Event{
+		Name: "data.created",
 		Teas: []plug.Tea{},
 	})
 	if err != nil {

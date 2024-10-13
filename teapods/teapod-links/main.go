@@ -31,13 +31,9 @@ func (p *Provider) Info() (plug.Info, error) {
 	return info, nil
 }
 
-func (p *Provider) On(props plug.OnProps) (string, error) {
-	if props.Event == "data.created" {
-		return "", fmt.Errorf("data.created event found")
+func (p *Provider) On(event plug.Event) ([]plug.Log, error) {
+	if event.Name == "data.created" {
+		return []plug.Log{}, fmt.Errorf("data.created event found")
 	}
-	return "", nil
-}
-
-func (p *Provider) Logs() (string, error) {
-	return "", nil
+	return []plug.Log{}, nil
 }
