@@ -17,7 +17,7 @@ func TestViewTeaNotFound(t *testing.T) {
 	require.NoError(t, err)
 
 	res, err := app.Get(View,
-		apptest.UseRoute("/api/teapods/:teapod/teaboxes/:teabox/teas", "/api/teapods/teapod-links/teaboxes/links/teas/1"),
+		apptest.UseRoute("/api/teapods/:teapodName/teaboxes/:teaboxName/teas", "/api/teapods/teapod-links/teaboxes/links/teas/1"),
 	)
 	require.NoError(t, err)
 

@@ -22,12 +22,12 @@ func New(repos repository.Repos) *echo.Echo {
 
 	api.GET("/teapods", apiTeapods.List)
 	api.POST("/teapods", apiTeapods.Create)
-	api.DELETE("/teapods/:teapod", apiTeapods.Delete)
+	api.DELETE("/teapods/:teapodName", apiTeapods.Delete)
 
-	api.GET("/teapods/:teapod/info", apiTeapodsInfo.View)
-	api.GET("/teapods/:teapod/teaboxes/:teabox/teas", apiTeapodsTeaboxesTeas.List)
-	api.GET("/teapods/:teapod/teaboxes/:teabox/teas/:teaId", apiTeapodsTeaboxesTeas.View)
-	api.POST("/teapods/:teapod/teaboxes/:teabox/teas", apiTeapodsTeaboxesTeas.Create)
+	api.GET("/teapods/:teapodName/info", apiTeapodsInfo.View)
+	api.GET("/teapods/:teapodName/teaboxes/:teaboxName/teas", apiTeapodsTeaboxesTeas.List)
+	api.GET("/teapods/:teapodName/teaboxes/:teaboxName/teas/:teaId", apiTeapodsTeaboxesTeas.View)
+	api.POST("/teapods/:teapodName/teaboxes/:teaboxName/teas", apiTeapodsTeaboxesTeas.Create)
 
 	app.Any("/*", ui.Serve)
 

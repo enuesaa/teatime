@@ -11,8 +11,8 @@ import (
 
 func Create(c echo.Context) error {
 	cc := ctx.Use(c)
-	teapod := cc.Param("teapod")
-	teabox := cc.Param("teabox")
+	teapod := cc.Param("teapodName")
+	teabox := cc.Param("teaboxName")
 
 	var reqbody CreateRequestBody
 	if err := cc.Bind(&reqbody); err != nil {

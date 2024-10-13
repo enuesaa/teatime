@@ -8,7 +8,7 @@ import (
 
 func Delete(c echo.Context) error {
 	cc := ctx.Use(c)
-	teapodName := cc.Param("teapod")
+	teapodName := cc.Param("teapodName")
 
 	teapodSrv := srvteapod.New(cc.Repos)
 	if err := teapodSrv.UnRegister(teapodName); err != nil {

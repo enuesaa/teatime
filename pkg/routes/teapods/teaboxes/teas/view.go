@@ -8,8 +8,8 @@ import (
 
 func View(c echo.Context) error {
 	cc := ctx.Use(c)
-	teapod := cc.Param("teapod")
-	teabox := cc.Param("teabox")
+	teapod := cc.Param("teapodName")
+	teabox := cc.Param("teaboxName")
 	teaId := cc.Param("teaId")
 
 	teaSrv, err := srvtea.New(cc.Repos, teapod, teabox)

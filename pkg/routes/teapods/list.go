@@ -10,16 +10,17 @@ func List(c echo.Context) error {
 	cc := ctx.Use(c)
 
 	teapodSrv := srvteapod.New(cc.Repos)
-	teapods, err := teapodSrv.List()
+	teapodNames, err := teapodSrv.List()
 	if err != nil {
 		return err
 	}
 
 	list := []Item{}
-	for _, teapod := range teapods {
+	for _, teapodName := range teapodNames {
 		list = append(list, Item{
-			Name: teapod,
+			Name: teapodName,
 		})
 	}
+
 	return cc.WithData(list)
 }

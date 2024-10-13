@@ -17,7 +17,7 @@ func TestList(t *testing.T) {
 	require.NoError(t, err)
 
 	res, err := app.Get(List,
-		apptest.UseRoute("/api/teapods/:teapod/teaboxes/:teabox/teas", "/api/teapods/teapod-links/teaboxes/links/teas"),
+		apptest.UseRoute("/api/teapods/:teapodName/teaboxes/:teaboxName/teas", "/api/teapods/teapod-links/teaboxes/links/teas"),
 	)
 	require.NoError(t, err)
 

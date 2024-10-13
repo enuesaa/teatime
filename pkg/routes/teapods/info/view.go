@@ -10,7 +10,7 @@ import (
 
 func View(c echo.Context) error {
 	cc := ctx.Use(c)
-	teapod := cc.Param("teapod")
+	teapod := cc.Param("teapodName")
 
 	teapodSrv := srvteapod.New(cc.Repos)
 	info, err := teapodSrv.Info(teapod)
