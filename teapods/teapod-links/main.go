@@ -17,20 +17,6 @@ func (p *Provider) Info() (plug.Info, error) {
 		Teaboxes: []plug.Teabox{
 			{
 				Name: "links",
-				Schema: plug.M{
-					"type": "object",
-					"required": []string{"title", "url"},
-					"properties": plug.M{
-						"title": plug.M{
-							"type": "string",
-							"description": "",
-						},
-						"url": plug.M{
-							"type": "string",
-							"description": "",
-						},
-					},
-				},
 			},
 		},
 		Actions: []plug.Action{

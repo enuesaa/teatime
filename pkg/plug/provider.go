@@ -23,8 +23,7 @@ type Info struct {
 	Actions     []Action
 }
 type Teabox struct {
-	Name   string
-	Schema M
+	Name string
 }
 type Action struct {
 	Event   string // like `app.created`

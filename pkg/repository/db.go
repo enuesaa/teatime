@@ -59,7 +59,7 @@ func (repo *DBRepository) WithTransaction(fn func() error) error {
 	}
 	defer session.EndSession(ctx)
 
-	err = mongo.WithSession(ctx, session, func (sc context.Context) error {
+	err = mongo.WithSession(ctx, session, func(sc context.Context) error {
 		repo.sc = sc
 
 		if err := session.StartTransaction(); err != nil {
