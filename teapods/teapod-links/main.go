@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/enuesaa/teatime/pkg/plug"
 )
 
@@ -30,6 +32,9 @@ func (p *Provider) Info() (plug.Info, error) {
 }
 
 func (p *Provider) On(props plug.OnProps) (string, error) {
+	if props.Event == "data.created" {
+		return "", fmt.Errorf("data.created event found")
+	}
 	return "", nil
 }
 
