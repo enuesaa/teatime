@@ -11,10 +11,19 @@ func List(c echo.Context) error {
 	teapod := cc.Param("teapodName")
 	teabox := cc.Param("teaboxName")
 
+	list := []Item{}
+
 	teaSrv := srvtea.New(cc.Repos, teapod, teabox)
-	list, err := teaSrv.List()
+	teas, err := teaSrv.List()
 	if err != nil {
 		return err
 	}
+	for _, tea := range teas {
+		list = append(list, Item{
+			Id: tea.Id(),
+			Data: tea.Data,
+		})
+	}
+
 	return cc.WithData(list)
 }

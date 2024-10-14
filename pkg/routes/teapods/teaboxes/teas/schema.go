@@ -7,3 +7,8 @@ type CreateRequestBody struct {
 type Creation struct {
 	Id string `json:"id"`
 }
+
+type Item struct {
+	Id string `json:"id"`
+	Data map[string]interface{} `json:"data"`
+}
