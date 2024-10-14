@@ -1,6 +1,7 @@
 import { useGetTeapodInfo } from '@/lib/api/teapods'
 import { useListTeas } from '@/lib/api/teas'
-import { Table } from '@radix-ui/themes'
+import { Code, Table } from '@radix-ui/themes'
+import { ListTeasTableData } from './ListTeasTableData'
 
 type Props = {
   teapod: string
@@ -19,10 +20,8 @@ export const ListTeasTable = ({ teapod, teabox: teaboxName }: Props) => {
     <Table.Root variant='surface'>
       <Table.Header>
         <Table.Row>
-          <Table.ColumnHeaderCell width='10%'>Id</Table.ColumnHeaderCell>
-          {/* {teabox.valdefs.map((v, i) => (
-            <Table.ColumnHeaderCell key={i}>{v.name.toUpperCase()}</Table.ColumnHeaderCell>
-          ))} */}
+          <Table.ColumnHeaderCell width='20%'>Id</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Data</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell width='5%'></Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>
@@ -30,10 +29,8 @@ export const ListTeasTable = ({ teapod, teabox: teaboxName }: Props) => {
         {teas.data !== undefined &&
           teas?.data?.map((tea, i) => (
             <Table.Row key={i}>
-              <Table.RowHeaderCell>{tea.teaid}</Table.RowHeaderCell>
-              {/* {teabox.valdefs.map((v, i) => (
-                <Table.Cell key={i}>{tea.vals.find((t) => t.name === v.name)?.value ?? ''}</Table.Cell>
-              ))} */}
+              <Table.RowHeaderCell>{tea.id}</Table.RowHeaderCell>
+              <Table.Cell><ListTeasTableData data={tea.data} /></Table.Cell>
               <Table.Cell>{/* <DeleteTeaModal teapod={teapod} teaid={tea.teaid} /> */}</Table.Cell>
             </Table.Row>
           ))}

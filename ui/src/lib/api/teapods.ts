@@ -1,4 +1,4 @@
-import { mutatePost, queryGet } from './base'
+import { mutateDelete, mutatePost, queryGet } from './base'
 
 type TeapodSchema = {
   name: string
@@ -25,7 +25,7 @@ export const useAddTeapod = () =>
   })
 
 export const useDeleteTeapod = (name: string) =>
-  mutatePost<{}, {}>(`api/teapods/${name}`, {
+  mutateDelete<{}, {}>(`api/teapods/${name}`, {
     invalidate: [],
   })
   
