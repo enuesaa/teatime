@@ -7,7 +7,7 @@ func (srv *Srv) Create(message LogMessage) (string, error) {
 }
 
 func (srv *Srv) CreateFromPlugLogs(logs plug.Logs) error {
-	messages := NewLogDataFromPlugLog(logs)
+	messages := NewLogMessagesFromPlugLogs(logs)
 
 	for _, message := range messages {
 		srv.Create(message)

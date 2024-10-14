@@ -1,9 +1,5 @@
 package srvtea
 
-import (
-	"github.com/enuesaa/teatime/pkg/plug"
-)
-
-func (srv *Srv) Create(document plug.M) (string, error) {
-	return srv.repos.DB.Create(srv.teaboxName, document.Bson())
+func (srv *Srv) Create(tea Tea) (string, error) {
+	return srv.repos.DB.Create(srv.CollectionName(), tea)
 }

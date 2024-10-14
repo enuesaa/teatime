@@ -7,7 +7,7 @@ import (
 func (srv *Srv) Get(teaId string) (Tea, error) {
 	filter := bson.M{"teaId": teaId}
 	var tea Tea
-	if err := srv.repos.DB.Find(srv.teaboxName, filter, &tea); err != nil {
+	if err := srv.repos.DB.Find(srv.CollectionName(), filter, &tea); err != nil {
 		return tea, err
 	}
 	return tea, nil

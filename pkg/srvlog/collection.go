@@ -7,12 +7,12 @@ type LogMessage struct {
 	Message string `bson:"message"`
 }
 
-func NewLogDataFromPlugLog(logs plug.Logs) []LogMessage {
+func NewLogMessagesFromPlugLogs(logs plug.Logs) []LogMessage {
 	messages := make([]LogMessage, 0)
 	for _, l := range logs.Messages {
 		messages = append(messages, LogMessage{
 			Created: l.Created,
-			Message: l.Value,
+			Message: l.Text,
 		})
 	}
 

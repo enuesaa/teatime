@@ -4,9 +4,10 @@ import (
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
-func (srv *Srv) List() ([]map[string]interface{}, error) {
-	list := make([]map[string]interface{}, 0)
-	if err := srv.repos.DB.FindAll(srv.teaboxName, bson.M{}, &list); err != nil {
+func (srv *Srv) List() ([]Tea, error) {
+	list := []Tea{}
+
+	if err := srv.repos.DB.FindAll(srv.CollectionName(), bson.M{}, &list); err != nil {
 		return list, err
 	}
 

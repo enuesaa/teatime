@@ -1,16 +1,12 @@
 package srvtea
 
-import (
-	"github.com/enuesaa/teatime/pkg/plug"
-)
-
-func (srv *Srv) Update(teaId string, document plug.M) error {
+func (srv *Srv) Update(teaId string, tea Tea) (string, error) {
 	if err := srv.Delete(teaId); err != nil {
-		return err
+		return teaId, err
 	}
-	document["teaId"] = teaId
-	if _, err := srv.repos.DB.Create(srv.teaboxName, document.Bson()); err != nil {
-		return err
+	tea.Id = teaId
+	if _, err := srv.repos.DB.Create(srv.CollectionName(), tea); err != nil {
+		return teaId, err
 	}
-	return nil
+	return teaId, nil
 }
