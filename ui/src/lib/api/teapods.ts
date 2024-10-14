@@ -1,34 +1,24 @@
-import { mutatePost, query } from './base'
+import { mutatePost, queryGet } from './base'
 
 type TeapodSchema = {
   name: string
   command: string
 }
-export const useListTeapods = () => query<TeapodSchema[]>('teapods')
+export const useListTeapods = () => queryGet<TeapodSchema[]>('/api/teapods')
 
 type TeapodInfoSchema = {
   name: string
-  command: string
   description: string
-  cards: string[]
   teaboxes: TeapodInfoTeabox[]
 }
 export type TeapodInfoTeabox = {
   name: string
-  comment: string
-  valdefs: TeapodInfoTeaboxValdef[]
 }
-export type TeapodInfoTeaboxValdef = {
-  name: string
-  cast: string
-  nullable: boolean
-}
-export const useGetTeapodInfo = (name: string) => query<TeapodInfoSchema>(`teapods/${name}`)
+export const useGetTeapodInfo = (name: string) => queryGet<TeapodInfoSchema>(`/api/teapods/${name}/info`)
 
 export type AddReqSchema = {
   name: string
 }
-export const useAddTeapod = () => mutatePost<AddReqSchema, {}>({
-  path: 'teapods',
+export const useAddTeapod = () => mutatePost<AddReqSchema, {}>('/api/teapods', {
   invalidate: [],
 })

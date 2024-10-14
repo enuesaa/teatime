@@ -1,4 +1,3 @@
-// import { AddTeaModal } from './AddTeaModal'
 import { ListTeasCtl } from './ListTeasCtl'
 import { ListTeasTable } from './ListTeasTable'
 import { useGetTeapodInfo } from '@/lib/api/teapods'

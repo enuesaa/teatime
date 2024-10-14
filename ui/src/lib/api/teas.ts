@@ -1,4 +1,4 @@
-import { query } from './base'
+import { queryGet } from './base'
 
 export type TeaSchema = {
   teaid: string
@@ -10,4 +10,4 @@ export type TeaVal = {
   value: string
 }
 export const useListTeas = (teapod: string, teabox: string) =>
-  query<TeaSchema[]>(`teapods/${teapod}/teas?teabox=${teabox}`)
+  queryGet<TeaSchema[]>(`/api/teapods/${teapod}/teaboxes/${teabox}/teas`)
