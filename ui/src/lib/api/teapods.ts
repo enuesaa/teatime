@@ -1,4 +1,4 @@
-import { query } from './base'
+import { mutatePost, query } from './base'
 
 type TeapodSchema = {
   name: string
@@ -24,3 +24,11 @@ export type TeapodInfoTeaboxValdef = {
   nullable: boolean
 }
 export const useGetTeapodInfo = (name: string) => query<TeapodInfoSchema>(`teapods/${name}`)
+
+export type AddReqSchema = {
+  name: string
+}
+export const useAddTeapod = () => mutatePost<AddReqSchema, {}>({
+  path: 'teapods',
+  invalidate: [],
+})

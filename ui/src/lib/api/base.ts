@@ -1,30 +1,35 @@
-import { useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 
 const apiBaseUrl = import.meta.env.API_BASE
 
 export const query = <T>(path: string) =>
-  useQuery<T>(path, async () => {
+  useQuery(path, async (): Promise<T> => {
     const res = await fetch(`${apiBaseUrl}/${path}`)
     const body = await res.json()
     return body?.data ?? {}
   })
 
-export const postfn = async (path: string, data: any) => {
-  const res = await fetch(`${apiBaseUrl}/${path}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+type MutateConfig = {
+  path: string
+  invalidate: string[]
+}
+const mutate = <R, T>(method: string, { path, invalidate }: MutateConfig) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (data: R): Promise<T> => {
+      const res = await fetch(`${apiBaseUrl}/${path}`, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      const body = await res.json()
+      return body
     },
-    body: JSON.stringify(data),
+    onSuccess: () => queryClient.invalidateQueries(invalidate),
   })
-  const body = await res.json()
-  return body
 }
 
-export const deletefn = async (path: string) => {
-  const res = await fetch(`${apiBaseUrl}/${path}`, {
-    method: 'DELETE',
-  })
-  const body = await res.json()
-  return body
-}
+export const mutatePost = <R, T>(config: MutateConfig) => mutate<R, T>('POST', config)
