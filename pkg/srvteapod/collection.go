@@ -34,6 +34,6 @@ func NewTeapodFromPlugInfo(info plug.Info) Teapod {
 	return teapod
 }
 
-func (srv *Srv) CName() string {
+func (srv *Srv) CollectionName() string {
 	return "teapods"
 }

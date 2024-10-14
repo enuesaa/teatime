@@ -18,7 +18,7 @@ func (srv *Srv) Register(teapodName string) error {
 	teapod := NewTeapodFromPlugInfo(info)
 
 	err = srv.repos.DB.WithTransaction(func() error {
-		if _, err := srv.repos.DB.Create(srv.CName(), teapod); err != nil {
+		if _, err := srv.repos.DB.Create(srv.CollectionName(), teapod); err != nil {
 			return err
 		}
 		for _, teaboxName := range teapod.Teaboxes {
@@ -37,7 +37,7 @@ func (srv *Srv) CheckAlreadyRegistered(teapodName string) error {
 		"name": teapodName,
 	}
 	var list []Teapod
-	if err := srv.repos.DB.FindAll(srv.CName(), filter, &list); err != nil {
+	if err := srv.repos.DB.FindAll(srv.CollectionName(), filter, &list); err != nil {
 		return err
 	}
 	if len(list) > 0 {

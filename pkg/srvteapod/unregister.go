@@ -9,7 +9,7 @@ func (srv *Srv) UnRegister(teapodName string) error {
 		"name": teapodName,
 	}
 	var teapod Teapod
-	if err := srv.repos.DB.Find(srv.CName(), filter, &teapod); err != nil {
+	if err := srv.repos.DB.Find(srv.CollectionName(), filter, &teapod); err != nil {
 		return err
 	}
 
@@ -19,7 +19,7 @@ func (srv *Srv) UnRegister(teapodName string) error {
 		}
 	}
 
-	if err := srv.repos.DB.Delete(srv.CName(), filter); err != nil {
+	if err := srv.repos.DB.Delete(srv.CollectionName(), filter); err != nil {
 		return err
 	}
 	return nil
