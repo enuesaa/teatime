@@ -2,27 +2,21 @@ package srvlog
 
 import "github.com/enuesaa/teatime/pkg/plug"
 
-type LogData struct {
-	logs []Log `bson:"logs"`
-}
-
-type Log struct {
+type LogMessage struct {
 	Created string `bson:"created"`
 	Message string `bson:"message"`
 }
 
-func NewLogDataFromPlugLog(logs []plug.Log) LogData {
-	data := LogData{
-		logs: []Log{},
-	}
-	for _, l := range logs {
-		data.logs = append(data.logs, Log{
+func NewLogDataFromPlugLog(logs plug.Logs) []LogMessage {
+	messages := make([]LogMessage, 0)
+	for _, l := range logs.Messages {
+		messages = append(messages, LogMessage{
 			Created: l.Created,
-			Message: l.Message,
+			Message: l.Value,
 		})
 	}
 
-	return data
+	return messages
 }
 
 func (srv *Srv) CollectionName() string {

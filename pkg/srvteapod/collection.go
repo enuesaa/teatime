@@ -27,7 +27,7 @@ func NewTeapodFromPlugInfo(info plug.Info) Teapod {
 	}
 	for _, action := range info.Actions {
 		teapod.Actions = append(teapod.Actions, TeapodAction{
-			Event:   action.Event,
+			Event:   action.Name,
 			Comment: action.Comment,
 		})
 	}

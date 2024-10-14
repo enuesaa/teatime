@@ -10,7 +10,7 @@ func (s *ConnectServer) Info(arg interface{}, resp *Result[Info]) error {
 	return nil
 }
 
-func (s *ConnectServer) On(event Event, resp *Result[[]Log]) error {
+func (s *ConnectServer) On(event Event, resp *Result[Logs]) error {
 	message, err := s.Impl.On(event)
 	*resp = NewResult(message, err)
 	return nil

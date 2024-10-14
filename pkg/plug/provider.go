@@ -1,10 +1,12 @@
 package plug
 
 import (
+	"time"
+
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
-type M bson.M
+type M map[string]interface{}
 
 func (m *M) Bson() bson.M {
 	return bson.M(*m)
@@ -12,7 +14,7 @@ func (m *M) Bson() bson.M {
 
 type ProviderInterface interface {
 	Info() (Info, error)
-	On(event Event) ([]Log, error)
+	On(event Event) (Logs, error)
 }
 
 type Info struct {
@@ -25,18 +27,31 @@ type Teabox struct {
 	Name string
 }
 type Action struct {
-	Event   string // like `app.created`
+	Name string // like `action.created`
 	Comment string
-}
-type Tea struct {
-	TeaId string
-	Data  M
 }
 type Event struct {
 	Name string // like `tea.created`
-	Data map[string]interface{}
+	Data M
 }
-type Log struct {
+
+func NewLogs() Logs {
+	return Logs{
+		Messages: []LogMessage{},
+	}
+}
+type Logs struct {
+	Messages []LogMessage
+}
+type LogMessage struct {
 	Created string
-	Message string
+	Value string
+}
+func (l *Logs) Info(message string) {
+	created := time.Now().String()
+
+	l.Messages = append(l.Messages, LogMessage{
+		Created: created,
+		Value: message,
+	})
 }

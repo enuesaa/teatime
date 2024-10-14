@@ -24,7 +24,7 @@ func (p *Provider) Info() (plug.Info, error) {
 		},
 		Actions: []plug.Action{
 			{
-				Event:   "app.sync",
+				Name:   "action.sync",
 				Comment: "sync links",
 			},
 		},
@@ -32,8 +32,9 @@ func (p *Provider) Info() (plug.Info, error) {
 	return info, nil
 }
 
-func (p *Provider) On(event plug.Event) ([]plug.Log, error) {
-	logs := []plug.Log{}
+func (p *Provider) On(event plug.Event) (plug.Logs, error) {
+	logs := plug.NewLogs()
+	logs.Info("app start")
 
 	if event.Name == "data.created" {
 		link, ok := event.Data["link"]

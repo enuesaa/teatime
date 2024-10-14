@@ -2,12 +2,15 @@ package srvlog
 
 import "github.com/enuesaa/teatime/pkg/plug"
 
-func (srv *Srv) Create(logdata LogData) (string, error) {
-	return srv.repos.DB.Create(srv.CollectionName(), logdata)
+func (srv *Srv) Create(message LogMessage) (string, error) {
+	return srv.repos.DB.Create(srv.CollectionName(), message)
 }
 
-func (srv *Srv) CreateFromPlugLogs(logs []plug.Log) (string, error) {
-	logdata := NewLogDataFromPlugLog(logs)
+func (srv *Srv) CreateFromPlugLogs(logs plug.Logs) error {
+	messages := NewLogDataFromPlugLog(logs)
 
-	return srv.Create(logdata)
+	for _, message := range messages {
+		srv.Create(message)
+	}
+	return nil
 }
