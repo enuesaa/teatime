@@ -18,12 +18,12 @@ func TestCreate(t *testing.T) {
 	require.NoError(t, err)
 
 	res, err := app.Post(Create,
-		apptest.UseBody(`{"name": "aaa"}`),
+		apptest.UseBody(`{"link": "https://example.com/"}`),
 		apptest.UseParam("teapodName", "teapod-links"),
 		apptest.UseParam("teaboxName", "links"),
 	)
 	require.NoError(t, err)
 
 	assert.Equal(t, 200, res.Code)
-	assert.Equal(t, "a", res.GetS("data.id"))
+	assert.NotEmpty(t, res.GetS("data.id"))
 }
