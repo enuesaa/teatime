@@ -23,3 +23,9 @@ export const useAddTeapod = () =>
   mutatePost<AddReqSchema, {}>('api/teapods', {
     invalidate: [],
   })
+
+export const useDeleteTeapod = (name: string) =>
+  mutatePost<{}, {}>(`api/teapods/${name}`, {
+    invalidate: [],
+  })
+  

@@ -2,6 +2,7 @@ import { TeapodDescription } from './TeapodDescription'
 import { TeapodSchemas } from './TeapodSchemas'
 import { useListTeapods } from '@/lib/api/teapods'
 import { Heading, Text, Table } from '@radix-ui/themes'
+import { DeleteTeapod } from './DeleteTeapod'
 
 export const ListTeapods = () => {
   const teapods = useListTeapods()
@@ -18,6 +19,7 @@ export const ListTeapods = () => {
             <Table.ColumnHeaderCell width='10%'>Command</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell width='20%'>Description</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Teaboxes</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell width='10%'></Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -31,6 +33,9 @@ export const ListTeapods = () => {
                 </Table.Cell>
                 <Table.Cell>
                   <TeapodSchemas name={p.name} />
+                </Table.Cell>
+                <Table.Cell>
+                  <DeleteTeapod name={p.name} />
                 </Table.Cell>
               </Table.Row>
             ))}
