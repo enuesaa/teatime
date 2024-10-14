@@ -9,7 +9,7 @@ export const query = <T>(method: string, path: string, config: QueryConfig) =>
     const res = await fetch(`${apiBaseUrl}${path}`, {
       method,
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
       },
     })
     const body = await res.json()

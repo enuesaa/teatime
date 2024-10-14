@@ -1,5 +1,5 @@
-import { query } from './base-query'
 import { mutate, type MutateConfig } from './base-mutate'
+import { query } from './base-query'
 
 export const queryGet = <T>(path: string) => query<T>('GET', path, {})
 

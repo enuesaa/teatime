@@ -19,6 +19,7 @@ export const useGetTeapodInfo = (name: string) => queryGet<TeapodInfoSchema>(`/a
 export type AddReqSchema = {
   name: string
 }
-export const useAddTeapod = () => mutatePost<AddReqSchema, {}>('/api/teapods', {
-  invalidate: [],
-})
+export const useAddTeapod = () =>
+  mutatePost<AddReqSchema, {}>('/api/teapods', {
+    invalidate: [],
+  })

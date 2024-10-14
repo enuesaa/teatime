@@ -9,12 +9,5 @@ globalStyle(`${actions} button`, {
 })
 
 export default {
-  trigger: style({
-    margin: '0 5px',
-    padding: '10px 10px',
-    borderRadius: '10px',
-    verticalAlign: 'middle',
-    background: '#ff9933'
-  }),
   actions,
 }

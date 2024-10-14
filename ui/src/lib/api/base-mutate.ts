@@ -10,7 +10,7 @@ export const mutate = <R, T>(method: string, path: string, { invalidate }: Mutat
 
   return useMutation({
     mutationFn: async (data: R): Promise<T> => {
-      const res = await fetch(`${apiBaseUrl}/${path}`, {
+      const res = await fetch(`${apiBaseUrl}${path}`, {
         method,
         headers: {
           'Content-Type': 'application/json',

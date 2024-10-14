@@ -1,14 +1,16 @@
-import { TextField } from '@radix-ui/themes'
 import styles from './TextInput.css'
+import { TextField } from '@radix-ui/themes'
+import { forwardRef } from 'react'
 
 type Props = {
   label: string
 } & React.RefAttributes<HTMLInputElement>
-export const TextInput = ({ label, ...props }: Props) => {
+
+export const TextInput = forwardRef<HTMLInputElement, Props>(({ label, ...props }, ref) => {
   return (
     <label className={styles.label}>
       {label}
-      <TextField.Root data-1p-ignore {...props} />
+      <TextField.Root data-1p-ignore ref={ref} {...props} />
     </label>
   )
-}
+})
