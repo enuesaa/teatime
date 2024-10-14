@@ -2,22 +2,21 @@ package teas
 
 import (
 	"github.com/enuesaa/teatime/pkg/router/ctx"
-	"github.com/enuesaa/teatime/pkg/srvtea"
+	"github.com/enuesaa/teatime/pkg/usecase"
 	"github.com/labstack/echo/v4"
 )
 
 func Create(c echo.Context) error {
 	cc := ctx.Use(c)
-	teapod := cc.Param("teapodName")
-	teabox := cc.Param("teaboxName")
+	teapodName := cc.Param("teapodName")
+	teaboxName := cc.Param("teaboxName")
 
 	var reqbody map[string]interface{}
 	if err := cc.BindBody(&reqbody); err != nil {
 		return err
 	}
 
-	teaSrv := srvtea.New(cc.Repos, teapod, teabox)
-	teaId, err := teaSrv.Create(reqbody)
+	teaId, err := usecase.CreateTea(cc.Repos, teapodName, teaboxName, reqbody)
 	if err != nil {
 		return err
 	}
