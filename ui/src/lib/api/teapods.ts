@@ -4,7 +4,7 @@ type TeapodSchema = {
   name: string
   command: string
 }
-export const useListTeapods = () => queryGet<TeapodSchema[]>('/api/teapods')
+export const useListTeapods = () => queryGet<TeapodSchema[]>('api/teapods')
 
 type TeapodInfoSchema = {
   name: string
@@ -14,12 +14,12 @@ type TeapodInfoSchema = {
 export type TeapodInfoTeabox = {
   name: string
 }
-export const useGetTeapodInfo = (name: string) => queryGet<TeapodInfoSchema>(`/api/teapods/${name}/info`)
+export const useGetTeapodInfo = (name: string) => queryGet<TeapodInfoSchema>(`api/teapods/${name}/info`)
 
 export type AddReqSchema = {
   name: string
 }
 export const useAddTeapod = () =>
-  mutatePost<AddReqSchema, {}>('/api/teapods', {
+  mutatePost<AddReqSchema, {}>('api/teapods', {
     invalidate: [],
   })

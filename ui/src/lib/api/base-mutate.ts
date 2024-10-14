@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query'
 
-const apiBaseUrl = import.meta.env.API_BASE
+const baseUrl = import.meta.env.VITE_API_BASE
 
 export type MutateConfig = {
   invalidate: string[]
@@ -10,7 +10,7 @@ export const mutate = <R, T>(method: string, path: string, { invalidate }: Mutat
 
   return useMutation({
     mutationFn: async (data: R): Promise<T> => {
-      const res = await fetch(`${apiBaseUrl}${path}`, {
+      const res = await fetch(`${baseUrl}${path}`, {
         method,
         headers: {
           'Content-Type': 'application/json',

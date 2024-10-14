@@ -10,4 +10,4 @@ export type TeaVal = {
   value: string
 }
 export const useListTeas = (teapod: string, teabox: string) =>
-  queryGet<TeaSchema[]>(`/api/teapods/${teapod}/teaboxes/${teabox}/teas`)
+  queryGet<TeaSchema[]>(`api/teapods/${teapod}/teaboxes/${teabox}/teas`)
