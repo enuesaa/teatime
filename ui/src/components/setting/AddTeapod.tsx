@@ -1,19 +1,27 @@
 import styles from './AddTeapod.css'
 import { TextInput } from '@/components/common/TextInput'
 import { useAddTeapod, type AddReqSchema } from '@/lib/api/teapods'
-import { Dialog, Button } from '@radix-ui/themes'
+import { Dialog, Button, Callout } from '@radix-ui/themes'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaPlus } from 'react-icons/fa'
 
 export const AddTeapod = () => {
+  const [open, setOpen] = useState(false)
   const addTeapod = useAddTeapod()
-  const { register, handleSubmit, formState } = useForm<AddReqSchema>()
-  const submit = handleSubmit((data) => addTeapod.mutate(data))
+  const form = useForm<AddReqSchema>()
+
+  const hasError = addTeapod.data?.error !== undefined
+  const submit = form.handleSubmit((data) => addTeapod.mutate(data))
+  const reset = () => {
+    addTeapod.reset()
+    form.reset()
+  }
 
   return (
-    <Dialog.Root>
+    <Dialog.Root open={open || hasError} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button variant='outline'>
+        <Button variant='outline' radius='full' mx='2' mt='1' style={{ padding: '10px' }}>
           <FaPlus />
         </Button>
       </Dialog.Trigger>
@@ -22,19 +30,23 @@ export const AddTeapod = () => {
         <Dialog.Title>Add Teapod</Dialog.Title>
         <Dialog.Description />
 
+        {hasError && 
+          <Callout.Root>
+            <Callout.Text>{addTeapod.data?.error}</Callout.Text>
+          </Callout.Root>
+        }
+
         <form onSubmit={submit}>
-          <TextInput label='name' {...register('name')} />
+          <TextInput label='name' {...form.register('name')} />
 
           <div className={styles.actions}>
             <Dialog.Close>
-              <Button variant='soft' color='gray'>
+              <Button variant='soft' color='gray' onClick={reset}>
                 Cancel
               </Button>
             </Dialog.Close>
 
-            <Dialog.Close>
-              <Button type='submit'>Save</Button>
-            </Dialog.Close>
+            <Button type='submit'>Save</Button>
           </div>
         </form>
       </Dialog.Content>

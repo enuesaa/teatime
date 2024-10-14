@@ -9,7 +9,10 @@ export const useListTeas = (teapod: string, teabox: string) =>
 
 
 export type AddReqSchema = Record<string, any>
+export type AddResSchema = {
+  error?: string
+}
 export const useAddTea = (teapod: string, teabox: string) =>
-  mutatePost<AddReqSchema, {}>(`api/teapods/${teapod}/teaboxes/${teabox}/teas`, {
+  mutatePost<AddReqSchema, AddResSchema>(`api/teapods/${teapod}/teaboxes/${teabox}/teas`, {
     invalidate: [],
   })

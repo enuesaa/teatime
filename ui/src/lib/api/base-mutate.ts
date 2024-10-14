@@ -18,7 +18,7 @@ export const mutate = <R, T>(method: string, path: string, { invalidate }: Mutat
         body: JSON.stringify(data),
       })
       const body = await res.json()
-      return body?.data ?? {}
+      return body ?? {}
     },
     onSuccess: () => queryClient.invalidateQueries(invalidate),
   })
