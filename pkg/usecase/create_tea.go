@@ -19,5 +19,5 @@ func CreateTea(repos repository.Repos, teapodName string, teaboxName string, raw
 	// ignore error because this is not critical and also, plugin already executed.
 	logSrv.CreateFromPlugLogs(logs)
 
-	return teaSrv.Create(raw.ToTea())
+	return teaSrv.Create(raw)
 }

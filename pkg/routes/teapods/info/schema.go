@@ -9,5 +9,4 @@ type Item struct {
 
 type ItemTeabox struct {
 	Name    string `json:"name"`
-	Comment string `json:"comment"`
 }

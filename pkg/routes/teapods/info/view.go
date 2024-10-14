@@ -24,6 +24,11 @@ func View(c echo.Context) error {
 		Description: info.Description,
 		Teaboxes:    []ItemTeabox{},
 	}
+	for _, teabox := range info.Teaboxes {
+		data.Teaboxes = append(data.Teaboxes, ItemTeabox{
+			Name: teabox.Name,
+		})
+	}
 
 	return cc.WithData(data)
 }

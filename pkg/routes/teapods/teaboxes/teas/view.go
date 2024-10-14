@@ -17,5 +17,10 @@ func View(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	return cc.WithData(data)
+
+	item := Item{
+		Id: data.Id(),
+		Data: data.Data,
+	}
+	return cc.WithData(item)
 }

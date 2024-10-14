@@ -4,12 +4,6 @@ import "go.mongodb.org/mongo-driver/v2/bson"
 
 type Raw map[string]interface{}
 
-func (raw *Raw) ToTea() Tea {
-	return Tea{
-		Data: *raw,
-	}
-}
-
 type Tea struct {
 	InternalId *bson.ObjectID `bson:"_id"`
 	Data Raw `bson:"data"`
@@ -19,6 +13,10 @@ func (tea *Tea) Id() string {
 		return ""
 	}
 	return tea.InternalId.Hex()
+}
+
+type Creation struct {
+	Data Raw `bson:"data"`
 }
 
 func (srv *Srv) CollectionName() string {

@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"net/url"
 
 	"github.com/enuesaa/teatime/pkg/plug"
+	"github.com/go-playground/validator/v10"
 )
 
 func main() {
@@ -37,12 +37,9 @@ func (p *Provider) On(event plug.Event) (plug.Logs, error) {
 	logs.Info("app start")
 
 	if event.Name == "data.created" {
-		link, ok := event.Data["link"]
-		if !ok {
-			return logs, fmt.Errorf("please include link in request body")	
-		}
-		if _, err := url.ParseRequestURI(link.(string)); err != nil {
-			return logs, err
+		errs := validator.New().ValidateMap(event.Data, rules)
+		for name, value := range errs {
+			return logs, fmt.Errorf("%s: %s", name, value)
 		}
 		return logs, nil
 	}
