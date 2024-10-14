@@ -34,7 +34,7 @@ type Tea struct {
 }
 type Event struct {
 	Name string // like `tea.created`
-	Teas  []Tea  // associated
+	Data map[string]interface{}
 }
 type Log struct {
 	Created string

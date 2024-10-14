@@ -4,17 +4,17 @@ import (
 	"github.com/enuesaa/teatime/pkg/repository"
 )
 
-func New(repos repository.Repos, teapod string, teabox string) Srv {
+func New(repos repository.Repos, teapodName string, teaboxName string) Srv {
 	srv := Srv{
-		repos:    repos,
-		teapod:   teapod,
-		teabox:   teabox,
+		repos: repos,
+		teapodName: teapodName,
+		teaboxName: teaboxName,
 	}
 	return srv
 }
 
 type Srv struct {
-	repos    repository.Repos
-	teapod   string
-	teabox   string
+	repos repository.Repos
+	teapodName string
+	teaboxName string
 }

@@ -13,7 +13,7 @@ func CreateTea(repos repository.Repos, teapodName string, teaboxName string, doc
 	teaSrv := srvtea.New(repos, teapodName, teaboxName)
 	logSrv := srvlog.New(repos)
 
-	logs, err := teapodSrv.On(teapodName, "data.created", []plug.Tea{})
+	logs, err := teapodSrv.On(teapodName, "data.created", document)
 	if err != nil {
 		return "", err
 	}

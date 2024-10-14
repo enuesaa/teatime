@@ -1,13 +1,12 @@
 package srvtea
 
 import (
-	"github.com/enuesaa/teatime/pkg/plug"
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
-func (srv *Srv) List() ([]plug.Tea, error) {
-	list := make([]plug.Tea, 0)
-	if err := srv.repos.DB.FindAll(srv.teapod, bson.M{}, &list); err != nil {
+func (srv *Srv) List() ([]map[string]interface{}, error) {
+	list := make([]map[string]interface{}, 0)
+	if err := srv.repos.DB.FindAll(srv.teaboxName, bson.M{}, &list); err != nil {
 		return list, err
 	}
 

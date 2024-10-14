@@ -9,7 +9,7 @@ func (srv *Srv) Update(teaId string, document plug.M) error {
 		return err
 	}
 	document["teaId"] = teaId
-	if _, err := srv.repos.DB.Create(srv.teapod, document.Bson()); err != nil {
+	if _, err := srv.repos.DB.Create(srv.teaboxName, document.Bson()); err != nil {
 		return err
 	}
 	return nil

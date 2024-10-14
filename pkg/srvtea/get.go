@@ -8,7 +8,7 @@ import (
 func (srv *Srv) Get(teaId string) (plug.Tea, error) {
 	filter := bson.M{"teaId": teaId}
 	var data plug.Tea
-	if err := srv.repos.DB.Find(srv.teapod, filter, &data); err != nil {
+	if err := srv.repos.DB.Find(srv.teaboxName, filter, &data); err != nil {
 		return data, err
 	}
 	return data, nil

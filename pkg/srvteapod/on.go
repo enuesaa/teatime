@@ -4,7 +4,7 @@ import (
 	"github.com/enuesaa/teatime/pkg/plug"
 )
 
-func (srv *Srv) On(teapod string, name string, teas []plug.Tea) ([]plug.Log, error) {
+func (srv *Srv) On(teapod string, name string, data map[string]interface{}) ([]plug.Log, error) {
 	logs := make([]plug.Log, 0)
 
 	provider, err := plug.NewClientProvider(teapod)
@@ -13,7 +13,7 @@ func (srv *Srv) On(teapod string, name string, teas []plug.Tea) ([]plug.Log, err
 	}
 	event := plug.Event{
 		Name: name,
-		Teas:  teas,
+		Data: data,
 	}
 	return provider.On(event)
 }

@@ -5,5 +5,5 @@ import (
 )
 
 func (srv *Srv) Create(document plug.M) (string, error) {
-	return srv.repos.DB.Create(srv.teapod, document.Bson())
+	return srv.repos.DB.Create(srv.teaboxName, document.Bson())
 }
