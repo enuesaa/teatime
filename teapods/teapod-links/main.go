@@ -18,6 +18,9 @@ func (p *Provider) Info() (plug.Info, error) {
 			{
 				Name: "links",
 			},
+			{
+				Name: "notes",
+			},
 		},
 		Actions: []plug.Action{
 			{
@@ -34,12 +37,13 @@ func (p *Provider) On(event plug.Event) (plug.Logs, error) {
 	logs.Info("app start")
 
 	if event.Name == "data.created" {
-		tea, err := BindLinkTea(event.Data)
-		if err != nil {
-			return logs, err
+		if event.Meta["teabox"] == "links" {
+			tea, err := BindLinkTea(event.Data)
+			if err != nil {
+				return logs, err
+			}
+			logs.Info("tea valid: %v", tea)
 		}
-		logs.Info("tea valid: %v", tea)
-		return logs, nil
 	}
 
 	return logs, nil
