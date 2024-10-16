@@ -2,6 +2,7 @@ import { Layout } from './components/common/Layout'
 import TopPage from '@/pages/index'
 import SettingsPage from '@/pages/settings'
 import TeasPage from '@/pages/teas'
+import LogsPage from '@/pages/logs'
 import '@/style.css'
 import { Theme } from '@radix-ui/themes'
 import '@radix-ui/themes/styles.css'
@@ -17,8 +18,9 @@ export const App = () => {
         <Theme appearance='dark' accentColor='purple'>
           <Layout>
             <Routes>
-              <Route path='/' element={<TopPage />} />
-              <Route path='/settings' element={<SettingsPage />} />
+            <Route path='/' element={<TopPage />} />
+            <Route path='/logs' element={<LogsPage />} />
+            <Route path='/settings' element={<SettingsPage />} />
               <Route path='/teapods/:teapod/teas' element={<TeasPage />} />
             </Routes>
           </Layout>

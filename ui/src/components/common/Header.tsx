@@ -3,6 +3,7 @@ import { Link } from './Link'
 import { Flex, Box, Container, Separator } from '@radix-ui/themes'
 import { BiCoffee } from 'react-icons/bi'
 import { MdOutlineCoffeeMaker } from 'react-icons/md'
+import { TbLogs } from 'react-icons/tb'
 
 export const Header = () => {
   return (
@@ -15,6 +16,9 @@ export const Header = () => {
               teatime
             </Link>
           </Box>
+          <Link href='/logs' className={styles.setting}>
+            <TbLogs />
+          </Link>
           <Link href='/settings' className={styles.setting}>
             <MdOutlineCoffeeMaker />
           </Link>
