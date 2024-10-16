@@ -18,11 +18,12 @@ export const AddTea = ({ teapod, teabox }: Props) => {
   const addTea = useAddTea(teapod, teabox)
   const form = useForm<Form>()
 
+  const hasError = addTea.data?.error !== undefined
   const submit = form.handleSubmit(req => {
     const data = JSON.parse(req.data)
     addTea.mutate(data)
+    setOpen(false)
   })
-  const hasError = addTea.data?.error !== undefined
   const reset = () => {
     addTea.reset()
     form.reset()

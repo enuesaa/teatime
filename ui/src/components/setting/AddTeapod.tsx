@@ -12,7 +12,10 @@ export const AddTeapod = () => {
   const form = useForm<AddReqSchema>()
 
   const hasError = addTeapod.data?.error !== undefined
-  const submit = form.handleSubmit((data) => addTeapod.mutate(data))
+  const submit = form.handleSubmit((data) => {
+    addTeapod.mutate(data)
+    setOpen(false)
+  })
   const reset = () => {
     addTeapod.reset()
     form.reset()
