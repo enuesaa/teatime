@@ -1,10 +1,7 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/enuesaa/teatime/pkg/plug"
-	"github.com/go-playground/validator/v10"
 )
 
 func main() {
@@ -37,10 +34,11 @@ func (p *Provider) On(event plug.Event) (plug.Logs, error) {
 	logs.Info("app start")
 
 	if event.Name == "data.created" {
-		errs := validator.New().ValidateMap(event.Data, rules)
-		for name, value := range errs {
-			return logs, fmt.Errorf("%s: %s", name, value)
+		tea, err := BindLinkTea(event.Data)
+		if err != nil {
+			return logs, err
 		}
+		logs.Info("tea valid: %v", tea)
 		return logs, nil
 	}
 
