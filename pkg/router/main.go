@@ -12,6 +12,8 @@ import (
 )
 
 func New(repos repository.Repos) *echo.Echo {
+	PutStartupLog(repos)
+
 	app := echo.New()
 	app.Use(middleware.BindCtx(repos))
 	app.Use(middleware.Logger)

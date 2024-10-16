@@ -16,4 +16,5 @@ func TestList(t *testing.T) {
 	require.NoError(t, err)
 
 	assert.Equal(t, 200, res.Code)
+	assert.Equal(t, "teatime app started", res.GetS("data.[0].message"))
 }

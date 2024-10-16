@@ -14,7 +14,7 @@ type Logs struct {
 	Messages []LogMessage
 }
 func (l *Logs) Info(text string) {
-	created := time.Now().String()
+	created := time.Now().Format(time.RFC3339)
 
 	l.Messages = append(l.Messages, LogMessage{
 		Created: created,
