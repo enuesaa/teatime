@@ -12,5 +12,5 @@ func New(repos repository.Repos) Srv {
 }
 
 type Srv struct {
-	repos    repository.Repos
+	repos repository.Repos
 }

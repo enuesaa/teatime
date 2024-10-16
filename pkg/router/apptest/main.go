@@ -17,7 +17,7 @@ func New(t *testing.T) (AppTest, func()) {
 	if err := app.Repos.Startup(); err != nil {
 		panic(err)
 	}
-	callback := func () {
+	callback := func() {
 		app.Repos.End()
 	}
 	return app, callback

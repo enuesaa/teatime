@@ -6,7 +6,7 @@ import (
 
 func New(repos repository.Repos, teapodName string, teaboxName string) Srv {
 	srv := Srv{
-		repos: repos,
+		repos:      repos,
 		teapodName: teapodName,
 		teaboxName: teaboxName,
 	}
@@ -14,7 +14,7 @@ func New(repos repository.Repos, teapodName string, teaboxName string) Srv {
 }
 
 type Srv struct {
-	repos repository.Repos
+	repos      repository.Repos
 	teapodName string
 	teaboxName string
 }

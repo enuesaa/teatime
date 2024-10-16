@@ -6,8 +6,9 @@ type Raw map[string]interface{}
 
 type Tea struct {
 	InternalId *bson.ObjectID `bson:"_id"`
-	Data Raw `bson:"data"`
+	Data       Raw            `bson:"data"`
 }
+
 func (tea *Tea) Id() string {
 	if tea.InternalId == nil {
 		return ""

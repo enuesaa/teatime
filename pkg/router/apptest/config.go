@@ -6,21 +6,22 @@ import (
 )
 
 type Config struct {
-	ParamNames []string
+	ParamNames  []string
 	ParamValues []string
-	Body io.Reader
-	Headers map[string]string
+	Body        io.Reader
+	Headers     map[string]string
 }
+
 func NewConfig() Config {
-    return Config{
-        ParamNames:  make([]string, 0),
-        ParamValues: make([]string, 0),
-		Body: nil,
+	return Config{
+		ParamNames:  make([]string, 0),
+		ParamValues: make([]string, 0),
+		Body:        nil,
 		Headers: map[string]string{
-			"Accept": "application/json",
+			"Accept":       "application/json",
 			"Content-Type": "application/json",
 		},
-    }
+	}
 }
 
 type UseFn func(*Config)

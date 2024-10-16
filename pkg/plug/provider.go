@@ -15,7 +15,7 @@ type Teabox struct {
 	Name string
 }
 type Action struct {
-	Name string // like `action.created`
+	Name    string // like `action.created`
 	Comment string
 }
 type Event struct {

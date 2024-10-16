@@ -8,5 +8,5 @@ type Item struct {
 }
 
 type ItemTeabox struct {
-	Name    string `json:"name"`
+	Name string `json:"name"`
 }

@@ -19,7 +19,7 @@ func View(c echo.Context) error {
 	}
 
 	item := Item{
-		Id: data.Id(),
+		Id:   data.Id(),
 		Data: data.Data,
 	}
 	return cc.WithData(item)
