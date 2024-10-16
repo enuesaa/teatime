@@ -3,6 +3,7 @@ package router
 import (
 	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/enuesaa/teatime/pkg/router/middleware"
+	apiLogs "github.com/enuesaa/teatime/pkg/routes/logs"
 	apiTeapods "github.com/enuesaa/teatime/pkg/routes/teapods"
 	apiTeapodsInfo "github.com/enuesaa/teatime/pkg/routes/teapods/info"
 	apiTeapodsTeaboxesTeas "github.com/enuesaa/teatime/pkg/routes/teapods/teaboxes/teas"
@@ -19,6 +20,8 @@ func New(repos repository.Repos) *echo.Echo {
 	api := app.Group("/api")
 	api.Use(middleware.HandleData)
 	api.Use(middleware.HandleError)
+
+	api.GET("/logs", apiLogs.List)
 
 	api.GET("/teapods", apiTeapods.List)
 	api.POST("/teapods", apiTeapods.Create)
