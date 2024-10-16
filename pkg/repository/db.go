@@ -18,6 +18,7 @@ type DBRepositoryInterface interface {
 	FindAll(name string, filter bson.M, res interface{}) error
 	Find(name string, filter bson.M, res interface{}) error
 	Delete(name string, filter bson.M) error
+	DeleteMany(name string, filter bson.M) error
 }
 type DBRepository struct {
 	client *mongo.Client
@@ -114,6 +115,14 @@ func (repo *DBRepository) Create(name string, document interface{}) (string, err
 func (repo *DBRepository) Delete(name string, filter bson.M) error {
 	collection := repo.db.Collection(name)
 	if _, err := collection.DeleteOne(repo.ctx(), filter); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (repo *DBRepository) DeleteMany(name string, filter bson.M) error {
+	collection := repo.db.Collection(name)
+	if _, err := collection.DeleteMany(repo.ctx(), filter); err != nil {
 		return err
 	}
 	return nil
