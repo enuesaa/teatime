@@ -4,7 +4,7 @@ import { Dialog, Button, Callout } from '@radix-ui/themes'
 import { useForm } from 'react-hook-form'
 import { FaPlus } from 'react-icons/fa'
 import { Textarea } from '../common/Textarea'
-import { useState } from 'react'
+import { KeyboardEventHandler, useState } from 'react'
 
 type Props = {
   teapod: string
@@ -28,6 +28,13 @@ export const AddTea = ({ teapod, teabox }: Props) => {
     form.reset()
   }
 
+  const format: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
+    try {
+      const data = JSON.parse(e.currentTarget.value)
+      e.currentTarget.value = JSON.stringify(data, null, '  ')
+    } catch (e) {}
+  }
+
   return (
     <Dialog.Root open={open || hasError} onOpenChange={setOpen}>
       <Dialog.Trigger>
@@ -47,7 +54,7 @@ export const AddTea = ({ teapod, teabox }: Props) => {
         }
 
         <form onSubmit={submit}>
-          <Textarea label='data' {...form.register('data')} />
+          <Textarea label='data' onKeyUp={format} className={styles.texts} {...form.register('data')} />
 
           <div className={styles.actions}>
             <Dialog.Close>

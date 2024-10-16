@@ -16,7 +16,7 @@ export const Header = () => {
               teatime
             </Link>
           </Box>
-          <Link href='/logs' className={styles.setting}>
+          <Link href='/logs' mx='2' className={styles.setting}>
             <TbLogs />
           </Link>
           <Link href='/settings' className={styles.setting}>

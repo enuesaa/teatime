@@ -4,7 +4,7 @@ import { forwardRef } from 'react'
 
 type Props = {
   label: string
-} & React.RefAttributes<HTMLTextAreaElement>
+} & React.ComponentPropsWithoutRef<typeof RadixTextArea>
 
 export const Textarea = forwardRef<HTMLTextAreaElement, Props>(({ label, ...props }, ref) => {
   return (
