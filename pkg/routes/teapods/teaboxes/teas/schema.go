@@ -12,3 +12,6 @@ type Item struct {
 	Id string `json:"id"`
 	Data map[string]interface{} `json:"data"`
 }
+
+
+type DeleteResponse struct {}
