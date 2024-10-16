@@ -16,7 +16,6 @@ export const ListTeapods = () => {
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeaderCell width='10%'>Name</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell width='10%'>Command</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell width='20%'>Description</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Teaboxes</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell width='10%'></Table.ColumnHeaderCell>
@@ -27,7 +26,6 @@ export const ListTeapods = () => {
             teapods.data?.map((p, i) => (
               <Table.Row key={i}>
                 <Table.RowHeaderCell>{p.name}</Table.RowHeaderCell>
-                <Table.Cell>{p.command}</Table.Cell>
                 <Table.Cell>
                   <TeapodDescription name={p.name} />
                 </Table.Cell>

@@ -13,7 +13,7 @@ func (srv *Srv) On(teapod string, name string, meta map[string]string,  data map
 	}
 	event := plug.Event{
 		Name: name,
-		Meta: map[string]string{},
+		Meta: meta,
 		Data: data,
 	}
 	return provider.On(event)

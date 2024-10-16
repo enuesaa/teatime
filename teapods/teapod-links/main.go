@@ -37,6 +37,7 @@ func (p *Provider) On(event plug.Event) (plug.Logs, error) {
 	logs.Info("app start")
 
 	if event.Name == "data.created" {
+		logs.Info("meta: %v", event.Meta)
 		if event.Meta["teabox"] == "links" {
 			tea, err := BindLinkTea(event.Data)
 			if err != nil {
