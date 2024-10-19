@@ -6,6 +6,7 @@ import { FaPlus } from 'react-icons/fa'
 import { Textarea } from '../common/Textarea'
 import { KeyboardEventHandler, useState } from 'react'
 import { useGetTeapodInfo } from '@/lib/api/teapods'
+import { format } from '@/lib/utility/json'
 
 type Form = {
   data: string
@@ -13,11 +14,7 @@ type Form = {
 const useAddTeaForm = (teapod: string, teabox: string) => {
   const info = useGetTeapodInfo(teapod)
   const addTea = useAddTea(teapod, teabox)
-  const form = useForm<Form>({
-    defaultValues: {
-      data: '{}',
-    }
-  })
+  const form = useForm<Form>()
 
   const submit = form.handleSubmit(req => addTea.mutate(JSON.parse(req.data)))
   const reset = () => {
@@ -29,7 +26,8 @@ const useAddTeaForm = (teapod: string, teabox: string) => {
   const hasError = error !== undefined
 
   if (info.isSuccess) {
-    form.setValue('data', info.data?.teaboxes.find(b => b.name === teabox)?.placeholder ?? '{}')
+    const placeholder = info.data?.teaboxes.find(b => b.name === teabox)?.placeholder ?? '{}'
+    form.setValue('data', format(placeholder))
   }
   if (addTea.isSuccess && !hasError) {
     reset()
@@ -46,11 +44,8 @@ export const AddTea = ({ teapod, teabox }: Props) => {
   const [open, setOpen] = useState(false)
   const form = useAddTeaForm(teapod, teabox)
 
-  const format: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
-    try {
-      const data = JSON.parse(e.currentTarget.value)
-      e.currentTarget.value = JSON.stringify(data, null, '  ')
-    } catch (e) {}
+  const handleKeyUp: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
+    e.currentTarget.value = format(e.currentTarget.value)
   }
 
   return (
@@ -71,7 +66,7 @@ export const AddTea = ({ teapod, teabox }: Props) => {
         }
 
         <form onSubmit={form.submit}>
-          <Textarea label='data' onKeyUp={format} className={styles.texts} {...form.register('data')} />
+          <Textarea label='data' onKeyUp={handleKeyUp} className={styles.texts} {...form.register('data')} />
 
           <div className={styles.actions}>
             <Dialog.Close>
