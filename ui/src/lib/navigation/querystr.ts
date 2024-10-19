@@ -1,6 +1,7 @@
 import { useSearchParams } from 'react-router-dom'
 
-export const useQueryStr = (name: string): string | null => {
+export const useQueryStr = (name: string): undefined|string => {
   const [searchParams] = useSearchParams()
-  return searchParams.get(name)
+  const value = searchParams.get(name)
+  return value ?? undefined
 }
