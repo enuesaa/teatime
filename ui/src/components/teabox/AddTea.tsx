@@ -7,6 +7,7 @@ import { Textarea } from '../common/Textarea'
 import { KeyboardEventHandler, useState } from 'react'
 import { useGetTeapodInfo } from '@/lib/api/teapods'
 import { format } from '@/lib/utility/json'
+import { useGetTeasFilter } from '@/states/teasfilter'
 
 type Form = {
   data: string
@@ -36,11 +37,8 @@ const useAddTeaForm = (teapod: string, teabox: string) => {
   return { ...form, submit, reset, error, hasError }
 }
 
-type Props = {
-  teapod: string
-  teabox: string
-}
-export const AddTea = ({ teapod, teabox }: Props) => {
+export const AddTea = () => {
+  const { teapod, teabox } = useGetTeasFilter()
   const [open, setOpen] = useState(false)
   const form = useAddTeaForm(teapod, teabox)
 

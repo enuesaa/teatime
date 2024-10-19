@@ -4,12 +4,10 @@ import { Table } from '@radix-ui/themes'
 import { ListTeasTableCode } from './ListTeasTableCode'
 import { DeleteTea } from './DeleteTea'
 import { UpdateTea } from './UpdateTea'
+import { useGetTeasFilter } from '@/states/teasfilter'
 
-type Props = {
-  teapod: string
-  teabox: string
-}
-export const ListTeasTable = ({ teapod, teabox: teaboxName }: Props) => {
+export const ListTeasTable = () => {
+  const { teapod, teabox: teaboxName } = useGetTeasFilter()
   const info = useGetTeapodInfo(teapod)
   const teas = useListTeas(teapod, teaboxName)
   const teabox = info.data?.teaboxes.find((v) => v.name === teaboxName)
@@ -34,8 +32,8 @@ export const ListTeasTable = ({ teapod, teabox: teaboxName }: Props) => {
             <Table.Row key={i}>
               <Table.RowHeaderCell>{tea.id}</Table.RowHeaderCell>
               <Table.Cell><ListTeasTableCode data={tea.data} /></Table.Cell>
-              <Table.Cell><UpdateTea teapod={teapod} teabox={teabox.name} teaId={tea.id} /></Table.Cell>
-              <Table.Cell><DeleteTea teapod={teapod} teabox={teabox.name} teaId={tea.id} /></Table.Cell>
+              <Table.Cell><UpdateTea teaId={tea.id} /></Table.Cell>
+              <Table.Cell><DeleteTea teaId={tea.id} /></Table.Cell>
             </Table.Row>
           ))}
       </Table.Body>

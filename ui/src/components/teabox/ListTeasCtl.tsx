@@ -1,16 +1,17 @@
+import { useGetTeasFilter } from '@/states/teasfilter'
 import { SegmentedControl } from '@radix-ui/themes'
 import { useNavigate } from 'react-router-dom'
 
-type Props = {
-  teapod: string
-  teabox: string
-  teaboxes: string[]
-}
-export const ListTeasCtl = ({ teapod, teabox, teaboxes }: Props) => {
+export const ListTeasCtl = () => {
+  const { teapod, teabox, teaboxes } = useGetTeasFilter()
   const navigate = useNavigate()
 
   const gotoTeaboxPage = (teabox: string) => {
     navigate(`/teapods/${teapod}/teas?teabox=${teabox}`)
+  }
+
+  if (teabox === undefined) {
+    return (<>a</>)
   }
 
   return (

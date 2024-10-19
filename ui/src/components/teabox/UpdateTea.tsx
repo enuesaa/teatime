@@ -6,6 +6,7 @@ import { Textarea } from '../common/Textarea'
 import { KeyboardEventHandler, useEffect, useState } from 'react'
 import { format } from '@/lib/utility/json'
 import { useGetTea } from '@/lib/api/teas'
+import { useGetTeasFilter } from '@/states/teasfilter'
 
 type Form = {
   data: string
@@ -36,11 +37,10 @@ const useUpdateTeaForm = (teapod: string, teabox: string, teaId: string) => {
 }
 
 type Props = {
-  teapod: string
-  teabox: string
   teaId: string
 }
-export const UpdateTea = ({ teapod, teabox, teaId }: Props) => {
+export const UpdateTea = ({ teaId }: Props) => {
+  const { teapod, teabox } = useGetTeasFilter()
   const [open, setOpen] = useState(false)
   const form = useUpdateTeaForm(teapod, teabox, teaId)
 

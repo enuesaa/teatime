@@ -2,13 +2,13 @@ import { AlertDialog, Button } from '@radix-ui/themes'
 import { useForm } from 'react-hook-form'
 import styles from './AddTea.css'
 import { useDeleteTea } from '@/lib/api/teas'
+import { useGetTeasFilter } from '@/states/teasfilter'
 
 type Props = {
-  teapod: string
-  teabox: string
   teaId: string
 }
-export const DeleteTea = ({ teapod, teabox, teaId }: Props) => {
+export const DeleteTea = ({ teaId }: Props) => {
+  const { teapod, teabox } = useGetTeasFilter()
   const delteTeapod = useDeleteTea(teapod, teabox, teaId)
   const { handleSubmit } = useForm<{}>()
   const submit = handleSubmit(() => delteTeapod.mutate({}))
