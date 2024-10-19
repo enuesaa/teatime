@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"fmt"
 
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
@@ -115,9 +116,20 @@ func (repo *DBRepository) Create(name string, document interface{}) (string, err
 
 func (repo *DBRepository) Update(name string, id string, document interface{}) (string, error) {
 	collection := repo.db.Collection(name)
-	_, err := collection.UpdateByID(repo.ctx(), id, document)
+
+	objectId, err := bson.ObjectIDFromHex(id)
 	if err != nil {
 		return "", err
+	}
+	data := bson.M{
+        "$set": document,
+	}
+	res, err := collection.UpdateByID(repo.ctx(), objectId, data)
+	if err != nil {
+		return "", err
+	}
+	if res.MatchedCount == 0 {
+		return "", fmt.Errorf("failed to find document")
 	}
 
 	return id, nil

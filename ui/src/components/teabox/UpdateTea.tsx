@@ -3,14 +3,14 @@ import { useUpdateTea } from '@/lib/api/teas'
 import { Dialog, Button, Callout } from '@radix-ui/themes'
 import { useForm } from 'react-hook-form'
 import { Textarea } from '../common/Textarea'
-import { KeyboardEventHandler, useState } from 'react'
+import { KeyboardEventHandler, useEffect, useState } from 'react'
 import { format } from '@/lib/utility/json'
 import { useGetTea } from '@/lib/api/teas'
 
 type Form = {
   data: string
 }
-const useAddTeaForm = (teapod: string, teabox: string, teaId: string) => {
+const useUpdateTeaForm = (teapod: string, teabox: string, teaId: string) => {
   const tea = useGetTea(teapod, teabox, teaId)
   const updateTea = useUpdateTea(teapod, teabox, teaId)
   const form = useForm<Form>()
@@ -24,9 +24,10 @@ const useAddTeaForm = (teapod: string, teabox: string, teaId: string) => {
   const error = updateTea.data?.error
   const hasError = error !== undefined
 
-  if (tea.isSuccess) {
+  useEffect(() => {
     form.setValue('data', format(JSON.stringify(tea.data?.data)))
-  }
+  }, [tea.isSuccess])
+
   if (updateTea.isSuccess && !hasError) {
     reset()
   }
@@ -41,7 +42,7 @@ type Props = {
 }
 export const UpdateTea = ({ teapod, teabox, teaId }: Props) => {
   const [open, setOpen] = useState(false)
-  const form = useAddTeaForm(teapod, teabox, teaId)
+  const form = useUpdateTeaForm(teapod, teabox, teaId)
 
   const handleKeyUp: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
     e.currentTarget.value = format(e.currentTarget.value)
@@ -54,7 +55,7 @@ export const UpdateTea = ({ teapod, teabox, teaId }: Props) => {
       </Dialog.Trigger>
 
       <Dialog.Content maxWidth='450px'>
-        <Dialog.Title>Add Tea</Dialog.Title>
+        <Dialog.Title>Update Tea</Dialog.Title>
 
         {form.hasError && 
           <Callout.Root>
