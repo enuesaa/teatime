@@ -1,4 +1,3 @@
-import { useGetTeapodInfo } from '@/lib/api/teapods'
 import { AddTea } from './AddTea'
 import { ListTeasCtl } from './ListTeasCtl'
 import { ListTeasTable } from './ListTeasTable'
@@ -10,9 +9,8 @@ type Props = {
   teabox?: string
 }
 export const ListTeas = ({ teapod, teabox }: Props) => {
-  const filter = useInitTeasFilter(teapod, teabox)
-
-  if (filter.teabox === undefined || filter.teabox === '') {
+  const init = useInitTeasFilter(teapod, teabox)
+  if (!init.ok) {
     return <></>
   }
 

@@ -7,34 +7,38 @@ type TeasFilter = {
   teabox: string
   teaboxes: string[]
 }
-
-const state = atom<TeasFilter>({
-  teapod: '',
-  teabox: '',
+const state = atom<Partial<TeasFilter>>({
+  teapod: undefined,
+  teabox: undefined,
   teaboxes: [],
 })
 
 export const useTeasFilter = (): [TeasFilter, (newone: Partial<TeasFilter>) => void] => {
   const [value, setValue] = useAtom(state)
   const setter = (newone: Partial<TeasFilter>) => setValue({...value, ...newone})
-
-  return [value, setter]
+  const data = {
+    teapod: value.teapod ?? '',
+    teabox: value.teabox ?? '',
+    teaboxes: value.teaboxes ?? [],
+  }
+  return [data, setter]
 }
 
 export const useGetTeasFilter = () => {
-  const [value, _] = useAtom(state)
-  return value
+  const [data, _] = useTeasFilter()
+  return data
 }
 
 export const useInitTeasFilter = (teapod: string, teabox?: string) => {
   const info = useGetTeapodInfo(teapod)
-  const [value, setValue] = useTeasFilter()
+  const [data, setData] = useTeasFilter()
+  const ok = data.teabox !== ''
 
   useEffect(() => {
     const teaboxes = info.data?.teaboxes.map((v) => v.name) ?? []
     const selected = teabox ?? (teaboxes.length > 0 ? teaboxes[0] : '')
-    setValue({ teapod, teabox: selected, teaboxes })
+    setData({ teapod, teabox: selected, teaboxes })
   }, [info.dataUpdatedAt, teabox, teapod])
 
-  return value
+  return {...data, ok}
 }

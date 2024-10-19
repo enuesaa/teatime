@@ -7,10 +7,10 @@ import { UpdateTea } from './UpdateTea'
 import { useGetTeasFilter } from '@/states/teasfilter'
 
 export const ListTeasTable = () => {
-  const { teapod, teabox: teaboxName } = useGetTeasFilter()
-  const info = useGetTeapodInfo(teapod)
-  const teas = useListTeas(teapod, teaboxName)
-  const teabox = info.data?.teaboxes.find((v) => v.name === teaboxName)
+  const filter = useGetTeasFilter()
+  const info = useGetTeapodInfo(filter.teapod)
+  const teas = useListTeas(filter.teapod, filter.teabox)
+  const teabox = info.data?.teaboxes.find((v) => v.name === filter.teabox)
 
   if (teabox === undefined) {
     return <></>

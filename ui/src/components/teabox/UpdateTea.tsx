@@ -40,9 +40,9 @@ type Props = {
   teaId: string
 }
 export const UpdateTea = ({ teaId }: Props) => {
-  const { teapod, teabox } = useGetTeasFilter()
+  const filter = useGetTeasFilter()
   const [open, setOpen] = useState(false)
-  const form = useUpdateTeaForm(teapod, teabox, teaId)
+  const form = useUpdateTeaForm(filter.teapod, filter.teabox, teaId)
 
   const handleKeyUp: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
     e.currentTarget.value = format(e.currentTarget.value)

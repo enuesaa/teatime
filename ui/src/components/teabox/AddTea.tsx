@@ -38,9 +38,9 @@ const useAddTeaForm = (teapod: string, teabox: string) => {
 }
 
 export const AddTea = () => {
-  const { teapod, teabox } = useGetTeasFilter()
+  const filter = useGetTeasFilter()
   const [open, setOpen] = useState(false)
-  const form = useAddTeaForm(teapod, teabox)
+  const form = useAddTeaForm(filter.teapod, filter.teabox)
 
   const handleKeyUp: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
     e.currentTarget.value = format(e.currentTarget.value)

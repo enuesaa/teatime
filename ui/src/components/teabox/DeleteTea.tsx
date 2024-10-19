@@ -8,8 +8,8 @@ type Props = {
   teaId: string
 }
 export const DeleteTea = ({ teaId }: Props) => {
-  const { teapod, teabox } = useGetTeasFilter()
-  const delteTeapod = useDeleteTea(teapod, teabox, teaId)
+  const filter = useGetTeasFilter()
+  const delteTeapod = useDeleteTea(filter.teapod, filter.teabox, teaId)
   const { handleSubmit } = useForm<{}>()
   const submit = handleSubmit(() => delteTeapod.mutate({}))
 
