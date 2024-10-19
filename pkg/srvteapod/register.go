@@ -21,8 +21,8 @@ func (srv *Srv) Register(teapodName string) error {
 		if _, err := srv.repos.DB.Create(srv.CollectionName(), teapod); err != nil {
 			return err
 		}
-		for _, teaboxName := range teapod.Teaboxes {
-			if err := srv.repos.DB.CreateCollection(teaboxName); err != nil {
+		for _, teabox := range teapod.Teaboxes {
+			if err := srv.repos.DB.CreateCollection(teabox.Name); err != nil {
 				return err
 			}
 		}

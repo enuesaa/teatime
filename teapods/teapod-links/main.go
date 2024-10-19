@@ -17,9 +17,11 @@ func (p *Provider) Info() (plug.Info, error) {
 		Teaboxes: []plug.Teabox{
 			{
 				Name: "links",
+				Placeholder: `{"link":"https://example.com"}`,
 			},
 			{
 				Name: "notes",
+				Placeholder: `{}`,
 			},
 		},
 		Actions: []plug.Action{

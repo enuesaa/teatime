@@ -13,8 +13,8 @@ func (srv *Srv) UnRegister(teapodName string) error {
 		return err
 	}
 
-	for _, teaboxName := range teapod.Teaboxes {
-		if err := srv.repos.DB.DropCollection(teaboxName); err != nil {
+	for _, teabox := range teapod.Teaboxes {
+		if err := srv.repos.DB.DropCollection(teabox.Name); err != nil {
 			return err
 		}
 	}

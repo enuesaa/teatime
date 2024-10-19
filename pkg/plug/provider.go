@@ -13,6 +13,7 @@ type Info struct {
 }
 type Teabox struct {
 	Name string
+	Placeholder string
 }
 type Action struct {
 	Name    string // like `action.created`

@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { FaPlus } from 'react-icons/fa'
 import { Textarea } from '../common/Textarea'
 import { KeyboardEventHandler, useState } from 'react'
+import { useGetTeapodInfo } from '@/lib/api/teapods'
 
 type Props = {
   teapod: string
@@ -15,6 +16,8 @@ type Form = {
 }
 export const AddTea = ({ teapod, teabox }: Props) => {
   const [open, setOpen] = useState(false)
+  const teapodinfo = useGetTeapodInfo(teapod)
+  const defaultValue = teapodinfo.data?.teaboxes.filter(b => b.name === teabox).at(0)?.placeholder ?? '{}'
   const addTea = useAddTea(teapod, teabox)
   const form = useForm<Form>()
 
@@ -55,7 +58,9 @@ export const AddTea = ({ teapod, teabox }: Props) => {
         }
 
         <form onSubmit={submit}>
-          <Textarea label='data' onKeyUp={format} className={styles.texts} {...form.register('data')} />
+          <Textarea label='data' onKeyUp={format} className={styles.texts} defaultValue={defaultValue}
+            {...form.register('data')}
+          />
 
           <div className={styles.actions}>
             <Dialog.Close>

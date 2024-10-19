@@ -9,4 +9,5 @@ type Item struct {
 
 type ItemTeabox struct {
 	Name string `json:"name"`
+	Placeholder string `json:"placeholder"`
 }
