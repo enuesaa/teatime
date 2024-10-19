@@ -1,4 +1,4 @@
-import { ListTeas } from '@/components/teabox/ListTeas'
+import { TeaboxDashboard } from '@/components/teabox/TeaboxDashboard'
 import { useQueryStr } from '@/lib/navigation/querystr'
 import { useParams } from 'react-router-dom'
 
@@ -9,5 +9,5 @@ export default function Page() {
     return <></>
   }
 
-  return <ListTeas teapod={teapod} teabox={teabox} />
+  return <TeaboxDashboard teapod={teapod} teabox={teabox} />
 }
