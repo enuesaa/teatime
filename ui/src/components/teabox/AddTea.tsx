@@ -7,30 +7,44 @@ import { Textarea } from '../common/Textarea'
 import { KeyboardEventHandler, useState } from 'react'
 import { useGetTeapodInfo } from '@/lib/api/teapods'
 
-type Props = {
-  teapod: string
-  teabox: string
-}
 type Form = {
   data: string
 }
-export const AddTea = ({ teapod, teabox }: Props) => {
-  const [open, setOpen] = useState(false)
-  const teapodinfo = useGetTeapodInfo(teapod)
-  const defaultValue = teapodinfo.data?.teaboxes.filter(b => b.name === teabox).at(0)?.placeholder ?? '{}'
+const useAddTeaForm = (teapod: string, teabox: string) => {
+  const info = useGetTeapodInfo(teapod)
   const addTea = useAddTea(teapod, teabox)
-  const form = useForm<Form>()
-
-  const hasError = addTea.data?.error !== undefined
-  const submit = form.handleSubmit(req => {
-    const data = JSON.parse(req.data)
-    addTea.mutate(data)
-    setOpen(false)
+  const form = useForm<Form>({
+    defaultValues: {
+      data: '{}',
+    }
   })
+
+  const submit = form.handleSubmit(req => addTea.mutate(JSON.parse(req.data)))
   const reset = () => {
     addTea.reset()
     form.reset()
   }
+
+  const error = addTea.data?.error
+  const hasError = error !== undefined
+
+  if (info.isSuccess) {
+    form.setValue('data', info.data?.teaboxes.find(b => b.name === teabox)?.placeholder ?? '{}')
+  }
+  if (addTea.isSuccess && !hasError) {
+    reset()
+  }
+
+  return { ...form, submit, reset, error, hasError }
+}
+
+type Props = {
+  teapod: string
+  teabox: string
+}
+export const AddTea = ({ teapod, teabox }: Props) => {
+  const [open, setOpen] = useState(false)
+  const form = useAddTeaForm(teapod, teabox)
 
   const format: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
     try {
@@ -40,7 +54,7 @@ export const AddTea = ({ teapod, teabox }: Props) => {
   }
 
   return (
-    <Dialog.Root open={open || hasError} onOpenChange={setOpen}>
+    <Dialog.Root open={open || form.hasError} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button variant='outline' radius='full' mx='2' style={{ padding: '10px' }}>
           <FaPlus />
@@ -49,27 +63,26 @@ export const AddTea = ({ teapod, teabox }: Props) => {
 
       <Dialog.Content maxWidth='450px'>
         <Dialog.Title>Add Tea</Dialog.Title>
-        <Dialog.Description />
 
-        {hasError && 
+        {form.hasError && 
           <Callout.Root>
-            <Callout.Text>{addTea.data?.error}</Callout.Text>
+            <Callout.Text>{form.error}</Callout.Text>
           </Callout.Root>
         }
 
-        <form onSubmit={submit}>
-          <Textarea label='data' onKeyUp={format} className={styles.texts} defaultValue={defaultValue}
-            {...form.register('data')}
-          />
+        <form onSubmit={form.submit}>
+          <Textarea label='data' onKeyUp={format} className={styles.texts} {...form.register('data')} />
 
           <div className={styles.actions}>
             <Dialog.Close>
-              <Button variant='soft' color='gray' onClick={reset}>
+              <Button variant='soft' color='gray' onClick={form.reset}>
                 Cancel
               </Button>
             </Dialog.Close>
 
-            <Button type='submit'>Save</Button>
+            <Dialog.Close>
+              <Button type='submit'>Save</Button>
+            </Dialog.Close>
           </div>
         </form>
       </Dialog.Content>
