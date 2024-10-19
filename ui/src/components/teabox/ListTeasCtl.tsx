@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom'
 
 type Props = {
   teapod: string
+  teabox: string
   teaboxes: string[]
 }
-export const ListTeasCtl = ({ teapod, teaboxes }: Props) => {
+export const ListTeasCtl = ({ teapod, teabox, teaboxes }: Props) => {
   const navigate = useNavigate()
 
   const gotoTeaboxPage = (teabox: string) => {
@@ -14,7 +15,7 @@ export const ListTeasCtl = ({ teapod, teaboxes }: Props) => {
 
   return (
     <SegmentedControl.Root
-      defaultValue={teaboxes[0]}
+      defaultValue={teabox}
       onValueChange={gotoTeaboxPage}
       radius='full'
       variant='classic'
