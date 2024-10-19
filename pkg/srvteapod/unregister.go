@@ -14,7 +14,8 @@ func (srv *Srv) UnRegister(teapodName string) error {
 	}
 
 	for _, teabox := range teapod.Teaboxes {
-		if err := srv.repos.DB.DropCollection(teabox.Name); err != nil {
+		collectionName := srv.TeaboxCollectionName(teapodName, teabox.Name)
+		if err := srv.repos.DB.DropCollection(collectionName); err != nil {
 			return err
 		}
 	}

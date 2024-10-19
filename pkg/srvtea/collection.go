@@ -1,6 +1,10 @@
 package srvtea
 
-import "go.mongodb.org/mongo-driver/v2/bson"
+import (
+	"fmt"
+
+	"go.mongodb.org/mongo-driver/v2/bson"
+)
 
 type Raw map[string]interface{}
 
@@ -21,5 +25,5 @@ type Creation struct {
 }
 
 func (srv *Srv) CollectionName() string {
-	return srv.teaboxName
+	return fmt.Sprintf("%s-%s", srv.teapodName, srv.teaboxName)
 }

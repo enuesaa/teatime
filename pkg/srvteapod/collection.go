@@ -1,6 +1,8 @@
 package srvteapod
 
 import (
+	"fmt"
+
 	"github.com/enuesaa/teatime/pkg/plug"
 )
 
@@ -43,4 +45,8 @@ func NewTeapodFromPlugInfo(info plug.Info) Teapod {
 
 func (srv *Srv) CollectionName() string {
 	return "teapods"
+}
+
+func (srv *Srv) TeaboxCollectionName(teapodName string, teaboxName string) string {
+	return fmt.Sprintf("%s-%s", teapodName, teaboxName)
 }
