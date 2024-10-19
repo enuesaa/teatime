@@ -17,6 +17,7 @@ type DBRepositoryInterface interface {
 	Create(name string, document interface{}) (string, error)
 	FindAll(name string, filter bson.M, res interface{}) error
 	Find(name string, filter bson.M, res interface{}) error
+	Update(name string, id string, document interface{}) (string, error)
 	Delete(name string, filter bson.M) error
 	DeleteMany(name string, filter bson.M) error
 }
@@ -110,6 +111,16 @@ func (repo *DBRepository) Create(name string, document interface{}) (string, err
 	id := res.InsertedID.(bson.ObjectID)
 
 	return id.Hex(), nil
+}
+
+func (repo *DBRepository) Update(name string, id string, document interface{}) (string, error) {
+	collection := repo.db.Collection(name)
+	_, err := collection.UpdateByID(repo.ctx(), id, document)
+	if err != nil {
+		return "", err
+	}
+
+	return id, nil
 }
 
 func (repo *DBRepository) Delete(name string, filter bson.M) error {

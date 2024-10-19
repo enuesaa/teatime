@@ -35,6 +35,7 @@ func New(repos repository.Repos) *echo.Echo {
 	api.GET("/teapods/:teapodName/teaboxes/:teaboxName/teas", apiTeapodsTeaboxesTeas.List)
 	api.GET("/teapods/:teapodName/teaboxes/:teaboxName/teas/:teaId", apiTeapodsTeaboxesTeas.View)
 	api.POST("/teapods/:teapodName/teaboxes/:teaboxName/teas", apiTeapodsTeaboxesTeas.Create)
+	api.PUT("/teapods/:teapodName/teaboxes/:teaboxName/teas/:teaId", apiTeapodsTeaboxesTeas.Update)
 	api.DELETE("/teapods/:teapodName/teaboxes/:teaboxName/teas/:teaId", apiTeapodsTeaboxesTeas.Delete)
 
 	app.Any("/*", ui.Serve)

@@ -1,11 +1,12 @@
 package srvtea
 
-func (srv *Srv) Update(teaId string, tea Tea) (string, error) {
-	if err := srv.Delete(teaId); err != nil {
+func (srv *Srv) Update(teaId string, raw Raw) (string, error) {
+	if _, err := srv.Get(teaId); err != nil {
 		return teaId, err
 	}
-	if _, err := srv.repos.DB.Create(srv.CollectionName(), tea); err != nil {
+	if _, err := srv.repos.DB.Update(srv.CollectionName(), teaId, Creation{raw}); err != nil {
 		return teaId, err
 	}
+
 	return teaId, nil
 }

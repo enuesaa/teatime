@@ -3,6 +3,7 @@ import { useListTeas } from '@/lib/api/teas'
 import { Table } from '@radix-ui/themes'
 import { ListTeasTableCode } from './ListTeasTableCode'
 import { DeleteTea } from './DeleteTea'
+import { UpdateTea } from './UpdateTea'
 
 type Props = {
   teapod: string
@@ -24,6 +25,7 @@ export const ListTeasTable = ({ teapod, teabox: teaboxName }: Props) => {
           <Table.ColumnHeaderCell width='20%'>Id</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Data</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell width='5%'></Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell width='5%'></Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
@@ -32,6 +34,7 @@ export const ListTeasTable = ({ teapod, teabox: teaboxName }: Props) => {
             <Table.Row key={i}>
               <Table.RowHeaderCell>{tea.id}</Table.RowHeaderCell>
               <Table.Cell><ListTeasTableCode data={tea.data} /></Table.Cell>
+              <Table.Cell><UpdateTea teapod={teapod} teabox={teabox.name} teaId={tea.id} /></Table.Cell>
               <Table.Cell><DeleteTea teapod={teapod} teabox={teabox.name} teaId={tea.id} /></Table.Cell>
             </Table.Row>
           ))}
