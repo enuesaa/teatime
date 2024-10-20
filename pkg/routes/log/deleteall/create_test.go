@@ -16,5 +16,5 @@ func TestCreate(t *testing.T) {
 	require.NoError(t, err)
 
 	assert.Equal(t, 200, res.Code)
-	assert.Equal(t, true, res.GetB("data.ok"))
+	assert.Equal(t, true, res.GetB("ok"))
 }

@@ -25,5 +25,5 @@ func TestCreate(t *testing.T) {
 	require.NoError(t, err)
 
 	assert.Equal(t, 200, res.Code)
-	assert.NotEmpty(t, res.GetS("data.id"))
+	assert.NotEmpty(t, res.GetS("id"))
 }
