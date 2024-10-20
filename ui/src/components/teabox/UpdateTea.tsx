@@ -8,6 +8,7 @@ import { format } from '@/lib/utility/json'
 import { useGetTea } from '@/lib/api/teas'
 import { useGetTeasFilter } from '@/states/teasfilter'
 import { TextInput } from '../common/TextInput'
+import { tryunwrap } from '@/lib/utility/try'
 
 type Form = {
   data: string
@@ -29,8 +30,9 @@ const useUpdateTeaForm = (teapod: string, teabox: string, teaId: string) => {
   useEffect(() => {
     form.setValue('data', format(JSON.stringify(tea.data?.data)))
   }, [tea.dataUpdatedAt])
+  const prepared = tryunwrap(() => JSON.parse(form.watch('data')), true, false)
 
-  return { ...form, submit, reset, error, hasError, current: tea.data }
+  return { ...form, submit, reset, error, hasError, current: tea.data, prepared }
 }
 
 type Props = {
@@ -66,15 +68,20 @@ export const UpdateTea = ({ teaId }: Props) => {
           <TextInput label='created' value={form.current?.created} readOnly />
           <TextInput label='updated' value={form.current?.updated} readOnly />
 
+          {!form.prepared && 
+            <Callout.Root>
+              <Callout.Text>JSON Format Error</Callout.Text>
+            </Callout.Root>
+          }
+
           <div className={styles.actions}>
             <Dialog.Close>
               <Button variant='soft' color='gray' onClick={form.reset}>
                 Cancel
               </Button>
             </Dialog.Close>
-
             <Dialog.Close>
-              <Button type='submit'>Save</Button>
+              <Button type='submit' disabled={!form.prepared}>Save</Button>
             </Dialog.Close>
           </div>
         </form>

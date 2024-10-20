@@ -8,6 +8,7 @@ import { KeyboardEventHandler, useEffect, useState } from 'react'
 import { useGetTeapodInfo } from '@/lib/api/teapods'
 import { format } from '@/lib/utility/json'
 import { useGetTeasFilter } from '@/states/teasfilter'
+import { tryunwrap } from '@/lib/utility/try'
 
 type Form = {
   data: string
@@ -34,8 +35,9 @@ const useAddTeaForm = (teapod: string, teabox: string) => {
   if (addTea.isSuccess && !hasError) {
     reset()
   }
+  const prepared = tryunwrap(() => JSON.parse(form.watch('data')), true, false)
 
-  return { ...form, submit, reset, error, hasError }
+  return { ...form, submit, reset, error, hasError, prepared }
 }
 
 export const AddTea = () => {
@@ -67,6 +69,12 @@ export const AddTea = () => {
         <form onSubmit={form.submit}>
           <Textarea label='data' onKeyUp={handleKeyUp} className={styles.texts} {...form.register('data')} />
 
+          {!form.prepared && 
+            <Callout.Root>
+              <Callout.Text>JSON Format Error</Callout.Text>
+            </Callout.Root>
+          }
+
           <div className={styles.actions}>
             <Dialog.Close>
               <Button variant='soft' color='gray' onClick={form.reset}>
@@ -75,7 +83,7 @@ export const AddTea = () => {
             </Dialog.Close>
 
             <Dialog.Close>
-              <Button type='submit'>Save</Button>
+              <Button type='submit' disabled={!form.prepared}>Save</Button>
             </Dialog.Close>
           </div>
         </form>
