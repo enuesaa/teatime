@@ -23,7 +23,7 @@ export const ListTeapods = () => {
         </Table.Header>
         <Table.Body>
           {teapods !== undefined &&
-            teapods.data?.map((p, i) => (
+            teapods.data?.items.map((p, i) => (
               <Table.Row key={i}>
                 <Table.RowHeaderCell>{p.name}</Table.RowHeaderCell>
                 <Table.Cell>

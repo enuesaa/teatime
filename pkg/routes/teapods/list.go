@@ -22,5 +22,5 @@ func List(c echo.Context) error {
 		})
 	}
 
-	return cc.WithData(list)
+	return cc.WithItems(list)
 }

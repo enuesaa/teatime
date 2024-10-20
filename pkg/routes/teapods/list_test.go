@@ -19,5 +19,5 @@ func TestList(t *testing.T) {
 	require.NoError(t, err)
 
 	assert.Equal(t, 200, res.Code)
-	assert.Equal(t, "testdata", res.GetS("data.[0].name"))
+	assert.Equal(t, "testdata", res.GetS("items.[0].name"))
 }

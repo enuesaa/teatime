@@ -15,7 +15,7 @@ export const ListLogs = () => {
       </Table.Header>
       <Table.Body>
         {logs !== undefined &&
-          logs.data?.map((l, i) => (
+          logs.data?.items.map((l, i) => (
             <Table.Row key={i}>
               <Table.RowHeaderCell>{format(l.created, 'yyyy-MM-dd HH:mm:ss')}</Table.RowHeaderCell>
               <Table.Cell>{l.message}</Table.Cell>

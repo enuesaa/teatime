@@ -24,5 +24,5 @@ func TestList(t *testing.T) {
 	require.NoError(t, err)
 
 	assert.Equal(t, 200, res.Code)
-	assert.Equal(t, []interface{}{}, res.GetList("data"))
+	assert.Equal(t, []interface{}{}, res.GetList("items"))
 }

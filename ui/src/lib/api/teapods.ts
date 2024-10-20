@@ -4,7 +4,7 @@ type TeapodSchema = {
   name: string
   command: string
 }
-export const useListTeapods = () => queryGet<TeapodSchema[]>('api/teapods')
+export const useListTeapods = () => queryGet<{items: TeapodSchema[]}>('api/teapods')
 
 type TeapodInfoSchema = {
   name: string

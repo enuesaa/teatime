@@ -13,14 +13,17 @@ type Context struct {
 	Repos repository.Repos
 }
 
+func (cc *Context) WithItems(data interface{}) error {
+	cc.Set("items", data)
+	return nil
+}
+
 func (cc *Context) WithData(data interface{}) error {
 	cc.Set("data", data)
-
 	return nil
 }
 
 func (cc *Context) BindBody(data interface{}) error {
 	reqbody := cc.Request().Body
-
 	return json.NewDecoder(reqbody).Decode(data)
 }

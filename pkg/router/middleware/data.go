@@ -5,7 +5,7 @@ import (
 )
 
 type ApiResponse struct {
-	Data interface{} `json:"data"`
+	Items interface{} `json:"items"`
 }
 
 func HandleData(next echo.HandlerFunc) echo.HandlerFunc {
@@ -20,14 +20,15 @@ func HandleData(next echo.HandlerFunc) echo.HandlerFunc {
 			return nil
 		}
 
-		data := c.Get("data")
-		if data == nil {
-			data = struct{}{}
+		items := c.Get("items")
+		if items != nil {
+			res := ApiResponse{
+				Items: items,
+			}
+			return c.JSON(200, res)
 		}
 
-		res := ApiResponse{
-			Data: data,
-		}
-		return c.JSON(200, res)
+		data := c.Get("data")
+		return c.JSON(200, data)
 	}
 }

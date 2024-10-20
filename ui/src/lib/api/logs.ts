@@ -5,4 +5,4 @@ export type LogSchema = {
   message: string
 }
 export const useListLogs = () =>
-  queryGet<LogSchema[]>(`api/logs`)
+  queryGet<{items: LogSchema[]}>(`api/logs`)

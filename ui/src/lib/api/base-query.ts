@@ -13,5 +13,5 @@ export const query = <T>(method: string, path: string, config: QueryConfig) =>
       },
     })
     const body = await res.json()
-    return body?.data ?? {}
+    return body ?? {}
   })

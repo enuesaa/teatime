@@ -7,7 +7,7 @@ export type TeaSchema = {
   data: Record<string, any>
 }
 export const useListTeas = (teapod: string, teabox: string) =>
-  queryGet<TeaSchema[]>(`api/teapods/${teapod}/teaboxes/${teabox}/teas`)
+  queryGet<{items: TeaSchema[]}>(`api/teapods/${teapod}/teaboxes/${teabox}/teas`)
 
 export const useGetTea = (teapod: string, teabox: string, teaId: string) =>
   queryGet<TeaSchema>(`api/teapods/${teapod}/teaboxes/${teabox}/teas/${teaId}`)

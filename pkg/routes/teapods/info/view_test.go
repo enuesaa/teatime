@@ -24,6 +24,6 @@ func TestView(t *testing.T) {
 	require.NoError(t, err)
 
 	assert.Equal(t, 200, res.Code)
-	assert.Equal(t, "teapod-links", res.GetS("data.name"))
-	assert.Equal(t, "links teapod", res.GetS("data.description"))
+	assert.Equal(t, "teapod-links", res.GetS("name"))
+	assert.Equal(t, "links teapod", res.GetS("description"))
 }
