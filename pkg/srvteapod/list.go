@@ -8,7 +8,8 @@ func (srv *Srv) List() ([]string, error) {
 	list := make([]string, 0)
 
 	teapods := make([]Teapod, 0)
-	if err := srv.repos.DB.FindAll(srv.CollectionName(), bson.M{}, &teapods); err != nil {
+	sort := bson.M{"created": 1}
+	if err := srv.repos.DB.FindAll(srv.CollectionName(), bson.M{}, &teapods, sort); err != nil {
 		return list, err
 	}
 

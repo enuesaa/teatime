@@ -38,7 +38,8 @@ func (srv *Srv) CheckAlreadyRegistered(teapodName string) error {
 		"name": teapodName,
 	}
 	var list []Teapod
-	if err := srv.repos.DB.FindAll(srv.CollectionName(), filter, &list); err != nil {
+	sort := bson.M{"created": 1}
+	if err := srv.repos.DB.FindAll(srv.CollectionName(), filter, &list, sort); err != nil {
 		return err
 	}
 	if len(list) > 0 {

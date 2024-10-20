@@ -28,11 +28,7 @@ const useUpdateTeaForm = (teapod: string, teabox: string, teaId: string) => {
 
   useEffect(() => {
     form.setValue('data', format(JSON.stringify(tea.data?.data)))
-  }, [tea.isSuccess])
-
-  if (updateTea.isSuccess && !hasError) {
-    reset()
-  }
+  }, [tea.dataUpdatedAt])
 
   return { ...form, submit, reset, error, hasError, current: tea.data }
 }

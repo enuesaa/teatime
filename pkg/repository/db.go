@@ -16,7 +16,7 @@ type DBRepositoryInterface interface {
 	CreateCollection(name string) error
 	DropCollection(name string) error
 	Create(name string, document interface{}) (string, error)
-	FindAll(name string, filter bson.M, res interface{}) error
+	FindAll(name string, filter bson.M, res interface{}, sort bson.M) error
 	Find(name string, filter bson.M, res interface{}) error
 	Update(name string, id string, document interface{}) (string, error)
 	Delete(name string, filter bson.M) error
@@ -87,10 +87,10 @@ func (repo *DBRepository) DropCollection(name string) error {
 	return repo.db.Collection(name).Drop(repo.ctx())
 }
 
-func (repo *DBRepository) FindAll(name string, filter bson.M, res interface{}) error {
+func (repo *DBRepository) FindAll(name string, filter bson.M, res interface{}, sort bson.M) error {
 	collection := repo.db.Collection(name)
 
-	cur, err := collection.Find(repo.ctx(), filter)
+	cur, err := collection.Find(repo.ctx(), filter, options.Find().SetSort(sort))
 	if err != nil {
 		return err
 	}
