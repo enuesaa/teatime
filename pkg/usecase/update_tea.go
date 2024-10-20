@@ -16,11 +16,11 @@ func UpdateTea(repos repository.Repos, teapodName string, teaboxName string, tea
 		"teabox": teaboxName,
 	}
 	logs, err := teapodSrv.On(teapodName, "data.created", meta, raw)
+	// ignore error because this is not critical and also, plugin already executed.
+	logSrv.CreateFromPlugLogs(logs)
 	if err != nil {
 		return "", err
 	}
-	// ignore error because this is not critical and also, plugin already executed.
-	logSrv.CreateFromPlugLogs(logs)
 
 	return teaSrv.Update(teaId, raw)
 }

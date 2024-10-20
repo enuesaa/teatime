@@ -19,6 +19,7 @@ func (r *Result[T]) Err() error {
 func NewResult[T any](data T, err error) Result[T] {
 	if err != nil {
 		return Result[T]{
+			Data: data,
 			HasErr: true,
 			ErrMsg: err.Error(),
 		}

@@ -40,6 +40,7 @@ func (p *Provider) On(event plug.Event) (plug.Logs, error) {
 
 	if event.Name == "data.created" {
 		if event.Meta["teabox"] == "links" {
+			logs.Info("tea creating..")
 			if _, err := BindLinkTea(event.Data); err != nil {
 				logs.Info("tea invalid: %v", err.Error())
 				return logs, err
