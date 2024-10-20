@@ -1,6 +1,8 @@
 package teas
 
 import (
+	"time"
+
 	"github.com/enuesaa/teatime/pkg/router/ctx"
 	"github.com/enuesaa/teatime/pkg/srvtea"
 	"github.com/labstack/echo/v4"
@@ -20,6 +22,8 @@ func View(c echo.Context) error {
 
 	item := Item{
 		Id:   data.Id(),
+		CreatedAt: data.CreatedAt.Local().Format(time.RFC3339),
+		UpdatedAt: data.UpdatedAt.Local().Format(time.RFC3339),
 		Data: data.Data,
 	}
 	return cc.WithData(item)
