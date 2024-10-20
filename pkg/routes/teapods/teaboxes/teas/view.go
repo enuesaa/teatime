@@ -22,8 +22,8 @@ func View(c echo.Context) error {
 
 	item := Item{
 		Id:   data.Id(),
-		CreatedAt: data.CreatedAt.Local().Format(time.RFC3339),
-		UpdatedAt: data.UpdatedAt.Local().Format(time.RFC3339),
+		Created: data.Created.Local().Format(time.RFC3339),
+		Updated: data.Updated.Local().Format(time.RFC3339),
 		Data: data.Data,
 	}
 	return cc.WithData(item)

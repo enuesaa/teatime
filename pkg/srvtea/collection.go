@@ -11,8 +11,8 @@ type Raw map[string]interface{}
 
 type Tea struct {
 	InternalId *bson.ObjectID `bson:"_id"`
-	CreatedAt  time.Time      `bson:"createdAt"`
-	UpdatedAt  time.Time      `bson:"updatedAt"`
+	Created    time.Time      `bson:"created"`
+	Updated    time.Time      `bson:"updated"`
 	Data       Raw            `bson:"data"`
 }
 
@@ -24,12 +24,12 @@ func (tea *Tea) Id() string {
 }
 
 type CreateData struct {
-	CreatedAt time.Time `bson:"createdAt"`
-	UpdatedAt time.Time `bson:"updatedAt"`
+	Created time.Time `bson:"created"`
+	Updated time.Time `bson:"updated"`
 	Data Raw `bson:"data"`
 }
 type UpdateData struct {
-	UpdatedAt time.Time `bson:"updatedAt"`
+	Updated time.Time `bson:"updated"`
 	Data Raw `bson:"data"`
 }
 

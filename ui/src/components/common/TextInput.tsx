@@ -4,7 +4,7 @@ import { forwardRef } from 'react'
 
 type Props = {
   label: string
-} & React.RefAttributes<HTMLInputElement>
+} & React.ComponentPropsWithoutRef<typeof TextField.Root>
 
 export const TextInput = forwardRef<HTMLInputElement, Props>(({ label, ...props }, ref) => {
   return (

@@ -8,7 +8,7 @@ func (srv *Srv) Update(teaId string, raw Raw) (string, error) {
 	}
 
 	data := UpdateData{
-		UpdatedAt: time.Now(),
+		Updated: time.Now(),
 		Data: raw,
 	}
 	if _, err := srv.repos.DB.Update(srv.CollectionName(), teaId, data); err != nil {

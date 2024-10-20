@@ -22,6 +22,7 @@ export const ListTeasTable = () => {
         <Table.Row>
           <Table.ColumnHeaderCell width='20%'>Id</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Data</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell width='20%'>Updated</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell width='5%'></Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell width='5%'></Table.ColumnHeaderCell>
         </Table.Row>
@@ -32,6 +33,7 @@ export const ListTeasTable = () => {
             <Table.Row key={i}>
               <Table.RowHeaderCell>{tea.id}</Table.RowHeaderCell>
               <Table.Cell><ListTeasTableCode data={tea.data} /></Table.Cell>
+              <Table.Cell>{tea.updated}</Table.Cell>
               <Table.Cell><UpdateTea teaId={tea.id} /></Table.Cell>
               <Table.Cell><DeleteTea teaId={tea.id} /></Table.Cell>
             </Table.Row>

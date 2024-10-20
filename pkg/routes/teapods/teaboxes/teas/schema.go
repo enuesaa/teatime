@@ -10,8 +10,8 @@ type Creation struct {
 
 type Item struct {
 	Id   string                 `json:"id"`
-	CreatedAt string            `json:"createdAt"`
-	UpdatedAt string            `bson:"updatedAt"`
+	Created string              `json:"created"`
+	Updated string              `json:"updated"`
 	Data map[string]interface{} `json:"data"`
 }
 

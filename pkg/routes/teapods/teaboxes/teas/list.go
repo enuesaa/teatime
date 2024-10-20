@@ -23,8 +23,8 @@ func List(c echo.Context) error {
 	for _, tea := range teas {
 		list = append(list, Item{
 			Id: tea.Id(),
-			CreatedAt: tea.CreatedAt.Local().Format(time.RFC3339),
-			UpdatedAt: tea.UpdatedAt.Local().Format(time.RFC3339),
+			Created: tea.Created.Local().Format(time.RFC3339),
+			Updated: tea.Updated.Local().Format(time.RFC3339),
 			Data: tea.Data,
 		})
 	}

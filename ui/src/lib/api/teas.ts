@@ -2,6 +2,8 @@ import { mutateDelete, mutatePost, mutatePut, queryGet } from './base'
 
 export type TeaSchema = {
   id: string
+  created: string
+  updated: string
   data: Record<string, any>
 }
 export const useListTeas = (teapod: string, teabox: string) =>

@@ -7,6 +7,7 @@ import { KeyboardEventHandler, useEffect, useState } from 'react'
 import { format } from '@/lib/utility/json'
 import { useGetTea } from '@/lib/api/teas'
 import { useGetTeasFilter } from '@/states/teasfilter'
+import { TextInput } from '../common/TextInput'
 
 type Form = {
   data: string
@@ -33,7 +34,7 @@ const useUpdateTeaForm = (teapod: string, teabox: string, teaId: string) => {
     reset()
   }
 
-  return { ...form, submit, reset, error, hasError }
+  return { ...form, submit, reset, error, hasError, current: tea.data }
 }
 
 type Props = {
@@ -64,7 +65,10 @@ export const UpdateTea = ({ teaId }: Props) => {
         }
 
         <form onSubmit={form.submit}>
+          <TextInput label='id' value={form.current?.id} readOnly />
           <Textarea label='data' onKeyUp={handleKeyUp} className={styles.texts} {...form.register('data')} />
+          <TextInput label='created' value={form.current?.created} readOnly />
+          <TextInput label='updated' value={form.current?.updated} readOnly />
 
           <div className={styles.actions}>
             <Dialog.Close>
