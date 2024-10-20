@@ -4,7 +4,7 @@ import { Dialog, Button, Callout } from '@radix-ui/themes'
 import { useForm } from 'react-hook-form'
 import { FaPlus } from 'react-icons/fa'
 import { Textarea } from '../common/Textarea'
-import { KeyboardEventHandler, useState } from 'react'
+import { KeyboardEventHandler, useEffect, useState } from 'react'
 import { useGetTeapodInfo } from '@/lib/api/teapods'
 import { format } from '@/lib/utility/json'
 import { useGetTeasFilter } from '@/states/teasfilter'
@@ -26,10 +26,11 @@ const useAddTeaForm = (teapod: string, teabox: string) => {
   const error = addTea.data?.error
   const hasError = error !== undefined
 
-  if (info.isSuccess) {
+  useEffect(() => {
     const placeholder = info.data?.teaboxes.find(b => b.name === teabox)?.placeholder ?? '{}'
     form.setValue('data', format(placeholder))
-  }
+  }, [info.isSuccess])
+
   if (addTea.isSuccess && !hasError) {
     reset()
   }

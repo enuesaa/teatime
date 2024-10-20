@@ -22,5 +22,5 @@ type Action struct {
 type Event struct {
 	Name string // like `tea.created`
 	Meta map[string]string
-	Data map[string]interface{}
+	Data []byte // json format
 }
