@@ -40,11 +40,11 @@ export const AddTeapod = () => {
       <Dialog.Content maxWidth='450px'>
         <Dialog.Title>Add Teapod</Dialog.Title>
 
-        {form.hasError && 
+        {form.hasError && (
           <Callout.Root>
             <Callout.Text>{form.error}</Callout.Text>
           </Callout.Root>
-        }
+        )}
 
         <form onSubmit={form.submit}>
           <TextInput label='name' {...form.register('name')} />

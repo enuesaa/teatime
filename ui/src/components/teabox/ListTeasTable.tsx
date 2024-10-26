@@ -1,10 +1,10 @@
+import { DeleteTea } from './DeleteTea'
+import { ListTeasTableCode } from './ListTeasTableCode'
+import { UpdateTea } from './UpdateTea'
 import { useGetTeapodInfo } from '@/lib/api/teapods'
 import { useListTeas } from '@/lib/api/teas'
-import { Table } from '@radix-ui/themes'
-import { ListTeasTableCode } from './ListTeasTableCode'
-import { DeleteTea } from './DeleteTea'
-import { UpdateTea } from './UpdateTea'
 import { useGetTeasFilter } from '@/states/teasfilter'
+import { Table } from '@radix-ui/themes'
 
 export const ListTeasTable = () => {
   const filter = useGetTeasFilter()
@@ -32,10 +32,16 @@ export const ListTeasTable = () => {
           teas?.data.items?.map((tea, i) => (
             <Table.Row key={i}>
               <Table.RowHeaderCell>{tea.id}</Table.RowHeaderCell>
-              <Table.Cell><ListTeasTableCode data={tea.data} /></Table.Cell>
+              <Table.Cell>
+                <ListTeasTableCode data={tea.data} />
+              </Table.Cell>
               <Table.Cell>{tea.updated}</Table.Cell>
-              <Table.Cell><UpdateTea teaId={tea.id} /></Table.Cell>
-              <Table.Cell><DeleteTea teaId={tea.id} /></Table.Cell>
+              <Table.Cell>
+                <UpdateTea teaId={tea.id} />
+              </Table.Cell>
+              <Table.Cell>
+                <DeleteTea teaId={tea.id} />
+              </Table.Cell>
             </Table.Row>
           ))}
       </Table.Body>

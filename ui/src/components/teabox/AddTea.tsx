@@ -1,14 +1,14 @@
+import { Textarea } from '../common/Textarea'
 import styles from './AddTea.css'
+import { useGetTeapodInfo } from '@/lib/api/teapods'
 import { useAddTea } from '@/lib/api/teas'
+import { format } from '@/lib/utility/json'
+import { tryunwrap } from '@/lib/utility/try'
+import { useGetTeasFilter } from '@/states/teasfilter'
 import { Dialog, Button, Callout } from '@radix-ui/themes'
+import { KeyboardEventHandler, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaPlus } from 'react-icons/fa'
-import { Textarea } from '../common/Textarea'
-import { KeyboardEventHandler, useEffect, useState } from 'react'
-import { useGetTeapodInfo } from '@/lib/api/teapods'
-import { format } from '@/lib/utility/json'
-import { useGetTeasFilter } from '@/states/teasfilter'
-import { tryunwrap } from '@/lib/utility/try'
 
 type Form = {
   data: string
@@ -18,7 +18,7 @@ const useAddTeaForm = (teapod: string, teabox: string) => {
   const addTea = useAddTea(teapod, teabox)
   const form = useForm<Form>()
 
-  const submit = form.handleSubmit(req => addTea.mutate(JSON.parse(req.data)))
+  const submit = form.handleSubmit((req) => addTea.mutate(JSON.parse(req.data)))
   const reset = () => {
     addTea.reset()
     form.reset()
@@ -28,7 +28,7 @@ const useAddTeaForm = (teapod: string, teabox: string) => {
   const hasError = error !== undefined
 
   useEffect(() => {
-    const placeholder = info.data?.teaboxes.find(b => b.name === teabox)?.placeholder ?? '{}'
+    const placeholder = info.data?.teaboxes.find((b) => b.name === teabox)?.placeholder ?? '{}'
     form.setValue('data', format(placeholder))
   }, [info.isSuccess])
 
@@ -60,20 +60,20 @@ export const AddTea = () => {
       <Dialog.Content maxWidth='450px'>
         <Dialog.Title>Add Tea</Dialog.Title>
 
-        {form.hasError && 
+        {form.hasError && (
           <Callout.Root>
             <Callout.Text>{form.error}</Callout.Text>
           </Callout.Root>
-        }
+        )}
 
         <form onSubmit={form.submit}>
           <Textarea label='data' onKeyUp={handleKeyUp} className={styles.texts} {...form.register('data')} />
 
-          {!form.prepared && 
+          {!form.prepared && (
             <Callout.Root>
               <Callout.Text>JSON Format Error</Callout.Text>
             </Callout.Root>
-          }
+          )}
 
           <div className={styles.actions}>
             <Dialog.Close>
@@ -83,7 +83,9 @@ export const AddTea = () => {
             </Dialog.Close>
 
             <Dialog.Close>
-              <Button type='submit' disabled={!form.prepared}>Save</Button>
+              <Button type='submit' disabled={!form.prepared}>
+                Save
+              </Button>
             </Dialog.Close>
           </div>
         </form>

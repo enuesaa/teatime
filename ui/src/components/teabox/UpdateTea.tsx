@@ -1,14 +1,14 @@
+import { TextInput } from '../common/TextInput'
+import { Textarea } from '../common/Textarea'
 import styles from './AddTea.css'
 import { useUpdateTea } from '@/lib/api/teas'
-import { Dialog, Button, Callout } from '@radix-ui/themes'
-import { useForm } from 'react-hook-form'
-import { Textarea } from '../common/Textarea'
-import { KeyboardEventHandler, useEffect, useState } from 'react'
-import { format } from '@/lib/utility/json'
 import { useGetTea } from '@/lib/api/teas'
-import { useGetTeasFilter } from '@/states/teasfilter'
-import { TextInput } from '../common/TextInput'
+import { format } from '@/lib/utility/json'
 import { tryunwrap } from '@/lib/utility/try'
+import { useGetTeasFilter } from '@/states/teasfilter'
+import { Dialog, Button, Callout } from '@radix-ui/themes'
+import { KeyboardEventHandler, useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 type Form = {
   data: string
@@ -18,7 +18,7 @@ const useUpdateTeaForm = (teapod: string, teabox: string, teaId: string) => {
   const updateTea = useUpdateTea(teapod, teabox, teaId)
   const form = useForm<Form>()
 
-  const submit = form.handleSubmit(req => updateTea.mutate(JSON.parse(req.data)))
+  const submit = form.handleSubmit((req) => updateTea.mutate(JSON.parse(req.data)))
   const reset = () => {
     updateTea.reset()
     form.reset()
@@ -56,11 +56,11 @@ export const UpdateTea = ({ teaId }: Props) => {
       <Dialog.Content maxWidth='450px'>
         <Dialog.Title>Update Tea</Dialog.Title>
 
-        {form.hasError && 
+        {form.hasError && (
           <Callout.Root>
             <Callout.Text>{form.error}</Callout.Text>
           </Callout.Root>
-        }
+        )}
 
         <form onSubmit={form.submit}>
           <TextInput label='id' value={form.current?.id} readOnly />
@@ -68,11 +68,11 @@ export const UpdateTea = ({ teaId }: Props) => {
           <TextInput label='created' value={form.current?.created} readOnly />
           <TextInput label='updated' value={form.current?.updated} readOnly />
 
-          {!form.prepared && 
+          {!form.prepared && (
             <Callout.Root>
               <Callout.Text>JSON Format Error</Callout.Text>
             </Callout.Root>
-          }
+          )}
 
           <div className={styles.actions}>
             <Dialog.Close>
@@ -81,7 +81,9 @@ export const UpdateTea = ({ teaId }: Props) => {
               </Button>
             </Dialog.Close>
             <Dialog.Close>
-              <Button type='submit' disabled={!form.prepared}>Save</Button>
+              <Button type='submit' disabled={!form.prepared}>
+                Save
+              </Button>
             </Dialog.Close>
           </div>
         </form>

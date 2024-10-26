@@ -1,8 +1,8 @@
 import { AddTea } from './AddTea'
 import { ListTeasCtl } from './ListTeasCtl'
 import { ListTeasTable } from './ListTeasTable'
-import { Heading, Text, Flex, Box } from '@radix-ui/themes'
 import { useInitTeasFilter } from '@/states/teasfilter'
+import { Heading, Text, Flex, Box } from '@radix-ui/themes'
 
 type Props = {
   teapod: string
@@ -18,8 +18,12 @@ export const ListTeas = ({ teapod, teabox }: Props) => {
     <>
       <Heading as='h3'>
         <Flex>
-          <Box width='500px'>{teapod} <AddTea /></Box>
-          <Box flexGrow='1' flexShrink='1'><ListTeasCtl /></Box>
+          <Box width='500px'>
+            {teapod} <AddTea />
+          </Box>
+          <Box flexGrow='1' flexShrink='1'>
+            <ListTeasCtl />
+          </Box>
         </Flex>
       </Heading>
       <Text as='p' size='4' mt='2' mb='2' color='gray'></Text>

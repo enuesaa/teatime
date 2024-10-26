@@ -7,7 +7,7 @@ export type TeaSchema = {
   data: Record<string, any>
 }
 export const useListTeas = (teapod: string, teabox: string) =>
-  queryGet<{items: TeaSchema[]}>(`api/teapods/${teapod}/teaboxes/${teabox}/teas`)
+  queryGet<{ items: TeaSchema[] }>(`api/teapods/${teapod}/teaboxes/${teabox}/teas`)
 
 export const useGetTea = (teapod: string, teabox: string, teaId: string) =>
   queryGet<TeaSchema>(`api/teapods/${teapod}/teaboxes/${teabox}/teas/${teaId}`)
@@ -24,7 +24,7 @@ export const useAddTea = (teapod: string, teabox: string) =>
 export const useUpdateTea = (teapod: string, teabox: string, teaId: string) =>
   mutatePut<AddReqSchema, AddResSchema>(`api/teapods/${teapod}/teaboxes/${teabox}/teas/${teaId}`, {
     invalidate: [],
-  })  
+  })
 
 export const useDeleteTea = (teapod: string, teabox: string, teaId: string) =>
   mutateDelete<{}, {}>(`api/teapods/${teapod}/teaboxes/${teabox}/teas/${teaId}`, {

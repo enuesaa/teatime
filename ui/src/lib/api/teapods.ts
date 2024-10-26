@@ -4,7 +4,7 @@ type TeapodSchema = {
   name: string
   command: string
 }
-export const useListTeapods = () => queryGet<{items: TeapodSchema[]}>('api/teapods')
+export const useListTeapods = () => queryGet<{ items: TeapodSchema[] }>('api/teapods')
 
 type TeapodInfoSchema = {
   name: string
@@ -32,4 +32,3 @@ export const useDeleteTeapod = (name: string) =>
   mutateDelete<{}, {}>(`api/teapods/${name}`, {
     invalidate: [],
   })
-  

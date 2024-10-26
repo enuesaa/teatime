@@ -1,8 +1,8 @@
-import { AlertDialog, Button } from '@radix-ui/themes'
-import { useForm } from 'react-hook-form'
 import styles from './AddTea.css'
 import { useDeleteTea } from '@/lib/api/teas'
 import { useGetTeasFilter } from '@/states/teasfilter'
+import { AlertDialog, Button } from '@radix-ui/themes'
+import { useForm } from 'react-hook-form'
 
 type Props = {
   teaId: string
@@ -25,11 +25,15 @@ export const DeleteTea = ({ teaId }: Props) => {
 
         <form onSubmit={submit} className={styles.actions}>
           <AlertDialog.Cancel>
-              <Button variant='soft' color='gray'>Cancel</Button>
-            </AlertDialog.Cancel>
-            <AlertDialog.Action>
-              <Button variant='solid' color='red' type='submit'>Delete</Button>
-            </AlertDialog.Action>
+            <Button variant='soft' color='gray'>
+              Cancel
+            </Button>
+          </AlertDialog.Cancel>
+          <AlertDialog.Action>
+            <Button variant='solid' color='red' type='submit'>
+              Delete
+            </Button>
+          </AlertDialog.Action>
         </form>
       </AlertDialog.Content>
     </AlertDialog.Root>

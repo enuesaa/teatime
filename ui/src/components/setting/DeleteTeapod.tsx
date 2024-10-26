@@ -1,7 +1,7 @@
+import styles from './AddTeapod.css'
 import { useDeleteTeapod } from '@/lib/api/teapods'
 import { AlertDialog, Button } from '@radix-ui/themes'
 import { useForm } from 'react-hook-form'
-import styles from './AddTeapod.css'
 
 type Props = {
   name: string
@@ -23,11 +23,15 @@ export const DeleteTeapod = ({ name }: Props) => {
 
         <form onSubmit={submit} className={styles.actions}>
           <AlertDialog.Cancel>
-              <Button variant='soft' color='gray'>Cancel</Button>
-            </AlertDialog.Cancel>
-            <AlertDialog.Action>
-              <Button variant='solid' color='red' type='submit'>Delete</Button>
-            </AlertDialog.Action>
+            <Button variant='soft' color='gray'>
+              Cancel
+            </Button>
+          </AlertDialog.Cancel>
+          <AlertDialog.Action>
+            <Button variant='solid' color='red' type='submit'>
+              Delete
+            </Button>
+          </AlertDialog.Action>
         </form>
       </AlertDialog.Content>
     </AlertDialog.Root>

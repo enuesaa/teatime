@@ -1,7 +1,7 @@
-import { AlertDialog, Button } from '@radix-ui/themes'
-import { useForm } from 'react-hook-form'
 import styles from './DeleteAllLogs.css'
 import { useDeleteAllLogs } from '@/lib/api/log'
+import { AlertDialog, Button } from '@radix-ui/themes'
+import { useForm } from 'react-hook-form'
 
 export const DeleteAllLogs = () => {
   const deleteAllLogs = useDeleteAllLogs()
@@ -20,11 +20,15 @@ export const DeleteAllLogs = () => {
 
         <form onSubmit={submit} className={styles.actions}>
           <AlertDialog.Cancel>
-              <Button variant='soft' color='gray'>Cancel</Button>
-            </AlertDialog.Cancel>
-            <AlertDialog.Action>
-              <Button variant='solid' color='red' type='submit'>Delete</Button>
-            </AlertDialog.Action>
+            <Button variant='soft' color='gray'>
+              Cancel
+            </Button>
+          </AlertDialog.Cancel>
+          <AlertDialog.Action>
+            <Button variant='solid' color='red' type='submit'>
+              Delete
+            </Button>
+          </AlertDialog.Action>
         </form>
       </AlertDialog.Content>
     </AlertDialog.Root>

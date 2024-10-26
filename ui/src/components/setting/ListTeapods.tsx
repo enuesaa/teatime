@@ -1,8 +1,8 @@
+import { DeleteTeapod } from './DeleteTeapod'
 import { TeapodDescription } from './TeapodDescription'
 import { TeapodSchemas } from './TeapodSchemas'
 import { useListTeapods } from '@/lib/api/teapods'
 import { Heading, Text, Table } from '@radix-ui/themes'
-import { DeleteTeapod } from './DeleteTeapod'
 
 export const ListTeapods = () => {
   const teapods = useListTeapods()

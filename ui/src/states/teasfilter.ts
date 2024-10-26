@@ -15,7 +15,7 @@ const state = atom<Partial<TeasFilter>>({
 
 export const useTeasFilter = (): [TeasFilter, (newone: Partial<TeasFilter>) => void] => {
   const [value, setValue] = useAtom(state)
-  const setter = (newone: Partial<TeasFilter>) => setValue({...value, ...newone})
+  const setter = (newone: Partial<TeasFilter>) => setValue({ ...value, ...newone })
   const data = {
     teapod: value.teapod ?? '',
     teabox: value.teabox ?? '',
@@ -40,5 +40,5 @@ export const useInitTeasFilter = (teapod: string, teabox?: string) => {
     setData({ teapod, teabox: selected, teaboxes })
   }, [info.dataUpdatedAt, teabox, teapod])
 
-  return {...data, ok}
+  return { ...data, ok }
 }
