@@ -11,13 +11,13 @@ type LinkTea struct {
 	Link string `validate:"required,url"`
 }
 
-func BindLinkTea(data []byte) (LinkTea, error) {
+func ValidateLinkTea(data []byte) error {
 	var tea LinkTea
 	if err := json.Unmarshal(data, &tea); err != nil {
-		return tea, err
+		return err
 	}
 	if err := validator.New().Struct(tea); err != nil {
-		return tea, err
+		return err
 	}
-	return tea, nil
+	return nil
 }
