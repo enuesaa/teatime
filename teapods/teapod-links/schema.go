@@ -7,6 +7,7 @@ import (
 )
 
 type LinkTea struct {
+	Title string `validate:"required"`
 	Link string `validate:"required,url"`
 }
 

@@ -17,15 +17,17 @@ func (p *Provider) Info() (plug.Info, error) {
 		Teaboxes: []plug.Teabox{
 			{
 				Name: "links",
-				Placeholder: `{"link":"https://example.com"}`,
 				Inputs: []plug.TeaboxInput{
+					{Name: "title", Type: plug.TeaboxInputText},
 					{Name: "link", Type: plug.TeaboxInputText},
 				},
 			},
 			{
 				Name: "notes",
-				Placeholder: `{}`,
-				Inputs: []plug.TeaboxInput{},
+				Inputs: []plug.TeaboxInput{
+					{Name: "title", Type: plug.TeaboxInputText},
+					{Name: "memo", Type: plug.TeaboxInputText},
+				},
 			},
 		},
 		Actions: []plug.Action{

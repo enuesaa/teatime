@@ -13,7 +13,6 @@ type Info struct {
 }
 type Teabox struct {
 	Name string
-	Placeholder string
 	Inputs []TeaboxInput
 }
 type TeaboxInput struct {

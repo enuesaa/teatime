@@ -12,6 +12,6 @@ export default {
   actions,
   texts: style({
     width: '100%',
-    height: '300px',
+    minHeight: '100px',
   }),
 }

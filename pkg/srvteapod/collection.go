@@ -14,7 +14,11 @@ type Teapod struct {
 }
 type Teabox struct {
 	Name string `bson:"name"`
-	Placeholder string `bson:"placeholder"`
+	Inputs []TeaboxInput `bson:"inputs"`
+}
+type TeaboxInput struct {
+	Name string `bson:"name"`
+	Type string `bson:"type"`
 }
 type TeapodAction struct {
 	Event   string `bson:"event"`
@@ -29,9 +33,13 @@ func NewTeapodFromPlugInfo(info plug.Info) Teapod {
 		Actions:     []TeapodAction{},
 	}
 	for _, teabox := range info.Teaboxes {
+		inputs := []TeaboxInput{}
+		for _, input := range teabox.Inputs {
+			inputs = append(inputs, TeaboxInput{Name: input.Name, Type: string(input.Type)})
+		}
 		teapod.Teaboxes = append(teapod.Teaboxes, Teabox{
 			Name: teabox.Name,
-			Placeholder: teabox.Placeholder,
+			Inputs: inputs,
 		})
 	}
 	for _, action := range info.Actions {
