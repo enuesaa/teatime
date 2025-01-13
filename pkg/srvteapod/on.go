@@ -12,7 +12,7 @@ func (srv *Srv) On(teapod string, name plug.EventName, teabox string, data map[s
 	datajson, err := json.Marshal(data)
 	if err != nil {
 		return logs, err
-	} 
+	}
 
 	provider, err := plug.NewClientProvider(teapod)
 	if err != nil {

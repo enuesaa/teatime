@@ -10,7 +10,6 @@ import (
 
 func UpdateTea(repos repository.Repos, teapodName string, teaboxName string, teaId string, raw srvtea.Raw) (string, error) {
 	teapodSrv := srvteapod.New(repos)
-	teaSrv := srvtea.New(repos, teapodName, teaboxName)
 	logSrv := srvlog.New(repos)
 
 	logs, err := teapodSrv.On(teapodName, plug.EventDataCreated, teaboxName, raw)
@@ -19,6 +18,5 @@ func UpdateTea(repos repository.Repos, teapodName string, teaboxName string, tea
 	if err != nil {
 		return "", err
 	}
-
-	return teaSrv.Update(teaId, raw)
+	return teaId, nil
 }

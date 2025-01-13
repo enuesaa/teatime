@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/enuesaa/teatime/pkg/plug"
+	"github.com/enuesaa/teatime/pkg/repository"
 )
 
 func main() {
@@ -54,10 +55,20 @@ func (p *Provider) On(event plug.Event) (plug.Logs, error) {
 func (p *Provider) handleDataCreatedEvent(event plug.Event) (plug.Logs, error) {
 	logs := plug.NewLogs()
 
+	repos := repository.New()
+	if err := repos.Startup(); err != nil {
+		return logs, err
+	}
+	defer repos.End()
+
 	switch event.Teabox {
 	case "links":
 		if err := ValidateLinkTea(event.Data); err != nil {
 			logs.Info("tea invalid: %v", err.Error())
+			return logs, err
+		}
+		query := repos.DB.QueryTea("links", "links")
+		if _, err := query.Create(event.Data); err != nil {
 			return logs, err
 		}
 	}

@@ -10,7 +10,6 @@ import (
 
 func CreateTea(repos repository.Repos, teapodName string, teaboxName string, raw srvtea.Raw) (string, error) {
 	teapodSrv := srvteapod.New(repos)
-	teaSrv := srvtea.New(repos, teapodName, teaboxName)
 	logSrv := srvlog.New(repos)
 
 	logs, err := teapodSrv.On(teapodName, plug.EventDataCreated, teaboxName, raw)
@@ -20,5 +19,6 @@ func CreateTea(repos repository.Repos, teapodName string, teaboxName string, raw
 		return "", err
 	}
 
-	return teaSrv.Create(raw)
+	// TODO
+	return "", nil
 }

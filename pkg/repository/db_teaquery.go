@@ -1,7 +1,9 @@
 package repository
 
 import (
+	"encoding/json"
 	"time"
+
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
@@ -10,32 +12,41 @@ type DBTeaQuery struct {
 	db DBRepositoryInterface
 }
 
-func (q *DBTeaQuery) Create(data map[string]interface{}) (string, error) {
+func (q *DBTeaQuery) Create(data []byte) (string, error) {
 	type Record struct {
 		Created time.Time `bson:"created"`
 		Updated time.Time `bson:"updated"`
 		Data map[string]interface{} `bson:"data"`
 	}
 
+	var datamap map[string]interface{}
+	if err := json.Unmarshal(data, &datamap); err != nil {
+		return "", err
+	}
 	created := time.Now()
 	record := Record{
 		Created: created,
 		Updated: created,
-		Data: data,
+		Data: datamap,
 	}
 	return q.db.Create(q.collectionName, record)
 }
 
-func (q *DBTeaQuery) Update(teaId string, data map[string]interface{}) (string, error) {
+func (q *DBTeaQuery) Update(teaId string, data []byte) (string, error) {
 	type Record struct {
 		Updated time.Time `bson:"updated"`
 		Data map[string]interface{} `bson:"data"`
 	}
 
+	var datamap map[string]interface{}
+	if err := json.Unmarshal(data, &datamap); err != nil {
+		return "", err
+	}
+
 	updated := time.Now()
 	record := Record{
 		Updated: updated,
-		Data: data,
+		Data: datamap,
 	}
 	return q.db.Update(q.collectionName, teaId, record)
 }
