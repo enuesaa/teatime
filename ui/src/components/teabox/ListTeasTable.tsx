@@ -11,6 +11,7 @@ export const ListTeasTable = () => {
   const info = useGetTeapodInfo(filter.teapod)
   const teas = useListTeas(filter.teapod, filter.teabox)
   const teabox = info.data?.teaboxes.find((v) => v.name === filter.teabox)
+  const inputs = info.data?.teaboxes.find((v) => v.name === filter.teabox)?.inputs ?? []
 
   if (teabox === undefined) {
     return <></>
@@ -21,7 +22,9 @@ export const ListTeasTable = () => {
       <Table.Header>
         <Table.Row>
           <Table.ColumnHeaderCell width='20%'>Id</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Data</Table.ColumnHeaderCell>
+          {inputs.map(v => (
+            <Table.ColumnHeaderCell key={v.name}>{v.name.toUpperCase()}</Table.ColumnHeaderCell>
+          ))}
           <Table.ColumnHeaderCell width='20%'>Updated</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell width='5%'></Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell width='5%'></Table.ColumnHeaderCell>
@@ -32,9 +35,11 @@ export const ListTeasTable = () => {
           teas?.data.items?.map((tea, i) => (
             <Table.Row key={i}>
               <Table.RowHeaderCell>{tea.id}</Table.RowHeaderCell>
-              <Table.Cell>
-                <ListTeasTableCode data={tea.data} />
-              </Table.Cell>
+              {inputs.map(v => (
+                <Table.Cell key={v.name}>
+                  <ListTeasTableCode data={tea.data[v.name] ?? ''} />
+                </Table.Cell>
+              ))}
               <Table.Cell>{tea.updated}</Table.Cell>
               <Table.Cell>
                 <UpdateTea teaId={tea.id} />
