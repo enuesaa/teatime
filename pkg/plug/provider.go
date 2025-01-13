@@ -1,5 +1,8 @@
 package plug
 
+// TODO: 
+// これではデータのライフサイクルに関与できず、プラグインとしての意義が薄れるのでインタフェースを変更する
+
 type ProviderInterface interface {
 	Info() (Info, error)
 	On(event Event) (Logs, error)
