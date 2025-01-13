@@ -33,7 +33,13 @@ type Action struct {
 	Comment string
 }
 type Event struct {
-	Name string // like `tea.created`
-	Meta map[string]string
+	Name EventName // like `tea.created`
+	Teabox string
 	Data []byte // json format
 }
+
+type EventName string
+const (
+	EventDataCreated EventName = "data.created"
+)
+

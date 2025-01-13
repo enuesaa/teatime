@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/enuesaa/teatime/pkg/srvlog"
 	"github.com/enuesaa/teatime/pkg/srvtea"
@@ -12,10 +13,7 @@ func CreateTea(repos repository.Repos, teapodName string, teaboxName string, raw
 	teaSrv := srvtea.New(repos, teapodName, teaboxName)
 	logSrv := srvlog.New(repos)
 
-	meta := map[string]string{
-		"teabox": teaboxName,
-	}
-	logs, err := teapodSrv.On(teapodName, "data.created", meta, raw)
+	logs, err := teapodSrv.On(teapodName, plug.EventDataCreated, teaboxName, raw)
 	// ignore error because this is not critical. also, plugin already executed.
 	logSrv.CreateFromPlugLogs(logs)
 	if err != nil {

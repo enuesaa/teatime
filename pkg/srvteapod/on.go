@@ -6,7 +6,7 @@ import (
 	"github.com/enuesaa/teatime/pkg/plug"
 )
 
-func (srv *Srv) On(teapod string, name string, meta map[string]string,  data map[string]interface{}) (plug.Logs, error) {
+func (srv *Srv) On(teapod string, name plug.EventName, teabox string, data map[string]interface{}) (plug.Logs, error) {
 	logs := plug.NewLogs()
 
 	datajson, err := json.Marshal(data)
@@ -20,7 +20,7 @@ func (srv *Srv) On(teapod string, name string, meta map[string]string,  data map
 	}
 	event := plug.Event{
 		Name: name,
-		Meta: meta,
+		Teabox: teabox,
 		Data: datajson,
 	}
 	return provider.On(event)

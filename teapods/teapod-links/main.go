@@ -44,7 +44,7 @@ func (p *Provider) On(event plug.Event) (plug.Logs, error) {
 	logs := plug.NewLogs()
 	logs.Info("app start")
 
-	if event.Name == "data.created" {
+	if event.Name == plug.EventDataCreated {
 		return p.handleDataCreatedEvent(event)
 	}
 
@@ -53,9 +53,8 @@ func (p *Provider) On(event plug.Event) (plug.Logs, error) {
 
 func (p *Provider) handleDataCreatedEvent(event plug.Event) (plug.Logs, error) {
 	logs := plug.NewLogs()
-	teabox := event.Meta["teabox"]
 
-	switch teabox {
+	switch event.Teabox {
 	case "links":
 		if err := ValidateLinkTea(event.Data); err != nil {
 			logs.Info("tea invalid: %v", err.Error())
