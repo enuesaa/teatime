@@ -11,7 +11,6 @@ func NewLogs() Logs {
 	}
 }
 
-// TODO: include error logs
 type Logs struct {
 	Messages []LogMessage
 }

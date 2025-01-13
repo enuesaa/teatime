@@ -1,6 +1,8 @@
 package main
 
-import "github.com/enuesaa/teatime/pkg/plug"
+import (
+	"github.com/enuesaa/teatime/pkg/plug"
+)
 
 func main() {
 	plug.Serve(&Provider{})
@@ -36,21 +38,6 @@ func (p *Provider) Info() (plug.Info, error) {
 		},
 	}
 	return info, nil
-}
-
-func (p *Provider) Create(event plug.CreateEvent) (plug.Logs, error) {
-	logs := plug.NewLogs()
-	return logs, nil
-}
-
-func (p *Provider) Update(event plug.UpdateEvent) (plug.Logs, error) {
-	logs := plug.NewLogs()
-	return logs, nil
-}
-
-func (p *Provider) Delete(event plug.DeleteEvent) (plug.Logs, error) {
-	logs := plug.NewLogs()
-	return logs, nil
 }
 
 func (p *Provider) On(event plug.Event) (plug.Logs, error) {
