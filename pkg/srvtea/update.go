@@ -1,18 +1,16 @@
 package srvtea
 
-import "time"
+import "encoding/json"
 
 func (srv *Srv) Update(teaId string, raw Raw) (string, error) {
 	if _, err := srv.Get(teaId); err != nil {
 		return teaId, err
 	}
-
-	data := UpdateData{
-		Updated: time.Now(),
-		Data: raw,
-	}
-	if _, err := srv.repos.DB.Update(srv.CollectionName(), teaId, data); err != nil {
+	datajson, err := json.Marshal(raw)
+	if err != nil {
 		return teaId, err
 	}
-	return teaId, nil
+
+	query := srv.repos.DB.QueryTea(srv.teapodName, srv.teaboxName)
+	return query.Update(teaId, datajson)
 }

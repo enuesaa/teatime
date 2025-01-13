@@ -1,13 +1,13 @@
 package srvtea
 
-import "time"
+import "encoding/json"
 
 func (srv *Srv) Create(raw Raw) (string, error) {
-	created := time.Now()
-	data := CreateData{
-		Created: created,
-		Updated: created,
-		Data: raw,
+	datajson, err := json.Marshal(raw)
+	if err != nil {
+		return "", err
 	}
-	return srv.repos.DB.Create(srv.CollectionName(), data)
+
+	query := srv.repos.DB.QueryTea(srv.teapodName, srv.teaboxName)
+	return query.Create(datajson)
 }

@@ -4,6 +4,8 @@ import (
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
+// TODO: list, get を plugin 側に移す
+
 func (srv *Srv) List() ([]Tea, error) {
 	list := []Tea{}
 
