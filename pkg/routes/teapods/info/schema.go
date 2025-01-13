@@ -10,4 +10,10 @@ type Item struct {
 type ItemTeabox struct {
 	Name string `json:"name"`
 	Placeholder string `json:"placeholder"`
+	Inputs []TeaboxInput `json:"inputs"`
+}
+
+type TeaboxInput struct {
+	Name string `json:"name"`
+	Type string `json:"type"`
 }

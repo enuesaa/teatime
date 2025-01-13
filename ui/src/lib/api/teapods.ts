@@ -14,6 +14,7 @@ type TeapodInfoSchema = {
 export type TeapodInfoTeabox = {
   name: string
   placeholder: string
+  inputs: {name: string; type: 'text'}[]
 }
 export const useGetTeapodInfo = (name: string) => queryGet<TeapodInfoSchema>(`api/teapods/${name}/info`)
 

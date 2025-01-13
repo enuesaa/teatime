@@ -18,10 +18,14 @@ func (p *Provider) Info() (plug.Info, error) {
 			{
 				Name: "links",
 				Placeholder: `{"link":"https://example.com"}`,
+				Inputs: []plug.TeaboxInput{
+					{Name: "link", Type: plug.TeaboxInputText},
+				},
 			},
 			{
 				Name: "notes",
 				Placeholder: `{}`,
+				Inputs: []plug.TeaboxInput{},
 			},
 		},
 		Actions: []plug.Action{

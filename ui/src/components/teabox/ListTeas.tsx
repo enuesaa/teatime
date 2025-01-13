@@ -1,5 +1,4 @@
 import { AddTea } from './AddTea'
-import { AddTeaForm } from './AddTeaForm'
 import { ListTeasCtl } from './ListTeasCtl'
 import { ListTeasTable } from './ListTeasTable'
 import { useInitTeasFilter } from '@/states/teasfilter'
@@ -29,7 +28,6 @@ export const ListTeas = ({ teapod, teabox }: Props) => {
       </Heading>
       <Text as='p' size='4' mt='2' mb='2' color='gray'></Text>
       <ListTeasTable />
-      <AddTeaForm />
     </>
   )
 }

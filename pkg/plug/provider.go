@@ -14,7 +14,18 @@ type Info struct {
 type Teabox struct {
 	Name string
 	Placeholder string
+	Inputs []TeaboxInput
 }
+type TeaboxInput struct {
+	Name string
+	Type TeaboxInputType
+}
+
+type TeaboxInputType string
+const (
+	TeaboxInputText TeaboxInputType = "text"
+)
+
 type Action struct {
 	Name    string // like `action.created`
 	Comment string

@@ -25,9 +25,15 @@ func View(c echo.Context) error {
 		Teaboxes:    []ItemTeabox{},
 	}
 	for _, teabox := range info.Teaboxes {
+		inputs := []TeaboxInput{}
+		for _, input := range teabox.Inputs {
+			inputs = append(inputs, TeaboxInput{Name: input.Name, Type: string(input.Type)})
+		}
+
 		data.Teaboxes = append(data.Teaboxes, ItemTeabox{
 			Name: teabox.Name,
 			Placeholder: teabox.Placeholder,
+			Inputs: inputs,
 		})
 	}
 

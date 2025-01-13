@@ -2,52 +2,41 @@ import { Textarea } from '../common/Textarea'
 import styles from './AddTea.css'
 import { useGetTeapodInfo } from '@/lib/api/teapods'
 import { useAddTea } from '@/lib/api/teas'
-import { format } from '@/lib/utility/json'
-import { tryunwrap } from '@/lib/utility/try'
 import { useGetTeasFilter } from '@/states/teasfilter'
 import { Dialog, Button, Callout } from '@radix-ui/themes'
-import { KeyboardEventHandler, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { FormEventHandler, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
 
-type Form = {
-  data: string
-}
 const useAddTeaForm = (teapod: string, teabox: string) => {
   const info = useGetTeapodInfo(teapod)
   const addTea = useAddTea(teapod, teabox)
-  const form = useForm<Form>()
 
-  const submit = form.handleSubmit((req) => addTea.mutate(JSON.parse(req.data)))
+  const submit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault()
+    const formdata = new FormData(e.currentTarget)
+    const data = Object.fromEntries(formdata.entries())
+    addTea.mutate(data)
+  }
+
   const reset = () => {
     addTea.reset()
-    form.reset()
   }
 
   const error = addTea.data?.error
   const hasError = error !== undefined
 
-  useEffect(() => {
-    const placeholder = info.data?.teaboxes.find((b) => b.name === teabox)?.placeholder ?? '{}'
-    form.setValue('data', format(placeholder))
-  }, [info.isSuccess])
-
   if (addTea.isSuccess && !hasError) {
     reset()
   }
-  const prepared = tryunwrap(() => JSON.parse(form.watch('data')), true, false)
+  const inputs = info.data?.teaboxes.find((b) => b.name === teabox)?.inputs ?? []
 
-  return { ...form, submit, reset, error, hasError, prepared }
+  return { submit, reset, error, hasError, inputs }
 }
 
 export const AddTea = () => {
   const filter = useGetTeasFilter()
   const [open, setOpen] = useState(false)
   const form = useAddTeaForm(filter.teapod, filter.teabox)
-
-  const handleKeyUp: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
-    e.currentTarget.value = format(e.currentTarget.value)
-  }
 
   return (
     <Dialog.Root open={open || form.hasError} onOpenChange={setOpen}>
@@ -67,13 +56,9 @@ export const AddTea = () => {
         )}
 
         <form onSubmit={form.submit}>
-          <Textarea label='data' onKeyUp={handleKeyUp} className={styles.texts} {...form.register('data')} />
-
-          {!form.prepared && (
-            <Callout.Root>
-              <Callout.Text>JSON Format Error</Callout.Text>
-            </Callout.Root>
-          )}
+          {form.inputs.map(v => (
+            <Textarea label={v.name} className={styles.texts} name={v.name} key={v.name} />
+          ))}
 
           <div className={styles.actions}>
             <Dialog.Close>
@@ -83,7 +68,7 @@ export const AddTea = () => {
             </Dialog.Close>
 
             <Dialog.Close>
-              <Button type='submit' disabled={!form.prepared}>
+              <Button type='submit'>
                 Save
               </Button>
             </Dialog.Close>
