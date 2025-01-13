@@ -21,6 +21,7 @@ type DBRepositoryInterface interface {
 	Update(name string, id string, document interface{}) (string, error)
 	Delete(name string, filter bson.M) error
 	DeleteMany(name string, filter bson.M) error
+	QueryTea(teapod string, teabox string) DBTeaQuery
 }
 type DBRepository struct {
 	client *mongo.Client
@@ -149,4 +150,11 @@ func (repo *DBRepository) DeleteMany(name string, filter bson.M) error {
 		return err
 	}
 	return nil
+}
+
+func (repo *DBRepository) QueryTea(teapod string, teabox string) DBTeaQuery {
+	return DBTeaQuery{
+		collectionName: fmt.Sprintf("%s-%s", teapod, teabox),
+		db: repo,
+	}
 }
