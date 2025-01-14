@@ -6,10 +6,13 @@ import (
 )
 
 func main() {
-	plug.Serve(&Provider{})
+	provider := Provider{}
+	provider.Serve()
 }
 
-type Provider struct {}
+type Provider struct {
+	plug.Provider
+}
 
 func (p *Provider) Info() (plug.Info, error) {
 	info := plug.Info{
