@@ -6,15 +6,20 @@ import (
 )
 
 func main() {
-	provider := Provider{}
-	provider.Serve()
+	plug.Provide(NewProvider)
+}
+
+func NewProvider(logger plug.Logger) plug.ProviderInterface {
+	return &Provider{logger}
 }
 
 type Provider struct {
-	plug.Provider
+	logger plug.Logger
 }
 
 func (p *Provider) Info() (plug.Info, error) {
+	p.logger.Info("a")
+
 	info := plug.Info{
 		Name: "teapod-links",
 		Description: "links teapod",
