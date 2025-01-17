@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/repository"
 )
@@ -18,8 +20,6 @@ type Provider struct {
 }
 
 func (p *Provider) Info() (plug.Info, error) {
-	p.logger.Info("a")
-
 	info := plug.Info{
 		Name: "teapod-links",
 		Description: "links teapod",
@@ -49,37 +49,34 @@ func (p *Provider) Info() (plug.Info, error) {
 	return info, nil
 }
 
-func (p *Provider) On(event plug.Event) (plug.Logs, error) {
-	logs := plug.NewLogs()
-	logs.Info("app start")
+func (p *Provider) On(event plug.Event) (string, error) {
+	p.logger.Info("app start")
 
 	if event.Name == plug.EventDataCreated {
 		return p.handleDataCreatedEvent(event)
 	}
 
-	return logs, nil
+	return "", nil
 }
 
-func (p *Provider) handleDataCreatedEvent(event plug.Event) (plug.Logs, error) {
-	logs := plug.NewLogs()
-
+func (p *Provider) handleDataCreatedEvent(event plug.Event) (string, error) {
 	repos := repository.New()
 	if err := repos.Startup(); err != nil {
-		return logs, err
+		return "", err
 	}
 	defer repos.End()
 
 	switch event.Teabox {
 	case "links":
 		if err := ValidateLinkTea(event.Data); err != nil {
-			logs.Info("tea invalid: %v", err.Error())
-			return logs, err
+			p.logger.Info(fmt.Sprintf("tea invalid: %v", err.Error()))
+			return "", err
 		}
 		query := repos.DB.QueryTea("links", "links")
 		if _, err := query.Create(event.Data); err != nil {
-			return logs, err
+			return "", err
 		}
 	}
 
-	return logs, nil
+	return "", nil
 }

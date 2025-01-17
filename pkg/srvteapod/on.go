@@ -6,22 +6,21 @@ import (
 	"github.com/enuesaa/teatime/pkg/plug"
 )
 
-func (srv *Srv) On(teapod string, name plug.EventName, teabox string, data map[string]interface{}) (plug.Logs, error) {
-	logs := plug.NewLogs()
-
+func (srv *Srv) On(teapod string, name plug.EventName, teabox string, data map[string]interface{}) error {
 	datajson, err := json.Marshal(data)
 	if err != nil {
-		return logs, err
+		return err
 	}
 
-	provider, err := plug.NewClientProvider(teapod)
+	provider, err := plug.NewClientProvider(teapod, srv.repos)
 	if err != nil {
-		return logs, err
+		return err
 	}
 	event := plug.Event{
 		Name: name,
 		Teabox: teabox,
 		Data: datajson,
 	}
-	return provider.On(event)
+	_, err = provider.On(event)
+	return err
 }

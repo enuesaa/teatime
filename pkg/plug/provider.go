@@ -3,7 +3,7 @@ package plug
 // TODO: virtual な tea を実現できないので、ここに List, View を持つ
 type ProviderInterface interface {
 	Info() (Info, error)
-	On(event Event) (Logs, error)
+	On(event Event) (string, error)
 }
 
 // info
