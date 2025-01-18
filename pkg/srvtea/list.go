@@ -11,6 +11,7 @@ func (srv *Srv) List() ([]db.Tea, error) {
 		return []db.Tea{}, err
 	}
 	props := plug.ListProps{
+		Teapod: srv.teapodName,
 		Teabox: srv.teaboxName,
 	}
 	return provider.List(props)

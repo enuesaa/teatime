@@ -17,6 +17,7 @@ func (srv *Srv) Create(raw Raw) (string, error) {
 		return "", err
 	}
 	props := plug.CreateProps{
+		Teapod: srv.teapodName,
 		Teabox: srv.teaboxName,
 		Data:   datajson,
 	}

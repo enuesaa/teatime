@@ -39,23 +39,27 @@ type Action struct {
 
 // list
 type ListProps struct {
+	Teapod string
 	Teabox string
 }
 
 // get
 type GetProps struct {
+	Teapod string
 	Teabox string
 	TeaId string
 }
 
 // create
 type CreateProps struct {
+	Teapod string
 	Teabox string
 	Data []byte
 }
 
 // update
 type UpdateProps struct {
+	Teapod string
 	Teabox string
 	TeaId string
 	Data []byte
@@ -63,6 +67,7 @@ type UpdateProps struct {
 
 // delete
 type DeleteProps struct {
+	Teapod string
 	Teabox string
 	TeaId string
 }

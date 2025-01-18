@@ -20,6 +20,7 @@ func (srv *Srv) Update(teaId string, raw Raw) (string, error) {
 		return "", err
 	}
 	props := plug.UpdateProps{
+		Teapod: srv.teapodName,
 		Teabox: srv.teaboxName,
 		TeaId:  teaId,
 		Data:   datajson,

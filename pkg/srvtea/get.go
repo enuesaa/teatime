@@ -11,6 +11,7 @@ func (srv *Srv) Get(teaId string) (db.Tea, error) {
 		return db.Tea{}, err
 	}
 	props := plug.GetProps{
+		Teapod: srv.teapodName,
 		Teabox: srv.teaboxName,
 		TeaId: teaId,
 	}

@@ -8,6 +8,7 @@ func (srv *Srv) Delete(teaId string) error {
 		return err
 	}
 	props := plug.DeleteProps{
+		Teapod: srv.teapodName,
 		Teabox: srv.teaboxName,
 		TeaId: teaId,
 	}
