@@ -2,6 +2,8 @@ package plug
 
 import (
 	"net/rpc"
+
+	"github.com/enuesaa/teatime/pkg/repository/db"
 )
 
 // should implement ProviderInterface
@@ -15,8 +17,32 @@ func (cc *ConnectClient) Info() (Info, error) {
 	return resp.Data, resp.Err()
 }
 
-func (cc *ConnectClient) On(event Event) (string, error) {
+func (cc *ConnectClient) List(props ListProps) ([]db.Tea, error) {
+	var resp Result[[]db.Tea]
+	cc.client.Call("Plugin.List", props, &resp)
+	return resp.Data, resp.Err()
+}
+
+func (cc *ConnectClient) Get(props GetProps) (db.Tea, error) {
+	var resp Result[db.Tea]
+	cc.client.Call("Plugin.Get", props, &resp)
+	return resp.Data, resp.Err()
+}
+
+func (cc *ConnectClient) Create(props CreateProps) (string, error) {
 	var resp Result[string]
-	cc.client.Call("Plugin.On", event, &resp)
+	cc.client.Call("Plugin.Create", props, &resp)
+	return resp.Data, resp.Err()
+}
+
+func (cc *ConnectClient) Update(props UpdateProps) (string, error) {
+	var resp Result[string]
+	cc.client.Call("Plugin.Update", props, &resp)
+	return resp.Data, resp.Err()
+}
+
+func (cc *ConnectClient) Delete(props DeleteProps) (bool, error) {
+	var resp Result[bool]
+	cc.client.Call("Plugin.Delete", props, &resp)
 	return resp.Data, resp.Err()
 }

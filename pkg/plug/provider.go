@@ -1,9 +1,14 @@
 package plug
 
-// TODO: virtual な tea を実現できないので、ここに List, View を持つ
+import "github.com/enuesaa/teatime/pkg/repository/db"
+
 type ProviderInterface interface {
 	Info() (Info, error)
-	On(event Event) (string, error)
+	List(props ListProps) ([]db.Tea, error)
+	Get(props GetProps) (db.Tea, error)
+	Create(props CreateProps) (string, error)
+	Update(props UpdateProps) (string, error)
+	Delete(props DeleteProps) (bool, error)
 }
 
 // info
@@ -32,14 +37,32 @@ type Action struct {
 	Comment string
 }
 
-// event
-type Event struct {
-	Name   EventName
+// list
+type ListProps struct {
 	Teabox string
-	Data   []byte // json format
 }
-type EventName string
 
-const (
-	EventDataCreated EventName = "data.created"
-)
+// get
+type GetProps struct {
+	Teabox string
+	TeaId string
+}
+
+// create
+type CreateProps struct {
+	Teabox string
+	Data []byte
+}
+
+// update
+type UpdateProps struct {
+	Teabox string
+	TeaId string
+	Data []byte
+}
+
+// delete
+type DeleteProps struct {
+	Teabox string
+	TeaId string
+}

@@ -5,6 +5,7 @@ import (
 
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/repository"
+	"github.com/enuesaa/teatime/pkg/repository/db"
 )
 
 func main() {
@@ -49,34 +50,36 @@ func (p *Provider) Info() (plug.Info, error) {
 	return info, nil
 }
 
-func (p *Provider) On(event plug.Event) (string, error) {
-	p.logger.Info("app start")
-
-	if event.Name == plug.EventDataCreated {
-		return p.handleDataCreatedEvent(event)
-	}
-
-	return "", nil
+func (p *Provider) List(props plug.ListProps) ([]db.Tea, error) {
+	return []db.Tea{}, nil	
 }
 
-func (p *Provider) handleDataCreatedEvent(event plug.Event) (string, error) {
+func (p *Provider) Get(props plug.GetProps) (db.Tea, error) {
+	return db.Tea{}, nil	
+}
+
+func (p *Provider) Create(props plug.CreateProps) (string, error) {
 	repos := repository.New()
 	if err := repos.Startup(); err != nil {
 		return "", err
 	}
 	defer repos.End()
 
-	switch event.Teabox {
-	case "links":
-		if err := ValidateLinkTea(event.Data); err != nil {
-			p.logger.Info(fmt.Sprintf("tea invalid: %v", err.Error()))
-			return "", err
-		}
-		query := repos.DB.Teas("links", "links")
-		if _, err := query.Create(event.Data); err != nil {
-			return "", err
-		}
+	if err := ValidateLinkTea(props.Data); err != nil {
+		p.logger.Info(fmt.Sprintf("tea invalid: %v", err.Error()))
+		return "", err
 	}
+	teaId, err := repos.DB.Teas("links", "links").Create(props.Data)
+	if err != nil {
+		return "", err
+	}
+	return teaId, nil	
+}
 
-	return "", nil
+func (p *Provider) Update(props plug.UpdateProps) (string, error) {
+	return "", nil	
+}
+
+func (p *Provider) Delete(props plug.DeleteProps) (bool, error) {
+	return true, nil	
 }

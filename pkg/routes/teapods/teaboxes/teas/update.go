@@ -1,7 +1,6 @@
 package teas
 
 import (
-	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/router/ctx"
 	"github.com/enuesaa/teatime/pkg/srvteapod"
 	"github.com/labstack/echo/v4"
@@ -20,7 +19,7 @@ func Update(c echo.Context) error {
 
 	teapodSrv := srvteapod.New(cc.Repos)
 
-	err := teapodSrv.On(teapodName, plug.EventDataCreated, teaboxName, reqbody)
+	teaId, err := teapodSrv.CreateTea(teapodName, teaboxName, reqbody)
 	if err != nil {
 		return err
 	}
