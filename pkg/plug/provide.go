@@ -6,18 +6,18 @@ import (
 	"github.com/hashicorp/go-plugin"
 )
 
-type ProvideInit = func(repos repository.Repos, logger Logger) ProviderInterface
+type ProvideInit = func(dbr repository.DBRepository, logger Logger) ProviderInterface
 
 func Provide(pinit ProvideInit) {
-	repos := repository.New()
-	repos.Startup()
-	defer repos.End()
+	dbr := repository.DBRepository{}
+	dbr.Connect()
+	defer dbr.Disconnect()
 
 	logger := hclog.New(&hclog.LoggerOptions{
 		JSONFormat: true,
 	})
 	plogger := Logger{logger}
-	provider := pinit(repos, plogger)
+	provider := pinit(dbr, plogger)
 
 	config := plugin.ServeConfig{
 		HandshakeConfig: plugin.HandshakeConfig{
