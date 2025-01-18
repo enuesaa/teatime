@@ -18,7 +18,7 @@ func TestCreate(t *testing.T) {
 	require.NoError(t, err)
 
 	res, err := app.Post(Create,
-		apptest.UseBody(`{"link": "https://example.com/"}`),
+		apptest.UseBody(`{"link": "https://example.com/", "title": "a"}`),
 		apptest.UseParam("teapodName", "teapod-links"),
 		apptest.UseParam("teaboxName", "links"),
 	)
