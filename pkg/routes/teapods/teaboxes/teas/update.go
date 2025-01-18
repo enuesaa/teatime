@@ -1,8 +1,9 @@
 package teas
 
 import (
+	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/router/ctx"
-	"github.com/enuesaa/teatime/pkg/usecase"
+	"github.com/enuesaa/teatime/pkg/srvteapod"
 	"github.com/labstack/echo/v4"
 )
 
@@ -16,8 +17,11 @@ func Update(c echo.Context) error {
 	if err := cc.BindBody(&reqbody); err != nil {
 		return err
 	}
-	
-	if _, err := usecase.UpdateTea(cc.Repos, teapodName, teaboxName, teaId, reqbody); err != nil {
+
+	teapodSrv := srvteapod.New(cc.Repos)
+
+	err := teapodSrv.On(teapodName, plug.EventDataCreated, teaboxName, reqbody)
+	if err != nil {
 		return err
 	}
 
