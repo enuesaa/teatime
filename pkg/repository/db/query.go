@@ -15,40 +15,33 @@ type Query struct {
 	sc             context.Context
 }
 
-func (q *Query) ctx() context.Context {
-	if q.sc != nil {
-		return q.sc
-	}
-	return context.Background()
-}
-
 func (q *Query) createCollection() error {
-	return q.db.CreateCollection(q.ctx(), q.collectionName)
+	return q.db.CreateCollection(q.sc, q.collectionName)
 }
 
 func (q *Query) dropCollection() error {
-	return q.db.Collection(q.collectionName).Drop(q.ctx())
+	return q.db.Collection(q.collectionName).Drop(q.sc)
 }
 
 func (q *Query) findAll(filter bson.M, res interface{}, sort bson.M) error {
 	collection := q.db.Collection(q.collectionName)
 
-	cur, err := collection.Find(q.ctx(), filter, options.Find().SetSort(sort))
+	cur, err := collection.Find(q.sc, filter, options.Find().SetSort(sort))
 	if err != nil {
 		return err
 	}
-	return cur.All(q.ctx(), res)
+	return cur.All(q.sc, res)
 }
 
 func (q *Query) find(filter bson.M, res interface{}) error {
 	collection := q.db.Collection(q.collectionName)
 
-	return collection.FindOne(q.ctx(), filter).Decode(res)
+	return collection.FindOne(q.sc, filter).Decode(res)
 }
 
 func (q *Query) create(document interface{}) (string, error) {
 	collection := q.db.Collection(q.collectionName)
-	res, err := collection.InsertOne(q.ctx(), document)
+	res, err := collection.InsertOne(q.sc, document)
 	if err != nil {
 		return "", err
 	}
@@ -67,7 +60,7 @@ func (q *Query) update(id string, document interface{}) (string, error) {
 	data := bson.M{
 		"$set": document,
 	}
-	res, err := collection.UpdateByID(q.ctx(), objectId, data)
+	res, err := collection.UpdateByID(q.sc, objectId, data)
 	if err != nil {
 		return "", err
 	}
@@ -80,7 +73,7 @@ func (q *Query) update(id string, document interface{}) (string, error) {
 
 func (q *Query) delete(filter bson.M) error {
 	collection := q.db.Collection(q.collectionName)
-	if _, err := collection.DeleteOne(q.ctx(), filter); err != nil {
+	if _, err := collection.DeleteOne(q.sc, filter); err != nil {
 		return err
 	}
 	return nil
@@ -88,7 +81,7 @@ func (q *Query) delete(filter bson.M) error {
 
 func (q *Query) deleteMany(filter bson.M) error {
 	collection := q.db.Collection(q.collectionName)
-	if _, err := collection.DeleteMany(q.ctx(), filter); err != nil {
+	if _, err := collection.DeleteMany(q.sc, filter); err != nil {
 		return err
 	}
 	return nil

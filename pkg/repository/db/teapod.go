@@ -1,11 +1,6 @@
 package db
 
-import (
-	"context"
-
-	"go.mongodb.org/mongo-driver/v2/bson"
-	"go.mongodb.org/mongo-driver/v2/mongo"
-)
+import "go.mongodb.org/mongo-driver/v2/bson"
 
 type Teapod struct {
 	Name        string         `bson:"name"`
@@ -24,16 +19,6 @@ type TeapodTeaboxInput struct {
 type TeapodAction struct {
 	Event   string `bson:"event"`
 	Comment string `bson:"comment"`
-}
-
-func NewTeapodQuery(db *mongo.Database, sc context.Context) TeapodQuery {
-	return TeapodQuery{
-		query: Query{
-			collectionName: "teapods",
-			db:             db,
-			sc:             sc,
-		},
-	}
 }
 
 type TeapodQuery struct {

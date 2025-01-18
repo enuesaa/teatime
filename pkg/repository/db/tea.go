@@ -1,12 +1,10 @@
 package db
 
 import (
-	"context"
 	"encoding/json"
 	"time"
 
 	"go.mongodb.org/mongo-driver/v2/bson"
-	"go.mongodb.org/mongo-driver/v2/mongo"
 )
 
 type Tea struct {
@@ -14,16 +12,6 @@ type Tea struct {
 	Created    time.Time              `bson:"created"`
 	Updated    time.Time              `bson:"updated"`
 	Data       map[string]interface{} `bson:"data"`
-}
-
-func NewTeaQuery(collectionName string, db *mongo.Database, sc context.Context) TeaQuery {
-	return TeaQuery{
-		query: Query{
-			collectionName: collectionName,
-			db:             db,
-			sc:             sc,
-		},
-	}
 }
 
 type TeaQuery struct {

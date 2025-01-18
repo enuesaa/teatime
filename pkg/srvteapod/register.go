@@ -3,6 +3,7 @@ package srvteapod
 import (
 	"fmt"
 
+	"github.com/enuesaa/teatime/pkg/repository/db"
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
@@ -17,13 +18,12 @@ func (srv *Srv) Register(teapodName string) error {
 	}
 	teapod := NewTeapodFromPlugInfo(info)
 
-	err = srv.repos.DB.WithTransaction(func() error {
-		teapodQuery := srv.repos.DB.Teapods()
-		if _, err := teapodQuery.Create(teapod); err != nil {
+	err = srv.repos.DB.Transact(func(qp *db.QueryProvider) error {
+		if _, err := qp.Teapods().Create(teapod); err != nil {
 			return err
 		}
 		for _, teabox := range teapod.Teaboxes {
-			teaQuery := srv.repos.DB.Teas(teapodName, teabox.Name)
+			teaQuery := qp.Teas(teapodName, teabox.Name)
 			if err := teaQuery.CreateCollection(); err != nil {
 				return err
 			}

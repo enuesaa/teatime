@@ -1,25 +1,10 @@
 package db
 
-import (
-	"context"
-
-	"go.mongodb.org/mongo-driver/v2/bson"
-	"go.mongodb.org/mongo-driver/v2/mongo"
-)
+import "go.mongodb.org/mongo-driver/v2/bson"
 
 type Log struct {
 	Created string `bson:"created"`
 	Message string `bson:"message"`
-}
-
-func NewLogQuery(db *mongo.Database, sc context.Context) LogQuery {
-	return LogQuery{
-		query: Query{
-			collectionName: "logs",
-			db:             db,
-			sc:             sc,
-		},
-	}
 }
 
 type LogQuery struct {
