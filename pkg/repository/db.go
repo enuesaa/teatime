@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/enuesaa/teatime/pkg/repository/db"
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
@@ -157,4 +158,16 @@ func (repo *DBRepository) QueryTea(teapod string, teabox string) DBTeaQuery {
 		collectionName: fmt.Sprintf("%s-%s", teapod, teabox),
 		db: repo,
 	}
+}
+
+func (repo *DBRepository) Logs() db.LogQuery {
+	return db.NewLogQuery(repo.db, repo.sc)
+}
+
+func (repo *DBRepository) Teapods() db.TeapodQuery {
+	return db.NewTeapodQuery(repo.db, repo.sc)
+}
+
+func (repo *DBRepository) Teas() db.TeaQuery {
+	return db.NewTeaQuery(repo.db, repo.sc)
 }
