@@ -1,45 +1,29 @@
 package srvteapod
 
-import "github.com/enuesaa/teatime/pkg/plug"
+import (
+	"github.com/enuesaa/teatime/pkg/plug"
+	"github.com/enuesaa/teatime/pkg/repository/db"
+)
 
-type Teapod struct {
-	Name        string         `bson:"name"`
-	Description string         `bson:"description"`
-	Teaboxes    []Teabox       `bson:"teaboxes"`
-	Actions     []TeapodAction `bson:"actions"`
-}
-type Teabox struct {
-	Name   string        `bson:"name"`
-	Inputs []TeaboxInput `bson:"inputs"`
-}
-type TeaboxInput struct {
-	Name string `bson:"name"`
-	Type string `bson:"type"`
-}
-type TeapodAction struct {
-	Event   string `bson:"event"`
-	Comment string `bson:"comment"`
-}
-
-func NewTeapodFromPlugInfo(info plug.Info) Teapod {
-	teapod := Teapod{
+func NewTeapodFromPlugInfo(info plug.Info) db.Teapod {
+	teapod := db.Teapod{
 		Name:        info.Name,
 		Description: info.Description,
-		Teaboxes:    []Teabox{},
-		Actions:     []TeapodAction{},
+		Teaboxes:    []db.TeapodTeabox{},
+		Actions:     []db.TeapodAction{},
 	}
 	for _, teabox := range info.Teaboxes {
-		inputs := []TeaboxInput{}
+		inputs := []db.TeapodTeaboxInput{}
 		for _, input := range teabox.Inputs {
-			inputs = append(inputs, TeaboxInput{Name: input.Name, Type: string(input.Type)})
+			inputs = append(inputs, db.TeapodTeaboxInput{Name: input.Name, Type: string(input.Type)})
 		}
-		teapod.Teaboxes = append(teapod.Teaboxes, Teabox{
+		teapod.Teaboxes = append(teapod.Teaboxes, db.TeapodTeabox{
 			Name:   teabox.Name,
 			Inputs: inputs,
 		})
 	}
 	for _, action := range info.Actions {
-		teapod.Actions = append(teapod.Actions, TeapodAction{
+		teapod.Actions = append(teapod.Actions, db.TeapodAction{
 			Event:   action.Name,
 			Comment: action.Comment,
 		})

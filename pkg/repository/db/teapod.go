@@ -33,20 +33,20 @@ func (q *TeapodQuery) DropCollection() error {
 	return q.query.dropCollection()
 }
 
-func (q *TeapodQuery) FindAll(filter bson.M, res interface{}, sort bson.M) error {
+func (q *TeapodQuery) FindAll(filter bson.M, res *[]Teapod, sort bson.M) error {
 	return q.query.findAll(filter, res, sort)
 }
 
-func (q *TeapodQuery) Find(filter bson.M, res interface{}) error {
+func (q *TeapodQuery) Find(filter bson.M, res *Teapod) error {
 	return q.query.find(filter, res)
 }
 
-func (q *TeapodQuery) Create(document interface{}) (string, error) {
-	return q.query.create(document)
+func (q *TeapodQuery) Create(doc Teapod) (string, error) {
+	return q.query.create(doc)
 }
 
-func (q *TeapodQuery) Update(id string, document interface{}) (string, error) {
-	return q.query.update(id, document)
+func (q *TeapodQuery) Update(id string, doc Teapod) (string, error) {
+	return q.query.update(id, doc)
 }
 
 func (q *TeapodQuery) Delete(filter bson.M) error {

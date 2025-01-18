@@ -6,13 +6,14 @@ import (
 	"os/exec"
 
 	"github.com/enuesaa/teatime/pkg/repository"
+	"github.com/enuesaa/teatime/pkg/repository/db"
 	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/go-plugin"
 )
 
 type LogMessage struct {
-	Created string `bson:"created" json:"timestamp"`
-	Message string `bson:"message" json:"@message"`
+	Created string `json:"timestamp"`
+	Message string `json:"@message"`
 }
 
 type LogWriter struct {
@@ -27,7 +28,11 @@ func (w *LogWriter) Write(p []byte) (int, error) {
 	if err := json.Unmarshal(p, &message); err != nil {
 		return 0, err
 	}
-	if _, err := query.Create(message); err != nil {
+	data := db.Log{
+		Created: message.Created,
+		Message: message.Message,
+	}
+	if _, err := query.Create(data); err != nil {
 		return 0, err
 	}
 	return len(p), nil

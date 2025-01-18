@@ -36,7 +36,7 @@ func (srv *Srv) Register(teapodName string) error {
 
 func (srv *Srv) CheckAlreadyRegistered(teapodName string) error {
 	query := srv.repos.DB.Teapods()
-	list := []Teapod{}
+	list := []db.Teapod{}
 
 	filter := bson.M{
 		"name": teapodName,

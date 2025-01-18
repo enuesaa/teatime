@@ -19,20 +19,20 @@ func (q *LogQuery) DropCollection() error {
 	return q.query.dropCollection()
 }
 
-func (q *LogQuery) FindAll(filter bson.M, res interface{}, sort bson.M) error {
-	return q.query.findAll(filter, res, sort)
+func (q *LogQuery) FindAll(filter bson.M, docs *[]Log, sort bson.M) error {
+	return q.query.findAll(filter, docs, sort)
 }
 
-func (q *LogQuery) Find(filter bson.M, res interface{}) error {
-	return q.query.find(filter, res)
+func (q *LogQuery) Find(filter bson.M, doc *Log) error {
+	return q.query.find(filter, doc)
 }
 
-func (q *LogQuery) Create(document interface{}) (string, error) {
-	return q.query.create(document)
+func (q *LogQuery) Create(doc Log) (string, error) {
+	return q.query.create(doc)
 }
 
-func (q *LogQuery) Update(id string, document interface{}) (string, error) {
-	return q.query.update(id, document)
+func (q *LogQuery) Update(id string, doc Log) (string, error) {
+	return q.query.update(id, doc)
 }
 
 func (q *LogQuery) Delete(filter bson.M) error {

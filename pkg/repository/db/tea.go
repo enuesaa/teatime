@@ -13,6 +13,12 @@ type Tea struct {
 	Updated    time.Time              `bson:"updated"`
 	Data       map[string]interface{} `bson:"data"`
 }
+func (tea *Tea) Id() string {
+	if tea.InternalId == nil {
+		return ""
+	}
+	return tea.InternalId.Hex()
+}
 
 type TeaQuery struct {
 	query Query
@@ -26,11 +32,11 @@ func (q *TeaQuery) DropCollection() error {
 	return q.query.dropCollection()
 }
 
-func (q *TeaQuery) FindAll(filter bson.M, res interface{}, sort bson.M) error {
+func (q *TeaQuery) FindAll(filter bson.M, res *[]Tea, sort bson.M) error {
 	return q.query.findAll(filter, res, sort)
 }
 
-func (q *TeaQuery) Find(filter bson.M, res interface{}) error {
+func (q *TeaQuery) Find(filter bson.M, res *Tea) error {
 	return q.query.find(filter, res)
 }
 

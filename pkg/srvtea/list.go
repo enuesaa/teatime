@@ -1,13 +1,12 @@
 package srvtea
 
 import (
+	"github.com/enuesaa/teatime/pkg/repository/db"
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
-// TODO: list, get を plugin 側に移す
-
-func (srv *Srv) List() ([]Tea, error) {
-	list := []Tea{}
+func (srv *Srv) List() ([]db.Tea, error) {
+	list := []db.Tea{}
 	query := srv.repos.DB.Teas(srv.teapodName, srv.teaboxName)
 
 	sort := bson.M{"created": 1}

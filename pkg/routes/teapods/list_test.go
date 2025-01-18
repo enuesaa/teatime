@@ -3,10 +3,10 @@ package teapods
 import (
 	"testing"
 
+	"github.com/enuesaa/teatime/pkg/repository/db"
 	"github.com/enuesaa/teatime/pkg/router/apptest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 func TestList(t *testing.T) {
@@ -14,7 +14,9 @@ func TestList(t *testing.T) {
 	defer end()
 
 	query := app.Repos.DB.Teapods()
-	query.Create(bson.M{"name": "testdata"})
+	query.Create(db.Teapod{
+		Name: "testdata",
+	})
 
 	res, err := app.Get(List)
 	require.NoError(t, err)

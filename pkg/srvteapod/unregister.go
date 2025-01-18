@@ -1,6 +1,7 @@
 package srvteapod
 
 import (
+	"github.com/enuesaa/teatime/pkg/repository/db"
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
@@ -10,7 +11,7 @@ func (srv *Srv) UnRegister(teapodName string) error {
 	filter := bson.M{
 		"name": teapodName,
 	}
-	var teapod Teapod
+	var teapod db.Teapod
 	if err := query.Find(filter, &teapod); err != nil {
 		return err
 	}
