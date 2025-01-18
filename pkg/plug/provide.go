@@ -1,18 +1,23 @@
 package plug
 
 import (
+	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/go-plugin"
 )
 
-type ProvideInit = func(logger Logger) ProviderInterface
+type ProvideInit = func(repos repository.Repos, logger Logger) ProviderInterface
 
 func Provide(pinit ProvideInit) {
+	repos := repository.New()
+	repos.Startup()
+	defer repos.End()
+
 	logger := hclog.New(&hclog.LoggerOptions{
 		JSONFormat: true,
 	})
 	plogger := Logger{logger}
-	provider := pinit(plogger)
+	provider := pinit(repos, plogger)
 
 	config := plugin.ServeConfig{
 		HandshakeConfig: plugin.HandshakeConfig{

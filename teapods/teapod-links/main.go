@@ -6,17 +6,19 @@ import (
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/enuesaa/teatime/pkg/repository/db"
+	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 func main() {
 	plug.Provide(NewProvider)
 }
 
-func NewProvider(logger plug.Logger) plug.ProviderInterface {
-	return &Provider{logger}
+func NewProvider(repos repository.Repos, logger plug.Logger) plug.ProviderInterface {
+	return &Provider{repos, logger}
 }
 
 type Provider struct {
+	repos repository.Repos
 	logger plug.Logger
 }
 
@@ -51,35 +53,49 @@ func (p *Provider) Info() (plug.Info, error) {
 }
 
 func (p *Provider) List(props plug.ListProps) ([]db.Tea, error) {
-	return []db.Tea{}, nil	
+	list := []db.Tea{}
+	if err := p.repos.DB.Teas("links", props.Teabox).FindAll(bson.M{}, &list, bson.M{}); err != nil {
+		return list, err
+	}
+	return list, nil	
 }
 
 func (p *Provider) Get(props plug.GetProps) (db.Tea, error) {
-	return db.Tea{}, nil	
+	doc := db.Tea{}
+	filter := bson.M{"_id": props.TeaId}
+	if err := p.repos.DB.Teas("links", props.Teabox).Find(filter, &doc); err != nil {
+		return doc, err
+	}
+	return doc, nil
 }
 
 func (p *Provider) Create(props plug.CreateProps) (string, error) {
-	repos := repository.New()
-	if err := repos.Startup(); err != nil {
-		return "", err
-	}
-	defer repos.End()
-
 	if err := ValidateLinkTea(props.Data); err != nil {
 		p.logger.Info(fmt.Sprintf("tea invalid: %v", err.Error()))
 		return "", err
 	}
-	teaId, err := repos.DB.Teas("links", "links").Create(props.Data)
+	teaId, err := p.repos.DB.Teas("links", props.Teabox).Create(props.Data)
 	if err != nil {
 		return "", err
 	}
-	return teaId, nil	
+	return teaId, nil
 }
 
 func (p *Provider) Update(props plug.UpdateProps) (string, error) {
-	return "", nil	
+	if err := ValidateLinkTea(props.Data); err != nil {
+		p.logger.Info(fmt.Sprintf("tea invalid: %v", err.Error()))
+		return "", err
+	}
+	teaId, err := p.repos.DB.Teas("links", props.Teabox).Update(props.TeaId, props.Data)
+	if err != nil {
+		return "", err
+	}
+	return teaId, nil
 }
 
 func (p *Provider) Delete(props plug.DeleteProps) (bool, error) {
-	return true, nil	
+	if err := p.repos.DB.Teas("links", props.Teabox).Delete(props.TeaId); err != nil {
+		return false, err
+	}
+	return true, nil
 }

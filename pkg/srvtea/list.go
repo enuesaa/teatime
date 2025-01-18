@@ -1,17 +1,17 @@
 package srvtea
 
 import (
+	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/repository/db"
-	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 func (srv *Srv) List() ([]db.Tea, error) {
-	list := []db.Tea{}
-	query := srv.repos.DB.Teas(srv.teapodName, srv.teaboxName)
-
-	sort := bson.M{"created": 1}
-	if err := query.FindAll(bson.M{}, &list, sort); err != nil {
-		return list, err
+	provider, err := plug.NewClientProvider(srv.teapodName, srv.repos)
+	if err != nil {
+		return []db.Tea{}, err
 	}
-	return list, nil
+	props := plug.ListProps{
+		Teabox: srv.teaboxName,
+	}
+	return provider.List(props)
 }

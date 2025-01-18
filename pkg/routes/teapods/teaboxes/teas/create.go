@@ -2,7 +2,7 @@ package teas
 
 import (
 	"github.com/enuesaa/teatime/pkg/router/ctx"
-	"github.com/enuesaa/teatime/pkg/srvteapod"
+	"github.com/enuesaa/teatime/pkg/srvtea"
 	"github.com/labstack/echo/v4"
 )
 
@@ -16,9 +16,8 @@ func Create(c echo.Context) error {
 		return err
 	}
 
-	teapodSrv := srvteapod.New(cc.Repos)
-
-	teaId, err := teapodSrv.CreateTea(teapodName, teaboxName, reqbody)
+	teaSrv := srvtea.New(cc.Repos, teapodName, teaboxName)
+	teaId, err := teaSrv.Create(reqbody)
 	if err != nil {
 		return err
 	}

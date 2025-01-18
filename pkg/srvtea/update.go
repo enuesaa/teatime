@@ -1,6 +1,10 @@
 package srvtea
 
-import "encoding/json"
+import (
+	"encoding/json"
+
+	"github.com/enuesaa/teatime/pkg/plug"
+)
 
 func (srv *Srv) Update(teaId string, raw Raw) (string, error) {
 	if _, err := srv.Get(teaId); err != nil {
@@ -8,9 +12,17 @@ func (srv *Srv) Update(teaId string, raw Raw) (string, error) {
 	}
 	datajson, err := json.Marshal(raw)
 	if err != nil {
-		return teaId, err
+		return "", err
 	}
 
-	query := srv.repos.DB.Teas(srv.teapodName, srv.teaboxName)
-	return query.Update(teaId, datajson)
+	provider, err := plug.NewClientProvider(srv.teapodName, srv.repos)
+	if err != nil {
+		return "", err
+	}
+	props := plug.UpdateProps{
+		Teabox: srv.teaboxName,
+		TeaId:  teaId,
+		Data:   datajson,
+	}
+	return provider.Update(props)
 }

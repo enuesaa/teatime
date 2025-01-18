@@ -1,22 +1,18 @@
 package srvtea
 
 import (
+	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/repository/db"
-	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 func (srv *Srv) Get(teaId string) (db.Tea, error) {
-	query := srv.repos.DB.Teas(srv.teapodName, srv.teaboxName)
-
-	var tea db.Tea
-	id, err := bson.ObjectIDFromHex(teaId)
+	provider, err := plug.NewClientProvider(srv.teapodName, srv.repos)
 	if err != nil {
-		return tea, err
+		return db.Tea{}, err
 	}
-	filter := bson.M{"_id": id}
-
-	if err := query.Find(filter, &tea); err != nil {
-		return tea, err
+	props := plug.GetProps{
+		Teabox: srv.teaboxName,
+		TeaId: teaId,
 	}
-	return tea, nil
+	return provider.Get(props)
 }
