@@ -72,7 +72,7 @@ func (p *Provider) handleDataCreatedEvent(event plug.Event) (string, error) {
 			p.logger.Info(fmt.Sprintf("tea invalid: %v", err.Error()))
 			return "", err
 		}
-		query := repos.DB.QueryTea("links", "links")
+		query := repos.DB.Teas("links", "links")
 		if _, err := query.Create(event.Data); err != nil {
 			return "", err
 		}

@@ -8,6 +8,6 @@ func (srv *Srv) Create(raw Raw) (string, error) {
 		return "", err
 	}
 
-	query := srv.repos.DB.QueryTea(srv.teapodName, srv.teaboxName)
+	query := srv.repos.DB.Teas(srv.teapodName, srv.teaboxName)
 	return query.Create(datajson)
 }

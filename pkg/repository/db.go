@@ -22,7 +22,9 @@ type DBRepositoryInterface interface {
 	Update(name string, id string, document interface{}) (string, error)
 	Delete(name string, filter bson.M) error
 	DeleteMany(name string, filter bson.M) error
-	QueryTea(teapod string, teabox string) DBTeaQuery
+	Logs() db.LogQuery
+	Teapods() db.TeapodQuery
+	Teas(teapod string, teabox string) db.TeaQuery
 }
 type DBRepository struct {
 	client *mongo.Client
@@ -153,13 +155,6 @@ func (repo *DBRepository) DeleteMany(name string, filter bson.M) error {
 	return nil
 }
 
-func (repo *DBRepository) QueryTea(teapod string, teabox string) DBTeaQuery {
-	return DBTeaQuery{
-		collectionName: fmt.Sprintf("%s-%s", teapod, teabox),
-		db: repo,
-	}
-}
-
 func (repo *DBRepository) Logs() db.LogQuery {
 	return db.NewLogQuery(repo.db, repo.sc)
 }
@@ -168,6 +163,8 @@ func (repo *DBRepository) Teapods() db.TeapodQuery {
 	return db.NewTeapodQuery(repo.db, repo.sc)
 }
 
-func (repo *DBRepository) Teas() db.TeaQuery {
-	return db.NewTeaQuery(repo.db, repo.sc)
+func (repo *DBRepository) Teas(teapod string, teabox string) db.TeaQuery {
+	collectionName := fmt.Sprintf("%s-%s", teapod, teabox)
+
+	return db.NewTeaQuery(collectionName, repo.db, repo.sc)
 }
