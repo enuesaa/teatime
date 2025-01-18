@@ -26,11 +26,11 @@ func (tea *Tea) Id() string {
 type CreateData struct {
 	Created time.Time `bson:"created"`
 	Updated time.Time `bson:"updated"`
-	Data Raw `bson:"data"`
+	Data    Raw       `bson:"data"`
 }
 type UpdateData struct {
 	Updated time.Time `bson:"updated"`
-	Data Raw `bson:"data"`
+	Data    Raw       `bson:"data"`
 }
 
 func (srv *Srv) CollectionName() string {

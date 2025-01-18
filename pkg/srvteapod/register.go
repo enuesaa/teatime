@@ -36,12 +36,14 @@ func (srv *Srv) Register(teapodName string) error {
 
 func (srv *Srv) CheckAlreadyRegistered(teapodName string) error {
 	query := srv.repos.DB.Teapods()
+	list := []Teapod{}
 
 	filter := bson.M{
 		"name": teapodName,
 	}
-	var list []Teapod
-	sort := bson.M{"created": 1}
+	sort := bson.M{
+		"created": 1,
+	}
 	if err := query.FindAll(filter, &list, sort); err != nil {
 		return err
 	}

@@ -5,13 +5,13 @@ import (
 )
 
 func (srv *Srv) UnRegister(teapodName string) error {
-	teapodQuery := srv.repos.DB.Teapods()
+	query := srv.repos.DB.Teapods()
 
 	filter := bson.M{
 		"name": teapodName,
 	}
 	var teapod Teapod
-	if err := teapodQuery.Find(filter, &teapod); err != nil {
+	if err := query.Find(filter, &teapod); err != nil {
 		return err
 	}
 
@@ -22,7 +22,7 @@ func (srv *Srv) UnRegister(teapodName string) error {
 		}
 	}
 
-	if err := teapodQuery.Delete(filter); err != nil {
+	if err := query.Delete(filter); err != nil {
 		return err
 	}
 	return nil

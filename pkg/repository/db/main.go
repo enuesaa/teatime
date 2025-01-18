@@ -11,8 +11,8 @@ import (
 
 type Query struct {
 	collectionName string
-	db     *mongo.Database
-	sc     context.Context
+	db             *mongo.Database
+	sc             context.Context
 }
 
 func (q *Query) ctx() context.Context {
@@ -65,7 +65,7 @@ func (q *Query) update(id string, document interface{}) (string, error) {
 		return "", err
 	}
 	data := bson.M{
-        "$set": document,
+		"$set": document,
 	}
 	res, err := collection.UpdateByID(q.ctx(), objectId, data)
 	if err != nil {

@@ -31,7 +31,7 @@ func View(c echo.Context) error {
 		}
 
 		data.Teaboxes = append(data.Teaboxes, ItemTeabox{
-			Name: teabox.Name,
+			Name:   teabox.Name,
 			Inputs: inputs,
 		})
 	}

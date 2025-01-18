@@ -33,6 +33,7 @@ func Provide(pinit ProvideInit) {
 type Logger struct {
 	hclogger hclog.Logger
 }
+
 func (l *Logger) Info(message string) {
 	l.hclogger.Info(message)
 }

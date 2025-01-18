@@ -21,10 +21,10 @@ func View(c echo.Context) error {
 	}
 
 	item := Item{
-		Id:   data.Id(),
+		Id:      data.Id(),
 		Created: data.Created.Local().Format(time.RFC3339),
 		Updated: data.Updated.Local().Format(time.RFC3339),
-		Data: data.Data,
+		Data:    data.Data,
 	}
 	return cc.WithData(item)
 }

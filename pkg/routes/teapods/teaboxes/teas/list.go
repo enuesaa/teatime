@@ -22,10 +22,10 @@ func List(c echo.Context) error {
 	}
 	for _, tea := range teas {
 		list = append(list, Item{
-			Id: tea.Id(),
+			Id:      tea.Id(),
 			Created: tea.Created.Local().Format(time.RFC3339),
 			Updated: tea.Updated.Local().Format(time.RFC3339),
-			Data: tea.Data,
+			Data:    tea.Data,
 		})
 	}
 

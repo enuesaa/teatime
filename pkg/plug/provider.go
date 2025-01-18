@@ -14,7 +14,7 @@ type Info struct {
 	Actions     []Action
 }
 type Teabox struct {
-	Name string
+	Name   string
 	Inputs []TeaboxInput
 }
 type TeaboxInput struct {
@@ -22,6 +22,7 @@ type TeaboxInput struct {
 	Type TeaboxInputType
 }
 type TeaboxInputType string
+
 const (
 	TeaboxInputText TeaboxInputType = "text"
 )
@@ -33,11 +34,12 @@ type Action struct {
 
 // event
 type Event struct {
-	Name EventName
+	Name   EventName
 	Teabox string
-	Data []byte // json format
+	Data   []byte // json format
 }
 type EventName string
+
 const (
 	EventDataCreated EventName = "data.created"
 )

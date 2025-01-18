@@ -9,10 +9,10 @@ type Creation struct {
 }
 
 type Item struct {
-	Id   string                 `json:"id"`
-	Created string              `json:"created"`
-	Updated string              `json:"updated"`
-	Data map[string]interface{} `json:"data"`
+	Id      string                 `json:"id"`
+	Created string                 `json:"created"`
+	Updated string                 `json:"updated"`
+	Data    map[string]interface{} `json:"data"`
 }
 
 type DeleteResponse struct{}

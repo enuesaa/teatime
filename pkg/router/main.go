@@ -3,8 +3,8 @@ package router
 import (
 	"github.com/enuesaa/teatime/pkg/repository"
 	"github.com/enuesaa/teatime/pkg/router/middleware"
-	apiLogs "github.com/enuesaa/teatime/pkg/routes/logs"
 	apiLogDeleteall "github.com/enuesaa/teatime/pkg/routes/log/deleteall"
+	apiLogs "github.com/enuesaa/teatime/pkg/routes/logs"
 	apiTeapods "github.com/enuesaa/teatime/pkg/routes/teapods"
 	apiTeapodsInfo "github.com/enuesaa/teatime/pkg/routes/teapods/info"
 	apiTeapodsTeaboxesTeas "github.com/enuesaa/teatime/pkg/routes/teapods/teaboxes/teas"

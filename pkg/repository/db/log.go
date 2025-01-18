@@ -16,8 +16,8 @@ func NewLogQuery(db *mongo.Database, sc context.Context) LogQuery {
 	return LogQuery{
 		query: Query{
 			collectionName: "logs",
-			db: db,
-			sc: sc,
+			db:             db,
+			sc:             sc,
 		},
 	}
 }

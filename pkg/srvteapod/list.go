@@ -6,11 +6,14 @@ import (
 
 func (srv *Srv) List() ([]string, error) {
 	query := srv.repos.DB.Teapods()
-	list := make([]string, 0)
+	list := []string{}
 
-	teapods := make([]Teapod, 0)
-	sort := bson.M{"created": 1}
-	if err := query.FindAll(bson.M{}, &teapods, sort); err != nil {
+	teapods := []Teapod{}
+	filter := bson.M{}
+	sort := bson.M{
+		"created": 1,
+	}
+	if err := query.FindAll(filter, &teapods, sort); err != nil {
 		return list, err
 	}
 

@@ -1,10 +1,6 @@
 package srvteapod
 
-import (
-	"fmt"
-
-	"github.com/enuesaa/teatime/pkg/plug"
-)
+import "github.com/enuesaa/teatime/pkg/plug"
 
 type Teapod struct {
 	Name        string         `bson:"name"`
@@ -13,7 +9,7 @@ type Teapod struct {
 	Actions     []TeapodAction `bson:"actions"`
 }
 type Teabox struct {
-	Name string `bson:"name"`
+	Name   string        `bson:"name"`
 	Inputs []TeaboxInput `bson:"inputs"`
 }
 type TeaboxInput struct {
@@ -38,7 +34,7 @@ func NewTeapodFromPlugInfo(info plug.Info) Teapod {
 			inputs = append(inputs, TeaboxInput{Name: input.Name, Type: string(input.Type)})
 		}
 		teapod.Teaboxes = append(teapod.Teaboxes, Teabox{
-			Name: teabox.Name,
+			Name:   teabox.Name,
 			Inputs: inputs,
 		})
 	}
@@ -49,12 +45,4 @@ func NewTeapodFromPlugInfo(info plug.Info) Teapod {
 		})
 	}
 	return teapod
-}
-
-func (srv *Srv) CollectionName() string {
-	return "teapods"
-}
-
-func (srv *Srv) TeaboxCollectionName(teapodName string, teaboxName string) string {
-	return fmt.Sprintf("%s-%s", teapodName, teaboxName)
 }

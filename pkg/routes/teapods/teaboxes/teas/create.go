@@ -18,7 +18,7 @@ func Create(c echo.Context) error {
 	}
 
 	teapodSrv := srvteapod.New(cc.Repos)
-	
+
 	if err := teapodSrv.On(teapodName, plug.EventDataCreated, teaboxName, reqbody); err != nil {
 		return err
 	}

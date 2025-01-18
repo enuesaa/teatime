@@ -17,10 +17,12 @@ func (srv *Srv) On(teapod string, name plug.EventName, teabox string, data map[s
 		return err
 	}
 	event := plug.Event{
-		Name: name,
+		Name:   name,
 		Teabox: teabox,
-		Data: datajson,
+		Data:   datajson,
 	}
-	_, err = provider.On(event)
+	if _, err := provider.On(event); err != nil {
+		return err
+	}
 	return err
 }

@@ -1,7 +1,9 @@
 package srvlog
 
-func (srv *Srv) Create(message LogMessage) (string, error) {
+import "github.com/enuesaa/teatime/pkg/repository/db"
+
+func (srv *Srv) Create(data db.Log) (string, error) {
 	query := srv.repos.DB.Logs()
 
-	return query.Create(message)
+	return query.Create(data)
 }

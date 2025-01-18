@@ -20,8 +20,8 @@ func NewTeaQuery(collectionName string, db *mongo.Database, sc context.Context) 
 	return TeaQuery{
 		query: Query{
 			collectionName: collectionName,
-			db: db,
-			sc: sc,
+			db:             db,
+			sc:             sc,
 		},
 	}
 }
@@ -54,7 +54,7 @@ func (q *TeaQuery) Create(data []byte) (string, error) {
 
 	now := time.Now()
 	tea := Tea{
-		Data: datamap,
+		Data:    datamap,
 		Created: now,
 		Updated: now,
 	}
@@ -69,7 +69,7 @@ func (q *TeaQuery) Update(teaId string, data []byte) (string, error) {
 
 	now := time.Now()
 	tea := Tea{
-		Data: datamap,
+		Data:    datamap,
 		Updated: now,
 	}
 	return q.query.update(teaId, tea)

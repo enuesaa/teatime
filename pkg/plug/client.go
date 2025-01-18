@@ -19,6 +19,7 @@ type LogWriter struct {
 	io.Writer
 	repos repository.Repos
 }
+
 func (w *LogWriter) Write(p []byte) (int, error) {
 	query := w.repos.DB.Logs()
 

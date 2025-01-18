@@ -8,9 +8,9 @@ type Item struct {
 }
 
 type ItemTeabox struct {
-	Name string `json:"name"`
-	Placeholder string `json:"placeholder"`
-	Inputs []TeaboxInput `json:"inputs"`
+	Name        string        `json:"name"`
+	Placeholder string        `json:"placeholder"`
+	Inputs      []TeaboxInput `json:"inputs"`
 }
 
 type TeaboxInput struct {

@@ -14,7 +14,7 @@ type Teapod struct {
 	Actions     []TeapodAction `bson:"actions"`
 }
 type TeapodTeabox struct {
-	Name string `bson:"name"`
+	Name   string              `bson:"name"`
 	Inputs []TeapodTeaboxInput `bson:"inputs"`
 }
 type TeapodTeaboxInput struct {
@@ -30,8 +30,8 @@ func NewTeapodQuery(db *mongo.Database, sc context.Context) TeapodQuery {
 	return TeapodQuery{
 		query: Query{
 			collectionName: "teapods",
-			db: db,
-			sc: sc,
+			db:             db,
+			sc:             sc,
 		},
 	}
 }
