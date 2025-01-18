@@ -1,5 +1,7 @@
 package srvlog
 
 func (srv *Srv) Create(message LogMessage) (string, error) {
-	return srv.repos.DB.Create(srv.CollectionName(), message)
+	query := srv.repos.DB.Logs()
+
+	return query.Create(message)
 }

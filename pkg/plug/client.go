@@ -20,12 +20,13 @@ type LogWriter struct {
 	repos repository.Repos
 }
 func (w *LogWriter) Write(p []byte) (int, error) {
+	query := w.repos.DB.Logs()
 
 	var message LogMessage
 	if err := json.Unmarshal(p, &message); err != nil {
 		return 0, err
 	}
-	if _, err := w.repos.DB.Create("logs", message); err != nil {
+	if _, err := query.Create(message); err != nil {
 		return 0, err
 	}
 	return len(p), nil

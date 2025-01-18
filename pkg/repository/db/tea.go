@@ -18,7 +18,7 @@ type Tea struct {
 
 func NewTeaQuery(collectionName string, db *mongo.Database, sc context.Context) TeaQuery {
 	return TeaQuery{
-		Query{
+		query: Query{
 			collectionName: collectionName,
 			db: db,
 			sc: sc,
@@ -27,62 +27,52 @@ func NewTeaQuery(collectionName string, db *mongo.Database, sc context.Context) 
 }
 
 type TeaQuery struct {
-	Query
+	query Query
 }
 
 func (q *TeaQuery) CreateCollection() error {
-	return q.createCollection()
+	return q.query.createCollection()
 }
 
 func (q *TeaQuery) DropCollection() error {
-	return q.dropCollection()
+	return q.query.dropCollection()
 }
 
-func (q *TeaQuery) FindAll(filter bson.M, res interface{}) error {
-	return q.findAll(bson.M{}, res, bson.M{})
+func (q *TeaQuery) FindAll(filter bson.M, res interface{}, sort bson.M) error {
+	return q.query.findAll(filter, res, sort)
 }
 
 func (q *TeaQuery) Find(filter bson.M, res interface{}) error {
-	return q.find(filter, res)
+	return q.query.find(filter, res)
 }
 
 func (q *TeaQuery) Create(data []byte) (string, error) {
-	type Record struct {
-		Created time.Time `bson:"created"`
-		Updated time.Time `bson:"updated"`
-		Data map[string]interface{} `bson:"data"`
-	}
-
 	var datamap map[string]interface{}
 	if err := json.Unmarshal(data, &datamap); err != nil {
 		return "", err
 	}
-	created := time.Now()
-	record := Record{
-		Created: created,
-		Updated: created,
+
+	now := time.Now()
+	tea := Tea{
 		Data: datamap,
+		Created: now,
+		Updated: now,
 	}
-	return q.create(record)
+	return q.query.create(tea)
 }
 
 func (q *TeaQuery) Update(teaId string, data []byte) (string, error) {
-	type Record struct {
-		Updated time.Time `bson:"updated"`
-		Data map[string]interface{} `bson:"data"`
-	}
-
 	var datamap map[string]interface{}
 	if err := json.Unmarshal(data, &datamap); err != nil {
 		return "", err
 	}
 
-	updated := time.Now()
-	record := Record{
-		Updated: updated,
+	now := time.Now()
+	tea := Tea{
 		Data: datamap,
+		Updated: now,
 	}
-	return q.update(teaId, record)
+	return q.query.update(teaId, tea)
 }
 
 func (q *TeaQuery) Delete(teaId string) error {
@@ -90,6 +80,9 @@ func (q *TeaQuery) Delete(teaId string) error {
 	if err != nil {
 		return err
 	}
-	filter := bson.M{"_id": id}
-	return q.delete(filter)
+	filter := bson.M{
+		"_id": id,
+	}
+
+	return q.query.delete(filter)
 }

@@ -18,12 +18,13 @@ func (srv *Srv) Register(teapodName string) error {
 	teapod := NewTeapodFromPlugInfo(info)
 
 	err = srv.repos.DB.WithTransaction(func() error {
-		if _, err := srv.repos.DB.Create(srv.CollectionName(), teapod); err != nil {
+		teapodQuery := srv.repos.DB.Teapods()
+		if _, err := teapodQuery.Create(teapod); err != nil {
 			return err
 		}
 		for _, teabox := range teapod.Teaboxes {
-			collectionName := srv.TeaboxCollectionName(teapodName, teabox.Name)
-			if err := srv.repos.DB.CreateCollection(collectionName); err != nil {
+			teaQuery := srv.repos.DB.Teas(teapodName, teabox.Name)
+			if err := teaQuery.CreateCollection(); err != nil {
 				return err
 			}
 		}
@@ -34,12 +35,14 @@ func (srv *Srv) Register(teapodName string) error {
 }
 
 func (srv *Srv) CheckAlreadyRegistered(teapodName string) error {
+	query := srv.repos.DB.Teapods()
+
 	filter := bson.M{
 		"name": teapodName,
 	}
 	var list []Teapod
 	sort := bson.M{"created": 1}
-	if err := srv.repos.DB.FindAll(srv.CollectionName(), filter, &list, sort); err != nil {
+	if err := query.FindAll(filter, &list, sort); err != nil {
 		return err
 	}
 	if len(list) > 0 {

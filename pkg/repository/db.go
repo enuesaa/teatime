@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/enuesaa/teatime/pkg/repository/db"
-	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
@@ -14,14 +13,6 @@ type DBRepositoryInterface interface {
 	Connect() error
 	Disconnect() error
 	WithTransaction(fn func() error) error
-	CreateCollection(name string) error
-	DropCollection(name string) error
-	Create(name string, document interface{}) (string, error)
-	FindAll(name string, filter bson.M, res interface{}, sort bson.M) error
-	Find(name string, filter bson.M, res interface{}) error
-	Update(name string, id string, document interface{}) (string, error)
-	Delete(name string, filter bson.M) error
-	DeleteMany(name string, filter bson.M) error
 	Logs() db.LogQuery
 	Teapods() db.TeapodQuery
 	Teas(teapod string, teabox string) db.TeaQuery
@@ -81,78 +72,6 @@ func (repo *DBRepository) WithTransaction(fn func() error) error {
 	repo.sc = nil
 
 	return err
-}
-
-func (repo *DBRepository) CreateCollection(name string) error {
-	return repo.db.CreateCollection(repo.ctx(), name)
-}
-
-func (repo *DBRepository) DropCollection(name string) error {
-	return repo.db.Collection(name).Drop(repo.ctx())
-}
-
-func (repo *DBRepository) FindAll(name string, filter bson.M, res interface{}, sort bson.M) error {
-	collection := repo.db.Collection(name)
-
-	cur, err := collection.Find(repo.ctx(), filter, options.Find().SetSort(sort))
-	if err != nil {
-		return err
-	}
-	return cur.All(repo.ctx(), res)
-}
-
-func (repo *DBRepository) Find(name string, filter bson.M, res interface{}) error {
-	collection := repo.db.Collection(name)
-
-	return collection.FindOne(repo.ctx(), filter).Decode(res)
-}
-
-func (repo *DBRepository) Create(name string, document interface{}) (string, error) {
-	collection := repo.db.Collection(name)
-	res, err := collection.InsertOne(repo.ctx(), document)
-	if err != nil {
-		return "", err
-	}
-	id := res.InsertedID.(bson.ObjectID)
-
-	return id.Hex(), nil
-}
-
-func (repo *DBRepository) Update(name string, id string, document interface{}) (string, error) {
-	collection := repo.db.Collection(name)
-
-	objectId, err := bson.ObjectIDFromHex(id)
-	if err != nil {
-		return "", err
-	}
-	data := bson.M{
-        "$set": document,
-	}
-	res, err := collection.UpdateByID(repo.ctx(), objectId, data)
-	if err != nil {
-		return "", err
-	}
-	if res.MatchedCount == 0 {
-		return "", fmt.Errorf("failed to find document")
-	}
-
-	return id, nil
-}
-
-func (repo *DBRepository) Delete(name string, filter bson.M) error {
-	collection := repo.db.Collection(name)
-	if _, err := collection.DeleteOne(repo.ctx(), filter); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (repo *DBRepository) DeleteMany(name string, filter bson.M) error {
-	collection := repo.db.Collection(name)
-	if _, err := collection.DeleteMany(repo.ctx(), filter); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (repo *DBRepository) Logs() db.LogQuery {

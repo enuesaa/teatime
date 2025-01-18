@@ -28,7 +28,7 @@ type TeapodAction struct {
 
 func NewTeapodQuery(db *mongo.Database, sc context.Context) TeapodQuery {
 	return TeapodQuery{
-		Query{
+		query: Query{
 			collectionName: "teapods",
 			db: db,
 			sc: sc,
@@ -37,37 +37,37 @@ func NewTeapodQuery(db *mongo.Database, sc context.Context) TeapodQuery {
 }
 
 type TeapodQuery struct {
-	Query
+	query Query
 }
 
 func (q *TeapodQuery) CreateCollection() error {
-	return q.createCollection()
+	return q.query.createCollection()
 }
 
 func (q *TeapodQuery) DropCollection() error {
-	return q.dropCollection()
+	return q.query.dropCollection()
 }
 
-func (q *TeapodQuery) FindAll(filter bson.M, res interface{}) error {
-	return q.findAll(bson.M{}, res, bson.M{})
+func (q *TeapodQuery) FindAll(filter bson.M, res interface{}, sort bson.M) error {
+	return q.query.findAll(filter, res, sort)
 }
 
 func (q *TeapodQuery) Find(filter bson.M, res interface{}) error {
-	return q.find(filter, res)
+	return q.query.find(filter, res)
 }
 
 func (q *TeapodQuery) Create(document interface{}) (string, error) {
-	return q.create(document)
+	return q.query.create(document)
 }
 
 func (q *TeapodQuery) Update(id string, document interface{}) (string, error) {
-	return q.update(id, document)
+	return q.query.update(id, document)
 }
 
 func (q *TeapodQuery) Delete(filter bson.M) error {
-	return q.delete(filter)
+	return q.query.delete(filter)
 }
 
 func (q *TeapodQuery) DeleteMany(filter bson.M) error {
-	return q.deleteMany(filter)
+	return q.query.deleteMany(filter)
 }

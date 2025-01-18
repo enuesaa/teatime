@@ -5,11 +5,12 @@ import (
 )
 
 func (srv *Srv) List() ([]string, error) {
+	query := srv.repos.DB.Teapods()
 	list := make([]string, 0)
 
 	teapods := make([]Teapod, 0)
 	sort := bson.M{"created": 1}
-	if err := srv.repos.DB.FindAll(srv.CollectionName(), bson.M{}, &teapods, sort); err != nil {
+	if err := query.FindAll(bson.M{}, &teapods, sort); err != nil {
 		return list, err
 	}
 

@@ -5,10 +5,12 @@ import (
 )
 
 func (srv *Srv) List() ([]LogMessage, error) {
+	query := srv.repos.DB.Logs()
+
 	list := make([]LogMessage, 0)
 
 	sort := bson.M{"created": -1}
-	if err := srv.repos.DB.FindAll(srv.CollectionName(), bson.M{}, &list, sort); err != nil {
+	if err := query.FindAll(bson.M{}, &list, sort); err != nil {
 		return list, err
 	}
 

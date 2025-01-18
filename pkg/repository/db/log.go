@@ -14,7 +14,7 @@ type Log struct {
 
 func NewLogQuery(db *mongo.Database, sc context.Context) LogQuery {
 	return LogQuery{
-		Query{
+		query: Query{
 			collectionName: "logs",
 			db: db,
 			sc: sc,
@@ -23,37 +23,37 @@ func NewLogQuery(db *mongo.Database, sc context.Context) LogQuery {
 }
 
 type LogQuery struct {
-	Query
+	query Query
 }
 
 func (q *LogQuery) CreateCollection() error {
-	return q.createCollection()
+	return q.query.createCollection()
 }
 
 func (q *LogQuery) DropCollection() error {
-	return q.dropCollection()
+	return q.query.dropCollection()
 }
 
-func (q *LogQuery) FindAll(filter bson.M, res interface{}) error {
-	return q.findAll(bson.M{}, res, bson.M{})
+func (q *LogQuery) FindAll(filter bson.M, res interface{}, sort bson.M) error {
+	return q.query.findAll(filter, res, sort)
 }
 
 func (q *LogQuery) Find(filter bson.M, res interface{}) error {
-	return q.find(filter, res)
+	return q.query.find(filter, res)
 }
 
 func (q *LogQuery) Create(document interface{}) (string, error) {
-	return q.create(document)
+	return q.query.create(document)
 }
 
 func (q *LogQuery) Update(id string, document interface{}) (string, error) {
-	return q.update(id, document)
+	return q.query.update(id, document)
 }
 
 func (q *LogQuery) Delete(filter bson.M) error {
-	return q.delete(filter)
+	return q.query.delete(filter)
 }
 
 func (q *LogQuery) DeleteMany(filter bson.M) error {
-	return q.deleteMany(filter)
+	return q.query.deleteMany(filter)
 }

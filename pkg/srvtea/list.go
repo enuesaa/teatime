@@ -8,9 +8,10 @@ import (
 
 func (srv *Srv) List() ([]Tea, error) {
 	list := []Tea{}
+	query := srv.repos.DB.Teas(srv.teapodName, srv.teaboxName)
 
 	sort := bson.M{"created": 1}
-	if err := srv.repos.DB.FindAll(srv.CollectionName(), bson.M{}, &list, sort); err != nil {
+	if err := query.FindAll(bson.M{}, &list, sort); err != nil {
 		return list, err
 	}
 	return list, nil
