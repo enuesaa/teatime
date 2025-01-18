@@ -17,3 +17,8 @@ func (co *Connector) Server(b *plugin.MuxBroker) (interface{}, error) {
 func (co *Connector) Client(b *plugin.MuxBroker, c *rpc.Client) (interface{}, error) {
 	return &ConnectClient{client: c}, nil
 }
+
+type ConnectResult[T any] struct {
+	Data T
+	Err  error
+}

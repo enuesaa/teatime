@@ -6,7 +6,7 @@ import (
 )
 
 func (srv *Srv) List() ([]db.Tea, error) {
-	provider, err := plug.NewClientProvider(srv.teapodName, srv.repos)
+	provider, err := plug.NewClient(srv.teapodName, srv.repos)
 	if err != nil {
 		return []db.Tea{}, err
 	}

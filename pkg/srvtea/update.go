@@ -6,7 +6,7 @@ import (
 	"github.com/enuesaa/teatime/pkg/plug"
 )
 
-func (srv *Srv) Update(teaId string, raw Raw) (string, error) {
+func (srv *Srv) Update(teaId string, raw map[string]interface{}) (string, error) {
 	if _, err := srv.Get(teaId); err != nil {
 		return teaId, err
 	}
@@ -15,7 +15,7 @@ func (srv *Srv) Update(teaId string, raw Raw) (string, error) {
 		return "", err
 	}
 
-	provider, err := plug.NewClientProvider(srv.teapodName, srv.repos)
+	provider, err := plug.NewClient(srv.teapodName, srv.repos)
 	if err != nil {
 		return "", err
 	}

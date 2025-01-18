@@ -12,37 +12,37 @@ type ConnectClient struct {
 }
 
 func (cc *ConnectClient) Info() (Info, error) {
-	var resp Result[Info]
+	var resp ConnectResult[Info]
 	cc.client.Call("Plugin.Info", new(interface{}), &resp)
-	return resp.Data, resp.Err()
+	return resp.Data, resp.Err
 }
 
 func (cc *ConnectClient) List(props ListProps) ([]db.Tea, error) {
-	var resp Result[[]db.Tea]
+	var resp ConnectResult[[]db.Tea]
 	cc.client.Call("Plugin.List", props, &resp)
-	return resp.Data, resp.Err()
+	return resp.Data, resp.Err
 }
 
 func (cc *ConnectClient) Get(props GetProps) (db.Tea, error) {
-	var resp Result[db.Tea]
+	var resp ConnectResult[db.Tea]
 	cc.client.Call("Plugin.Get", props, &resp)
-	return resp.Data, resp.Err()
+	return resp.Data, resp.Err
 }
 
 func (cc *ConnectClient) Create(props CreateProps) (string, error) {
-	var resp Result[string]
+	var resp ConnectResult[string]
 	cc.client.Call("Plugin.Create", props, &resp)
-	return resp.Data, resp.Err()
+	return resp.Data, resp.Err
 }
 
 func (cc *ConnectClient) Update(props UpdateProps) (string, error) {
-	var resp Result[string]
+	var resp ConnectResult[string]
 	cc.client.Call("Plugin.Update", props, &resp)
-	return resp.Data, resp.Err()
+	return resp.Data, resp.Err
 }
 
 func (cc *ConnectClient) Delete(props DeleteProps) (bool, error) {
-	var resp Result[bool]
+	var resp ConnectResult[bool]
 	cc.client.Call("Plugin.Delete", props, &resp)
-	return resp.Data, resp.Err()
+	return resp.Data, resp.Err
 }

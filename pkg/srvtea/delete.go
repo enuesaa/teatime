@@ -3,7 +3,7 @@ package srvtea
 import "github.com/enuesaa/teatime/pkg/plug"
 
 func (srv *Srv) Delete(teaId string) error {
-	provider, err := plug.NewClientProvider(srv.teapodName, srv.repos)
+	provider, err := plug.NewClient(srv.teapodName, srv.repos)
 	if err != nil {
 		return err
 	}
