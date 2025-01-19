@@ -47,7 +47,12 @@ func (q *TeaQuery) Create(data []byte) (string, error) {
 	}
 
 	now := time.Now()
-	tea := Tea{
+	type Record struct {
+		Data    map[string]interface{} `bson:"data"`
+		Created time.Time              `bson:"created"`
+		Updated time.Time              `bson:"updated"`
+	}
+	tea := Record{
 		Data:    datamap,
 		Created: now,
 		Updated: now,
@@ -63,8 +68,8 @@ func (q *TeaQuery) Update(teaId string, data []byte) (string, error) {
 
 	now := time.Now()
 	type Record struct {
-		Updated time.Time              `bson:"updated"`
 		Data    map[string]interface{} `bson:"data"`
+		Updated time.Time              `bson:"updated"`
 	}
 	tea := Record{
 		Data:    datamap,
