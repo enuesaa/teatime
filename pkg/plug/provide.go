@@ -8,10 +8,11 @@ import (
 type ProvideInit = func(db DB, logger Logger) ProviderInterface
 
 func Provide(pinit ProvideInit) {
-	logger := hclog.New(&hclog.LoggerOptions{
+	hclogger := hclog.New(&hclog.LoggerOptions{
 		JSONFormat: true,
 	})
-	provider := pinit(DB{}, Logger{logger})
+	logger := Logger{hclogger}
+	provider := pinit(DB{}, logger)
 
 	config := plugin.ServeConfig{
 		HandshakeConfig: plugin.HandshakeConfig{
@@ -22,9 +23,10 @@ func Provide(pinit ProvideInit) {
 		Plugins: map[string]plugin.Plugin{
 			"main": &Connector{
 				Impl: provider,
+				logger: logger,
 			},
 		},
-		Logger: logger,
+		Logger: hclogger,
 	}
 	plugin.Serve(&config)
 }

@@ -59,8 +59,6 @@ func (p *Provider) Info() (plug.Info, error) {
 }
 
 func (p *Provider) List(props plug.ListProps) ([]db.Tea, error) {
-	p.logger.Info("list: %+v", props)
-
 	list := []db.Tea{}
 	query := p.db.Query(props.Teapod, props.Teabox)
 
@@ -71,8 +69,6 @@ func (p *Provider) List(props plug.ListProps) ([]db.Tea, error) {
 }
 
 func (p *Provider) Get(props plug.GetProps) (db.Tea, error) {
-	p.logger.Info("get: %+v", props)
-
 	doc := db.Tea{}
 	query := p.db.Query(props.Teapod, props.Teabox)
 
@@ -91,8 +87,6 @@ func (p *Provider) Get(props plug.GetProps) (db.Tea, error) {
 }
 
 func (p *Provider) Create(props plug.CreateProps) (string, error) {
-	p.logger.Info("create: %+v", props)
-
 	if err := ValidateLinkTea(props.Data); err != nil {
 		return "", err
 	}
@@ -106,8 +100,6 @@ func (p *Provider) Create(props plug.CreateProps) (string, error) {
 }
 
 func (p *Provider) Update(props plug.UpdateProps) (string, error) {
-	p.logger.Info("update: %+v", props)
-
 	if err := ValidateLinkTea(props.Data); err != nil {
 		return "", err
 	}
@@ -122,8 +114,6 @@ func (p *Provider) Update(props plug.UpdateProps) (string, error) {
 }
 
 func (p *Provider) Delete(props plug.DeleteProps) (bool, error) {
-	p.logger.Info("delete: %+v", props)
-
 	query := p.db.Query(props.Teapod, props.Teabox)
 
 	if err := query.Delete(props.TeaId); err != nil {

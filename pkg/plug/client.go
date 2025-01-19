@@ -23,7 +23,7 @@ func NewClient(command string, repos repository.Repos) (ProviderInterface, error
 			MagicCookieValue: "hello",
 		},
 		Plugins: map[string]plugin.Plugin{
-			"main": &Connector{repos: repos},
+			"main": &Connector{},
 		},
 		Logger: logger,
 		Cmd:    exec.Command(command),
