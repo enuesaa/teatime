@@ -9,12 +9,13 @@ type DB struct {
 	repo *repository.DBRepository
 }
 
-func (d *DB) Query(teapod string, teabox string) (*db.TeaQuery, error) {
+func (d *DB) Query(teapod string, teabox string) *db.TeaQuery {
+	return d.repo.Teas(teapod, teabox)
+}
+
+func (d *DB) Connect() error {
 	d.repo = &repository.DBRepository{}
-	if err := d.repo.Connect(); err != nil {
-		return nil, err
-	}
-	return d.repo.Teas(teapod, teabox), nil
+	return d.repo.Connect()
 }
 
 func (d *DB) Close() error {

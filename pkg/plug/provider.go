@@ -3,6 +3,8 @@ package plug
 import "github.com/enuesaa/teatime/pkg/repository/db"
 
 type ProviderInterface interface {
+	OnStartup() error
+	OnShutdown() error
 	Info() (Info, error)
 	List(props ListProps) ([]db.Tea, error)
 	Get(props GetProps) (db.Tea, error)

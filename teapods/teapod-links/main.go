@@ -16,7 +16,20 @@ func NewProvider(db plug.DB, logger plug.Logger) plug.ProviderInterface {
 
 type Provider struct {
 	db plug.DB
+
 	logger plug.Logger
+}
+
+func (p *Provider) OnStartup() error {
+	p.logger.Info("startup")
+
+	return p.db.Connect()
+}
+
+func (p *Provider) OnShutdown() error {
+	p.logger.Info("shutdown")
+
+	return p.db.Close()
 }
 
 func (p *Provider) Info() (plug.Info, error) {
@@ -53,12 +66,7 @@ func (p *Provider) List(props plug.ListProps) ([]db.Tea, error) {
 	p.logger.Info("list: %+v", props)
 
 	list := []db.Tea{}
-	query, err := p.db.Query(props.Teapod, props.Teabox)
-	if err != nil {
-		p.logger.Err(err)
-		return list, err
-	}
-	defer p.db.Close()
+	query := p.db.Query(props.Teapod, props.Teabox)
 
 	if err := query.FindAll(bson.M{}, &list, bson.M{}); err != nil {
 		p.logger.Err(err)
@@ -71,12 +79,7 @@ func (p *Provider) Get(props plug.GetProps) (db.Tea, error) {
 	p.logger.Info("get: %+v", props)
 
 	doc := db.Tea{}
-	query, err := p.db.Query(props.Teapod, props.Teabox)
-	if err != nil {
-		p.logger.Err(err)
-		return doc, err
-	}
-	defer p.db.Close()
+	query := p.db.Query(props.Teapod, props.Teabox)
 
 	id, err := bson.ObjectIDFromHex(props.TeaId)
 	if err != nil {
@@ -100,12 +103,7 @@ func (p *Provider) Create(props plug.CreateProps) (string, error) {
 		p.logger.Err(err)
 		return "", err
 	}
-	query, err := p.db.Query(props.Teapod, props.Teabox)
-	if err != nil {
-		p.logger.Err(err)
-		return "", err
-	}
-	defer p.db.Close()
+	query := p.db.Query(props.Teapod, props.Teabox)
 
 	teaId, err := query.Create(props.Data)
 	if err != nil {
@@ -123,11 +121,7 @@ func (p *Provider) Update(props plug.UpdateProps) (string, error) {
 		return "", err
 	}
 
-	query, err := p.db.Query(props.Teapod, props.Teabox)
-	if err != nil {
-		return "", err
-	}
-	defer p.db.Close()
+	query := p.db.Query(props.Teapod, props.Teabox)
 
 	teaId, err := query.Update(props.TeaId, props.Data)
 	if err != nil {
@@ -140,12 +134,7 @@ func (p *Provider) Update(props plug.UpdateProps) (string, error) {
 func (p *Provider) Delete(props plug.DeleteProps) (bool, error) {
 	p.logger.Info("delete: %+v", props)
 
-	query, err := p.db.Query(props.Teapod, props.Teabox)
-	if err != nil {
-		p.logger.Err(err)
-		return false, err
-	}
-	defer p.db.Close()
+	query := p.db.Query(props.Teapod, props.Teabox)
 
 	if err := query.Delete(props.TeaId); err != nil {
 		p.logger.Err(err)

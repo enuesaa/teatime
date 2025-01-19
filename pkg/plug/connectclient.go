@@ -11,6 +11,18 @@ type ConnectClient struct {
 	client *rpc.Client
 }
 
+func (cc *ConnectClient) OnStartup() error {
+	var resp error
+	cc.client.Call("Plugin.OnStartup", new(interface{}), &resp)
+	return resp
+}
+
+func (cc *ConnectClient) OnShutdown() error {
+	var resp error
+	cc.client.Call("Plugin.OnShutdown", new(interface{}), &resp)
+	return resp
+}
+
 func (cc *ConnectClient) Info() (Info, error) {
 	var resp ConnectResult[Info]
 	cc.client.Call("Plugin.Info", new(interface{}), &resp)
