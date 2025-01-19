@@ -21,14 +21,10 @@ type Provider struct {
 }
 
 func (p *Provider) OnStartup() error {
-	p.logger.Info("startup")
-
 	return p.db.Connect()
 }
 
 func (p *Provider) OnShutdown() error {
-	p.logger.Info("shutdown")
-
 	return p.db.Close()
 }
 
@@ -69,7 +65,6 @@ func (p *Provider) List(props plug.ListProps) ([]db.Tea, error) {
 	query := p.db.Query(props.Teapod, props.Teabox)
 
 	if err := query.FindAll(bson.M{}, &list, bson.M{}); err != nil {
-		p.logger.Err(err)
 		return list, err
 	}
 	return list, nil	
@@ -88,7 +83,6 @@ func (p *Provider) Get(props plug.GetProps) (db.Tea, error) {
 	filter := bson.M{"_id": id}
 
 	if err := query.Find(filter, &doc); err != nil {
-		p.logger.Err(err)
 		return doc, err
 	}
 	p.logger.Info("found: %s", props.TeaId)
@@ -100,14 +94,12 @@ func (p *Provider) Create(props plug.CreateProps) (string, error) {
 	p.logger.Info("create: %+v", props)
 
 	if err := ValidateLinkTea(props.Data); err != nil {
-		p.logger.Err(err)
 		return "", err
 	}
 	query := p.db.Query(props.Teapod, props.Teabox)
 
 	teaId, err := query.Create(props.Data)
 	if err != nil {
-		p.logger.Err(err)
 		return "", err
 	}
 	return teaId, nil
@@ -117,7 +109,6 @@ func (p *Provider) Update(props plug.UpdateProps) (string, error) {
 	p.logger.Info("update: %+v", props)
 
 	if err := ValidateLinkTea(props.Data); err != nil {
-		p.logger.Err(err)
 		return "", err
 	}
 
@@ -125,7 +116,6 @@ func (p *Provider) Update(props plug.UpdateProps) (string, error) {
 
 	teaId, err := query.Update(props.TeaId, props.Data)
 	if err != nil {
-		p.logger.Err(err)
 		return "", err
 	}
 	return teaId, nil
@@ -137,7 +127,6 @@ func (p *Provider) Delete(props plug.DeleteProps) (bool, error) {
 	query := p.db.Query(props.Teapod, props.Teabox)
 
 	if err := query.Delete(props.TeaId); err != nil {
-		p.logger.Err(err)
 		return false, err
 	}
 	return true, nil
