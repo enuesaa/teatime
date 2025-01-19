@@ -41,7 +41,7 @@ func (s *ConnectServer) Info(arg interface{}, resp *ConnectResult[Info]) error {
 	defer s.shutdown()
 
 	info, err := s.impl.Info()
-	*resp = ConnectResult[Info]{info, err}
+	*resp = NewConnectResult(info, err)
 	if err != nil {
 		s.logger.Err(err)
 	}
@@ -56,7 +56,7 @@ func (s *ConnectServer) List(args ListArgs, resp *ConnectResult[[]db.Tea]) error
 	defer s.shutdown()
 
 	list, err := s.impl.List(args)
-	*resp = ConnectResult[[]db.Tea]{list, err}
+	*resp = NewConnectResult(list, err)
 	if err != nil {
 		s.logger.Err(err)
 	}
@@ -71,7 +71,7 @@ func (s *ConnectServer) Get(args GetArgs, resp *ConnectResult[db.Tea]) error {
 	defer s.shutdown()
 
 	data, err := s.impl.Get(args)
-	*resp = ConnectResult[db.Tea]{data, err}
+	*resp = NewConnectResult(data, err)
 	if err != nil {
 		s.logger.Err(err)
 	}
@@ -86,7 +86,7 @@ func (s *ConnectServer) Create(args CreateArgs, resp *ConnectResult[string]) err
 	defer s.shutdown()
 
 	data, err := s.impl.Create(args)
-	*resp = ConnectResult[string]{data, err}
+	*resp = NewConnectResult(data, err)
 	if err != nil {
 		s.logger.Err(err)
 	}
@@ -101,14 +101,14 @@ func (s *ConnectServer) Update(args UpdateArgs, resp *ConnectResult[string]) err
 	defer s.shutdown()
 
 	data, err := s.impl.Update(args)
-	*resp = ConnectResult[string]{data, err}
+	*resp = NewConnectResult(data, err)
 	if err != nil {
 		s.logger.Err(err)
 	}
 	return nil
 }
 
-func (s *ConnectServer) Delete(args DeleteArgs, resp *error) error {
+func (s *ConnectServer) Delete(args DeleteArgs, resp *ConnectResult[bool]) error {
 	s.logger.Info("delete: %+v", args)
 	if !s.startup() {
 		return nil
@@ -116,7 +116,7 @@ func (s *ConnectServer) Delete(args DeleteArgs, resp *error) error {
 	defer s.shutdown()
 
 	err := s.impl.Delete(args)
-	*resp = err
+	*resp = NewConnectResult(true, err)
 	if err != nil {
 		s.logger.Err(err)
 	}

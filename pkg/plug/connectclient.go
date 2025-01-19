@@ -26,35 +26,35 @@ func (cc *ConnectClient) OnShutdown() error {
 func (cc *ConnectClient) Info() (Info, error) {
 	var resp ConnectResult[Info]
 	cc.client.Call("Plugin.Info", new(interface{}), &resp)
-	return resp.Data, resp.Err
+	return resp.Data, resp.Err()
 }
 
 func (cc *ConnectClient) List(args ListArgs) ([]db.Tea, error) {
 	var resp ConnectResult[[]db.Tea]
 	cc.client.Call("Plugin.List", args, &resp)
-	return resp.Data, resp.Err
+	return resp.Data, resp.Err()
 }
 
 func (cc *ConnectClient) Get(args GetArgs) (db.Tea, error) {
 	var resp ConnectResult[db.Tea]
 	cc.client.Call("Plugin.Get", args, &resp)
-	return resp.Data, resp.Err
+	return resp.Data, resp.Err()
 }
 
 func (cc *ConnectClient) Create(args CreateArgs) (string, error) {
 	var resp ConnectResult[string]
 	cc.client.Call("Plugin.Create", args, &resp)
-	return resp.Data, resp.Err
+	return resp.Data, resp.Err()
 }
 
 func (cc *ConnectClient) Update(args UpdateArgs) (string, error) {
 	var resp ConnectResult[string]
 	cc.client.Call("Plugin.Update", args, &resp)
-	return resp.Data, resp.Err
+	return resp.Data, resp.Err()
 }
 
 func (cc *ConnectClient) Delete(args DeleteArgs) error {
-	var resp error
+	var resp ConnectResult[bool]
 	cc.client.Call("Plugin.Delete", args, &resp)
-	return resp
+	return resp.Err()
 }
