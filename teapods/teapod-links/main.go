@@ -59,7 +59,7 @@ func (p *Provider) Info() (plug.Info, error) {
 
 func (p *Provider) List(ar plug.ListArgs) ([]db.Tea, error) {
 	list := []db.Tea{}
-	query := p.db.Use(ar.Teapod, ar.Teabox)
+	query := p.db.Use(ar.Teabox)
 
 	if err := query.FindAll(bson.M{}, &list, bson.M{}); err != nil {
 		return list, err
@@ -69,7 +69,7 @@ func (p *Provider) List(ar plug.ListArgs) ([]db.Tea, error) {
 
 func (p *Provider) Get(ar plug.GetArgs) (db.Tea, error) {
 	doc := db.Tea{}
-	query := p.db.Use(ar.Teapod, ar.Teabox)
+	query := p.db.Use(ar.Teabox)
 
 	id, err := bson.ObjectIDFromHex(ar.TeaId)
 	if err != nil {
@@ -87,22 +87,16 @@ func (p *Provider) Create(ar plug.CreateArgs) (string, error) {
 	if err := ValidateLinkTea(ar.Data); err != nil {
 		return "", err
 	}
-	query := p.db.Use(ar.Teapod, ar.Teabox)
-
-	return query.Create(ar.Data)
+	return p.db.Use(ar.Teabox).Create(ar.Data)
 }
 
 func (p *Provider) Update(ar plug.UpdateArgs) (string, error) {
 	if err := ValidateLinkTea(ar.Data); err != nil {
 		return "", err
 	}
-	query := p.db.Use(ar.Teapod, ar.Teabox)
-
-	return query.Update(ar.TeaId, ar.Data)
+	return p.db.Use(ar.Teabox).Update(ar.TeaId, ar.Data)
 }
 
 func (p *Provider) Delete(ar plug.DeleteArgs) error {
-	query := p.db.Use(ar.Teapod, ar.Teabox)
-
-	return query.Delete(ar.TeaId)
+	return p.db.Use(ar.Teabox).Delete(ar.TeaId)
 }

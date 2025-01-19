@@ -7,12 +7,12 @@ import (
 )
 
 type Connector struct {
-	Impl ProviderInterface
+	impl ProviderInterface
 	logger Logger
 }
 
 func (co *Connector) Server(b *plugin.MuxBroker) (interface{}, error) {
-	return &ConnectServer{Impl: co.Impl, logger: co.logger}, nil
+	return &ConnectServer{impl: co.impl, logger: co.logger}, nil
 }
 
 func (co *Connector) Client(b *plugin.MuxBroker, c *rpc.Client) (interface{}, error) {

@@ -1,6 +1,8 @@
 package plug
 
 import (
+	"os"
+
 	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/go-plugin"
 )
@@ -8,11 +10,14 @@ import (
 type ProvideInit = func(db DB, logger Logger) ProviderInterface
 
 func Provide(pinit ProvideInit) {
+	db := DB{}
+	db.teapod = os.Args[0]
+
 	hclogger := hclog.New(&hclog.LoggerOptions{
 		JSONFormat: true,
 	})
 	logger := Logger{hclogger}
-	provider := pinit(DB{}, logger)
+	provider := pinit(db, logger)
 
 	config := plugin.ServeConfig{
 		HandshakeConfig: plugin.HandshakeConfig{
@@ -22,7 +27,7 @@ func Provide(pinit ProvideInit) {
 		},
 		Plugins: map[string]plugin.Plugin{
 			"main": &Connector{
-				Impl: provider,
+				impl: provider,
 				logger: logger,
 			},
 		},

@@ -7,10 +7,11 @@ import (
 
 type DB struct {
 	repo *repository.DBRepository
+	teapod string
 }
 
-func (d *DB) Use(teapod string, teabox string) *db.TeaQuery {
-	return d.repo.Teas(teapod, teabox)
+func (d *DB) Use(teabox string) *db.TeaQuery {
+	return d.repo.Teas(d.teapod, teabox)
 }
 
 func (d *DB) Connect() error {
