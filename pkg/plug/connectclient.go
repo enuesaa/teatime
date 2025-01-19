@@ -29,32 +29,32 @@ func (cc *ConnectClient) Info() (Info, error) {
 	return resp.Data, resp.Err
 }
 
-func (cc *ConnectClient) List(props ListProps) ([]db.Tea, error) {
+func (cc *ConnectClient) List(args ListArgs) ([]db.Tea, error) {
 	var resp ConnectResult[[]db.Tea]
-	cc.client.Call("Plugin.List", props, &resp)
+	cc.client.Call("Plugin.List", args, &resp)
 	return resp.Data, resp.Err
 }
 
-func (cc *ConnectClient) Get(props GetProps) (db.Tea, error) {
+func (cc *ConnectClient) Get(args GetArgs) (db.Tea, error) {
 	var resp ConnectResult[db.Tea]
-	cc.client.Call("Plugin.Get", props, &resp)
+	cc.client.Call("Plugin.Get", args, &resp)
 	return resp.Data, resp.Err
 }
 
-func (cc *ConnectClient) Create(props CreateProps) (string, error) {
+func (cc *ConnectClient) Create(args CreateArgs) (string, error) {
 	var resp ConnectResult[string]
-	cc.client.Call("Plugin.Create", props, &resp)
+	cc.client.Call("Plugin.Create", args, &resp)
 	return resp.Data, resp.Err
 }
 
-func (cc *ConnectClient) Update(props UpdateProps) (string, error) {
+func (cc *ConnectClient) Update(args UpdateArgs) (string, error) {
 	var resp ConnectResult[string]
-	cc.client.Call("Plugin.Update", props, &resp)
+	cc.client.Call("Plugin.Update", args, &resp)
 	return resp.Data, resp.Err
 }
 
-func (cc *ConnectClient) Delete(props DeleteProps) (bool, error) {
+func (cc *ConnectClient) Delete(args DeleteArgs) (bool, error) {
 	var resp ConnectResult[bool]
-	cc.client.Call("Plugin.Delete", props, &resp)
+	cc.client.Call("Plugin.Delete", args, &resp)
 	return resp.Data, resp.Err
 }

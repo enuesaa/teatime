@@ -19,11 +19,11 @@ func (srv *Srv) Update(teaId string, raw map[string]interface{}) (string, error)
 	if err != nil {
 		return "", err
 	}
-	props := plug.UpdateProps{
+	args := plug.UpdateArgs{
 		Teapod: srv.teapodName,
 		Teabox: srv.teaboxName,
 		TeaId:  teaId,
 		Data:   datajson,
 	}
-	return provider.Update(props)
+	return provider.Update(args)
 }

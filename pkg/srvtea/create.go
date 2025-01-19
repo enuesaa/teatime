@@ -16,10 +16,10 @@ func (srv *Srv) Create(raw map[string]interface{}) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	props := plug.CreateProps{
+	args := plug.CreateArgs{
 		Teapod: srv.teapodName,
 		Teabox: srv.teaboxName,
 		Data:   datajson,
 	}
-	return provider.Create(props)
+	return provider.Create(args)
 }

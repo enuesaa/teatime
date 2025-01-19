@@ -10,10 +10,10 @@ func (srv *Srv) Get(teaId string) (db.Tea, error) {
 	if err != nil {
 		return db.Tea{}, err
 	}
-	props := plug.GetProps{
+	args := plug.GetArgs{
 		Teapod: srv.teapodName,
 		Teabox: srv.teaboxName,
 		TeaId: teaId,
 	}
-	return provider.Get(props)
+	return provider.Get(args)
 }

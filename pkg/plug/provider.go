@@ -6,11 +6,11 @@ type ProviderInterface interface {
 	OnStartup() error
 	OnShutdown() error
 	Info() (Info, error)
-	List(props ListProps) ([]db.Tea, error)
-	Get(props GetProps) (db.Tea, error)
-	Create(props CreateProps) (string, error)
-	Update(props UpdateProps) (string, error)
-	Delete(props DeleteProps) (bool, error)
+	List(args ListArgs) ([]db.Tea, error)
+	Get(args GetArgs) (db.Tea, error)
+	Create(args CreateArgs) (string, error)
+	Update(args UpdateArgs) (string, error)
+	Delete(args DeleteArgs) error
 }
 
 // info
@@ -40,27 +40,27 @@ type Action struct {
 }
 
 // list
-type ListProps struct {
+type ListArgs struct {
 	Teapod string
 	Teabox string
 }
 
 // get
-type GetProps struct {
+type GetArgs struct {
 	Teapod string
 	Teabox string
 	TeaId string
 }
 
 // create
-type CreateProps struct {
+type CreateArgs struct {
 	Teapod string
 	Teabox string
 	Data []byte
 }
 
 // update
-type UpdateProps struct {
+type UpdateArgs struct {
 	Teapod string
 	Teabox string
 	TeaId string
@@ -68,7 +68,7 @@ type UpdateProps struct {
 }
 
 // delete
-type DeleteProps struct {
+type DeleteArgs struct {
 	Teapod string
 	Teabox string
 	TeaId string

@@ -9,7 +9,7 @@ type DB struct {
 	repo *repository.DBRepository
 }
 
-func (d *DB) Query(teapod string, teabox string) *db.TeaQuery {
+func (d *DB) Use(teapod string, teabox string) *db.TeaQuery {
 	return d.repo.Teas(teapod, teabox)
 }
 

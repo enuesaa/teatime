@@ -48,14 +48,14 @@ func (s *ConnectServer) Info(arg interface{}, resp *ConnectResult[Info]) error {
 	return nil
 }
 
-func (s *ConnectServer) List(props ListProps, resp *ConnectResult[[]db.Tea]) error {
-	s.logger.Info("list: %+v", props)
+func (s *ConnectServer) List(args ListArgs, resp *ConnectResult[[]db.Tea]) error {
+	s.logger.Info("list: %+v", args)
 	if !s.startup() {
 		return nil
 	}
 	defer s.shutdown()
 
-	list, err := s.Impl.List(props)
+	list, err := s.Impl.List(args)
 	*resp = ConnectResult[[]db.Tea]{list, err}
 	if err != nil {
 		s.logger.Err(err)
@@ -63,14 +63,14 @@ func (s *ConnectServer) List(props ListProps, resp *ConnectResult[[]db.Tea]) err
 	return nil
 }
 
-func (s *ConnectServer) Get(props GetProps, resp *ConnectResult[db.Tea]) error {
-	s.logger.Info("get: %+v", props)
+func (s *ConnectServer) Get(args GetArgs, resp *ConnectResult[db.Tea]) error {
+	s.logger.Info("get: %+v", args)
 	if !s.startup() {
 		return nil
 	}
 	defer s.shutdown()
 
-	data, err := s.Impl.Get(props)
+	data, err := s.Impl.Get(args)
 	*resp = ConnectResult[db.Tea]{data, err}
 	if err != nil {
 		s.logger.Err(err)
@@ -78,14 +78,14 @@ func (s *ConnectServer) Get(props GetProps, resp *ConnectResult[db.Tea]) error {
 	return nil
 }
 
-func (s *ConnectServer) Create(props CreateProps, resp *ConnectResult[string]) error {
-	s.logger.Info("create: %+v", props)
+func (s *ConnectServer) Create(args CreateArgs, resp *ConnectResult[string]) error {
+	s.logger.Info("create: %+v", args)
 	if !s.startup() {
 		return nil
 	}
 	defer s.shutdown()
 
-	data, err := s.Impl.Create(props)
+	data, err := s.Impl.Create(args)
 	*resp = ConnectResult[string]{data, err}
 	if err != nil {
 		s.logger.Err(err)
@@ -93,14 +93,14 @@ func (s *ConnectServer) Create(props CreateProps, resp *ConnectResult[string]) e
 	return nil
 }
 
-func (s *ConnectServer) Update(props UpdateProps, resp *ConnectResult[string]) error {
-	s.logger.Info("update: %+v", props)
+func (s *ConnectServer) Update(args UpdateArgs, resp *ConnectResult[string]) error {
+	s.logger.Info("update: %+v", args)
 	if !s.startup() {
 		return nil
 	}
 	defer s.shutdown()
 
-	data, err := s.Impl.Update(props)
+	data, err := s.Impl.Update(args)
 	*resp = ConnectResult[string]{data, err}
 	if err != nil {
 		s.logger.Err(err)
@@ -108,15 +108,15 @@ func (s *ConnectServer) Update(props UpdateProps, resp *ConnectResult[string]) e
 	return nil
 }
 
-func (s *ConnectServer) Delete(props DeleteProps, resp *ConnectResult[bool]) error {
-	s.logger.Info("delete: %+v", props)
+func (s *ConnectServer) Delete(args DeleteArgs, resp *error) error {
+	s.logger.Info("delete: %+v", args)
 	if !s.startup() {
 		return nil
 	}
 	defer s.shutdown()
 
-	data, err := s.Impl.Delete(props)
-	*resp = ConnectResult[bool]{data, err}
+	err := s.Impl.Delete(args)
+	*resp = err
 	if err != nil {
 		s.logger.Err(err)
 	}

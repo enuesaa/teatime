@@ -16,7 +16,6 @@ func NewProvider(db plug.DB, logger plug.Logger) plug.ProviderInterface {
 
 type Provider struct {
 	db plug.DB
-
 	logger plug.Logger
 }
 
@@ -58,9 +57,9 @@ func (p *Provider) Info() (plug.Info, error) {
 	return info, nil
 }
 
-func (p *Provider) List(props plug.ListProps) ([]db.Tea, error) {
+func (p *Provider) List(ar plug.ListArgs) ([]db.Tea, error) {
 	list := []db.Tea{}
-	query := p.db.Query(props.Teapod, props.Teabox)
+	query := p.db.Use(ar.Teapod, ar.Teabox)
 
 	if err := query.FindAll(bson.M{}, &list, bson.M{}); err != nil {
 		return list, err
@@ -68,11 +67,11 @@ func (p *Provider) List(props plug.ListProps) ([]db.Tea, error) {
 	return list, nil	
 }
 
-func (p *Provider) Get(props plug.GetProps) (db.Tea, error) {
+func (p *Provider) Get(ar plug.GetArgs) (db.Tea, error) {
 	doc := db.Tea{}
-	query := p.db.Query(props.Teapod, props.Teabox)
+	query := p.db.Use(ar.Teapod, ar.Teabox)
 
-	id, err := bson.ObjectIDFromHex(props.TeaId)
+	id, err := bson.ObjectIDFromHex(ar.TeaId)
 	if err != nil {
 		return doc, err
 	}
@@ -81,43 +80,29 @@ func (p *Provider) Get(props plug.GetProps) (db.Tea, error) {
 	if err := query.Find(filter, &doc); err != nil {
 		return doc, err
 	}
-	p.logger.Info("found: %s", props.TeaId)
-
 	return doc, nil
 }
 
-func (p *Provider) Create(props plug.CreateProps) (string, error) {
-	if err := ValidateLinkTea(props.Data); err != nil {
+func (p *Provider) Create(ar plug.CreateArgs) (string, error) {
+	if err := ValidateLinkTea(ar.Data); err != nil {
 		return "", err
 	}
-	query := p.db.Query(props.Teapod, props.Teabox)
+	query := p.db.Use(ar.Teapod, ar.Teabox)
 
-	teaId, err := query.Create(props.Data)
-	if err != nil {
-		return "", err
-	}
-	return teaId, nil
+	return query.Create(ar.Data)
 }
 
-func (p *Provider) Update(props plug.UpdateProps) (string, error) {
-	if err := ValidateLinkTea(props.Data); err != nil {
+func (p *Provider) Update(ar plug.UpdateArgs) (string, error) {
+	if err := ValidateLinkTea(ar.Data); err != nil {
 		return "", err
 	}
+	query := p.db.Use(ar.Teapod, ar.Teabox)
 
-	query := p.db.Query(props.Teapod, props.Teabox)
-
-	teaId, err := query.Update(props.TeaId, props.Data)
-	if err != nil {
-		return "", err
-	}
-	return teaId, nil
+	return query.Update(ar.TeaId, ar.Data)
 }
 
-func (p *Provider) Delete(props plug.DeleteProps) (bool, error) {
-	query := p.db.Query(props.Teapod, props.Teabox)
+func (p *Provider) Delete(ar plug.DeleteArgs) error {
+	query := p.db.Use(ar.Teapod, ar.Teabox)
 
-	if err := query.Delete(props.TeaId); err != nil {
-		return false, err
-	}
-	return true, nil
+	return query.Delete(ar.TeaId)
 }

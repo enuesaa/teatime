@@ -7,13 +7,10 @@ func (srv *Srv) Delete(teaId string) error {
 	if err != nil {
 		return err
 	}
-	props := plug.DeleteProps{
+	args := plug.DeleteArgs{
 		Teapod: srv.teapodName,
 		Teabox: srv.teaboxName,
 		TeaId: teaId,
 	}
-	if _, err := provider.Delete(props); err != nil {
-		return err
-	}
-	return nil
+	return provider.Delete(args)
 }

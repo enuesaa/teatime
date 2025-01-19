@@ -10,9 +10,9 @@ func (srv *Srv) List() ([]db.Tea, error) {
 	if err != nil {
 		return []db.Tea{}, err
 	}
-	props := plug.ListProps{
+	args := plug.ListArgs{
 		Teapod: srv.teapodName,
 		Teabox: srv.teaboxName,
 	}
-	return provider.List(props)
+	return provider.List(args)
 }
