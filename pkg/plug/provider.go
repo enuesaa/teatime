@@ -56,7 +56,7 @@ type GetArgs struct {
 type CreateArgs struct {
 	Teapod string
 	Teabox string
-	Data []byte
+	Data map[string]interface{}
 }
 
 // update
@@ -64,7 +64,7 @@ type UpdateArgs struct {
 	Teapod string
 	Teabox string
 	TeaId string
-	Data []byte
+	Data map[string]interface{}
 }
 
 // delete

@@ -1,17 +1,8 @@
 package srvtea
 
-import (
-	"encoding/json"
+import "github.com/enuesaa/teatime/pkg/plug"
 
-	"github.com/enuesaa/teatime/pkg/plug"
-)
-
-func (srv *Srv) Create(raw map[string]interface{}) (string, error) {
-	datajson, err := json.Marshal(raw)
-	if err != nil {
-		return "", err
-	}
-
+func (srv *Srv) Create(data map[string]interface{}) (string, error) {
 	provider, err := plug.NewClient(srv.teapodName, srv.repos)
 	if err != nil {
 		return "", err
@@ -19,7 +10,7 @@ func (srv *Srv) Create(raw map[string]interface{}) (string, error) {
 	args := plug.CreateArgs{
 		Teapod: srv.teapodName,
 		Teabox: srv.teaboxName,
-		Data:   datajson,
+		Data:   data,
 	}
 	return provider.Create(args)
 }

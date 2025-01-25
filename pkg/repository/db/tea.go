@@ -1,7 +1,6 @@
 package db
 
 import (
-	"encoding/json"
 	"time"
 
 	"go.mongodb.org/mongo-driver/v2/bson"
@@ -48,12 +47,7 @@ func (q *TeaQuery) Get(id string) (Tea, error) {
 	return res, nil
 }
 
-func (q *TeaQuery) Create(data []byte) (string, error) {
-	var datamap map[string]interface{}
-	if err := json.Unmarshal(data, &datamap); err != nil {
-		return "", err
-	}
-
+func (q *TeaQuery) Create(data map[string]interface{}) (string, error) {
 	now := time.Now()
 	type Record struct {
 		Data    map[string]interface{} `bson:"data"`
@@ -61,26 +55,21 @@ func (q *TeaQuery) Create(data []byte) (string, error) {
 		Updated time.Time              `bson:"updated"`
 	}
 	tea := Record{
-		Data:    datamap,
+		Data:    data,
 		Created: now,
 		Updated: now,
 	}
 	return q.query.create(tea)
 }
 
-func (q *TeaQuery) Update(id string, data []byte) (string, error) {
-	var datamap map[string]interface{}
-	if err := json.Unmarshal(data, &datamap); err != nil {
-		return "", err
-	}
-
+func (q *TeaQuery) Update(id string, data map[string]interface{}) (string, error) {
 	now := time.Now()
 	type Record struct {
 		Data    map[string]interface{} `bson:"data"`
 		Updated time.Time              `bson:"updated"`
 	}
 	tea := Record{
-		Data:    datamap,
+		Data:    data,
 		Updated: now,
 	}
 	return q.query.update(id, tea)
