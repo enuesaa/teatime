@@ -48,8 +48,8 @@ func (p *Provider) Info() (plug.Info, error) {
 		},
 		Actions: []plug.Action{
 			{
-				Name:   "action.sync",
-				Comment: "sync links",
+				Name:   "reset",
+				Comment: "reset link data",
 			},
 		},
 	}
@@ -87,5 +87,20 @@ func (p *Provider) Delete(ar plug.DeleteArgs) error {
 }
 
 func (p *Provider) Act(ar plug.ActArgs) (string, error) {
+	if ar.Action == "reset" {
+		query := p.db.Use("links")
+
+		links, err := query.FindAll(db.M{}, db.M{})
+		if err != nil {
+			return "err", err
+		}
+		for _, link := range links {
+			if err := query.Delete(link.Id()); err != nil {
+				return "err", err
+			}
+		}
+		return "reset links!", nil
+	}
+
 	return "", nil
 }
