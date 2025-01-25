@@ -16,6 +16,6 @@ export default {
     width: '300px',
     wordBreak: 'break-all',
     textAlign: 'left',
-    background: 'transparent',
+    background: '#111111',
   }),
 }

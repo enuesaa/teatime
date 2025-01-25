@@ -8,7 +8,7 @@ export const ToastProvider = () => {
   const toasts = useListToast()
 
   return (
-    <Toast.Provider swipeDirection='right'>
+    <Toast.Provider>
       {toasts.map((t, i) => (
         <Item id={t.id} title={t.title} description={t.description} key={i} />
       ))}

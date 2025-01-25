@@ -46,5 +46,5 @@ export type ActResSchema = {
 }
 export const useActTeapod = (name: string) => 
   mutatePost<ActReqSchema, ActResSchema>(`api/teapods/${name}/act`, {
-    invalidate: [],
+    invalidate: true,
   })

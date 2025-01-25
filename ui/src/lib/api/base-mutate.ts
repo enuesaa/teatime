@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from 'react-query'
 const baseUrl = import.meta.env.VITE_API_BASE
 
 export type MutateConfig = {
-  invalidate: string[]
+  invalidate?: boolean|string[]
 }
 export const mutate = <R, T>(method: string, path: string, { invalidate }: MutateConfig) => {
   const queryClient = useQueryClient()
@@ -20,6 +20,18 @@ export const mutate = <R, T>(method: string, path: string, { invalidate }: Mutat
       const body = await res.json()
       return body ?? {}
     },
-    onSuccess: () => queryClient.invalidateQueries(invalidate),
+    onSuccess: () => {
+      if (invalidate === undefined) {
+        return;
+      }
+      if (typeof invalidate === 'boolean') {
+        if (invalidate) {
+          // all
+          queryClient.invalidateQueries()
+        }
+        return;
+      }
+      queryClient.invalidateQueries(invalidate)
+    },
   })
 }
