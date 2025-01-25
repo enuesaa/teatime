@@ -37,3 +37,14 @@ export const useDeleteTeapod = (name: string) =>
   mutateDelete<{}, {}>(`api/teapods/${name}`, {
     invalidate: [],
   })
+
+export type ActReqSchema = {
+  action: string
+}
+export type ActResSchema = {
+  message: string
+}
+export const useActTeapod = (name: string) => 
+  mutatePost<ActReqSchema, ActResSchema>(`api/teapods/${name}/act`, {
+    invalidate: [],
+  })

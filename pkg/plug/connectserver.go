@@ -124,7 +124,7 @@ func (s *ConnectServer) Delete(args DeleteArgs, resp *ConnectResult[bool]) error
 }
 
 func (s *ConnectServer) Act(args ActArgs, resp *ConnectResult[string]) error {
-	s.logger.Info("on | %+v", args)
+	s.logger.Info("act | %+v", args)
 	if !s.startup() {
 		return nil
 	}

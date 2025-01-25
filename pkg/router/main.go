@@ -7,6 +7,7 @@ import (
 	apiLogs "github.com/enuesaa/teatime/pkg/routes/logs"
 	apiTeapods "github.com/enuesaa/teatime/pkg/routes/teapods"
 	apiTeapodsInfo "github.com/enuesaa/teatime/pkg/routes/teapods/info"
+	apiTeapodsAct "github.com/enuesaa/teatime/pkg/routes/teapods/act"
 	apiTeapodsTeaboxesTeas "github.com/enuesaa/teatime/pkg/routes/teapods/teaboxes/teas"
 	"github.com/enuesaa/teatime/ui"
 	"github.com/labstack/echo/v4"
@@ -32,7 +33,7 @@ func New(repos repository.Repos) *echo.Echo {
 	api.DELETE("/teapods/:teapodName", apiTeapods.Delete)
 
 	api.GET("/teapods/:teapodName/info", apiTeapodsInfo.View)
-	api.POST("/teapods/:teapodName/act", apiTeapodsInfo.View)
+	api.POST("/teapods/:teapodName/act", apiTeapodsAct.Create)
 
 	api.GET("/teapods/:teapodName/teaboxes/:teaboxName/teas", apiTeapodsTeaboxesTeas.List)
 	api.GET("/teapods/:teapodName/teaboxes/:teaboxName/teas/:teaId", apiTeapodsTeaboxesTeas.View)
