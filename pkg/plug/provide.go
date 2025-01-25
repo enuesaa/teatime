@@ -10,13 +10,15 @@ import (
 type ProvideInit = func(db DB, logger Logger) ProviderInterface
 
 func Provide(pinit ProvideInit) {
+	teapod := os.Args[0]
+
 	db := DB{}
-	db.teapod = os.Args[0]
+	db.teapod = teapod
 
 	hclogger := hclog.New(&hclog.LoggerOptions{
 		JSONFormat: true,
 	})
-	logger := Logger{hclogger}
+	logger := Logger{hclogger, teapod}
 	provider := pinit(db, logger)
 
 	config := plugin.ServeConfig{

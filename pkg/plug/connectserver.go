@@ -49,7 +49,7 @@ func (s *ConnectServer) Info(arg interface{}, resp *ConnectResult[Info]) error {
 }
 
 func (s *ConnectServer) List(args ListArgs, resp *ConnectResult[[]db.Tea]) error {
-	s.logger.Info("list: %+v", args)
+	s.logger.Info("list | %+v", args)
 	if !s.startup() {
 		return nil
 	}
@@ -64,7 +64,7 @@ func (s *ConnectServer) List(args ListArgs, resp *ConnectResult[[]db.Tea]) error
 }
 
 func (s *ConnectServer) Get(args GetArgs, resp *ConnectResult[db.Tea]) error {
-	s.logger.Info("get: %+v", args)
+	s.logger.Info("get | %+v", args)
 	if !s.startup() {
 		return nil
 	}
@@ -79,7 +79,7 @@ func (s *ConnectServer) Get(args GetArgs, resp *ConnectResult[db.Tea]) error {
 }
 
 func (s *ConnectServer) Create(args CreateArgs, resp *ConnectResult[string]) error {
-	s.logger.Info("create: %+v", args)
+	s.logger.Info("create | %+v", args)
 	if !s.startup() {
 		return nil
 	}
@@ -94,7 +94,7 @@ func (s *ConnectServer) Create(args CreateArgs, resp *ConnectResult[string]) err
 }
 
 func (s *ConnectServer) Update(args UpdateArgs, resp *ConnectResult[string]) error {
-	s.logger.Info("update: %+v", args)
+	s.logger.Info("update | %+v", args)
 	if !s.startup() {
 		return nil
 	}
@@ -109,7 +109,7 @@ func (s *ConnectServer) Update(args UpdateArgs, resp *ConnectResult[string]) err
 }
 
 func (s *ConnectServer) Delete(args DeleteArgs, resp *ConnectResult[bool]) error {
-	s.logger.Info("delete: %+v", args)
+	s.logger.Info("delete | %+v", args)
 	if !s.startup() {
 		return nil
 	}
