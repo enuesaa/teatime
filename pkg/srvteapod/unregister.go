@@ -23,7 +23,7 @@ func (srv *Srv) UnRegister(teapodName string) error {
 		}
 	}
 
-	if err := query.Delete(filter); err != nil {
+	if err := query.DeleteMany(filter); err != nil {
 		return err
 	}
 	return nil

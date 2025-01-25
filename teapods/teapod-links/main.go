@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/enuesaa/teatime/pkg/plug"
 	"github.com/enuesaa/teatime/pkg/repository/db"
-	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 func main() {
@@ -71,13 +70,7 @@ func (p *Provider) Get(ar plug.GetArgs) (db.Tea, error) {
 	doc := db.Tea{}
 	query := p.db.Use(ar.Teabox)
 
-	id, err := bson.ObjectIDFromHex(ar.TeaId)
-	if err != nil {
-		return doc, err
-	}
-	filter := db.M{"_id": id}
-
-	if err := query.Find(filter, &doc); err != nil {
+	if err := query.Get(ar.TeaId, &doc); err != nil {
 		return doc, err
 	}
 	return doc, nil

@@ -40,6 +40,10 @@ func (q *TeaQuery) Find(filter M, res *Tea) error {
 	return q.query.find(filter, res)
 }
 
+func (q *TeaQuery) Get(id string, res *Tea) error {
+	return q.query.get(id, res)
+}
+
 func (q *TeaQuery) Create(data []byte) (string, error) {
 	var datamap map[string]interface{}
 	if err := json.Unmarshal(data, &datamap); err != nil {
@@ -60,7 +64,7 @@ func (q *TeaQuery) Create(data []byte) (string, error) {
 	return q.query.create(tea)
 }
 
-func (q *TeaQuery) Update(teaId string, data []byte) (string, error) {
+func (q *TeaQuery) Update(id string, data []byte) (string, error) {
 	var datamap map[string]interface{}
 	if err := json.Unmarshal(data, &datamap); err != nil {
 		return "", err
@@ -75,17 +79,9 @@ func (q *TeaQuery) Update(teaId string, data []byte) (string, error) {
 		Data:    datamap,
 		Updated: now,
 	}
-	return q.query.update(teaId, tea)
+	return q.query.update(id, tea)
 }
 
-func (q *TeaQuery) Delete(teaId string) error {
-	id, err := bson.ObjectIDFromHex(teaId)
-	if err != nil {
-		return err
-	}
-	filter := M{
-		"_id": id,
-	}
-
-	return q.query.delete(filter)
+func (q *TeaQuery) Delete(id string) error {
+	return q.query.delete(id)
 }

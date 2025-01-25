@@ -25,6 +25,10 @@ func (q *LogQuery) Find(filter M, doc *Log) error {
 	return q.query.find(filter, doc)
 }
 
+func (q *LogQuery) Get(id string, res *Tea) error {
+	return q.query.get(id, res)
+}
+
 func (q *LogQuery) Create(doc Log) (string, error) {
 	return q.query.create(doc)
 }
@@ -33,8 +37,8 @@ func (q *LogQuery) Update(id string, doc Log) (string, error) {
 	return q.query.update(id, doc)
 }
 
-func (q *LogQuery) Delete(filter M) error {
-	return q.query.delete(filter)
+func (q *LogQuery) Delete(id string) error {
+	return q.query.delete(id)
 }
 
 func (q *LogQuery) DeleteMany(filter M) error {

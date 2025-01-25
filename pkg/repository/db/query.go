@@ -39,6 +39,18 @@ func (q *Query) find(filter M, res interface{}) error {
 	return collection.FindOne(q.sc, filter).Decode(res)
 }
 
+func (q *Query) get(id string, res interface{}) error {
+	collection := q.db.Collection(q.collectionName)
+
+	objectId, err := bson.ObjectIDFromHex(id)
+	if err != nil {
+		return err
+	}
+	filter := M{"_id": objectId}
+
+	return collection.FindOne(q.sc, filter).Decode(res)
+}
+
 func (q *Query) create(document interface{}) (string, error) {
 	collection := q.db.Collection(q.collectionName)
 	res, err := collection.InsertOne(q.sc, document)
@@ -71,8 +83,16 @@ func (q *Query) update(id string, document interface{}) (string, error) {
 	return id, nil
 }
 
-func (q *Query) delete(filter M) error {
+func (q *Query) delete(id string) error {
 	collection := q.db.Collection(q.collectionName)
+
+	objectId, err := bson.ObjectIDFromHex(id)
+	if err != nil {
+		return err
+	}
+	filter := M{
+		"_id": objectId,
+	}
 	if _, err := collection.DeleteOne(q.sc, filter); err != nil {
 		return err
 	}

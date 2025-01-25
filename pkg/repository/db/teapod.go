@@ -39,6 +39,10 @@ func (q *TeapodQuery) Find(filter M, res *Teapod) error {
 	return q.query.find(filter, res)
 }
 
+func (q *TeapodQuery) Get(id string, res *Tea) error {
+	return q.query.get(id, res)
+}
+
 func (q *TeapodQuery) Create(doc Teapod) (string, error) {
 	return q.query.create(doc)
 }
@@ -47,8 +51,8 @@ func (q *TeapodQuery) Update(id string, doc Teapod) (string, error) {
 	return q.query.update(id, doc)
 }
 
-func (q *TeapodQuery) Delete(filter M) error {
-	return q.query.delete(filter)
+func (q *TeapodQuery) Delete(id string) error {
+	return q.query.delete(id)
 }
 
 func (q *TeapodQuery) DeleteMany(filter M) error {
