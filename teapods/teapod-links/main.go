@@ -57,23 +57,15 @@ func (p *Provider) Info() (plug.Info, error) {
 }
 
 func (p *Provider) List(ar plug.ListArgs) ([]db.Tea, error) {
-	list := []db.Tea{}
 	query := p.db.Use(ar.Teabox)
 
-	if err := query.FindAll(db.M{}, &list, db.M{}); err != nil {
-		return list, err
-	}
-	return list, nil	
+	return query.FindAll(db.M{}, db.M{})
 }
 
 func (p *Provider) Get(ar plug.GetArgs) (db.Tea, error) {
-	doc := db.Tea{}
 	query := p.db.Use(ar.Teabox)
 
-	if err := query.Get(ar.TeaId, &doc); err != nil {
-		return doc, err
-	}
-	return doc, nil
+	return query.Get(ar.TeaId)
 }
 
 func (p *Provider) Create(ar plug.CreateArgs) (string, error) {

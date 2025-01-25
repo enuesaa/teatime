@@ -7,14 +7,10 @@ import (
 
 func (srv *Srv) List() ([]db.Log, error) {
 	query := srv.repos.DB.Logs()
-	list := []db.Log{}
 
 	filter := bson.M{}
 	sort := bson.M{
 		"created": -1,
 	}
-	if err := query.FindAll(filter, &list, sort); err != nil {
-		return list, err
-	}
-	return list, nil
+	return query.FindAll(filter, sort)
 }

@@ -32,16 +32,20 @@ func (q *TeaQuery) DropCollection() error {
 	return q.query.dropCollection()
 }
 
-func (q *TeaQuery) FindAll(filter M, res *[]Tea, sort M) error {
-	return q.query.findAll(filter, res, sort)
+func (q *TeaQuery) FindAll(filter M, sort M) ([]Tea, error) {
+	var res []Tea
+	if err := q.query.findAll(filter, &res, sort); err != nil {
+		return res, err
+	}
+	return res, nil
 }
 
-func (q *TeaQuery) Find(filter M, res *Tea) error {
-	return q.query.find(filter, res)
-}
-
-func (q *TeaQuery) Get(id string, res *Tea) error {
-	return q.query.get(id, res)
+func (q *TeaQuery) Get(id string) (Tea, error) {
+	var res Tea
+	if err := q.query.get(id, &res); err != nil {
+		return res, err
+	}
+	return res, nil
 }
 
 func (q *TeaQuery) Create(data []byte) (string, error) {

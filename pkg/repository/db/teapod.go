@@ -31,16 +31,20 @@ func (q *TeapodQuery) DropCollection() error {
 	return q.query.dropCollection()
 }
 
-func (q *TeapodQuery) FindAll(filter M, res *[]Teapod, sort M) error {
-	return q.query.findAll(filter, res, sort)
+func (q *TeapodQuery) FindAll(filter M, sort M) ([]Teapod, error) {
+	var res []Teapod
+	if err := q.query.findAll(filter, &res, sort); err != nil {
+		return res, err
+	}
+	return res, nil
 }
 
-func (q *TeapodQuery) Find(filter M, res *Teapod) error {
-	return q.query.find(filter, res)
-}
-
-func (q *TeapodQuery) Get(id string, res *Tea) error {
-	return q.query.get(id, res)
+func (q *TeapodQuery) Find(filter M) (Teapod, error) {
+	var res Teapod
+	if err := q.query.find(filter, &res); err != nil {
+		return res, err
+	}
+	return res, nil
 }
 
 func (q *TeapodQuery) Create(doc Teapod) (string, error) {
