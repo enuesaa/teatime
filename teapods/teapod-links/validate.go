@@ -23,3 +23,21 @@ func ValidateLinkTea(data map[string]interface{}) error {
 	}
 	return nil
 }
+
+func ValidateNoteTea(data map[string]interface{}) error {
+	rule := map[string]interface{}{
+		"title": "required",
+		"memo": "required",
+	}
+
+	errs := validator.New().ValidateMap(data, rule)
+
+	if len(errs) > 0 {
+		message := ""
+		for key, value := range errs {
+			message = fmt.Sprintf("\n  %s: %s", key, value)
+		}
+		return fmt.Errorf("validation failed: %s", message)
+	}
+	return nil
+}

@@ -72,15 +72,29 @@ func (p *Provider) Get(ar plug.GetArgs) (db.Tea, error) {
 	return query.Get(ar.TeaId)
 }
 
+func (p *Provider) validate(teabox string, data map[string]interface{}) error {
+	switch teabox {
+	case "links":
+		if err := ValidateLinkTea(data); err != nil {
+			return err
+		}
+	case "notes":
+		if err := ValidateNoteTea(data); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func (p *Provider) Create(ar plug.CreateArgs) (string, error) {
-	if err := ValidateLinkTea(ar.Data); err != nil {
+	if err := p.validate(ar.Teabox, ar.Data); err != nil {
 		return "", err
 	}
 	return p.db.Use(ar.Teabox).Create(ar.Data)
 }
 
 func (p *Provider) Update(ar plug.UpdateArgs) (string, error) {
-	if err := ValidateLinkTea(ar.Data); err != nil {
+	if err := p.validate(ar.Teabox, ar.Data); err != nil {
 		return "", err
 	}
 	return p.db.Use(ar.Teabox).Update(ar.TeaId, ar.Data)
