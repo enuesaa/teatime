@@ -50,7 +50,7 @@ export const UpdateTea = ({ teaId }: Props) => {
 
         {form.hasError && (
           <Callout.Root>
-            <Callout.Text>{form.error}</Callout.Text>
+            <Callout.Text style={{whiteSpace: 'pre'}}>{form.error}</Callout.Text>
           </Callout.Root>
         )}
 
