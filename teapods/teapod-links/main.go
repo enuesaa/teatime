@@ -61,7 +61,7 @@ func (p *Provider) List(ar plug.ListArgs) ([]db.Tea, error) {
 	list := []db.Tea{}
 	query := p.db.Use(ar.Teabox)
 
-	if err := query.FindAll(bson.M{}, &list, bson.M{}); err != nil {
+	if err := query.FindAll(db.M{}, &list, db.M{}); err != nil {
 		return list, err
 	}
 	return list, nil	
@@ -75,7 +75,7 @@ func (p *Provider) Get(ar plug.GetArgs) (db.Tea, error) {
 	if err != nil {
 		return doc, err
 	}
-	filter := bson.M{"_id": id}
+	filter := db.M{"_id": id}
 
 	if err := query.Find(filter, &doc); err != nil {
 		return doc, err

@@ -1,7 +1,5 @@
 package db
 
-import "go.mongodb.org/mongo-driver/v2/bson"
-
 type Teapod struct {
 	Name        string         `bson:"name"`
 	Description string         `bson:"description"`
@@ -33,11 +31,11 @@ func (q *TeapodQuery) DropCollection() error {
 	return q.query.dropCollection()
 }
 
-func (q *TeapodQuery) FindAll(filter bson.M, res *[]Teapod, sort bson.M) error {
+func (q *TeapodQuery) FindAll(filter M, res *[]Teapod, sort M) error {
 	return q.query.findAll(filter, res, sort)
 }
 
-func (q *TeapodQuery) Find(filter bson.M, res *Teapod) error {
+func (q *TeapodQuery) Find(filter M, res *Teapod) error {
 	return q.query.find(filter, res)
 }
 
@@ -49,10 +47,10 @@ func (q *TeapodQuery) Update(id string, doc Teapod) (string, error) {
 	return q.query.update(id, doc)
 }
 
-func (q *TeapodQuery) Delete(filter bson.M) error {
+func (q *TeapodQuery) Delete(filter M) error {
 	return q.query.delete(filter)
 }
 
-func (q *TeapodQuery) DeleteMany(filter bson.M) error {
+func (q *TeapodQuery) DeleteMany(filter M) error {
 	return q.query.deleteMany(filter)
 }

@@ -23,7 +23,7 @@ func (q *Query) dropCollection() error {
 	return q.db.Collection(q.collectionName).Drop(q.sc)
 }
 
-func (q *Query) findAll(filter bson.M, res interface{}, sort bson.M) error {
+func (q *Query) findAll(filter M, res interface{}, sort M) error {
 	collection := q.db.Collection(q.collectionName)
 
 	cur, err := collection.Find(q.sc, filter, options.Find().SetSort(sort))
@@ -33,7 +33,7 @@ func (q *Query) findAll(filter bson.M, res interface{}, sort bson.M) error {
 	return cur.All(q.sc, res)
 }
 
-func (q *Query) find(filter bson.M, res interface{}) error {
+func (q *Query) find(filter M, res interface{}) error {
 	collection := q.db.Collection(q.collectionName)
 
 	return collection.FindOne(q.sc, filter).Decode(res)
@@ -57,7 +57,7 @@ func (q *Query) update(id string, document interface{}) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	data := bson.M{
+	data := M{
 		"$set": document,
 	}
 	res, err := collection.UpdateByID(q.sc, objectId, data)
@@ -71,7 +71,7 @@ func (q *Query) update(id string, document interface{}) (string, error) {
 	return id, nil
 }
 
-func (q *Query) delete(filter bson.M) error {
+func (q *Query) delete(filter M) error {
 	collection := q.db.Collection(q.collectionName)
 	if _, err := collection.DeleteOne(q.sc, filter); err != nil {
 		return err
@@ -79,7 +79,7 @@ func (q *Query) delete(filter bson.M) error {
 	return nil
 }
 
-func (q *Query) deleteMany(filter bson.M) error {
+func (q *Query) deleteMany(filter M) error {
 	collection := q.db.Collection(q.collectionName)
 	if _, err := collection.DeleteMany(q.sc, filter); err != nil {
 		return err

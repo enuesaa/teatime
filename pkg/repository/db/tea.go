@@ -32,11 +32,11 @@ func (q *TeaQuery) DropCollection() error {
 	return q.query.dropCollection()
 }
 
-func (q *TeaQuery) FindAll(filter bson.M, res *[]Tea, sort bson.M) error {
+func (q *TeaQuery) FindAll(filter M, res *[]Tea, sort M) error {
 	return q.query.findAll(filter, res, sort)
 }
 
-func (q *TeaQuery) Find(filter bson.M, res *Tea) error {
+func (q *TeaQuery) Find(filter M, res *Tea) error {
 	return q.query.find(filter, res)
 }
 
@@ -83,7 +83,7 @@ func (q *TeaQuery) Delete(teaId string) error {
 	if err != nil {
 		return err
 	}
-	filter := bson.M{
+	filter := M{
 		"_id": id,
 	}
 
