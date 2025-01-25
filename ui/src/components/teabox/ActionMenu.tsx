@@ -2,6 +2,7 @@ import { Button, DropdownMenu } from '@radix-ui/themes'
 import styles from './ActionMenu.css'
 import { useGetTeapodInfo, useActTeapod } from '@/lib/api/teapods'
 import { MouseEventHandler } from 'react'
+import { useAddToast } from '@/states/toast'
 
 type Props = {
   teapod: string
@@ -30,13 +31,16 @@ export const ActionMenu = ({ teapod }: Props) => {
 
 const ActionMenuItem = ({ name, teapod }: { name: string, teapod: string }) => {
   const actTeapod = useActTeapod(teapod)
+  const addToast = useAddToast()
 
   const handleClick: MouseEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault()
-    await actTeapod.mutateAsync({
+    const res = await actTeapod.mutateAsync({
       action: name,
     })
+    addToast({ title: 'OK', description: res.message })
   }
+
   return (
     <DropdownMenu.Item onClick={handleClick}>
       {name}

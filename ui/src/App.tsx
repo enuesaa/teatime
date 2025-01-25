@@ -8,6 +8,7 @@ import { Theme } from '@radix-ui/themes'
 import '@radix-ui/themes/styles.css'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { ToastProvider } from '@/components/common/ToastProvider'
 
 export const App = () => {
   const queryClient = new QueryClient()
@@ -23,6 +24,7 @@ export const App = () => {
               <Route path='/settings' element={<SettingsPage />} />
               <Route path='/teapods/:teapod/teas' element={<TeasPage />} />
             </Routes>
+            <ToastProvider />
           </Layout>
         </Theme>
       </BrowserRouter>
