@@ -1,3 +1,4 @@
+import { ActionMenu } from './ActionMenu'
 import { AddTea } from './AddTea'
 import { ListTeasCtl } from './ListTeasCtl'
 import { ListTeasTable } from './ListTeasTable'
@@ -19,7 +20,7 @@ export const ListTeas = ({ teapod, teabox }: Props) => {
       <Heading as='h3'>
         <Flex>
           <Box width='500px'>
-            {teapod} <AddTea />
+            {teapod} <AddTea /> <ActionMenu teapod={teapod} />
           </Box>
           <Box flexGrow='1' flexShrink='1'>
             <ListTeasCtl />

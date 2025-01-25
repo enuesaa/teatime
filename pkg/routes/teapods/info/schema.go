@@ -5,6 +5,7 @@ type Item struct {
 	Command     string       `json:"command"`
 	Description string       `json:"description"`
 	Teaboxes    []ItemTeabox `json:"teaboxes"`
+	Actions     []ItemAction `json:"actions"`
 }
 
 type ItemTeabox struct {
@@ -16,4 +17,9 @@ type ItemTeabox struct {
 type TeaboxInput struct {
 	Name string `json:"name"`
 	Type string `json:"type"`
+}
+
+type ItemAction struct {
+	Name string `json:"name"`
+	Comment string `json:"comment"`
 }

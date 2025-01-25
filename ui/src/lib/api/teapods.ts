@@ -10,10 +10,15 @@ type TeapodInfoSchema = {
   name: string
   description: string
   teaboxes: TeapodInfoTeabox[]
+  actions: TeapodInfoAction[]
 }
 export type TeapodInfoTeabox = {
   name: string
   inputs: {name: string; type: 'text'}[]
+}
+export type TeapodInfoAction = {
+  name: string
+  comment: string
 }
 export const useGetTeapodInfo = (name: string) => queryGet<TeapodInfoSchema>(`api/teapods/${name}/info`)
 
