@@ -3,6 +3,7 @@ import styles from './ActionMenu.css'
 import { useGetTeapodInfo, useActTeapod } from '@/lib/api/teapods'
 import { MouseEventHandler } from 'react'
 import { useAddToast } from '@/states/toast'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
   teapod: string
@@ -32,6 +33,7 @@ export const ActionMenu = ({ teapod }: Props) => {
 const ActionMenuItem = ({ name, teapod }: { name: string, teapod: string }) => {
   const actTeapod = useActTeapod(teapod)
   const addToast = useAddToast()
+  const navigate = useNavigate()
 
   const handleClick: MouseEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault()
@@ -39,6 +41,10 @@ const ActionMenuItem = ({ name, teapod }: { name: string, teapod: string }) => {
       action: name,
     })
     addToast({ title: 'OK', description: res.message })
+
+    setTimeout(() => {
+      navigate(0)
+    }, 1000)
   }
 
   return (

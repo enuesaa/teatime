@@ -51,6 +51,10 @@ func (p *Provider) Info() (plug.Info, error) {
 				Name:   "reset",
 				Comment: "reset link data",
 			},
+			{
+				Name:   "addSampleData",
+				Comment: "add sample data",
+			},
 		},
 	}
 	return info, nil
@@ -100,6 +104,29 @@ func (p *Provider) Act(ar plug.ActArgs) (string, error) {
 			}
 		}
 		return "reset links!", nil
+	}
+
+	if ar.Action == "addSampleData" {
+		query := p.db.Use("links")
+
+		list := []map[string]interface{}{
+			{
+				"title": "sample1",
+				"link": "https://example.com/",
+			},
+			{
+				"title": "sample2",
+				"link": "https://example.com/",
+			},
+		}
+
+		for _, item := range list {
+			_, err := query.Create(item)
+			if err != nil {
+				return "err", err
+			}
+		}
+		return "add sample data!", nil
 	}
 
 	return "", nil

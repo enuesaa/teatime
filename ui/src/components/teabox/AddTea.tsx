@@ -3,6 +3,7 @@ import styles from './AddTea.css'
 import { useGetTeapodInfo } from '@/lib/api/teapods'
 import { useAddTea } from '@/lib/api/teas'
 import { useGetTeasFilter } from '@/states/teasfilter'
+import { useAddToast } from '@/states/toast'
 import { Dialog, Button, Callout } from '@radix-ui/themes'
 import { FormEventHandler, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
@@ -10,12 +11,15 @@ import { FaPlus } from 'react-icons/fa'
 const useAddTeaForm = (teapod: string, teabox: string) => {
   const info = useGetTeapodInfo(teapod)
   const addTea = useAddTea(teapod, teabox)
+  const addToast = useAddToast()
 
   const submit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     const formdata = new FormData(e.currentTarget)
     const data = Object.fromEntries(formdata.entries())
     addTea.mutate(data)
+
+    addToast({ title: 'OK', description: 'tea created!'})
   }
 
   const reset = () => {
