@@ -32,6 +32,8 @@ func New(repos repository.Repos) *echo.Echo {
 	api.DELETE("/teapods/:teapodName", apiTeapods.Delete)
 
 	api.GET("/teapods/:teapodName/info", apiTeapodsInfo.View)
+	api.POST("/teapods/:teapodName/act", apiTeapodsInfo.View)
+
 	api.GET("/teapods/:teapodName/teaboxes/:teaboxName/teas", apiTeapodsTeaboxesTeas.List)
 	api.GET("/teapods/:teapodName/teaboxes/:teaboxName/teas/:teaId", apiTeapodsTeaboxesTeas.View)
 	api.POST("/teapods/:teapodName/teaboxes/:teaboxName/teas", apiTeapodsTeaboxesTeas.Create)

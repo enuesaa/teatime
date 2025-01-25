@@ -122,3 +122,18 @@ func (s *ConnectServer) Delete(args DeleteArgs, resp *ConnectResult[bool]) error
 	}
 	return nil
 }
+
+func (s *ConnectServer) Act(args ActArgs, resp *ConnectResult[string]) error {
+	s.logger.Info("on | %+v", args)
+	if !s.startup() {
+		return nil
+	}
+	defer s.shutdown()
+
+	data, err := s.impl.Act(args)
+	*resp = NewConnectResult(data, err)
+	if err != nil {
+		s.logger.Err(err)
+	}
+	return nil
+}

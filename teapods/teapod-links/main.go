@@ -85,3 +85,7 @@ func (p *Provider) Update(ar plug.UpdateArgs) (string, error) {
 func (p *Provider) Delete(ar plug.DeleteArgs) error {
 	return p.db.Use(ar.Teabox).Delete(ar.TeaId)
 }
+
+func (p *Provider) Act(ar plug.ActArgs) (string, error) {
+	return "", nil
+}

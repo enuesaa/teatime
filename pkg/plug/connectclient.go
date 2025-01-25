@@ -58,3 +58,9 @@ func (cc *ConnectClient) Delete(args DeleteArgs) error {
 	cc.client.Call("Plugin.Delete", args, &resp)
 	return resp.Err()
 }
+
+func (cc *ConnectClient) Act(args ActArgs) (string, error) {
+	var resp ConnectResult[string]
+	cc.client.Call("Plugin.Act", args, &resp)
+	return resp.Data, resp.Err()
+}

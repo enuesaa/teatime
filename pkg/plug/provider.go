@@ -11,6 +11,7 @@ type ProviderInterface interface {
 	Create(args CreateArgs) (string, error)
 	Update(args UpdateArgs) (string, error)
 	Delete(args DeleteArgs) error
+	Act(args ActArgs) (string, error)
 }
 
 // info
@@ -72,4 +73,9 @@ type DeleteArgs struct {
 	Teapod string
 	Teabox string
 	TeaId string
+}
+
+// act
+type ActArgs struct {
+	Action string
 }
