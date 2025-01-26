@@ -1,13 +1,7 @@
-# designdoc
-- パーソナルユースなダッシュボード
-- プラグインでデータスキーマの定義やアクションを記述できる
-- teatime 自体はプラグインをコントロールする
-- mongodb にデータを保存する
-
-## MongoDB
+# MongoDB
 - https://nodejs.keicode.com/mongodb/backup-and-restore.php
 
-### Backup
+## Backup
 ```console
 $ mongodump
 2024-09-16T04:47:28.316+0000	writing admin.system.version to dump/admin/system.version.bson
@@ -16,7 +10,7 @@ $ mongodump
 2024-09-16T04:47:28.319+0000	done dumping a.delete_me (1 document)
 ```
 
-### Restore
+## Restore
 データが入っていたからエラーが発生したけど実用上問題はないだろう
 ```console
 $ mongorestore
