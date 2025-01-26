@@ -6,7 +6,7 @@ import (
 )
 
 type DB struct {
-	repo *repository.DBRepository
+	repo   *repository.DBRepository
 	teapod string
 }
 

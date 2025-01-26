@@ -10,9 +10,9 @@ import (
 func NewQueryProvider(ctx context.Context, db *mongo.Database) *QueryProvider {
 	return &QueryProvider{
 		ctx: ctx,
-		db: db,
+		db:  db,
 	}
-} 
+}
 
 type QueryProvider struct {
 	ctx context.Context

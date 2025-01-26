@@ -38,7 +38,7 @@ func View(c echo.Context) error {
 
 	for _, action := range info.Actions {
 		data.Actions = append(data.Actions, ItemAction{
-			Name: action.Name,
+			Name:    action.Name,
 			Comment: action.Comment,
 		})
 	}

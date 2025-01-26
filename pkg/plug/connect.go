@@ -8,7 +8,7 @@ import (
 )
 
 type Connector struct {
-	impl ProviderInterface
+	impl   ProviderInterface
 	logger Logger
 }
 
@@ -20,12 +20,11 @@ func (co *Connector) Client(b *plugin.MuxBroker, c *rpc.Client) (interface{}, er
 	return &ConnectClient{client: c}, nil
 }
 
-
 // see https://github.com/hashicorp/go-plugin/blob/8d2aaa458971cba97c3bfec1b0380322e024b514/error.go#L11
 func NewConnectResult[T any](data T, err error) ConnectResult[T] {
 	if err != nil {
 		return ConnectResult[T]{
-			Data: data,
+			Data:   data,
 			HasErr: true,
 			ErrMsg: err.Error(),
 		}
@@ -37,7 +36,7 @@ func NewConnectResult[T any](data T, err error) ConnectResult[T] {
 }
 
 type ConnectResult[T any] struct {
-	Data T
+	Data   T
 	HasErr bool
 	ErrMsg string
 }

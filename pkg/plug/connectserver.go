@@ -3,7 +3,7 @@ package plug
 import "github.com/enuesaa/teatime/pkg/repository/db"
 
 type ConnectServer struct {
-	impl ProviderInterface
+	impl   ProviderInterface
 	logger Logger
 }
 

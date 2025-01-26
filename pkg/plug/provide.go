@@ -29,7 +29,7 @@ func Provide(pinit ProvideInit) {
 		},
 		Plugins: map[string]plugin.Plugin{
 			"main": &Connector{
-				impl: provider,
+				impl:   provider,
 				logger: logger,
 			},
 		},

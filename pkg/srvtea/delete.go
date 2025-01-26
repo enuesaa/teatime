@@ -10,7 +10,7 @@ func (srv *Srv) Delete(teaId string) error {
 	args := plug.DeleteArgs{
 		Teapod: srv.teapodName,
 		Teabox: srv.teaboxName,
-		TeaId: teaId,
+		TeaId:  teaId,
 	}
 	return provider.Delete(args)
 }

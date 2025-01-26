@@ -50,29 +50,29 @@ type ListArgs struct {
 type GetArgs struct {
 	Teapod string
 	Teabox string
-	TeaId string
+	TeaId  string
 }
 
 // create
 type CreateArgs struct {
 	Teapod string
 	Teabox string
-	Data map[string]interface{}
+	Data   map[string]interface{}
 }
 
 // update
 type UpdateArgs struct {
 	Teapod string
 	Teabox string
-	TeaId string
-	Data map[string]interface{}
+	TeaId  string
+	Data   map[string]interface{}
 }
 
 // delete
 type DeleteArgs struct {
 	Teapod string
 	Teabox string
-	TeaId string
+	TeaId  string
 }
 
 // act

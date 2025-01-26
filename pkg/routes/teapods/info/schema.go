@@ -20,6 +20,6 @@ type TeaboxInput struct {
 }
 
 type ItemAction struct {
-	Name string `json:"name"`
+	Name    string `json:"name"`
 	Comment string `json:"comment"`
 }

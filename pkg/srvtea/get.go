@@ -13,7 +13,7 @@ func (srv *Srv) Get(teaId string) (db.Tea, error) {
 	args := plug.GetArgs{
 		Teapod: srv.teapodName,
 		Teabox: srv.teaboxName,
-		TeaId: teaId,
+		TeaId:  teaId,
 	}
 	return provider.Get(args)
 }

@@ -12,6 +12,7 @@ type Tea struct {
 	Updated    time.Time              `bson:"updated"`
 	Data       map[string]interface{} `bson:"data"`
 }
+
 func (tea *Tea) Id() string {
 	if tea.InternalId == nil {
 		return ""
