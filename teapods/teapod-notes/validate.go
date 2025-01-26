@@ -23,7 +23,7 @@ func fmtValidationErrs(errs map[string]interface{}) error {
 func ValidateNoteTea(data map[string]interface{}) error {
 	rule := map[string]interface{}{
 		"title": "required",
-		"memo": "required",
+		"memo": "",
 	}
 
 	errs := validator.New().ValidateMap(data, rule)

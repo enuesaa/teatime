@@ -23,6 +23,7 @@ func View(c echo.Context) error {
 		Command:     fmt.Sprintf("teapod-%s", teapod),
 		Description: info.Description,
 		Teaboxes:    []ItemTeabox{},
+		Actions:     []ItemAction{},
 	}
 	for _, teabox := range info.Teaboxes {
 		inputs := []TeaboxInput{}

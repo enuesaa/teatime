@@ -1,5 +1,5 @@
 import { Layout } from './components/common/Layout'
-import TopPage from '@/pages/index'
+import TopPage from '@/pages/top'
 import LogsPage from '@/pages/logs'
 import SettingsPage from '@/pages/settings'
 import TeasPage from '@/pages/teas'

@@ -12,7 +12,7 @@ export const ActionMenu = ({ teapod }: Props) => {
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
+      <DropdownMenu.Trigger disabled={info.data?.actions.length === 0}>
         <Button variant='outline'>
           Action
           <DropdownMenu.TriggerIcon />
