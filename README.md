@@ -1,5 +1,5 @@
 # teatime
-My Daily Dashboard. But work in progress..
+My experimental data dashboard with a plugin system
 
 ## Dev Server
 ```bash
